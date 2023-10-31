@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+.details-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column-reverse;
+    background-color: white;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+
+}
+
+.background-img {
+    width: 100%;
+    height: 100vh;
+    background-image: url('../assets/detailspage-background.png');
+    background-size:100%;
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+.BiArrowBack {
+    color: #FFB550;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 1%;
+    left: 1%;
+}
+
+.detail-popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #263544;
+    width: 100vw;
+    height: 40vh;
+    position: fixed;
+    bottom: 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    width: 80%;
+}
+
+.amount {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    width: 80px;
+    height: 50px;
+    /* background-color: green; */
+}
+
+.amount-count {
+    margin: 5px;
+    padding: 3px;
+    width: 25px;
+    height: 25px;
+    border-radius: 12.5px;
+    background-color: #FFB550;
+    text-align: center;
+    color: white;
+}
+
+.BiMinus,
+.BiPlus {
+    color: white;
+    font-size: large;
+}
+
+.price {
+    color: #FFB550;
+    font-weight: 600;
+}
+
+.detail-header {
+    position: relative;
+    right: 34%;
+    margin-bottom: 5px;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    color: white;
+    /* background-color: black; */
+    text-align: center;
+}
+
+.description-text {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    font-size: smaller;
+}
+
+.cart-btn {
+    display: flex;
+    align-items: center;
+    background-color: #FFB550;
+    inset-inline: none;
+    border: none;
+    border-radius: 10px;
+    padding: 1em 2em;
+    margin-top: 15px;
+    width: 70%;
+    text-align: center;
+}
+
+.btn-text {
+    margin-right: 5%;
+    margin-left: 20%;
+    font-weight: 600;
+}
+
+.BsFillCartPlusFill {
+    font-size: x-large;
+    margin-left: 10px;
+}

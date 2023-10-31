@@ -1,13 +1,13 @@
 import './App.css'
+import Details from './components/Details.jsx'
+  function App() {
 
-function App() {
 
-
-  return (
-    <>
-
-    </>
-  )
-}
+    return (
+      <>
+        <Details />
+      </>
+    )
+  }
 
 export default App

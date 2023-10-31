@@ -1,6 +1,6 @@
 
 
-function meals() {
+const details = () => {
     return (
         <>
         </>
