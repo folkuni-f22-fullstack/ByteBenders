@@ -1,0 +1,90 @@
+
+section {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.cart-card-container {
+	display: flex;
+	justify-content: center;
+	justify-self: center;
+	margin: 1em;
+}
+
+.cart-card {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	background-color: #ffffff;
+	padding: 1em;
+	max-width: 30em;
+}
+
+.cart-image {
+	grid-column: 1;
+	grid-row: 2;
+	width: 5em;
+}
+
+.cart-name {
+	grid-column: 1 / span 4;
+	grid-row: 1;
+	font-weight: bold;
+}
+
+.total-price {
+	grid-column: 5;
+	grid-row: 1;
+	display: flex;
+	justify-self: end;
+	font-weight: bold;
+	color: #ffbe66;
+}
+
+.sub-text {
+	grid-column: 2 / span 2;
+	grid-row: 2;
+	display: flex;
+	align-self: center;
+}
+
+.price {
+	grid-column: 2;
+	grid-row: 3;
+	display: flex;
+	align-self: start;
+	font-weight: bold;
+}
+
+.amount-container {
+	grid-column: 5;
+	grid-row: 2;
+	display: flex;
+	flex-direction: row;
+	justify-self: center;
+	align-items: center;
+}
+
+.amount {
+	margin: 0 0.5em;
+}
+
+.sub, .plus {
+	width: 2em;
+	height: 2em;
+	background-color: #263544;
+	color: #ffffff;
+}
+
+.sub:hover, .plus:hover {
+	cursor: pointer;
+}
+
+@media (min-width: 380px) {
+	.cart-name {
+		grid-column: 2 / span 3;
+	}
+	.cart-name, .sub-text, .price {
+		margin-left: 0.5em;
+	}
+}

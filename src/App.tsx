@@ -1,13 +1,19 @@
-import './App.css'
+import "./App.css";
+import Meals from "./components/Meals.jsx";
+import CartCard from './components/CartCard.jsx'
 import Details from './components/Details.jsx'
-  function App() {
+import './App.css'
+import './styles/cartCard.css'
 
+function App() {
 
-    return (
-      <>
-        <Details />
-      </>
-    )
-  }
+  return (
+    <>
+      <Meals />
+      <CartCard />
+      <Details />
+    </>
+  );
+}
 
-export default App
+export default App;
