@@ -1,13 +1,12 @@
-import './App.css'
+import NavBar from './components/NavBar.tsx';
+import './App.css';
 
 function App() {
-
-
-  return (
-    <>
-
-    </>
-  )
+	return (
+		<>
+			<NavBar />
+		</>
+	);
 }
 
-export default App
+export default App;
