@@ -1,0 +1,49 @@
+@media screen and (max-width: 798px) {
+  .meals-section {
+    height: auto;
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  .meals-card {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: flex-start; /* Låt card anpassa sin höjd efter innehåll */
+    margin: 1em 0.5em;
+  }
+  .meals-img {
+    width: 7em;
+  }
+  .meals-btn {
+    background-color: #263544;
+    border: none;
+    height: 3em;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .meals-text {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    font-weight: 500;
+  }
+  .meals-price {
+    color: #ffb550;
+    margin-top: 0.5em;
+  }
+  .meals-cart {
+    font-size: 18px;
+    margin-left: 0.5em;
+  }
+  .meals-p {
+    width: 9em;
+  }
+}
