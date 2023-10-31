@@ -1,11 +1,3 @@
-* {
-	box-sizing: border-box;
-	margin: 0;
-}
-
-body {
-	background-color: #f0f5f7;
-}
 
 section {
 	display: flex;
@@ -23,7 +15,6 @@ section {
 .cart-card {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
-	font-family: arial;
 	background-color: #ffffff;
 	padding: 1em;
 	max-width: 30em;
