@@ -14,7 +14,7 @@ function CartCard() {
 					<p className='price'>109:-</p>
 					<div className='amount-container'>
 						<button className='sub'>-</button>
-						<p className='amount'>2</p>
+						<p className='food-amount'>2</p>
 						<button className='plus'>+</button>
 					</div>
 				</div>
@@ -29,7 +29,7 @@ function CartCard() {
 					<p className='price'>129:-</p>
 					<div className='amount-container'>
 						<button className='sub'>-</button>
-						<p className='amount'>2</p>
+						<p className='food-amount'>2</p>
 						<button className='plus'>+</button>
 					</div>
 				</div>
