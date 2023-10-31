@@ -61,11 +61,27 @@ section {
 	grid-row: 2;
 	display: flex;
 	justify-self: center;
-	align-items: center;
+	align-self: center;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
 }
 
 .amount {
 	margin: 0 0.5em;
+	grid-column: 2;
+	grid-row: 1;
+	display: flex;
+	align-self: center;
+}
+
+.sub {
+	grid-column: 1;
+	grid-row: 1;
+}
+
+.plus {
+	grid-column: 3;
+	grid-row: 1;
 }
 
 .sub, .plus {
