@@ -11,13 +11,13 @@ function CartCard() {
 					<p className='cart-name'>Californa roll 8st</p>
 					<p className='total-price'>218:-</p>
 					<p className='sub-text'>Lorem ipsum</p>
-					<p className='price'>109:-</p>
 					<div className='amount-container'>
 						<button className='sub'>-</button>
 						<p className='food-amount'>2</p>
 						<button className='plus'>+</button>
 					</div>
 				</div>
+				<button className='customize-order'>Customize your order +</button>
 			</div>
 
 			<div className="cart-card-container">
@@ -26,13 +26,13 @@ function CartCard() {
 					<p className='cart-name'>Salmon roll 8st</p>
 					<p className='total-price'>258:-</p>
 					<p className='sub-text'>Lorem ipsum</p>
-					<p className='price'>129:-</p>
 					<div className='amount-container'>
 						<button className='sub'>-</button>
 						<p className='food-amount'>2</p>
 						<button className='plus'>+</button>
 					</div>
 				</div>
+				<button className='customize-order'>Customize your order +</button>
 			</div>
 		</section>
 	)
