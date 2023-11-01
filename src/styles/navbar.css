@@ -1,0 +1,45 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.navbar {
+	background-color: #263544;
+	padding: 1em;
+	display: flex;
+	justify-content: space-around;
+	gap: 1em;
+	position: fixed;
+	bottom: 0;
+	min-width: 100vw;
+}
+
+.navbar > a {
+	color: #ffb550;
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+	display: grid;
+	place-content: center;
+}
+
+.navbar > a:hover {
+	border: 1px solid #ffb550;
+}
+
+.navbar > a > svg {
+	height: 30px;
+	width: 30px;
+}
+
+@media screen and (min-width: 798px) {
+	.navbar {
+		flex-direction: column;
+		justify-content: start;
+		padding-top: 6em;
+		gap: 4em;
+		bottom: 0;
+		min-height: 100vh;
+		min-width: fit-content;
+	}
+}
