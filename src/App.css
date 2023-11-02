@@ -1,9 +1,28 @@
+@font-face {
+  font-family: Alegreya;
+  src: url('../src/assets/fonts/Alegreya_SC/AlegreyaSC-Regular.ttf');
+}
+
 * {
   margin: 0;
   padding: 0;
   font-family: "Inter", sans-serif;
   box-sizing: border-box;
 }
+
 body {
   background-color: #f0f5f7;
+}
+
+:root {
+  --orange-color: #ffb550;
+  --dark-blue: #263544;
+  --font-heading: Alegreya;
+  --next-button-width: 16rem;
+  --next-button-height: 3.6rem;
+  --next-button-font-size: 1.2em;
+  --next-button-font-weight: 550;
+  --next-button-border: none;
+  --next-button-border-radius: 0.7em; 
+  --margin-left-right: 0 1rem;
 }
