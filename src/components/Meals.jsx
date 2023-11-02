@@ -54,8 +54,6 @@ function Meals() {
         //   </div>
         // </section>
         <>
-            <button onClick={() => console.log(menuData)}> test </button>
-
             {menuData.map((menuItem, index) => (
                 <div key={index}>
                     <NavLink to={`/menu/${menuItem.id}`}>
