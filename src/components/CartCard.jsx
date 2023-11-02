@@ -1,5 +1,6 @@
-import role from '../../images/role.png'
-import salmon from '../../images/salmon.png'
+import role from '../assets/images/role.png'
+import salmon from '../assets/images/salmon.png'
+
 function CartCard() {
 
 	return (

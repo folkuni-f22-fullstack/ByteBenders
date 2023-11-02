@@ -1,9 +1,10 @@
 import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import "../styles/meals.css";
-import meal1 from "../img/2.png";
-import meal2 from "../img/3.png";
-import meal3 from "../img/4.png";
+import meal1 from "../assets/images/2.png";
+import meal2 from "../assets/images/3.png";
+import meal3 from "../assets/images/4.png";
+
 
 function Meals() {
   return (
