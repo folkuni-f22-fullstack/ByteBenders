@@ -1,6 +1,6 @@
 [
 	{
-		"image": "../assets/images/cards/volcanoRoll.png",
+		"image": "../../src/assets/images/cards/volcanoRoll.png",
 		"id": 0,
 		"name": "Volcano Roll",
 		"price": 140,
@@ -10,7 +10,7 @@
 		"allergenes": ["shellfish"]
 	},
 	{
-		"image": "../assets/images/cards/sunsetRoll.png",
+		"image": "../../src/assets/images/cards/sunsetRoll.png",
 		"id": 1,
 		"name": "Sunset Roll",
 		"price": 130,
@@ -20,7 +20,7 @@
 		"allergenes": []
 	},
 	{
-		"image": "../assets/images/cards/salmonRoll.png",
+		"image": "../../src/assets/images/cards/salmon.png",
 		"id": 2,
 		"name": "Salmon Roll",
 		"price": 150,
@@ -30,7 +30,7 @@
 		"allergenes": []
 	},
 	{
-		"image": "../assets/images/cards/greenIceCream.png.png",
+		"image": "../../src/assets/images/cards/greenIceCream.png",
 		"id": 3,
 		"name": "Green Tea Ice Cream",
 		"price": 60,
@@ -40,7 +40,7 @@
 		"allergenes": ["lactose"]
 	},
 	{
-		"image": "../assets/images/cards/tempuraBanana.png",
+		"image": "../../src/assets/images/cards/tempuraBanana.png",
 		"id": 4,
 		"name": "Tempura Banana",
 		"price": 90,
@@ -50,7 +50,7 @@
 		"allergenes": ["lactose"]
 	},
 	{
-		"image": "../assets/images/cards/unagi.png",
+		"image": "../../src/assets/images/cards/unagi.png",
 		"id": 5,
 		"name": "Unagi (Eel) (2 pieces)",
 		"price": 70,
@@ -60,7 +60,7 @@
 		"allergenes": []
 	},
 	{
-		"image": "../assets/images/cards/sashimiSampler.png",
+		"image": "../../src/assets/images/cards/sashimiSampler.png",
 		"id": 6,
 		"name": "Sashimi Sampler (6 pieces)",
 		"price": 150,
@@ -70,7 +70,7 @@
 		"allergenes": []
 	},
 	{
-		"image": "../assets/images/cards/salmonNigiri.png",
+		"image": "../../src/assets/images/cards/salmonNigiri.png",
 		"id": 7,
 		"name": "Salmon Nigiri (2 pieces)",
 		"price": 50,
@@ -80,7 +80,7 @@
 		"allergenes": []
 	},
 	{
-		"image": "../assets/images/cards/ebi.png",
+		"image": "../../src/assets/images/cards/ebi.png",
 		"id": 8,
 		"name": "Ebi (Shrimp) Nigiri (2 pieces)",
 		"price": 45,
@@ -90,7 +90,7 @@
 		"allergenes": []
 	},
 	{
-		"image": "../assets/images/cards/edamame.png",
+		"image": "../../src/assets/images/cards/edamame.png",
 		"id": 9,
 		"name": "Edamame",
 		"price": 50,
@@ -100,7 +100,7 @@
 		"allergenes": []
 	},
 	{
-		"image": "../assets/images/cards/sashimiPlate.png",
+		"image": "../../src/assets/images/cards/sashimiPlate.png",
 		"id": 10,
 		"name": "Mixed Sashimi Platter",
 		"price": 290,
@@ -110,7 +110,7 @@
 		"allergenes": []
 	},
 	{
-		"image": "../assets/images/cards/agedashi.png",
+		"image": "../../src/assets/images/cards/agedashi.png",
 		"id": 11,
 		"name": "Agedashi Tofu",
 		"price": 70,
@@ -120,7 +120,7 @@
 		"allergenes": []
 	},
 	{
-		"image": "../assets/images/cards/miso.png",
+		"image": "../../src/assets/images/cards/miso.png",
 		"id": 12,
 		"name": "Miso Soup",
 		"price": 40,
@@ -130,7 +130,7 @@
 		"allergenes": []
 	},
 	{
-		"image": "../assets/images/cards/tunaNigiri.png",
+		"image": "../../src/assets/images/cards/tunaNigiri.png",
 		"id": 13,
 		"name": "Tuna Nigiri",
 		"price": 60,
@@ -140,7 +140,7 @@
 		"allergenes": []
 	},
 	{
-		"image": "../assets/images/cards/californiaRoll.png",
+		"image": "../../src/assets/images/cards/californiaRoll.png",
 		"id": 14,
 		"name": "California Roll",
 		"price": 99,
@@ -150,7 +150,7 @@
 		"allergenes": [""]
 	},
 	{
-		"image": "../assets/images/cards/tunaRoll.png",
+		"image": "../../src/assets/images/cards/tunaRoll.png",
 		"id": 15,
 		"name": "Spicy Tuna Roll",
 		"price": 110,
@@ -160,7 +160,7 @@
 		"allergenes": [""]
 	},
 	{
-		"image": "../assets/images/cards/dragonRoll.png",
+		"image": "../../src/assets/images/cards/dragonRoll.png",
 		"id": 16,
 		"name": "Dragon Roll",
 		"price": 140,
@@ -170,7 +170,7 @@
 		"allergenes": [""]
 	},
 	{
-		"image": "../assets/images/cards/rainbowRoll.png",
+		"image": "../../src/assets/images/cards/rainbowRoll.png",
 		"id": 17,
 		"name": "Rainbow Roll",
 		"price": 110,
@@ -180,7 +180,7 @@
 		"allergenes": [""]
 	},
 	{
-		"image": "../assets/images/cards/vegetarianRoll.png",
+		"image": "../../src/assets/images/cards/vegetarianRoll.png",
 		"id": 18,
 		"name": "Vegetarian Roll",
 		"price": 90,
@@ -190,35 +190,35 @@
 		"allergenes": [""]
 	},
 	{
-		"image": "../assets/images/cards/coke.png",
+		"image": "../../src/assets/images/cards/coke.png",
 		"id": 19,
 		"name": "Coca Cola",
 		"price": 30,
 		"category": "drinks"
 	},
 	{
-		"image": "../assets/images/cards/fanta.png",
+		"image": "../../src/assets/images/cards/fanta.png",
 		"id": 20,
 		"name": "Fanta",
 		"price": 30,
 		"category": "drinks"
 	},
 	{
-		"image": "../assets/images/cards/ramlosa.png",
+		"image": "../../src/assets/images/cards/ramlosa.png",
 		"id": 21,
 		"name": "Ramlösa naturell",
 		"price": 30,
 		"category": "drinks"
 	},
 	{
-		"image": "../assets/images/cards/ramlosaLemon.png",
+		"image": "../../src/assets/images/cards/ramlosaLemon.png",
 		"id": 22,
 		"name": "Ramlösa citron",
 		"price": 30,
 		"category": "drinks"
 	},
 	{
-		"image": "../assets/images/cards/water.png",
+		"image": "../../src/assets/images/cards/water.png",
 		"id": 23,
 		"name": "Vatten",
 		"price": 30,
