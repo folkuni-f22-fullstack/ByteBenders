@@ -8,6 +8,7 @@ import CartRoute from "./routes/CartRoute.tsx";
 import InformationRoute from "./routes/InformationRoute.tsx";
 import LoginRoute from "./routes/LoginRoute.tsx";
 import ProductDetailsRoute from "./routes/ProductDetailsRoute.tsx";
+import ErrorRoute from "./routes/ErrorRoute.tsx";
 
 const router = createBrowserRouter([
     {
@@ -36,6 +37,8 @@ const router = createBrowserRouter([
                 element: <LoginRoute />,
             },
         ],
+
+        errorElement: <ErrorRoute />
     },
 ]);
 
