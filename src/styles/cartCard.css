@@ -18,13 +18,18 @@ section {
 	background-color: var(--white-card-color);
 	padding: 1em;
 	max-width: 30em;
-	margin: 1em;
+	margin: 1em 1em 0 1em;
 	padding: 1.5em 1em;
 }
 
-.cart-image {
+.cart-image-container {
 	grid-column: 1;
 	grid-row: 2;
+	display: flex;
+	align-self: center;
+}
+
+.cart-image {
 	width: 6em;
 }
 
@@ -47,7 +52,7 @@ section {
 
 .sub-text {
 	grid-column: 2 / span 3;
-	grid-row: 1;
+	grid-row: 2;
 	display: flex;
 	align-self: center;
 	margin-bottom: 1em;
@@ -91,7 +96,7 @@ section {
 	text-align: left;
 	border: none;
 	background-color: transparent;
-	margin-top: 0.5em;
+	margin: 0.2em 0 1em 1.5em;
 }
 
 .sub:hover, .plus:hover, .customize-order:hover {
