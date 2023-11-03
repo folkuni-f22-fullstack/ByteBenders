@@ -4,12 +4,12 @@ import "./styles/cartCard.css";
 import "./App.css";
 
 function App() {
-    return (
-        <>
-            <NavBar />
-            <Outlet />
-        </>
-    );
+  return (
+    <>
+      <NavBar />
+      <Outlet />
+    </>
+  );
 }
 
 export default App;

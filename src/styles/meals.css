@@ -1,7 +1,10 @@
 @import "../App.css";
-
+.meals-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .meals-link {
-  margin: var(--margin-between-card);
   text-decoration: none;
 }
 .navlink {
@@ -19,6 +22,7 @@
   position: relative;
   z-index: -1;
   box-shadow: var(--shadow);
+  margin: var(--margin-between-card);
 }
 .meals-img {
   filter: brightness(0.6);
