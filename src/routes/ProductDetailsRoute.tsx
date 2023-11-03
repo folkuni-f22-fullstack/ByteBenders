@@ -14,7 +14,7 @@ export default function ProductDetailsRoute() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     let [quantity, setQuantity] = useState(1)
-    
+
     function findProduct(id) {
         return menuData.find((product) => product.id == id);
     }
@@ -40,7 +40,16 @@ export default function ProductDetailsRoute() {
             quantity: quantity,
         }
         const existingCartData = JSON.parse(localStorage.getItem('cart')) || []
-        existingCartData.push(cartItem)
+
+        // Check if item already exist
+        const matchingId = existingCartData.findIndex(item => item.id === cartItem.id)
+        if (matchingId !== -1) {
+            existingCartData[matchingId].quantity += cartItem.quantity
+            existingCartData[matchingId].price += cartItem.price
+        }
+        else {
+            existingCartData.push(cartItem)
+        }
         localStorage.setItem('cart', JSON.stringify(existingCartData))
     }
 
@@ -58,11 +67,11 @@ export default function ProductDetailsRoute() {
                         <section className='top-row'>
                             <div className='amount'>
                                 <button className='amount-detail-button' onClick={() => updateQuantity(-1)}>
-                                <BiMinus className='BiMinus' />
+                                    <BiMinus className='BiMinus' />
                                 </button>
                                 <div className='amount-count'>{quantity}</div>
                                 <button className='amount-detail-button' onClick={() => updateQuantity(1)}>
-                                <BiPlus className='BiPlus' />
+                                    <BiPlus className='BiPlus' />
                                 </button>
                             </div>
                             <p className='price'>{product.price * quantity} :-</p>
