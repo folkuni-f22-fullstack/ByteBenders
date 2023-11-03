@@ -10,6 +10,7 @@ import LoginRoute from "./routes/LoginRoute.tsx";
 import ProductDetailsRoute from "./routes/ProductDetailsRoute.tsx";
 import ErrorRoute from "./routes/ErrorRoute.tsx";
 
+
 const router = createBrowserRouter([
     {
         path: "/",
