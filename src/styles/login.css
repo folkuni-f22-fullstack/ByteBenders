@@ -34,9 +34,36 @@
 }
 
 .input-group > input {
-	max-width: 15em;
+	/* max-width: 15em; */
 	padding: 0.3em 0.6em;
 	border: 1px solid rgb(213, 213, 213);
+}
+
+.input-group > div {
+	border: 1px solid rgb(213, 213, 213);
+	display: flex;
+	/* max-width: 15em; */
+	/* padding: 0.2em 0; */
+	background-color: white;
+	position: relative;
+}
+
+.input-group > div > input {
+	border: none;
+	padding: 0.3em 0.6em;
+}
+
+.input-group > div > div {
+	position: absolute;
+	right: 0;
+	height: 100%;
+	/* top: 0.25em; */
+}
+
+.input-group > div > div > svg {
+	height: 90%;
+	width: 90%;
+	fill: rgb(64, 64, 64);
 }
 
 .login-button {
@@ -44,7 +71,7 @@
 	padding: 0.4em 3em;
 	max-width: fit-content;
 	background-color: var(--dark-blue);
-	color: var(--white-card-color);
+	color: var(--orange-color);
 	font-size: 1.1em;
 }
 
