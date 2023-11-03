@@ -48,6 +48,18 @@
   padding-bottom: 1em;
   padding-top: 0.25em;
 }
+.deal-prices {
+  display: flex;
+  gap: 1em;
+  padding-bottom: 1em;
+  padding-top: 0.25em;
+}
+.deal-prices > .dealmeals-price {
+  color: var(--orange-color);
+}
+.deal-prices > .dealmeals-price-old {
+  text-decoration: line-through;
+}
 .meals-text {
   position: absolute;
   color: var(--text-color-card);
@@ -59,4 +71,19 @@
 .btn-icon {
   font-size: 20px;
   margin-left: 0.5em;
+}
+
+.meals-section {
+  display: grid;
+  grid-auto-flow: column;
+  overflow-x: auto;
+  gap: 1em;
+  overscroll-behavior-inline: contain;
+  margin-top: 2em;
+}
+.snaps-inline {
+  scroll-snap-type: inline mandatory;
+}
+.snaps-inline > * {
+  scroll-snap-align: start;
 }
