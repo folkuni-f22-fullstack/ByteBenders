@@ -1,22 +1,15 @@
-import './App.css';
-import Meals from './components/Meals.jsx';
-import CartCard from './components/CartCard.jsx';
-import Details from './components/Details.jsx';
-import Categories from './components/Categories.jsx';
-import './App.css';
-import './styles/cartCard.css';
-import './App.css';
-import NavBar from './components/NavBar.tsx';
+import { Outlet } from "react-router-dom";
+import NavBar from "./components/Navbar.tsx";
+import "./styles/cartCard.css";
+import "./App.css";
 
 function App() {
-	return (
-		<>
-			<Categories />
-			<Meals />
-			<CartCard />
-			<Details />
-		</>
-	);
+    return (
+        <>
+            <NavBar />
+            <Outlet />
+        </>
+    );
 }
 
 export default App;

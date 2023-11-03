@@ -1,39 +1,37 @@
-import role from '../assets/images/role.png'
-import salmon from '../assets/images/salmon.png'
+import { addToCart } from "../routes/ProductDetailsRoute.tsx";
+import { NavLink } from 'react-router-dom';
+
+// <>
+// {menuData.map((menuItem, index) => (
+// 	<div key={index}>
+// 		<NavLink to={`/menu/${menuItem.id}`}>
+// 			<p> {menuItem.name} </p>
+// 		</NavLink>
+// 	</div>
+// ))}
+// </>
+// `/menu/${menuItem.id}`
 
 function CartCard() {
 
 	return (
 		<section>
-
 			<div className="cart-card-container">
-				<div className="cart-card">
-					<img className="cart-image" src={role} />
-					<p className='cart-name'>Californa roll 8st</p>
-					<p className='total-price'>218:-</p>
-					<p className='sub-text'>Lorem ipsum</p>
-					<div className='amount-container'>
-						<button className='sub'>-</button>
-						<p className='food-amount'>2</p>
-						<button className='plus'>+</button>
+				{addToCart.value.map((item, index) => (
+					<div className="cart-card" key={index}>
+						<NavLink to={`/menu/${item.id}`}>
+							<img className="cart-image" src={item.image} />
+						</NavLink>
+						<NavLink to={`/menu/${item.id}`} className='cart-name'> {item.name} </NavLink>
+						<p className='sub-text'>Lorem ipsum</p>
+						<p className='total-price'> {item.price}:- </p>
+						<div className='amount-container'>
+							<button className='sub'>-</button>
+							<p className='food-amount'>2</p>
+							<button className='plus'>+</button>
+						</div>
 					</div>
-				</div>
-				<button className='customize-order'>Customize your order +</button>
-			</div>
-
-			<div className="cart-card-container">
-				<div className="cart-card">
-					<img className="cart-image" src={salmon} />
-					<p className='cart-name'>Salmon roll 8st</p>
-					<p className='total-price'>258:-</p>
-					<p className='sub-text'>Lorem ipsum</p>
-					<div className='amount-container'>
-						<button className='sub'>-</button>
-						<p className='food-amount'>2</p>
-						<button className='plus'>+</button>
-					</div>
-				</div>
-				<button className='customize-order'>Customize your order +</button>
+				))}
 			</div>
 		</section>
 	)

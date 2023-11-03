@@ -1,7 +1,7 @@
 [
 	{
-		"image": "",
-		"id": 1,
+		"image": "../../src/assets/images/cards/volcanoRoll.png",
+		"id": 0,
 		"name": "Volcano Roll",
 		"price": 140,
 		"description": "A spicy mix of crab, avocado, and cucumber, topped with spicy baked scallops and eel sauce.",
@@ -10,8 +10,8 @@
 		"allergenes": ["shellfish"]
 	},
 	{
-		"image": "",
-		"id": 2,
+		"image": "../../src/assets/images/cards/sunsetRoll.png",
+		"id": 1,
 		"name": "Sunset Roll",
 		"price": 130,
 		"description": "Yellowtail, jalapeño, and cilantro rolled with avocado and cucumber, finished with yuzu citrus sauce.",
@@ -20,9 +20,9 @@
 		"allergenes": []
 	},
 	{
-		"image": "",
-		"id": 3,
-		"name": "Sunset Roll",
+		"image": "../../src/assets/images/cards/salmon.png",
+		"id": 2,
+		"name": "Salmon Roll",
 		"price": 150,
 		"description": "Shrimp tempura, spicy tuna, and avocado, topped with sliced mango and sweet chili sauce.",
 		"category": "meals",
@@ -30,8 +30,8 @@
 		"allergenes": []
 	},
 	{
-		"image": "",
-		"id": 4,
+		"image": "../../src/assets/images/cards/greenIceCream.png",
+		"id": 3,
 		"name": "Green Tea Ice Cream",
 		"price": 60,
 		"description": "Creamy green tea-flavored ice cream.",
@@ -40,8 +40,8 @@
 		"allergenes": ["lactose"]
 	},
 	{
-		"image": "",
-		"id": 5,
+		"image": "../../src/assets/images/cards/tempuraBanana.png",
+		"id": 4,
 		"name": "Tempura Banana",
 		"price": 90,
 		"description": "Sliced banana tempura served with a scoop of vanilla ice cream and drizzled with honey",
@@ -50,8 +50,8 @@
 		"allergenes": ["lactose"]
 	},
 	{
-		"image": "",
-		"id": 6,
+		"image": "../../src/assets/images/cards/unagi.png",
+		"id": 5,
 		"name": "Unagi (Eel) (2 pieces)",
 		"price": 70,
 		"description": "Grilled eel glazed with eel sauce on seasoned rice.",
@@ -60,8 +60,8 @@
 		"allergenes": []
 	},
 	{
-		"image": "",
-		"id": 7,
+		"image": "../../src/assets/images/cards/sashimiSampler.png",
+		"id": 6,
 		"name": "Sashimi Sampler (6 pieces)",
 		"price": 150,
 		"description": "A selection of thinly sliced fresh fish (tuna, salmon, yellowtail, and snapper).",
@@ -70,8 +70,8 @@
 		"allergenes": []
 	},
 	{
-		"image": "",
-		"id": 8,
+		"image": "../../src/assets/images/cards/salmonNigiri.png",
+		"id": 7,
 		"name": "Salmon Nigiri (2 pieces)",
 		"price": 50,
 		"description": "Fresh salmon slices on top of small beds of seasoned rice, garnished with wasabi.",
@@ -80,8 +80,8 @@
 		"allergenes": []
 	},
 	{
-		"image": "",
-		"id": 9,
+		"image": "../../src/assets/images/cards/ebi.png",
+		"id": 8,
 		"name": "Ebi (Shrimp) Nigiri (2 pieces)",
 		"price": 45,
 		"description": "Cooked shrimp on top of rice with a touch of wasabi and soy sauce.",
@@ -90,8 +90,8 @@
 		"allergenes": []
 	},
 	{
-		"image": "",
-		"id": 10,
+		"image": "../../src/assets/images/cards/edamame.png",
+		"id": 9,
 		"name": "Edamame",
 		"price": 50,
 		"description": "Steamed young soybeans sprinkled with sea salt.",
@@ -100,8 +100,8 @@
 		"allergenes": []
 	},
 	{
-		"image": "",
-		"id": 11,
+		"image": "../../src/assets/images/cards/sashimiPlate.png",
+		"id": 10,
 		"name": "Mixed Sashimi Platter",
 		"price": 290,
 		"description": "A larger assortment of sashimi, perfect for sharing.",
@@ -110,8 +110,8 @@
 		"allergenes": []
 	},
 	{
-		"image": "",
-		"id": 12,
+		"image": "../../src/assets/images/cards/agedashi.png",
+		"id": 11,
 		"name": "Agedashi Tofu",
 		"price": 70,
 		"description": "Lightly fried tofu served in a savory dashi broth with grated daikon and ginger.",
@@ -120,8 +120,8 @@
 		"allergenes": []
 	},
 	{
-		"image": "",
-		"id": 13,
+		"image": "../../src/assets/images/cards/miso.png",
+		"id": 12,
 		"name": "Miso Soup",
 		"price": 40,
 		"description": "Traditional Japanese miso soup with tofu, seaweed, and green onions.",
@@ -130,8 +130,8 @@
 		"allergenes": []
 	},
 	{
-		"image": "",
-		"id": 14,
+		"image": "../../src/assets/images/cards/tunaNigiri.png",
+		"id": 13,
 		"name": "Tuna Nigiri",
 		"price": 60,
 		"description": "Slices of premium tuna on rice, served with pickled ginger.",
@@ -140,8 +140,8 @@
 		"allergenes": []
 	},
 	{
-		"image": "",
-		"id": 15,
+		"image": "../../src/assets/images/cards/californiaRoll.png",
+		"id": 14,
 		"name": "California Roll",
 		"price": 99,
 		"description": "Crab, avocado, and cucumber rolled in sushi rice and seaweed.",
@@ -150,8 +150,8 @@
 		"allergenes": [""]
 	},
 	{
-		"image": "",
-		"id": 16,
+		"image": "../../src/assets/images/cards/tunaRoll.png",
+		"id": 15,
 		"name": "Spicy Tuna Roll",
 		"price": 110,
 		"description": "Fresh tuna mixed with spicy mayo, scallions, and cucumber, rolled in sushi rice and seaweed.",
@@ -160,8 +160,8 @@
 		"allergenes": [""]
 	},
 	{
-		"image": "",
-		"id": 17,
+		"image": "../../src/assets/images/cards/dragonRoll.png",
+		"id": 16,
 		"name": "Dragon Roll",
 		"price": 140,
 		"description": "Eel, cucumber, and avocado topped with thinly sliced avocado, eel sauce, and tobiko.",
@@ -170,8 +170,8 @@
 		"allergenes": [""]
 	},
 	{
-		"image": "",
-		"id": 18,
+		"image": "../../src/assets/images/cards/rainbowRoll.png",
+		"id": 17,
 		"name": "Rainbow Roll",
 		"price": 110,
 		"description": "A variety of fresh fish (tuna, salmon, yellowtail, and more) layered on a California roll.",
@@ -180,8 +180,8 @@
 		"allergenes": [""]
 	},
 	{
-		"image": "",
-		"id": 19,
+		"image": "../../src/assets/images/cards/vegetarianRoll.png",
+		"id": 18,
 		"name": "Vegetarian Roll",
 		"price": 90,
 		"description": "Asparagus, avocado, and cucumber rolled in sushi rice and seaweed.",
@@ -190,44 +190,37 @@
 		"allergenes": [""]
 	},
 	{
-		"image": "",
-		"id": 20,
+		"image": "../../src/assets/images/cards/coke.png",
+		"id": 19,
 		"name": "Coca Cola",
 		"price": 30,
 		"category": "drinks"
 	},
 	{
-		"image": "",
-		"id": 21,
+		"image": "../../src/assets/images/cards/fanta.png",
+		"id": 20,
 		"name": "Fanta",
 		"price": 30,
 		"category": "drinks"
 	},
 	{
-		"image": "",
-		"id": 22,
-		"name": "Sprite",
-		"price": 30,
-		"category": "drinks"
-	},
-	{
-		"image": "",
-		"id": 23,
+		"image": "../../src/assets/images/cards/ramlosa.png",
+		"id": 21,
 		"name": "Ramlösa naturell",
 		"price": 30,
 		"category": "drinks"
 	},
 	{
-		"image": "",
-		"id": 24,
+		"image": "../../src/assets/images/cards/ramlosaLemon.png",
+		"id": 22,
 		"name": "Ramlösa citron",
 		"price": 30,
 		"category": "drinks"
 	},
 	{
-		"image": "",
-		"id": 25,
-		"name": "Isvatten",
+		"image": "../../src/assets/images/cards/water.png",
+		"id": 23,
+		"name": "Vatten",
 		"price": 30,
 		"category": "drinks"
 	}
