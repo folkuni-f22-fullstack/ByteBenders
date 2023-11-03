@@ -1,38 +1,44 @@
-import { addToCart } from "../routes/ProductDetailsRoute.tsx";
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useEffect, useState } from "react";
+import menuData from '../data/menu.json'
 
 function CartCard() {
-	const itemValue = addToCart.value.map(() => 1)
-	const [quantities, setQuantities] = useState(itemValue)
+	
+	// Get item from local storage
+	const cartData = JSON.parse(localStorage.getItem('cart')) || []
+	const [cartCopy, setCartCopy] = useState([...cartData])
 
+	// Quantity count
+	function updateQuantity(index, change) {
+		const updateCart = [...cartCopy]
+		const findItem = menuData.find((cartItem) => cartItem.id == updateCart[index].id)
 
-	const updateQuantity = (index, updateValueByOne) => {
-		const updateQuantities = [...quantities]
-		updateQuantities[index] += updateValueByOne
-		updateQuantities[index] = Math.max(updateQuantities[index], 0)
-		setQuantities(updateQuantities)
-	}
+		// Set counter
+		updateCart[index].quantity += change
 
-	useEffect(() => {
-		const cartData = JSON.stringify({ quantities })
-		localStorage.setItem('cartData', cartData)
-	}, [quantities])
-
-	useEffect(() => {
-		const cartData = localStorage.getItem('cartData')
-		if (cartData) {
-			const { quantities: loadedQuantities } = JSON.parse(cartData)
-			setQuantities(loadedQuantities)
+		if(change === 1) {
+			updateCart[index].price += findItem.price
 		}
-	}, [])
+		else if (change === -1) {
+			updateCart[index].price -= findItem.price
+		}
 
-	const cartItems = addToCart.value.filter((item, index) => quantities[index] > 0)
+		// Remove from local storage when quantity equal 0
+		if(updateCart[index].quantity === 0) {
+			localStorage.removeItem(updateCart[index].id)
+			updateCart.splice(index, 1)
+		}
+
+		// Update local storage
+		localStorage.setItem('cart', JSON.stringify(updateCart))
+
+		setCartCopy(updateCart)
+	}
 
 	return (
 		<section>
 			<div className="cart-card-container">
-				{cartItems.map((item, index) => (
+				{cartCopy.map((item, index) => (
 					<div key={index}>
 						<div className="cart-card" key={index}>
 							<NavLink to={`/menu/${item.id}`} className='cart-image-container'>
@@ -44,10 +50,10 @@ function CartCard() {
 							<div className='amount-container'>
 								<button
 									className='sub'
-									onClick={() => updateQuantity(index, - 1)}
+									onClick={() => updateQuantity(index, -1)}
 								>-
 								</button>
-								<p className='food-amount'>{quantities[index]} </p>
+								<p className='food-amount'>{item.quantity} </p>
 								<button
 									className='plus'
 									onClick={() => updateQuantity(index, 1)}
