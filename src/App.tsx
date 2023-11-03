@@ -1,15 +1,13 @@
-import './App.css'
-import './components/RecievedOrderCard.tsx'
-import RecievedOrderCard from './components/RecievedOrderCard.tsx'
 import "./App.css";
-import Meals from "./components/meals.jsx";
+import Meals from "./components/Meals.jsx";
 
 function App() {
-  return (
-    <>
-      <RecievedOrderCard />
-    </>
-  );
+    return (
+        <>
+            <NavBar />
+            <Outlet />
+        </>
+    );
 }
 
 export default App;
