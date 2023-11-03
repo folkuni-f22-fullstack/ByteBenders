@@ -72,8 +72,7 @@ export default function DealsOfTheWeek() {
                         <p>{menuItem.name}</p>
                         <div className="deal-prices">
                             <p className="dealmeals-price-old">{menuItem.price} :-</p>
-                            <p className="dealmeals-price">{menuItem.price * 0.70} :-</p>
-
+                            <p className="dealmeals-price">{Math.round(menuItem.price * 0.70)} :-</p>
                         </div>
                     </div>
                     <button className="meals-btn">
