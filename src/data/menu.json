@@ -95,7 +95,7 @@
 		"name": "Edamame",
 		"price": 50,
 		"description": "Steamed young soybeans sprinkled with sea salt.",
-		"category": "meals",
+		"category": "sides",
 		"subcategory": "Appetizers",
 		"allergenes": []
 	},
@@ -115,7 +115,7 @@
 		"name": "Agedashi Tofu",
 		"price": 70,
 		"description": "Lightly fried tofu served in a savory dashi broth with grated daikon and ginger.",
-		"category": "meals",
+		"category": "sides",
 		"subcategory": "Appetizers",
 		"allergenes": []
 	},
@@ -125,7 +125,7 @@
 		"name": "Miso Soup",
 		"price": 40,
 		"description": "Traditional Japanese miso soup with tofu, seaweed, and green onions.",
-		"category": "meals",
+		"category": "sides",
 		"subcategory": "Appetizers",
 		"allergenes": []
 	},

@@ -12,19 +12,19 @@
     flex-direction: column-reverse;
     background-color: white;
     height: 100vh;
-    width: 100%;
+    width: 100vw;
     position: absolute;
     z-index: 1;
-
 }
 
-.background-img {
+.image-container{
     width: 100%;
     height: 100vh;
-    background-image: url('../assets/images/detailspage-background.png');
-    background-size:100%;
-    background-repeat: no-repeat;
-    background-position: top;
+}
+
+/* Issue here with image not fitting well */
+.background-img {
+    margin-right: 150px;
 }
 
 .BiArrowBack {
@@ -34,6 +34,7 @@
     position: absolute;
     top: 1%;
     left: 1%;
+    z-index: 2;
 }
 
 .detail-popup {
@@ -43,7 +44,7 @@
     background-color: #263544;
     width: 100vw;
     height: 40vh;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;

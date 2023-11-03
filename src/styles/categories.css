@@ -1,0 +1,41 @@
+.category-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.category-text-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin: 1em 0 1em 2em;
+}
+.category-text {
+  font-size: small;
+}
+.category-button-section {
+  width: 68vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.category-button {
+  padding: 0.3em 0.9em;
+  border: none;
+  background-color: transparent;
+  border-radius: 0.3em;
+  transition: all 0.3s ease-in-out;
+  font-weight: bold;
+  font-size: 16px;
+}
+.category-button:focus {
+  background-color: #ffb550;
+  color: white;
+}
+.render-filteredfood-section {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+}

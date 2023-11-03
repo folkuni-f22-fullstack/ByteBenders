@@ -1,0 +1,45 @@
+.LoginRoute {
+	min-height: calc(100vh - (3.5em + 27px));
+	display: grid;
+	place-content: center;
+	background-image: url('../assets/images/backgrounds/pexels-cottonbro-studio-3298638.jpg');
+	object-fit: cover;
+}
+
+.login-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1em;
+}
+
+.input-group {
+	display: flex;
+	flex-direction: column;
+}
+
+.input-group > label {
+	color: var(--orange-color);
+}
+
+.input-group > input {
+	max-width: 15em;
+	padding: 0.3em 0.6em;
+	border: 1px solid rgb(213, 213, 213);
+}
+
+.login-button {
+	margin-top: 6em;
+	padding: 0.4em 3em;
+	max-width: fit-content;
+	background-color: var(--dark-blue);
+	color: var(--white-card-color);
+	font-size: 1.1em;
+}
+
+@media screen and (min-width: 798px) {
+	.LoginRoute {
+		min-height: 100vh;
+	}
+}
