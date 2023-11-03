@@ -27,7 +27,7 @@ const Details = () => {
                     </div>
                     <button className='cart-btn'>
                         <p className='btn-text'>Lägg till vara</p>
-                        < BsFillCartPlusFill className='BsFillCartPlusFill' />
+                        <BsFillCartPlusFill className='BsFillCartPlusFill' />
                     </button>
                 </section>
             </main>

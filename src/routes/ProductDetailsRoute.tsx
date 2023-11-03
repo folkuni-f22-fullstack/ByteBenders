@@ -1,7 +1,10 @@
 import { useParams } from "react-router-dom";
 import menuData from "../data/menu.json";
 import { useState, useEffect } from "react";
+import { signal } from "@preact/signals-react";
 
+
+export const addToCart = signal([])
 export default function ProductDetailsRoute() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
@@ -26,6 +29,7 @@ export default function ProductDetailsRoute() {
                     <p> Allergenes: {product?.allergenes}</p>
                 </>
             )}
+            <button onClick={() => (addToCart.value.push(product))}>Add to Cart</button>
         </div>
     );
 }
