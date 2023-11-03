@@ -13,7 +13,8 @@ export const addToCart = signal([])
 export default function ProductDetailsRoute() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
-
+    let [quantity, setQuantity] = useState(1)
+    
     function findProduct(id) {
         return menuData.find((product) => product.id == id);
     }
@@ -21,6 +22,27 @@ export default function ProductDetailsRoute() {
     useEffect(() => {
         setProduct(findProduct(id));
     }, [id]);
+
+
+    // Quantity count
+    function updateQuantity(change) {
+        const newQuantity = quantity += change
+        setQuantity(newQuantity)
+    }
+
+    // Send to local storage
+    function addToCart() {
+        const cartItem = {
+            id: product.id,
+            image: product.image,
+            name: product.name,
+            price: product.price * quantity,
+            quantity: quantity,
+        }
+        const existingCartData = JSON.parse(localStorage.getItem('cart')) || []
+        existingCartData.push(cartItem)
+        localStorage.setItem('cart', JSON.stringify(existingCartData))
+    }
 
     return (
         <main className="details-page">
@@ -35,11 +57,15 @@ export default function ProductDetailsRoute() {
                     <section className='detail-popup'>
                         <section className='top-row'>
                             <div className='amount'>
+                                <button className='amount-detail-button' onClick={() => updateQuantity(-1)}>
                                 <BiMinus className='BiMinus' />
-                                <div className='amount-count'>1</div>
+                                </button>
+                                <div className='amount-count'>{quantity}</div>
+                                <button className='amount-detail-button' onClick={() => updateQuantity(1)}>
                                 <BiPlus className='BiPlus' />
+                                </button>
                             </div>
-                            <p className='price'>{product.price} :-</p>
+                            <p className='price'>{product.price * quantity} :-</p>
                         </section>
                         <div className='description'>
                             <h5 className='detail-header'>{product.name}</h5>
@@ -47,7 +73,7 @@ export default function ProductDetailsRoute() {
                                 {product.description}
                             </p>
                         </div>
-                        <button className="cart-btn" onClick={() => addToCart.value.push(product)}>
+                        <button className="cart-btn" onClick={addToCart}>
                             <p className="btn-text">
                                 Add to Cart
                             </p>

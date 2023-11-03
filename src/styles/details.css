@@ -79,6 +79,11 @@
     color: white;
 }
 
+.amount-detail-button {
+    border: none;
+    background-color: transparent;
+}
+
 .BiMinus,
 .BiPlus {
     color: white;
