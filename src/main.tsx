@@ -9,42 +9,42 @@ import InformationRoute from "./routes/InformationRoute.tsx";
 import LoginRoute from "./routes/LoginRoute.tsx";
 import ProductDetailsRoute from "./routes/ProductDetailsRoute.tsx";
 import ErrorRoute from "./routes/ErrorRoute.tsx";
-
+import LandingPage from "./components/LandingPage.tsx";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <App />,
+  {
+    path: "/",
+    element: <App />,
 
-        children: [
-            {
-                path: "menu",
-                element: <MenuRoute />,
-            },
-            {
-                path: "menu/:id",
-                element: <ProductDetailsRoute />,
-            },
-            {
-                path: "cart",
-                element: <CartRoute />,
-            },
-            {
-                path: "information",
-                element: <InformationRoute />,
-            },
-            {
-                path: "login",
-                element: <LoginRoute />,
-            },
-        ],
+    children: [
+      {
+        path: "menu",
+        element: <LandingPage />,
+      },
+      {
+        path: "menu/:id",
+        element: <ProductDetailsRoute />,
+      },
+      {
+        path: "cart",
+        element: <CartRoute />,
+      },
+      {
+        path: "information",
+        element: <InformationRoute />,
+      },
+      {
+        path: "login",
+        element: <LoginRoute />,
+      },
+    ],
 
-        errorElement: <ErrorRoute />
-    },
+    errorElement: <ErrorRoute />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-    <React.StrictMode>
-        <RouterProvider router={router} />
-    </React.StrictMode>
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );

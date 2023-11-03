@@ -1,0 +1,49 @@
+@import "../App.css";
+
+.landing-section {
+  position: relative;
+}
+.landing-section p {
+  font-weight: 600;
+  color: var(--white-card-color);
+  text-align: center;
+}
+.landing-img-mobile {
+  height: 100vh;
+  width: 100%;
+  object-fit: cover;
+  position: absolute;
+  z-index: -1;
+  filter: brightness(0.7);
+}
+
+.landing-h1 {
+  font-family: var(--font-heading);
+  color: var(--orange-color);
+  font-size: 64px;
+  text-align: center;
+  padding-top: 1em;
+}
+.landing-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 25em;
+}
+.note {
+  color: var(--orange-color);
+}
+.heading-span {
+  color: var(--white-card-color);
+  font-family: var(--font-heading);
+}
+.landing-btn {
+  background-color: var(--orange-color);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark-blue);
+  border: none;
+  padding: 1em 4em;
+  border-radius: 12px;
+}
