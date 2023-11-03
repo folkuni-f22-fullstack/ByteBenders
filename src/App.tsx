@@ -1,5 +1,7 @@
+import { Outlet } from "react-router-dom";
+import NavBar from "./components/Navbar.tsx";
+import "./styles/cartCard.css";
 import "./App.css";
-import Meals from "./components/Meals.jsx";
 
 function App() {
     return (
