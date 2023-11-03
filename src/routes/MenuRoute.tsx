@@ -6,8 +6,8 @@ export default function MenuRoute() {
 	return (
 		<div className='MenuRoute'>
 			<SearchBar />
-            <Meals />
             <DealsOfTheWeek />
+            <Meals />
 		</div>
 	);
 }
