@@ -1,6 +1,6 @@
 @font-face {
   font-family: Alegreya;
-  src: url('../src/assets/fonts/Alegreya_SC/AlegreyaSC-Regular.ttf');
+  src: url("../src/assets/fonts/Alegreya_SC/AlegreyaSC-Regular.ttf");
 }
 
 * {
@@ -19,7 +19,7 @@ body {
   --dark-blue: #263544;
   --font-heading: Alegreya;
   --white-card-color: #ffffff;
-  --shadow: 2px 2px 5px #d1d0d0;
+  --shadow: 2px 2px 5px #777777;
 
   /* Heading size mobile */
   --heading-font-size-mobile: 2.3em;
@@ -35,7 +35,7 @@ body {
   /* Accept button general */
   --next-button-font-weight: 550;
   --next-button-border: none;
-  --next-button-border-radius: 0.7em; 
+  --next-button-border-radius: 0.7em;
 
   /* Meal card general*/
   --margin-between-card: 1em 0.5em;
