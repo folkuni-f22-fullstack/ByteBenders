@@ -1,50 +1,50 @@
 @font-face {
-  font-family: Alegreya;
-  src: url("../src/assets/fonts/Alegreya_SC/AlegreyaSC-Regular.ttf");
+	font-family: Alegreya;
+	src: url('../src/assets/fonts/Alegreya_SC/AlegreyaSC-Regular.ttf');
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  font-family: "Inter", sans-serif;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: 'Inter', sans-serif;
+	box-sizing: border-box;
 }
 
 body {
-  background-color: #f0f5f7;
+	background-color: #f0f5f7;
 }
 
 :root {
-  --orange-color: #ffb550;
-  --dark-blue: #263544;
-  --font-heading: Alegreya;
-  --white-card-color: #ffffff;
-  --shadow: 2px 2px 5px #777777;
+	--orange-color: #ffb550;
+	--dark-blue: #263544;
+	--font-heading: Alegreya;
+	--white-card-color: #ffffff;
+	--shadow: 2px 2px 5px #777777;
 
-  /* Heading size mobile */
-  --heading-font-size-mobile: 2.3em;
+	/* Heading size mobile */
+	--heading-font-size-mobile: 2.3em;
 
-  /* Margin page sides */
-  --margin-left-right: 0 1rem;
+	/* Margin page sides */
+	--margin-left-right: 0 1rem;
 
-  /* Accept button mobile*/
-  --next-button-width-mobile: 16rem;
-  --next-button-height-mobile: 3.6rem;
-  --next-button-font-size-mobile: 1.2em;
+	/* Accept button mobile*/
+	--next-button-width-mobile: 16rem;
+	--next-button-height-mobile: 3.6rem;
+	--next-button-font-size-mobile: 1.2em;
 
-  /* Accept button general */
-  --next-button-font-weight: 550;
-  --next-button-border: none;
-  --next-button-border-radius: 0.7em;
+	/* Accept button general */
+	--next-button-font-weight: 550;
+	--next-button-border: none;
+	--next-button-border-radius: 0.7em;
 
-  /* Meal card general*/
-  --margin-between-card: 1em 0.5em;
-  --font-weight-card: 500;
-  --text-color-card: #ffffff;
+	/* Meal card general*/
+	--margin-between-card: 1em 0.5em;
+	--font-weight-card: 500;
+	--text-color-card: #ffffff;
 
-  /* Meal card mobile */
-  --font-size-card-mobile: 14px;
-  --text-padding-card-mobile: 1em;
-  --price-margin-top-card-mobile: 0.5em;
-  --meal-name-cart-mobile: 9em;
+	/* Meal card mobile */
+	--font-size-card-mobile: 14px;
+	--text-padding-card-mobile: 1em;
+	--price-margin-top-card-mobile: 0.5em;
+	--meal-name-cart-mobile: 9em;
 }
