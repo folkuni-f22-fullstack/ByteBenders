@@ -1,43 +1,41 @@
+.category-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.category-text-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
-.category-section{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin: 1em 0 1em 2em;
 }
-.category-text-section{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.category-text {
+  font-size: small;
 }
-.category-header{
-    align-self: self-start;
+.category-button-section {
+  width: 68vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
-.category-text{
-    font-size: small;
+.category-button {
+  padding: 0.3em 0.9em;
+  border: none;
+  background-color: transparent;
+  border-radius: 0.3em;
+  transition: all 0.3s ease-in-out;
+  font-weight: bold;
+  font-size: 16px;
 }
-.category-button-section{
-    width: 68vw;
-    display: flex;
-    justify-content: space-around;
-    margin: 5px;
-    padding: 5px;
-}
-.category-button{
-    padding: 0.3em 0.9em;
-    border: none;
-    background-color: transparent;
-    border-radius: 0.3em;
-    transition: all 0.3s ease-in-out;
-}
-.category-button:focus{
-    background-color: #FFB550;
-    color: white;
-    
+.category-button:focus {
+  background-color: #ffb550;
+  color: white;
 }
 .render-filteredfood-section {
-    width: 80%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    transition: all 0.3s ease-in-out;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
 }
