@@ -49,7 +49,6 @@ function CartCard() {
 			<div className="cart-card-container">
 				{cartCopy.map((item, index) => (
 					<div className='cart-card' key={index}>
-						
 							<NavLink to={`/menu/${item.id}`} className='cart-image-container'>
 								<img className="cart-image" src={item.image} />
 							</NavLink>
@@ -70,7 +69,6 @@ function CartCard() {
 								</button>
 							</div>
 							<textarea className='customize-order' type='text' placeholder='Customize your order +'></textarea>
-						
 					</div>
 				))}
 			</div>
