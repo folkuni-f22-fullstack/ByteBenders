@@ -4,6 +4,9 @@ export default function LoginRoute() {
 	return (
 		<div className='LoginRoute'>
 			<form action='#' className='login-form'>
+				<div className='login-heading'>
+					<h1>Login</h1>
+				</div>
 				<div className='input-group'>
 					<label htmlFor='user-input'>Employee-number</label>
 					<input type='text' id='user-input' />
@@ -14,7 +17,9 @@ export default function LoginRoute() {
 					<input type='text' id='password-input' />
 				</div>
 
-				<button className='login-button'>Log in</button>
+				<button type='submit' className='login-button'>
+					Log in
+				</button>
 			</form>
 		</div>
 	);

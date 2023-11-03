@@ -1,9 +1,12 @@
 .LoginRoute {
 	min-height: calc(100vh - (3.5em + 27px));
-	display: grid;
-	place-content: center;
-	background-image: url('../assets/images/backgrounds/pexels-cottonbro-studio-3298638.jpg');
-	object-fit: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-image: url('../assets/images/backgrounds/login-background-small.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 .login-form {
@@ -12,6 +15,13 @@
 	align-items: center;
 	justify-content: center;
 	gap: 1em;
+}
+
+.login-heading {
+	display: none;
+	padding: 0.2em 0.5em;
+	border-bottom: 2px solid var(--orange-color);
+	margin-bottom: 2em;
 }
 
 .input-group {
@@ -41,5 +51,17 @@
 @media screen and (min-width: 798px) {
 	.LoginRoute {
 		min-height: 100vh;
+		background-image: url('../assets/images/backgrounds/login-background-big.jpg');
+		justify-content: end;
+	}
+
+	.login-form {
+		background-color: #f0f5f7;
+		min-height: 100vh;
+		padding: 0 6em;
+	}
+
+	.login-heading {
+		display: block;
 	}
 }
