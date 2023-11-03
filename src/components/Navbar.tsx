@@ -1,5 +1,8 @@
 import { PiForkKnifeFill } from 'react-icons/pi';
 import { BsCart3, BsInfoLg, BsFillPersonFill } from 'react-icons/bs';
+import { BiSolidPencil } from 'react-icons/bi';
+import { GrUnorderedList } from 'react-icons/gr';
+import { MdDone, MdLogout } from 'react-icons/md';
 import '../styles/navbar.css';
 import { NavLink } from 'react-router-dom';
 
@@ -30,11 +33,24 @@ const linkObjects = [
 	{ icon: <BsFillPersonFill />, text: 'Log in', to: 'login' },
 ];
 
+// Ikoner för navbaren efter inloggning
+const linkObjectsLoggedIn = [
+	{ icon: <BiSolidPencil />, text: 'Received', to: '' },
+	{ icon: <GrUnorderedList />, text: 'Current', to: '' },
+	{ icon: <MdDone />, text: 'Done', to: '' },
+	{ icon: <MdLogout />, text: 'Log out', to: '' },
+];
+
 const NavBar = () => {
 	return (
 		<nav className='navbar'>
 			{linkObjects.map((link) => (
-				<MenuLink linkto={link.to} icon={link.icon} text={link.text} />
+				<MenuLink
+					key={link.text}
+					linkto={link.to}
+					icon={link.icon}
+					text={link.text}
+				/>
 			))}
 		</nav>
 	);
