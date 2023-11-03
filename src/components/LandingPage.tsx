@@ -1,5 +1,6 @@
 import "../styles/landingPage.css";
 import landingPageImgMobile from "../assets/images/backgrounds/landingpage mobile resized.jpg";
+import { NavLink } from "react-router-dom";
 
 const LandingPage = () => {
   return (
@@ -23,7 +24,9 @@ const LandingPage = () => {
         <p>
           <span className="note">NOTE</span>. Only takeaway
         </p>
-        <button className="landing-btn">Get started</button>
+        <NavLink to="/menu">
+          <button className="landing-btn">Get started</button>
+        </NavLink>
       </div>
     </section>
   );

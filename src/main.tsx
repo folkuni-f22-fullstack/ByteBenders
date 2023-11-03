@@ -10,16 +10,19 @@ import LoginRoute from "./routes/LoginRoute.tsx";
 import ProductDetailsRoute from "./routes/ProductDetailsRoute.tsx";
 import ErrorRoute from "./routes/ErrorRoute.tsx";
 import LandingPage from "./components/LandingPage.tsx";
-
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "",
     element: <App />,
 
     children: [
       {
-        path: "menu",
+        path: "/",
         element: <LandingPage />,
+      },
+      {
+        path: "menu",
+        element: <MenuRoute />,
       },
       {
         path: "menu/:id",
