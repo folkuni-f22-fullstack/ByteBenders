@@ -1,9 +1,11 @@
-import Meals from "../components/Meals.jsx";
+import Meals from '../components/Meals.jsx';
+import SearchBar from '../components/SearchBar.tsx';
 
 export default function MenuRoute() {
-    return (
-        <div className="MenuRoute">
-            <Meals />
-        </div>
-    );
+	return (
+		<div className='MenuRoute'>
+			<SearchBar />
+			<Meals />
+		</div>
+	);
 }
