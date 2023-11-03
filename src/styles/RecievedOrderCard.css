@@ -1,16 +1,18 @@
 .RecievedOrderCard {
-    background-color: #F0F5F7;
+    background-color: var(--white-card-color);
     padding: 0.5em 1.5em;
     display: flex;
     justify-content: space-between;
-    width: 20em;
+    width: 80%;
     align-items: center;
-    font-family: 'Inter', sans-serif;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .RecievedOrderCard h1 {
-    font-size: 32px;
+    font-size: var(--font-size-dishname-mobile);
     margin-bottom: 0.3em;
+    font-weight: 500;
 }
 
 .RecievedOrderCard img {
@@ -23,3 +25,6 @@
     color: #FFB550;
 }
 
+.RecievedOrderCard ul {
+    margin-left: 1em;
+}

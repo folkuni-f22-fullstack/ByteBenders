@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import navArrow from '../assets/arrow_circle_right.png'
 import '../styles/RecievedOrderCard.css'
+import '../App.css'
 
 export default function RecievedOrderCard() {
     const [orderNumber, setOrderNumber] = useState(15235);

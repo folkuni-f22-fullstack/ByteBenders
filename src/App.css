@@ -47,4 +47,7 @@ body {
   --text-padding-card-mobile: 1em;
   --price-margin-top-card-mobile: 0.5em;
   --meal-name-cart-mobile: 9em;
+
+  /* Order card mobile */
+  --font-size-dishname-mobile: 2rem;
 }
