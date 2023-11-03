@@ -9,6 +9,7 @@ import InformationRoute from "./routes/InformationRoute.tsx";
 import LoginRoute from "./routes/LoginRoute.tsx";
 import ProductDetailsRoute from "./routes/ProductDetailsRoute.tsx";
 import ErrorRoute from "./routes/ErrorRoute.tsx";
+import DeatilsRoute from "./routes/DetailRoute.tsx";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
             {
                 path: "login",
                 element: <LoginRoute />,
+            },
+            {
+                path: "details",
+                element: <DeatilsRoute />,
             },
         ],
 
