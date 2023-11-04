@@ -27,16 +27,6 @@
     margin-right: 150px;
 }
 
-.BiArrowBack {
-    color: #FFB550;
-    height: 30px;
-    width: 30px;
-    position: absolute;
-    top: 1%;
-    left: 1%;
-    z-index: 2;
-}
-
 .detail-popup {
     display: flex;
     flex-direction: column;
