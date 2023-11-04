@@ -38,6 +38,7 @@ export default function ProductDetailsRoute() {
             name: product.name,
             price: product.price * quantity,
             quantity: quantity,
+            comment: product.comment,
         }
         const existingCartData = JSON.parse(localStorage.getItem('cart')) || []
 
