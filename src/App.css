@@ -48,3 +48,19 @@ body {
   --price-margin-top-card-mobile: 0.5em;
   --meal-name-cart-mobile: 9em;
 }
+
+.BiArrowBack {
+  color: #FFB550;
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  z-index: 2;
+}
+
+@media screen and (min-width: 798px) {
+  .BiArrowBack {
+    visibility: hidden;
+  }
+}
