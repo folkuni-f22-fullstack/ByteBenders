@@ -26,8 +26,13 @@ export default function ProductDetailsRoute() {
 
     // Quantity count
     function updateQuantity(change) {
-        const newQuantity = quantity += change
-        setQuantity(newQuantity)
+        let newQuantity = quantity + change
+        // Cannot be less than one
+        newQuantity = Math.max(newQuantity, 1)
+        if (quantity >= 1) {
+            setQuantity(newQuantity)
+        }
+
     }
 
     // Send to local storage
