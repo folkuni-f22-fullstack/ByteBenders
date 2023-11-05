@@ -48,12 +48,15 @@ function CartCard() {
 
 	// Discount
 	function promoCode() {
-		if (isPromo === 'discount') {
+		if (isPromo === 'discount20%') {
 			const discount = (totalPrice / 100) * 20
 			const newPrice = (Math.round(totalPrice - discount))
 			promo.value = newPrice
 		}
 		else if (isPromo === '') {
+			promo.value = 0
+		}
+		else {
 			promo.value = 0
 		}
 	}
