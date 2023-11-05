@@ -61,6 +61,6 @@ body {
 
 @media screen and (min-width: 798px) {
   .BiArrowBack {
-    visibility: hidden;
+    left: 7em;
   }
 }
