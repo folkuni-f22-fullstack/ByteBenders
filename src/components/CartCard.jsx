@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import menuData from '../data/menu.json'
 import { BiMinus, BiPlus, BiArrowBack } from 'react-icons/bi'
 import { MdLabelOutline } from 'react-icons/md'
+import { signal } from "@preact/signals-react";
 import SendCartData from './CartSendDb';
 
+export let promo = signal(0)
 function CartCard() {
 
 	// Get item from local storage
@@ -12,10 +14,11 @@ function CartCard() {
 	const [cartCopy, setCartCopy] = useState([...cartData])
 	let [totalPrice, setTotalPrice] = useState(0)
 	const [customizeState, setCustomizeState] = useState({})
+	let [isPromo, setIsPromo] = useState('')
 
 	// Quantity count
+	const updateCart = [...cartCopy]
 	function updateQuantity(index, change) {
-		const updateCart = [...cartCopy]
 		const findItem = menuData.find((cartItem) => cartItem.id == updateCart[index].id)
 
 		// Set counter
@@ -43,6 +46,23 @@ function CartCard() {
 		totalPrice += item.price
 	})
 
+	// Discount
+	function promoCode() {
+		if (isPromo === 'discount') {
+			const discount = (totalPrice / 100) * 20
+			const newPrice = (Math.round(totalPrice - discount))
+			promo.value = newPrice
+		}
+		else if (isPromo === '') {
+			promo.value = 0
+		}
+	}
+
+	useEffect(() => {
+		promoCode()
+	}, [totalPrice])
+
+
 	// Send customize order to local storage
 	function updateComment(id) {
 		const updateCartComment = cartCopy.map((item) => {
@@ -64,6 +84,7 @@ function CartCard() {
 			</NavLink>
 			<section className='cart-section'>
 				<div className="cart-card-container">
+					{/* Cards */}
 					{cartCopy.map((item, index) => (
 						<div className='cart-card' key={index}>
 							<NavLink to={`/menu/${item.id}`} className='cart-image-container'>
@@ -71,7 +92,7 @@ function CartCard() {
 							</NavLink>
 							<NavLink to={`/menu/${item.id}`} className='cart-name'> {item.name} </NavLink>
 							<p className='sub-text'>Lorem ipsum</p>
-							<p className='total-price'> {item.price}:- </p>
+							<p className='card-price'> {item.price}:- </p>
 							<div className='amount-container'>
 								<button
 									className='sub'
@@ -101,14 +122,31 @@ function CartCard() {
 						</div>
 					))}
 				</div>
+				{/* Promo */}
 				<div className='cart-promo-container'>
 					<MdLabelOutline size={20} className='promo-icon' />
-					<input className='promo-code' type='text' placeholder='Promo code' />
-					<button className='apply-promo-button'>Apply</button>
+					<input
+						className='promo-code'
+						type='text'
+						placeholder='Promo code'
+						onChange={(e) => setIsPromo(e.target.value)}
+					/>
+					<button
+						className='apply-promo-button'
+						onClick={promoCode}
+					>Apply
+					</button>
 				</div>
+				{/* Total price */}
 				<div className='cart-total-container'>
 					<p className='total-text'>Total:</p>
-					<p className='total-price'>{totalPrice}:-</p>
+					<div className='price'>
+						{promo != 0 && (
+							<p className='new-price'>{promo}:-</p>
+						)}
+						<p className={promo == 0 ? 'total-price' : 'total-price--crossed'}>
+							{totalPrice}:-</p>
+					</div>
 				</div>
 				<SendCartData />
 			</section>

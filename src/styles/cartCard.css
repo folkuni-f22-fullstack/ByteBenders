@@ -64,12 +64,13 @@
 	margin-bottom: 1em;
 }
 
-.price {
-  grid-column: 2;
-  grid-row: 3;
+.card-price {
+  grid-column: 5;
+  grid-row: 1;
   display: flex;
   align-self: start;
   font-weight: bold;
+  color: var(--orange-color);
 }
 
 .amount-container {
@@ -203,8 +204,30 @@
   box-shadow: var(--shadow);
 }
 
+.price {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.new-price {
+  grid-column: 1;
+  display: flex;
+  align-self: center;
+}
+
 .total-price {
   color: var(--orange-color);
+  display: flex;
+  align-self: center;
+}
+
+.total-price--crossed {
+  grid-column: 2;
+  display: flex;
+  align-self: center;
+  color: var(--orange-color);
+  text-decoration: line-through;
 }
 
 /* send to database button */
