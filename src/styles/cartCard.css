@@ -47,15 +47,6 @@
   color: var(--dark-blue);
 }
 
-.total-price {
-  grid-column: 5;
-  grid-row: 1;
-  display: flex;
-  justify-self: end;
-  font-weight: bold;
-  color: var(--orange-color);
-}
-
 .sub-text {
 	grid-column: 2 / span 4;
 	grid-row: 2;
@@ -69,6 +60,7 @@
   grid-row: 1;
   display: flex;
   align-self: start;
+  justify-self: end;
   font-weight: bold;
   color: var(--orange-color);
 }
@@ -208,6 +200,15 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+}
+
+.total-price {
+  grid-column: 5;
+  grid-row: 1;
+  display: flex;
+  justify-self: end;
+  font-weight: bold;
+  color: var(--orange-color);
 }
 
 .new-price {

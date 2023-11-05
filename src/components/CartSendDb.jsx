@@ -1,4 +1,4 @@
-import { promo } from "./CartCard"
+import { promo, totalPrice } from "./CartCard"
 
 function SendCartData() {
 	const cartData = JSON.parse(localStorage.getItem('cart')) || []
@@ -10,7 +10,7 @@ function SendCartData() {
 				body: JSON.stringify({
 					id: cartData.id,
 					name: cartData.name,
-					price: promo.value,
+					price: promo.value !==0 ? promo.value : totalPrice.value,
 					comment: cartData.comment
 				}),
 				headers: {
@@ -18,7 +18,8 @@ function SendCartData() {
 				}
 			})
 			console.log('Response', response.status)
-			console.log('Total price with dicount', promo.value);
+			console.log('Price with dicount', promo.value);
+			console.log('Price without dicount', totalPrice.value);
 			console.log(cartData)
 		
 	}

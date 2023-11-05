@@ -7,12 +7,13 @@ import { signal } from "@preact/signals-react";
 import SendCartData from './CartSendDb';
 
 export let promo = signal(0)
+export let totalPrice = signal(0)
 function CartCard() {
 
 	// Get item from local storage
 	const cartData = JSON.parse(localStorage.getItem('cart')) || []
 	const [cartCopy, setCartCopy] = useState([...cartData])
-	let [totalPrice, setTotalPrice] = useState(0)
+	// let [totalPrice, setTotalPrice] = useState(0)
 	const [customizeState, setCustomizeState] = useState({})
 	let [isPromo, setIsPromo] = useState('')
 
@@ -42,9 +43,13 @@ function CartCard() {
 	}
 
 	// Count total price
-	cartCopy.forEach((item) => {
-		totalPrice += item.price
-	})
+	function calculateTotalPrice() {
+		let total = 0
+		cartCopy.forEach((item) => {
+			total += item.price
+		})
+		return total
+	}
 
 	// Discount
 	function promoCode() {
@@ -61,9 +66,11 @@ function CartCard() {
 		}
 	}
 
+	// Update discount and total price
 	useEffect(() => {
+		totalPrice.value = calculateTotalPrice()
 		promoCode()
-	}, [totalPrice])
+	}, [cartCopy])
 
 
 	// Send customize order to local storage
