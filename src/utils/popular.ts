@@ -1,4 +1,5 @@
-import menuData from '../data/menu.json'
+import menuData from '../data/menu.json';
+import randomizer from '../utils/general.ts';
 
 // Hämtar och returnerar veckonummer för nuvarande datum
 function getWeek() {
