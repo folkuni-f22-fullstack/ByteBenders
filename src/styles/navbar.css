@@ -1,52 +1,53 @@
 .navbar {
-	background-color: #263544;
-	display: flex;
-	justify-content: space-around;
-	gap: 1em;
-	position: fixed;
-	bottom: 0;
-	min-width: 100vw;
-	padding: 0 0.5em;
+  background-color: #263544;
+  display: flex;
+  justify-content: space-around;
+  gap: 1em;
+  position: fixed;
+  bottom: 0;
+  min-width: 100vw;
+  padding: 0 0.5em;
+  z-index: 100;
 }
 
 .navbar > div {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .navbar > div > a {
-	color: #ffb550;
-	text-decoration: none;
-	padding: 0.5em;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  color: #ffb550;
+  text-decoration: none;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .navbar > div > a > div:hover {
-	border: 1px solid #ffb550;
+  border: 1px solid #ffb550;
 }
 
 .navbar > div > a > div {
-	border-radius: 50%;
-	padding: 0.5em;
-	border: 1px solid transparent;
+  border-radius: 50%;
+  padding: 0.5em;
+  border: 1px solid transparent;
 }
 
 .navbar > div > a > div > svg {
-	height: 25px;
-	width: 25px;
+  height: 25px;
+  width: 25px;
 }
 
 @media screen and (min-width: 798px) {
-	.navbar {
-		flex-direction: column;
-		justify-content: start;
-		padding-top: 6em;
-		gap: 4em;
-		bottom: 0;
-		min-height: 100vh;
-		min-width: fit-content;
-	}
+  .navbar {
+    flex-direction: column;
+    justify-content: start;
+    padding-top: 6em;
+    gap: 4em;
+    bottom: 0;
+    min-height: 100vh;
+    min-width: fit-content;
+  }
 }

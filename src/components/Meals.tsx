@@ -42,12 +42,8 @@ const Meals = () => {
       </section>
       <section className="meals-section">
         {filteredItems.map((menuItem) => (
-          <NavLink
-            key={menuItem.id}
-            to={`/menu/${menuItem.id}`}
-            className="meals-link"
-          >
-            <div className="meals-card">
+          <div key={menuItem.id} className="meals-card">
+            <NavLink to={`/menu/${menuItem.id}`} className="meals-link">
               <img
                 src={menuItem.image}
                 alt={`image of ${menuItem.name}`}
@@ -57,11 +53,11 @@ const Meals = () => {
                 <p>{menuItem.name}</p>
                 <p className="meals-price">{menuItem.price} :-</p>
               </div>
-              <button className="meals-btn">
-                Add to cart <BsCart3 className="btn-icon" />
-              </button>
-            </div>
-          </NavLink>
+            </NavLink>
+            <button className="meals-btn">
+              Add to cart <BsCart3 className="btn-icon" />
+            </button>
+          </div>
         ))}
       </section>
     </>
