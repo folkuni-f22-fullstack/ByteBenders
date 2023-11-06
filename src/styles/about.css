@@ -1,0 +1,43 @@
+@import "../App.css";
+
+.about-header {
+	display: flex;
+	justify-content: center;
+	font-size: 1em;
+}
+
+.about-heading {
+	margin-top: 1.2em;
+	text-align: center;
+	color: var(--orange-color);
+	font-family: var(--font-heading);
+}
+
+.arrow-top {
+	color: #FFB550;
+	height: 30px;
+	width: 30px;
+}
+
+.about-content-container {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin: var(--margin-left-right)
+}
+
+.about-content-heading {
+	color: var(--orange-color);
+	margin: 1em 0 0.2em 0;
+}
+
+.contact-information,
+.about-restaurant {
+	font-size: 1em;
+}
+
+
+.contact-information {
+	margin: 0.2em 0 1em 0;
+}
+
