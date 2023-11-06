@@ -47,10 +47,13 @@ body {
   --text-padding-card-mobile: 1em;
   --price-margin-top-card-mobile: 0.5em;
   --meal-name-cart-mobile: 9em;
+
+  /* Background image filter */
+  --background-img-filter: rgb(116, 116, 116);
 }
 
 .BiArrowBack {
-  color: #FFB550;
+  color: #ffb550;
   height: 30px;
   width: 30px;
   position: absolute;
