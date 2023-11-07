@@ -66,4 +66,7 @@ body {
   .BiArrowBack {
     left: 7em;
   }
+
+  /* Order card mobile */
+  --font-size-dishname-mobile: 2rem;
 }
