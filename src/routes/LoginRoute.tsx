@@ -11,17 +11,14 @@ export default function LoginRoute() {
 	const [passwordInput, setPasswordInput] = useState('');
 
 	const handleLogin = () => {
-		if (loggedIn.value === true) {
-			loggedIn.value = false;
+		if (userInput === '1234' && passwordInput === 'password') {
+			loggedIn.value = true;
+			setUserInput('');
+			setPasswordInput('');
 		} else {
-			if (userInput === '1234' && passwordInput === 'password') {
-				loggedIn.value = true;
-				setUserInput('');
-				setPasswordInput('');
-			} else {
-				console.log('Wrong user or password');
-			}
+			console.log('Wrong user or password');
 		}
+		console.log('loggedIn är: ', loggedIn.value);
 	};
 
 	return (
@@ -61,7 +58,7 @@ export default function LoginRoute() {
 				</div>
 
 				<button
-					type='submit'
+					type='button'
 					className='login-button'
 					onClick={handleLogin}
 				>

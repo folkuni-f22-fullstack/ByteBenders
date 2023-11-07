@@ -9,13 +9,19 @@
 	padding: 0 0.5em;
 }
 
-.navbar > div {
+.link-container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-.navbar > div > a {
+.link-container > button {
+	background-color: transparent;
+	border: none;
+}
+
+.link-container > a,
+.link-container > button > a {
 	color: var(--orange-color);
 	text-decoration: none;
 	padding: 0.5em;
@@ -24,22 +30,52 @@
 	align-items: center;
 }
 
-.navbar > div > a > div:hover {
-	border: 1px solid var(--orange-color);
-}
-
-.navbar > div > a > div {
+.nav-icon {
 	border-radius: 50%;
 	padding: 0.5em;
 	border: 1px solid transparent;
 }
 
-.navbar > div > a > div > svg {
+.nav-icon:hover {
+	border: 1px solid var(--orange-color);
+}
+
+.nav-icon > svg {
 	height: 25px;
 	width: 25px;
 }
-.navbar > div > a > p {
+
+.nav-text {
+	font-size: 14px;
+}
+
+.modal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: var(--dark-blue);
+	color: var(--orange-color);
+	border: none;
+	padding: 2em 5em;
+	text-align: center;
+}
+
+.modal > button {
+	max-width: fit-content;
+	padding: 0.3em 0.5em;
+	background-color: var(--orange-color);
+	color: var(--dark-blue);
+	font-weight: bold;
 	font-size: 1em;
+	border: none;
+	cursor: pointer;
+	margin: 1em;
+}
+
+.modal > button:hover {
+	background-color: var(--orange-color);
+	color: var(--dark-blue);
 }
 
 @media screen and (min-width: 798px) {
