@@ -67,3 +67,20 @@
   font-size: 20px;
   margin-left: 0.5em;
 }
+
+.popular-section {
+  display: grid;
+  grid-auto-flow: column;
+  overflow-x: auto;
+  gap: 1em;
+  overscroll-behavior-inline: contain;
+}
+.snaps-inline {
+  scroll-snap-type: inline mandatory;
+}
+.snaps-inline > * {
+  scroll-snap-align: start;
+}
+.most-popular-title {
+  color: var(--orange-color);
+}

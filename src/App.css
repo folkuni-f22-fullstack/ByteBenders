@@ -17,7 +17,7 @@ body {
 :root {
   --orange-color: #ffb550;
   --dark-blue: #263544;
-  --font-heading: Alegreya;
+  --font-heading: Alegreya SC;
   --white-card-color: #ffffff;
   --shadow: 2px 2px 5px #777777;
 
@@ -47,4 +47,23 @@ body {
   --text-padding-card-mobile: 1em;
   --price-margin-top-card-mobile: 0.5em;
   --meal-name-cart-mobile: 9em;
+
+  /* Background image filter */
+  --background-img-filter: rgb(116, 116, 116);
+}
+
+.BiArrowBack {
+  color: #ffb550;
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  z-index: 2;
+}
+
+@media screen and (min-width: 798px) {
+  .BiArrowBack {
+    left: 7em;
+  }
 }

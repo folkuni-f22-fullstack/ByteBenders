@@ -1,0 +1,94 @@
+.LoginRoute {
+	min-height: calc(100vh - (3.5em + 27px));
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-image: url('../assets/images/backgrounds/login-background-small.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.login-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1em;
+}
+
+.login-heading {
+	display: none;
+	padding: 0.2em 0.5em;
+	border-bottom: 2px solid var(--orange-color);
+	margin-bottom: 2em;
+}
+
+.input-group {
+	display: flex;
+	flex-direction: column;
+}
+
+.input-group > label {
+	color: var(--orange-color);
+}
+
+.input-group > input {
+	/* max-width: 15em; */
+	padding: 0.3em 0.6em;
+	border: 1px solid rgb(213, 213, 213);
+}
+
+.input-group > div {
+	border: 1px solid rgb(213, 213, 213);
+	display: flex;
+	/* max-width: 15em; */
+	/* padding: 0.2em 0; */
+	background-color: white;
+	position: relative;
+}
+
+.input-group > div > input {
+	border: none;
+	padding: 0.3em 0.6em;
+}
+
+.input-group > div > div {
+	position: absolute;
+	right: 0;
+	height: 100%;
+	/* top: 0.25em; */
+}
+
+.input-group > div > div > svg {
+	height: 90%;
+	width: 90%;
+	fill: rgb(64, 64, 64);
+}
+
+.login-button {
+	margin-top: 6em;
+	padding: 0.4em 3em;
+	max-width: fit-content;
+	background-color: var(--dark-blue);
+	color: var(--orange-color);
+	font-size: 1.1em;
+}
+
+@media screen and (min-width: 798px) {
+	.LoginRoute {
+		min-height: 100vh;
+		background-image: url('../assets/images/backgrounds/login-background-big.jpg');
+		justify-content: end;
+	}
+
+	.login-form {
+		background-color: #f0f5f7;
+		min-height: 100vh;
+		padding: 0 6em;
+	}
+
+	.login-heading {
+		display: block;
+	}
+}

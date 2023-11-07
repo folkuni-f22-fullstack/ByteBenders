@@ -1,54 +1,21 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     font-family: 'Inter', sans-serif;
 }
 
 .details-page {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column-reverse;
-    background-color: white;
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
-    z-index: 1;
-}
-
-.image-container{
-    width: 100%;
-    height: 100vh;
-}
-
-/* Issue here with image not fitting well */
-.background-img {
-    margin-right: 150px;
-}
-
-.BiArrowBack {
-    color: #FFB550;
-    height: 30px;
-    width: 30px;
-    position: absolute;
-    top: 1%;
-    left: 1%;
-    z-index: 2;
-}
-
-.detail-popup {
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: #263544;
-    width: 100vw;
-    height: 40vh;
-    position: absolute;
-    bottom: 0;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
 }
+
+.background-img {
+    filter: brightness(0.6);
+    height: 100%;
+    width: 100vw;
+}
+
+
 
 .top-row {
     display: flex;
@@ -77,6 +44,11 @@
     background-color: #FFB550;
     text-align: center;
     color: white;
+}
+
+.amount-detail-button {
+    border: none;
+    background-color: transparent;
 }
 
 .BiMinus,
@@ -134,4 +106,96 @@
 .BsFillCartPlusFill {
     font-size: x-large;
     margin-left: 10px;
+}
+
+/* min-width nödvändig? */
+@media screen and (max-width: 499px) {
+    .image-container {
+        background-size: cover;
+        background-position: center;
+        width: 100vw;
+        height: 600px;
+        display: flex;
+    }
+
+    .detail-popup {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #263544;
+        width: 100%;
+        height: 250px;
+        position: absolute;
+        bottom: 0;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 850px) {
+    .image-container {
+        background-size: cover;
+        background-position: center;
+        width: 100vw;
+        height: 600px;
+        display: flex;
+    }
+    .detail-popup {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #263544;
+        width: 100%;
+        height: 250px;
+        position: absolute;
+        bottom: 0;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+    .cart-btn{
+        
+    }
+}
+
+@media screen and (min-width: 851px) {
+    .details-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+
+    }
+    .BiArrowBack{
+        opacity:0 ;
+    }
+    .image-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        position: absolute;
+        top: 100px;
+        /* background-color: #F2F6FC; */
+
+    }
+    .detail-popup {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+    }
+    .background-img {
+        filter: brightness(0.6);
+        height: 280px;
+        width: 450px;
+    }
+    
+    .description,.description-text{
+        color: black;
+    }
+    .BiMinus,.BiPlus{
+        color: black;
+    }
 }
