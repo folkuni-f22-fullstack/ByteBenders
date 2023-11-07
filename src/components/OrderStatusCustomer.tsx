@@ -6,7 +6,7 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 
 export default function OrderStatusCustomer({ props }) {
     const timerRef = useRef(null);
-    const [count, setCount] = useState(4);
+    const [count, setCount] = useState(20);
     // antal minuter som ordern tar
 
     // Hämtar ordernumret från LS (som sparas från checkout?)
@@ -42,7 +42,7 @@ export default function OrderStatusCustomer({ props }) {
                     }
                     return newCount;
                 });
-            }, 1000);
+            }, 1000*60);
         }
     }
     startTimer();
