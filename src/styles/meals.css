@@ -4,8 +4,14 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+.meals-main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 .meals-link {
   text-decoration: none;
+  height: 100%;
 }
 .navlink {
   text-decoration: none;
@@ -20,7 +26,6 @@
   justify-content: flex-end;
   border-radius: 1em;
   position: relative;
-  z-index: -1;
   box-shadow: var(--shadow);
   margin: var(--margin-between-card);
 }
@@ -29,6 +34,7 @@
   height: 100%;
   object-fit: cover; /* Justera värdet för mörkare eller ljusare effekt */
   border-radius: 1em 1em 0 0;
+  width: 100%;
 }
 .meals-btn {
   background-color: #263544;
@@ -42,6 +48,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 0 0 1em 1em;
+  cursor: pointer;
 }
 .meals-cart {
   font-size: 18px;
@@ -72,6 +79,7 @@
   overflow-x: auto;
   gap: 1em;
   overscroll-behavior-inline: contain;
+  z-index: -2;
 }
 .snaps-inline {
   scroll-snap-type: inline mandatory;
@@ -81,4 +89,32 @@
 }
 .most-popular-title {
   color: var(--orange-color);
+}
+
+@media screen and (min-width: 798px) {
+  .popular-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .popular-section > .meals-link {
+    height: auto;
+  }
+  .meals-section {
+    margin-right: 22vw;
+    max-width: 65vw;
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (min-width: 798px) and (max-width: 1200px) {
+  .meals-section {
+    max-width: 80vw;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .meals-section {
+    margin-right: 0;
+  }
 }

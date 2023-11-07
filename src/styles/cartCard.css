@@ -17,26 +17,26 @@
 }
 
 .cart-card {
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	background-color: var(--white-card-color);
-	padding: 1em;
-	max-width: 30em;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background-color: var(--white-card-color);
+  padding: 1em;
+  max-width: 30em;
   height: 12em;
-	margin: 1em 1em 0 1em;
-	padding: 1em 1em 0 1em;
+  margin: 1em 1em 0 1em;
+  padding: 1em 1em 0 1em;
   box-shadow: var(--shadow);
 }
 
 .cart-image-container {
-	grid-column: 1;
-	grid-row: 2;
-	display: flex;
-	align-self: center;
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  align-self: center;
 }
 
 .cart-image {
-	width: 6em;
+  width: 6em;
 }
 
 .cart-name {
@@ -48,11 +48,11 @@
 }
 
 .sub-text {
-	grid-column: 2 / span 4;
-	grid-row: 2;
-	display: flex;
-	align-self: flex-start;
-	margin-bottom: 1em;
+  grid-column: 2 / span 4;
+  grid-row: 2;
+  display: flex;
+  align-self: flex-start;
+  margin-bottom: 1em;
 }
 
 .card-price {
@@ -151,7 +151,7 @@
 }
 
 .promo-code {
-  grid-column: 2 /span 10;
+  grid-column: 2 / span 10;
   grid-row: 1;
   padding-left: 0.2em;
   margin-top: 0.2em;
@@ -163,7 +163,7 @@
 
 .promo-code:focus {
   outline: none;
-  border-bottom: 0.5px solid var(--orange-color)
+  border-bottom: 0.5px solid var(--orange-color);
 }
 
 .apply-promo-button {
@@ -173,7 +173,7 @@
   color: var(--text-color-card);
   width: 5em;
   height: 2.5em;
-  border-radius: 0.3em; 
+  border-radius: 0.3em;
 }
 
 .apply-promo-button:hover {
@@ -248,6 +248,34 @@
   cursor: pointer;
 }
 
+.empty-cart-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3em;
+  height: 53vh;
+}
+.empty-p,
+.empty-h2 {
+  padding: 0em 1.5em;
+  text-align: center;
+  color: var(--dark-blue);
+}
+.empty-h2 {
+  margin-top: 0.75em;
+  margin-bottom: 0.25em;
+}
+.empty-cart-icon {
+  font-size: 82px;
+  color: var(--dark-blue);
+}
+.cart-count {
+  color: var(--orange-color);
+  font-weight: bold;
+  width: 100%;
+  padding: 1em 0 0 1em;
+}
+
 @media (min-width: 380px) {
   .cart-name {
     font-size: 1.5em;
@@ -265,5 +293,13 @@
 @media screen and (min-width: 798px) {
   .cart-card-container {
     height: 60vh;
+  }
+  .cart-section {
+    height: 100vh;
+    background-color: #ffffff;
+    width: 22em;
+    position: fixed;
+    top: 0;
+    right: 0;
   }
 }
