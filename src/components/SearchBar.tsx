@@ -1,6 +1,7 @@
 import { signal } from '@preact/signals-react';
 import menu from '../data/menu.json';
 import dishMatch from '../utils/search.ts';
+import { ChangeEvent } from 'react';
 
 const searchString = signal('');
 const fullMenu = signal(menu);
