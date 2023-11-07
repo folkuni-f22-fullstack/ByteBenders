@@ -1,0 +1,87 @@
+.order-logotype{
+    color: var(--orange-color);
+}
+/* // TODO: Se till att få font att exporteras korrekt via ::root */
+.recieved-order-card,
+.done-order-card,
+.current-order-card {
+    background-color: var(--white-card-color);
+    padding: 0.5em 1.5em;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.done-order-card {
+    background-color: lightgray;
+}
+
+.current-order-card {
+    background-color: var(--white-card-color);
+}
+
+.order-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* background-color: greenyellow; */
+    width: 100%;
+}
+
+.recieved-order-card img {
+    width: auto;
+    height: 100%;
+}
+
+.recieved-order-card,
+.current-order-card .amount-text {
+    font-weight: 700;
+    color: var(--orange-color);
+}
+
+.order-card {
+    margin-left: 1em;
+}
+
+.RiCheckboxCircleLine {
+    position: relative;
+    left: 45%;
+    margin-bottom: 5px;
+    font-size: 60px;
+    color: rgb(45, 224, 45);
+}
+
+.BsFillArrowRightCircleFill {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    left: 85%;
+    margin-bottom: 5px;
+    margin-left: -15px;
+    font-size: 60px;
+    color: var(--dark-blue)
+}
+
+.recieved-order-card,
+.done-order-card,
+.current-order-card li {
+    padding-left: 5px;
+    width: 80%;
+}
+
+.extend-order-icon {
+    position: relative;
+    left: 85%;
+    margin-top: -25px;
+    font-size: 35px;
+    width: 35px;
+}
+
+.order-route-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
