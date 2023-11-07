@@ -17,6 +17,7 @@ body {
 :root {
   --orange-color: #ffb550;
   --dark-blue: #263544;
+  --dark-blue-fade: #263544a9;
   --font-heading: Alegreya SC;
   --white-card-color: #ffffff;
   --shadow: 2px 2px 5px #777777;

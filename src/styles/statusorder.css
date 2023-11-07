@@ -16,6 +16,20 @@
 
 .CustomerStatusOrder .order-finished {
     background-image: url('../assets/images/servingfood.png');
+    background-size: cover;
+    background-blend-mode: multiply;
+    background-color: var(--dark-blue-fade);
     object-fit: contain;
     color: #FFFFFF;
+}
+
+.orderstatus-icon {
+    width: 3em;
+    height: 3em;
+}
+.orderstatus-icon > .waiting {
+    color: var(--dark-blue);
+}
+.finished {
+    color: rgb(46, 217, 46);
 }
