@@ -107,6 +107,12 @@
   }
 }
 
+@media screen and (min-width: 798px) and (max-width: 1200px) {
+  .meals-section {
+    max-width: 80vw;
+  }
+}
+
 @media screen and (max-width: 1200px) {
   .meals-section {
     margin-right: 0;
