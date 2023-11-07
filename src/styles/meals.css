@@ -4,6 +4,11 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+.meals-main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 .meals-link {
   text-decoration: none;
   height: 100%;
@@ -74,6 +79,7 @@
   overflow-x: auto;
   gap: 1em;
   overscroll-behavior-inline: contain;
+  z-index: -2;
 }
 .snaps-inline {
   scroll-snap-type: inline mandatory;
@@ -83,4 +89,26 @@
 }
 .most-popular-title {
   color: var(--orange-color);
+}
+
+@media screen and (min-width: 798px) {
+  .popular-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .popular-section > .meals-link {
+    height: auto;
+  }
+  .meals-section {
+    margin-right: 22vw;
+    max-width: 65vw;
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .meals-section {
+    margin-right: 0;
+  }
 }
