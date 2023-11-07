@@ -1,0 +1,30 @@
+.RecievedOrderCard {
+    background-color: var(--white-card-color);
+    padding: 0.5em 1.5em;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.RecievedOrderCard h1 {
+    font-size: var(--font-size-dishname-mobile);
+    margin-bottom: 0.3em;
+    font-weight: 500;
+}
+
+.RecievedOrderCard img {
+    width: auto;
+    height: 100%;
+}
+
+.RecievedOrderCard .amount-text {
+    font-weight: 700;
+    color: #FFB550;
+}
+
+.RecievedOrderCard ul {
+    margin-left: 1em;
+}

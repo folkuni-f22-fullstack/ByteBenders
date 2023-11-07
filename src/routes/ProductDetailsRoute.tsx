@@ -43,7 +43,7 @@ export default function ProductDetailsRoute() {
     };
     const existingCartData = JSON.parse(localStorage.getItem("cart")) || [];
 
-    // Check if item already exist
+    // Check if the item already exists
     const matchingId = existingCartData.findIndex(
       (item) => item.id === cartItem.id
     );
@@ -57,49 +57,53 @@ export default function ProductDetailsRoute() {
   }
 
   return (
-    <main className="details-page">
+    <>
       {product && (
-        <div className="image-container">
-          <img
-            src={product.image}
-            alt={`image of ${product.name}`}
-            className="background-img"
-          />
+        <main className="details-page">
           <div className="back-container">
             <NavLink to="/menu">
               <BiArrowBack className="BiArrowBack" />
             </NavLink>
           </div>
-          <section className="detail-popup">
-            <section className="top-row">
-              <div className="amount">
-                <button
-                  className="amount-detail-button"
-                  onClick={() => updateQuantity(-1)}
-                >
-                  <BiMinus className="BiMinus" />
-                </button>
-                <div className="amount-count">{quantity}</div>
-                <button
-                  className="amount-detail-button"
-                  onClick={() => updateQuantity(1)}
-                >
-                  <BiPlus className="BiPlus" />
-                </button>
-              </div>
-              <p className="price">{product.price * quantity} :-</p>
+          <div className="content-container">
+            <img
+              src={product.image}
+              alt={`image of ${product.name}`}
+              className="background-img"
+            />
+            <section className="detail-popup">
+              <section className="detail-content">
+                <section className="top-row">
+                  <div className="amount">
+                    <button
+                      className="amount-detail-button"
+                      onClick={() => updateQuantity(-1)}
+                    >
+                      <BiMinus className="BiMinus" />
+                    </button>
+                    <div className="amount-count">{quantity}</div>
+                    <button
+                      className="amount-detail-button"
+                      onClick={() => updateQuantity(1)}
+                    >
+                      <BiPlus className="BiPlus" />
+                    </button>
+                  </div>
+                  <p className="price">{product.price * quantity} :-</p>
+                </section>
+                <div className="description-section">
+                  <h5 className="detail-header">{product.name}</h5>
+                  <p className="description-text">{product.description}</p>
+                </div>
+              </section>
+              <button className="cart-btn" onClick={addToCart}>
+                <p className="btn-text">Add to Cart</p>
+                <BsFillCartPlusFill className="BsFillCartPlusFill" />
+              </button>
             </section>
-            <div className="description">
-              <h5 className="detail-header">{product.name}</h5>
-              <p className="description-text">{product.description}</p>
-            </div>
-            <button className="cart-btn" onClick={addToCart}>
-              <p className="btn-text">Add to Cart</p>
-              <BsFillCartPlusFill className="BsFillCartPlusFill" />
-            </button>
-          </section>
-        </div>
+          </div>
+        </main>
       )}
-    </main>
+    </>
   );
 }

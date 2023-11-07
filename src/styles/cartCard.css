@@ -96,8 +96,8 @@
   grid-row: 1;
 }
 
-.sub,
-.plus {
+.amount-container > .sub,
+.amount-container > .plus {
   display: flex;
   align-items: center;
   align-self: center;

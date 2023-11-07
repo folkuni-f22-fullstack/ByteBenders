@@ -1,7 +1,7 @@
-@font-face {
+/* @font-face {
   font-family: Alegreya;
   src: url("../src/assets/fonts/Alegreya_SC/AlegreyaSC-Regular.ttf");
-}
+} */
 
 * {
   margin: 0;
@@ -52,6 +52,7 @@ body {
   --background-img-filter: rgb(116, 116, 116);
 }
 
+
 .BiArrowBack {
   color: #ffb550;
   height: 30px;
@@ -66,4 +67,7 @@ body {
   .BiArrowBack {
     left: 7em;
   }
+
+  /* Order card mobile */
+  --font-size-dishname-mobile: 2rem;
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import menuData from "../data/menu.json";
 import { BiMinus, BiPlus, BiArrowBack } from "react-icons/bi";
+import { BsCart3 } from "react-icons/bs";
 import { MdLabelOutline } from "react-icons/md";
 import { signal } from "@preact/signals-react";
 import SendCartData from "./CartSendDb";
@@ -89,54 +90,65 @@ function CartCard() {
       <NavLink to="/menu">
         <BiArrowBack className="BiArrowBack" />
       </NavLink>
-      <section className="cart-section cart-mobile">
-        <div className="cart-card-container">
-          {/* Cards */}
-          {cartCopy.map((item, index) => (
-            <div className="cart-card" key={index}>
-              <NavLink to={`/menu/${item.id}`} className="cart-image-container">
-                <img className="cart-image" src={item.image} />
-              </NavLink>
-              <NavLink to={`/menu/${item.id}`} className="cart-name">
-                {" "}
-                {item.name}{" "}
-              </NavLink>
-              <p className="sub-text">Lorem ipsum</p>
-              <p className="card-price"> {item.price}:- </p>
-              <div className="amount-container">
-                <button
-                  className="sub"
-                  onClick={() => updateQuantity(index, -1)}
+      <section className="cart-section">
+        {cartCopy.length === 0 ? (
+          <div className="empty-cart-div">
+            <BsCart3 className="empty-cart-icon" />
+            <h3>Your cart is empty!</h3>
+            <p>Looks like you haven't added anything to the cart yet.</p>
+          </div>
+        ) : (
+          <div className="cart-card-container">
+            {/* Cart */}
+            {cartCopy.map((item, index) => (
+              <div className="cart-card" key={index}>
+                <NavLink
+                  to={`/menu/${item.id}`}
+                  className="cart-image-container"
                 >
+                  <img className="cart-image" src={item.image} />
+                </NavLink>
+                <NavLink to={`/menu/${item.id}`} className="cart-name">
                   {" "}
-                  <BiMinus className="BiMinus" />
-                </button>
-                <p className="food-amount">{item.quantity} </p>
-                <button
-                  className="plus"
-                  onClick={() => updateQuantity(index, 1)}
-                >
-                  <BiPlus className="BiPlus" />
-                </button>
+                  {item.name}{" "}
+                </NavLink>
+                <p className="sub-text">Lorem ipsum</p>
+                <p className="card-price"> {item.price}:- </p>
+                <div className="amount-container">
+                  <button
+                    className="sub"
+                    onClick={() => updateQuantity(index, -1)}
+                  >
+                    {" "}
+                    <BiMinus className="BiMinus" />
+                  </button>
+                  <p className="food-amount">{item.quantity} </p>
+                  <button
+                    className="plus"
+                    onClick={() => updateQuantity(index, 1)}
+                  >
+                    <BiPlus className="BiPlus" />
+                  </button>
+                </div>
+                <input
+                  className="customize-order"
+                  type="text"
+                  placeholder={
+                    item.comment == "" ? "Customize your order +" : item.comment
+                  }
+                  // display data for specific item or empty string
+                  value={customizeState[item.id] || ""}
+                  onChange={(e) => {
+                    const newCustomizeState = { ...customizeState };
+                    newCustomizeState[item.id] = e.target.value;
+                    setCustomizeState(newCustomizeState);
+                  }}
+                  onBlur={() => updateComment(item.id)}
+                ></input>
               </div>
-              <input
-                className="customize-order"
-                type="text"
-                placeholder={
-                  item.comment == "" ? "Customize your order +" : item.comment
-                }
-                // display data for specific item or empty string
-                value={customizeState[item.id] || ""}
-                onChange={(e) => {
-                  const newCustomizeState = { ...customizeState };
-                  newCustomizeState[item.id] = e.target.value;
-                  setCustomizeState(newCustomizeState);
-                }}
-                onBlur={() => updateComment(item.id)}
-              ></input>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
         {/* Promo */}
         <div className="cart-promo-container">
           <MdLabelOutline size={20} className="promo-icon" />

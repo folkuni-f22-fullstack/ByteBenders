@@ -10,12 +10,9 @@
 }
 
 .background-img {
-    filter: brightness(0.6);
     height: 100%;
     width: 100vw;
 }
-
-
 
 .top-row {
     display: flex;
@@ -32,7 +29,6 @@
     padding: 5px;
     width: 80px;
     height: 50px;
-    /* background-color: green; */
 }
 
 .amount-count {
@@ -41,7 +37,7 @@
     width: 25px;
     height: 25px;
     border-radius: 12.5px;
-    background-color: #FFB550;
+    background-color: var(--orange-color);
     text-align: center;
     color: white;
 }
@@ -58,27 +54,23 @@
 }
 
 .price {
-    color: #FFB550;
+    color: var(--orange-color);
     font-weight: 600;
 }
 
 .detail-header {
-    position: relative;
-    right: 34%;
-    margin-bottom: 5px;
+    color: white;
 }
 
-.description {
+
+.description-section {
     display: flex;
     flex-direction: column;
-    width: 70%;
-    color: white;
-    /* background-color: black; */
-    text-align: center;
+    width: 250px;
 }
 
 .description-text {
-    color: white;
+    color: var(--text-color-card);
     font-family: 'Inter', sans-serif;
     text-align: center;
     font-size: smaller;
@@ -87,7 +79,7 @@
 .cart-btn {
     display: flex;
     align-items: center;
-    background-color: #FFB550;
+    background-color: var(--orange-color);
     inset-inline: none;
     border: none;
     border-radius: 10px;
@@ -107,10 +99,13 @@
     font-size: x-large;
     margin-left: 10px;
 }
+.price{
+    text-align: right;
+}
 
 /* min-width nödvändig? */
 @media screen and (max-width: 499px) {
-    .image-container {
+    .content-container {
         background-size: cover;
         background-position: center;
         width: 100vw;
@@ -124,78 +119,139 @@
         align-items: center;
         background-color: #263544;
         width: 100%;
-        height: 250px;
+        height: 350px;
         position: absolute;
         bottom: 0;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
     }
+
+    .top-row {
+        width: 100%;
+    }
+    .cart-btn {
+        width: 250px;
+    }
 }
 
-@media screen and (min-width: 500px) and (max-width: 850px) {
-    .image-container {
+/* redo when midsize screen design is done */
+@media screen and (min-width: 500px) and (max-width: 798px) {
+    .content-container {
         background-size: cover;
         background-position: center;
         width: 100vw;
         height: 600px;
         display: flex;
     }
+
     .detail-popup {
         display: flex;
         flex-direction: column;
         align-items: center;
         background-color: #263544;
         width: 100%;
-        height: 250px;
+        height: 350px;
         position: absolute;
         bottom: 0;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
     }
-    .cart-btn{
-        
+    .detail-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 15px;
+        width: 100%;
+    }
+
+    .cart-btn {
+        width: 250px;
+    }
+    .top-row {
+        width: 380px;
     }
 }
 
-@media screen and (min-width: 851px) {
+@media screen and (min-width: 799px) {
+
     .details-page {
         display: flex;
         flex-direction: column;
         align-items: center;
         flex-wrap: wrap;
+        height: 100vh;
+        width: 80vw;
 
     }
-    .BiArrowBack{
-        opacity:0 ;
+
+    .BiArrowBack {
+        opacity: 0;
     }
-    .image-container {
+
+    .content-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        height: 100vh;
-        width: 100vw;
         position: absolute;
         top: 100px;
-        /* background-color: #F2F6FC; */
-
     }
+
     .detail-popup {
         display: flex;
         flex-direction: column;
         align-items: center;
-
-
+        justify-content: start;
+        width: 500px;
     }
+
     .background-img {
-        filter: brightness(0.6);
         height: 280px;
         width: 450px;
     }
-    
-    .description,.description-text{
-        color: black;
+
+    .description-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-    .BiMinus,.BiPlus{
+
+    .description-text,
+    .detail-header {
         color: black;
+        width: 300px;
+        font-size: medium;
     }
+
+    .BiMinus,
+    .BiPlus {
+        color: black;
+        font-size: 25px;
+    }
+
+    .cart-btn {
+        width: 250px;
+        /* box-shadow: var(--shadow); */
+    }
+
+    .detail-content {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        margin-top: 15px;
+        width: 100%;
+    }
+
+    .amount {
+        width: 100px;
+        height: 80px;
+    }
+
+    .amount-count {
+        margin: 5px;
+        padding: 5px;
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+    }
+
 }
