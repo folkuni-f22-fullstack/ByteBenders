@@ -1,0 +1,21 @@
+.CustomerStatusOrder div {
+    background: var(--white-card-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 15em;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.CustomerStatusOrder .yellow {
+    color: var(--orange-color);
+}
+
+.CustomerStatusOrder .order-finished {
+    background-image: url('../assets/images/servingfood.png');
+    object-fit: contain;
+    color: #FFFFFF;
+}
