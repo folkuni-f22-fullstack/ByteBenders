@@ -63,7 +63,11 @@ export default function ProductDetailsRoute() {
         <main className="details-page">
             {product && (
                 <div className="image-container">
-                    <img className="background-img" src={product.image} alt="Product Image" />
+                    <img
+                        src={product.image}
+                        alt={`image of ${product.name}`}
+                        className="background-img"
+                    />
                     <div className='back-container'>
                         <NavLink to="/menu">
                             <BiArrowBack className='BiArrowBack' />
