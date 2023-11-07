@@ -32,7 +32,6 @@ const Meals = () => {
   return (
     <section className="meals-main">
       <section className="meals-section">
-        <PopularThisWeek />
         <section className="category-text-section">
           <h4 className="category-header">Categories</h4>
           <p className="category-text">

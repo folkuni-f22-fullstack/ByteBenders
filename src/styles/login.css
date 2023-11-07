@@ -34,7 +34,6 @@
 }
 
 .input-group > input {
-	/* max-width: 15em; */
 	padding: 0.3em 0.6em;
 	border: 1px solid rgb(213, 213, 213);
 }
@@ -42,8 +41,6 @@
 .input-group > div {
 	border: 1px solid rgb(213, 213, 213);
 	display: flex;
-	/* max-width: 15em; */
-	/* padding: 0.2em 0; */
 	background-color: white;
 	position: relative;
 }
@@ -57,7 +54,6 @@
 	position: absolute;
 	right: 0;
 	height: 100%;
-	/* top: 0.25em; */
 }
 
 .input-group > div > div > svg {
