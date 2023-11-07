@@ -7,14 +7,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
   margin: 1em 0 1em 2em;
 }
 .category-text {
   font-size: small;
 }
 .category-button-section {
-  width: 68vw;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
