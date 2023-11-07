@@ -3,10 +3,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 88vh;
 }
 
 .cart-card-container {
-  height: 53vh;
+  height: 45vh;
   border-bottom: 0.5px solid var(--orange-color);
   overflow-y: scroll;
   margin-top: 3em;
@@ -252,8 +253,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 3em;
-  height: 53vh;
+  margin-top: 1em;
 }
 .empty-p,
 .empty-h2 {
@@ -273,7 +273,8 @@
   color: var(--orange-color);
   font-weight: bold;
   width: 100%;
-  padding: 1em 0 0 1em;
+  text-align: end;
+  padding: 1em 1em 0 0;
 }
 
 @media (min-width: 380px) {
@@ -292,7 +293,7 @@
 
 @media screen and (min-width: 798px) {
   .cart-card-container {
-    height: 60vh;
+    height: 56vh;
   }
   .cart-section {
     height: 100vh;
