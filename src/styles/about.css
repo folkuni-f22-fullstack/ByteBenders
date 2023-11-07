@@ -37,28 +37,54 @@
 
 .about-content-container {
 	display: flex;
-	justify-content: start;
-	flex-direction: column;
-	padding: var(--margin-left-right);
+	justify-content: center;
+	align-items: center;
 	width: 100vw;
+	margin-top: 5em;
+}
+
+.center-content {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	max-width: 50em;
+}
+
+.about-team-img {
+	grid-column: 1 / span 4;
+	grid-row: 1;
+	display: flex;
+	justify-self: center;
+	width: 100%;
+	border-radius: 0.3em;
+	margin-bottom: 1.5em;
+}
+
+.content-text {
+	grid-column: 1 / span 4;
+	grid-row: 2;
+	padding: var(--margin-left-right);
 }
 
 .about-content-heading {
 	color: var(--orange-color);
 	font-family: var(--font-heading);
-	margin: 1em 0 0.1em 0;
-	font-size: 2em;
-	
+	font-size: 1.5em;
 }
 
-.heading-symbol {
+.heading-symbol-sub {
+	font-size: 1.5em;
+	font-family: var(--font-heading);
+}
+
+.heading-symbol,
+.heading-symbol-sub {
 	color: #ffffff;
 }
 
 .contact-information,
 .about-restaurant {
 	font-size: 1.1em;
-	color: var(--text-color-card);
+	color: #ffffff;
 	line-height: 1.2em;
 	max-width: 40em;
 }
@@ -71,5 +97,21 @@
 	.about-content-container {
 		display: flex;
 		align-items: center;
+		padding: 0;
+	}
+	.center-content {
+		margin-left: 8em;
+		margin-right: 8em;
+	}
+	
+	.content-text {
+		padding: 0;
+	}
+  }
+
+  @media (min-width: 851px) {
+	.about-heading {
+		margin-top: 0.5em;
+		font-size: 3rem;
 	}
   }

@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import menuData from "../data/menu.json";
 import { useState, useEffect } from "react";
-import { signal } from "@preact/signals-react";
 import { BiArrowBack, BiMinus, BiPlus } from 'react-icons/bi'
 import { BsFillCartPlusFill } from 'react-icons/bs'
 import { NavLink } from "react-router-dom";
@@ -9,7 +8,6 @@ import '../styles/details.css'
 
 // details code imported and implemented with original
 
-export const addToCart = signal([])
 export default function ProductDetailsRoute() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
