@@ -1,5 +1,21 @@
 @import "../App.css";
 
+.information {
+	background-blend-mode: multiply;
+	background-color: var(--background-img-filter);
+	background-image: url(../assets/images/backgrounds/landingpage-mobile-resized.jpg);
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 100vh;
+	width: 100%;
+}
+
+.information--blur {
+	backdrop-filter: blur(10px);
+	height: 100vh;
+}
+
 .about-header {
 	display: flex;
 	justify-content: center;
@@ -7,7 +23,7 @@
 }
 
 .about-heading {
-	margin-top: 1.2em;
+	margin-top: 1.5em;
 	text-align: center;
 	color: var(--orange-color);
 	font-family: var(--font-heading);
@@ -21,23 +37,39 @@
 
 .about-content-container {
 	display: flex;
-	justify-content: center;
+	justify-content: start;
 	flex-direction: column;
-	margin: var(--margin-left-right)
+	padding: var(--margin-left-right);
+	width: 100vw;
 }
 
 .about-content-heading {
 	color: var(--orange-color);
-	margin: 1em 0 0.2em 0;
+	font-family: var(--font-heading);
+	margin: 1em 0 0.1em 0;
+	font-size: 2em;
+	
+}
+
+.heading-symbol {
+	color: #ffffff;
 }
 
 .contact-information,
 .about-restaurant {
-	font-size: 1em;
+	font-size: 1.1em;
+	color: var(--text-color-card);
+	line-height: 1.2em;
+	max-width: 40em;
 }
-
 
 .contact-information {
-	margin: 0.2em 0 1em 0;
+	margin: 1em 0 1em 0;
 }
 
+@media screen and (min-width: 798px) {
+	.about-content-container {
+		display: flex;
+		align-items: center;
+	}
+  }
