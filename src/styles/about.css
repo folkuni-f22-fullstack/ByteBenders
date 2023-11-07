@@ -1,0 +1,117 @@
+@import "../App.css";
+
+.information {
+	background-blend-mode: multiply;
+	background-color: var(--background-img-filter);
+	background-image: url(../assets/images/backgrounds/landingpage-mobile-resized.jpg);
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 100vh;
+	width: 100%;
+}
+
+.information--blur {
+	backdrop-filter: blur(10px);
+	height: 100vh;
+}
+
+.about-header {
+	display: flex;
+	justify-content: center;
+	font-size: 1em;
+}
+
+.about-heading {
+	margin-top: 1.5em;
+	text-align: center;
+	color: var(--orange-color);
+	font-family: var(--font-heading);
+}
+
+.arrow-top {
+	color: #FFB550;
+	height: 30px;
+	width: 30px;
+}
+
+.about-content-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	margin-top: 5em;
+}
+
+.center-content {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	max-width: 50em;
+}
+
+.about-team-img {
+	grid-column: 1 / span 4;
+	grid-row: 1;
+	display: flex;
+	justify-self: center;
+	width: 100%;
+	border-radius: 0.3em;
+	margin-bottom: 1.5em;
+}
+
+.content-text {
+	grid-column: 1 / span 4;
+	grid-row: 2;
+	padding: var(--margin-left-right);
+}
+
+.about-content-heading {
+	color: var(--orange-color);
+	font-family: var(--font-heading);
+	font-size: 1.5em;
+}
+
+.heading-symbol-sub {
+	font-size: 1.5em;
+	font-family: var(--font-heading);
+}
+
+.heading-symbol,
+.heading-symbol-sub {
+	color: #ffffff;
+}
+
+.contact-information,
+.about-restaurant {
+	font-size: 1.1em;
+	color: #ffffff;
+	line-height: 1.2em;
+	max-width: 40em;
+}
+
+.contact-information {
+	margin: 1em 0 1em 0;
+}
+
+@media screen and (min-width: 798px) {
+	.about-content-container {
+		display: flex;
+		align-items: center;
+		padding: 0;
+	}
+	.center-content {
+		margin-left: 8em;
+		margin-right: 8em;
+	}
+	
+	.content-text {
+		padding: 0;
+	}
+  }
+
+  @media (min-width: 851px) {
+	.about-heading {
+		margin-top: 0.5em;
+		font-size: 3rem;
+	}
+  }
