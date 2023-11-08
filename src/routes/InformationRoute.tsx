@@ -17,7 +17,7 @@ export default function InformationRoute() {
                 </header>
                 <main className='about-content-container'>
                     <section className='center-content'>
-                        <img className='about-team-img' src='../../src/assets/images/team.jpg' />
+                        <img className='about-team-img' src='../../src/assets/images/about.jpg' />
                         <article className='content-text'>
                             <h2 className='about-content-heading'>
                                 Fish <span className="heading-symbol-sub about-heading-sub">&</span> Friends
@@ -27,10 +27,10 @@ export default function InformationRoute() {
                             </p>
                             <div className='contact-information'>
                                 <p>
-                                    Kontakta oss för frågor på 070-432 5601.
+                                    Contact us for questions at 070-432 5601.
                                 </p>
                                 <p>
-                                    Öppettider: Alla dagar mellan 12.00-22.00
+                                    Opening hours: Every day between 12.00-22.00
                                 </p>
                             </div>
                         </article>

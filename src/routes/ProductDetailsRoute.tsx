@@ -4,56 +4,37 @@ import { useState, useEffect } from "react";
 import { BiArrowBack, BiMinus, BiPlus } from "react-icons/bi";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
+import addToLS from "../utils/addCartLS";
+import  { quantity } from "../utils/addCartLS.tsx";
 import "../styles/details.css";
 
 // details code imported and implemented with original
 
 export default function ProductDetailsRoute() {
-    const { id } = useParams();
-    const [product, setProduct] = useState(null);
-    let [quantity, setQuantity] = useState(1);
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  
+  function findProduct(id) {
+    return menuData.find((product) => product.id == id);
+  }
+  
+  useEffect(() => {
+    setProduct(findProduct(id));
+  }, [id]);
 
-    function findProduct(id) {
-        return menuData.find((product) => product.id == id);
+  // Quantity count
+  function updateQuantity(change) {
+    // Cannot be less than one
+    if (quantity.value >= 1) {
+      let newQuantity = quantity.value += change
+      newQuantity = Math.max(newQuantity, 1)
+      quantity.value = newQuantity
     }
-
-    useEffect(() => {
-        setProduct(findProduct(id));
-    }, [id]);
-
-    // Quantity count
-    function updateQuantity(change) {
-        let newQuantity = quantity + change;
-        // Cannot be less than one
-        newQuantity = Math.max(newQuantity, 1);
-        if (quantity >= 1) {
-            setQuantity(newQuantity);
-        }
-    }
-
-    // Send to local storage
-    function addToCart() {
-        const cartItem = {
-            id: product.id,
-            image: product.image,
-            name: product.name,
-            price: product.price * quantity,
-            quantity: quantity,
-            comment: product.comment,
-        }
-        const existingCartData = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // Check if the item already exists
-    const matchingId = existingCartData.findIndex(
-      (item) => item.id === cartItem.id
-    );
-    if (matchingId !== -1) {
-      existingCartData[matchingId].quantity += cartItem.quantity;
-      existingCartData[matchingId].price += cartItem.price;
-    } else {
-      existingCartData.push(cartItem);
-    }
-    localStorage.setItem("cart", JSON.stringify(existingCartData));
+  }
+  
+  // Send to local storage
+  function handleAddToCart() {
+    addToLS(id)
   }
 
   return (
@@ -79,14 +60,14 @@ export default function ProductDetailsRoute() {
                       className="amount-detail-button"
                       onClick={() => updateQuantity(-1)}
                     >
-                      <BiMinus className="BiMinus" />
+                      <BiMinus className="biMinus" />
                     </button>
                     <div className="amount-count">{quantity}</div>
                     <button
                       className="amount-detail-button"
                       onClick={() => updateQuantity(1)}
                     >
-                      <BiPlus className="BiPlus" />
+                      <BiPlus className="biPlus" />
                     </button>
                   </div>
                   <p className="price">{product.price * quantity} :-</p>
@@ -96,7 +77,7 @@ export default function ProductDetailsRoute() {
                   <p className="description-text">{product.description}</p>
                 </div>
               </section>
-              <button className="cart-btn" onClick={addToCart}>
+              <button className="cart-btn" onClick={handleAddToCart}>
                 <p className="btn-text">Add to Cart</p>
                 <BsFillCartPlusFill className="BsFillCartPlusFill" />
               </button>

@@ -26,22 +26,24 @@ const NavBar = () => {
 	};
 
 	const confirmLogout = () => {
-		modal.current.showModal();
+		modal.current?.showModal();
 	};
 
 	const closeModal = () => {
-		modal.current.close();
+		modal.current?.close();
 	};
 
-	const outsideClick = (e) => {
-		const dialogDimensions = modal.current.getBoundingClientRect();
-		if (
-			e.clientX < dialogDimensions.left ||
-			e.clientX > dialogDimensions.right ||
-			e.clientY < dialogDimensions.top ||
-			e.clientY > dialogDimensions.bottom
-		) {
-			closeModal();
+	const outsideClick = (e: React.MouseEvent) => {
+		const dialogDimensions = modal.current?.getBoundingClientRect();
+		if (dialogDimensions) {
+			if (
+				e.clientX < dialogDimensions.left ||
+				e.clientX > dialogDimensions.right ||
+				e.clientY < dialogDimensions.top ||
+				e.clientY > dialogDimensions.bottom
+			) {
+				closeModal();
+			}
 		}
 	};
 

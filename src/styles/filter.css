@@ -1,0 +1,12 @@
+.filter-container {
+	position: absolute;
+	background-color: #f0f5f7;
+}
+
+.filter-select {
+	padding: 1em;
+}
+
+.hidden {
+	visibility: hidden;
+}
