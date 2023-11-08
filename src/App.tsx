@@ -9,7 +9,7 @@ function App() {
     <>
       <NavBar />
       <Outlet />
-            <RecievedOrderCard />
+      {/* <RecievedOrderCard /> */}
     </>
   );
 }
