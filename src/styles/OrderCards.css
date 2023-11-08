@@ -1,0 +1,84 @@
+/* // TODO: Se till att få font att exporteras korrekt via ::root */
+.order-logotype{
+    color: var(--orange-color);
+}
+
+.order-route-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recieved-order-card,
+.done-order-card,
+.current-order-card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--white-card-color);
+    padding: 0.5em 1.5em;
+    width: 80%;
+}
+
+/* Bakgrund för enbart done */
+.done-order-card {
+    background-color: lightgray;
+}
+.current-order-card {
+    background-color: var(--white-card-color);
+}
+
+.order-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* background-color: greenyellow; */
+    width: 100%;
+}
+.order-info-section{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    /* background-color: blue; */
+    width: 90%;
+}
+
+
+.recieved-order-card .amount-text,
+.current-order-card .amount-text,
+.done-order-card .amount-text {
+    font-weight: 700;
+    color: var(--orange-color);
+}
+
+
+
+.send-order-icon, .done-order-icon {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    left: 85%;
+    margin-bottom: 5px;
+    margin-left: -15px;
+    font-size: 60px;
+    color: var(--dark-blue)
+}
+
+.done-order-icon {
+    color: rgb(45, 224, 45);
+}
+
+.extend-order-icons {
+    /* background-color: green; */
+    color: var(--dark-blue);
+    font-size: 35px;
+    width: 35px;
+    height: 35px;
+}
+
+.order-product-name{
+    font-size: large;
+}

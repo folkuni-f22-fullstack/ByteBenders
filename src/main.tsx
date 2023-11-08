@@ -10,6 +10,9 @@ import LoginRoute from "./routes/LoginRoute.tsx";
 import ProductDetailsRoute from "./routes/ProductDetailsRoute.tsx";
 import ErrorRoute from "./routes/ErrorRoute.tsx";
 import LandingPage from "./components/LandingPage.tsx";
+import RecOrderRoute from "./routes/RecOrderRoute.tsx";
+import CurrOrderRoute from "./routes/CurrOrderRoute.tsx";
+import DoneOrderRoute from "./routes/DoneOrderRoute.tsx";
 const router = createBrowserRouter([
   {
     path: "",
@@ -39,6 +42,18 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginRoute />,
+      },
+      {
+        path: "recieved",
+        element: <RecOrderRoute />
+      },
+      {
+        path: "current",
+        element: <CurrOrderRoute/>
+      },
+      {
+        path: "done",
+        element: <DoneOrderRoute />
       },
     ],
 

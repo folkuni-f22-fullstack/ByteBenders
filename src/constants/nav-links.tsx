@@ -14,9 +14,9 @@ const linkObjects = [
 
 // Ikoner för navbaren efter inloggning
 const linkObjectsLoggedIn = [
-	{ icon: <BiSolidPencil />, text: 'Received', to: '' },
-	{ icon: <GrUnorderedList />, text: 'Current', to: '' },
-	{ icon: <MdDone />, text: 'Done', to: '' },
+	{ icon: <BiSolidPencil />, text: 'Received', to: 'recieved' },
+	{ icon: <GrUnorderedList />, text: 'Current', to: 'current' },
+	{ icon: <MdDone />, text: 'Done', to: 'done' },
 	{ icon: <MdLogout />, text: 'Log out', to: '#' },
 ];
 

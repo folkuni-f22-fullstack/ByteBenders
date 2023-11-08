@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { BsFillArrowRightCircleFill } from 'react-icons/bs'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { RiCheckboxCircleLine } from 'react-icons/ri'
 import '../styles/OrderCards.css'
 import '../App.css'
 
-export default function RecievedOrderCard() {
+export default function DoneOrderCard() {
     const [orderData, setOrderData] = useState({
         orderNumber: 15235,
         orderContent: [
@@ -19,19 +19,19 @@ export default function RecievedOrderCard() {
         ]
     })
 
-        // todo Koppla faktiskt data från cart till Employee gränssnittet
-        const [isExpanded, setIsExpanded] = useState(false);
-        const toggleExpansion = () => {
-            setIsExpanded(!isExpanded);
-        };
-
+    // todo Koppla faktiskt data från cart till Employee gränssnittet
+    const [isExpanded, setIsExpanded] = useState(false);
+    const toggleExpansion = () => {
+        setIsExpanded(!isExpanded);
+    };
 
     return (
         <>
-            {/* <h1 >Recieved Orders</h1> */}
-            <div className="recieved-order-card">
+            {/* <h1>Done Orders</h1> */}
+            <div className="done-order-card">
                 <div className="order-content">
                     <h1> #{orderData.orderNumber} </h1>
+
                     <div onClick={toggleExpansion} className="extend-order-icons">
                         {isExpanded ? (
                             <div className='close-order-icon'>
@@ -47,7 +47,7 @@ export default function RecievedOrderCard() {
                 {isExpanded && (
                     <ul className='order-info-section'>
                         {orderData.orderContent.map(product => (
-                            <li key={product.productName}>
+                            <li className='-order-product-name' key={product.productName}>
                                 {product.productName}
                                 <span className="amount-text">: x{product.amount}</span>
                             </li>
@@ -56,11 +56,11 @@ export default function RecievedOrderCard() {
                         <div className="comment-section">
                             <h3>Kommentar</h3>
                             <span>Ingen Fisk</span>
+                        <div className='done-order-icon'><RiCheckboxCircleLine /></div>
                         </div>
-                        <div className='send-order-icon'> <BsFillArrowRightCircleFill /></div>
                     </ul>
                 )}
-            </div >
+            </div>
         </>
     )
 }
