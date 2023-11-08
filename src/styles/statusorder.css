@@ -52,7 +52,7 @@
     }
 }
 
-.OrdStatusCustomerRoute button {
+.place-new-order {
     background-color: var(--orange-color);
     color: var(--dark-blue);
     font-weight: var(--next-button-font-weight);

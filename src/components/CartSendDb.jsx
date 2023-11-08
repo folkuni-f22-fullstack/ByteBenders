@@ -1,13 +1,21 @@
 import { promo, totalPrice } from "./CartCard";
 import { randomizer } from "../utils/general";
+import { signal } from '@preact/signals-react'
+export let orderNumber = signal(null)
+export let isOrdered = signal(false)
 
 function SendCartData() {
     const cartData = JSON.parse(localStorage.getItem("cart")) || [];
-    console.log("cartData: ", cartData);
 
     // Ska skicka till LS utöver DB, dessutom ha ett ID
 
     async function handlePost() {
+        console.log(orderNumber.value);
+
+        const newOrderNumber = randomizer(0, 99999999999999)
+        orderNumber.value = newOrderNumber
+        isOrdered.value = true
+        
         // Temporary URL until we have a server
         const response = await fetch("../../src/data/cart.json", {
             method: "POST",
@@ -32,10 +40,10 @@ function SendCartData() {
 
     function handlePostLS() {
         let orderCartData = JSON.parse(localStorage.getItem("order")) || []
-        const orderId = randomizer(0, 99999999);
+        // const orderId = randomizer(0, 99999999);
 
         const order = {
-            orderId: orderId,
+            orderId: orderNumber.value,
             orderItems: [],
         }
 
