@@ -41,7 +41,10 @@ const Meals = () => {
 					Drinks
 				</button>
 			</section>
-			<FilterMeals list={filteredItems} />
+			<FilterMeals
+				list={filteredItems}
+				selectedCategory={selectedCategory}
+			/>
 			<section className='meals-section'>
 				{filteredItems.map((menuItem) => (
 					<NavLink
