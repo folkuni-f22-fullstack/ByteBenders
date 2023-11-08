@@ -5,7 +5,8 @@ import { BsCart3 } from "react-icons/bs";
 import "../styles/meals.css";
 import "../styles/categories.css";
 import CartRoute from "../routes/CartRoute";
-import PopularThisWeek from "./PopularThisWeek";
+import addToLS from "../utils/addCartLS";
+import { quantity } from "../utils/addCartLS";
 
 const Meals = () => {
   const [selectedCategory, setSelectedCartegory] = useState("");
@@ -25,9 +26,19 @@ const Meals = () => {
 
     // Ta bort eventlyssnaren när komponenten rensas
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", handleResize)
     };
   }, []);
+
+  // Set value to 1
+  function refreshQuantity() {
+      quantity.value = 1
+  }
+  
+  // Add to local storage
+  function handleAddToCart(id) {
+    addToLS(id)
+  }
 
   return (
     <section className="meals-main">
@@ -60,7 +71,7 @@ const Meals = () => {
         </section>
         {filteredItems.map((menuItem) => (
           <div key={menuItem.id} className="meals-card">
-            <NavLink to={`/menu/${menuItem.id}`} className="meals-link">
+            <NavLink to={`/menu/${menuItem.id}`} className="meals-link" onClick={refreshQuantity}>
               <img
                 src={menuItem.image}
                 alt={`image of ${menuItem.name}`}
@@ -71,7 +82,7 @@ const Meals = () => {
                 <p className="meals-price">{menuItem.price} :-</p>
               </div>
             </NavLink>
-            <button className="meals-btn">
+            <button className="meals-btn" onClick={() => handleAddToCart(menuItem.id)}>
               Add to cart <BsCart3 className="btn-icon" />
             </button>
           </div>
