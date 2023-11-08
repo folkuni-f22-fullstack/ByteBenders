@@ -7,7 +7,7 @@ import { orderNumber, isOrdered } from '../components/CartSendDb.jsx'
 import { NavLink } from "react-router-dom";
 
 export default function OrderStatusCustomer() {
-    const [waiting, setWaiting] = useState(false)
+    const [waiting, setWaiting] = useState(true)
     const [count, setCount] = useState(15);
 
     function setFinishedTime(count) {

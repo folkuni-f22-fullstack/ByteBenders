@@ -10,7 +10,6 @@ import LoginRoute from "./routes/LoginRoute.tsx";
 import ProductDetailsRoute from "./routes/ProductDetailsRoute.tsx";
 import ErrorRoute from "./routes/ErrorRoute.tsx";
 import LandingPage from "./components/LandingPage.tsx";
-import OrdStatusCustomerRoute from "./routes/OrdStatusCustomerRoute.tsx";
 
 const router = createBrowserRouter([
   {
@@ -41,10 +40,6 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginRoute />,
-      },
-      {
-        path: "orderstatus",
-        element: <OrdStatusCustomerRoute />,
       },
     ],
 
