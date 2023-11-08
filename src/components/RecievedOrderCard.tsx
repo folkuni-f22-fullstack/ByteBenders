@@ -19,11 +19,11 @@ export default function RecievedOrderCard() {
         ]
     })
 
-        // todo Koppla faktiskt data från cart till Employee gränssnittet
-        const [isExpanded, setIsExpanded] = useState(false);
-        const toggleExpansion = () => {
-            setIsExpanded(!isExpanded);
-        };
+    // todo Koppla faktiskt data från cart till Employee gränssnittet
+    const [isExpanded, setIsExpanded] = useState(false);
+    const toggleExpansion = () => {
+        setIsExpanded(!isExpanded);
+    };
 
 
     return (
