@@ -47,17 +47,21 @@ export default function DoneOrderCard() {
                 {isExpanded && (
                     <ul className='order-info-section'>
                         {orderData.orderContent.map(product => (
-                            <li className='-order-product-name' key={product.productName}>
+                            <li className='order-product-name' key={product.productName}>
                                 {product.productName}
                                 <span className="amount-text">: x{product.amount}</span>
                             </li>
                         ))}
                         {/* // TODO: Säkertställ att en kommentar renderas beroende av order inte product */}
-                        <div className="comment-section">
-                            <h3>Kommentar</h3>
-                            <span>Ingen Fisk</span>
-                        <div className='done-order-icon'><RiCheckboxCircleLine /></div>
-                        </div>
+                        <section className="additional-info-section">
+                            <div className='comment-section'>
+                                <h3>Kommentar</h3>
+                                <span >Ingen Fisk</span>
+                            </div>
+                            <div className='done-order-icon'>
+                                <RiCheckboxCircleLine />
+                            </div>
+                        </section>
                     </ul>
                 )}
             </div>
