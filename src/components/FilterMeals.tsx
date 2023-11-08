@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import menuData from '../data/menu.json';
-import { signal } from '@preact/signals-core';
+import { signal, effect } from '@preact/signals-core';
 
 interface CommonProps {
 	image: string;
@@ -11,9 +10,9 @@ interface CommonProps {
 	comment: string;
 }
 
-interface Drinks extends CommonProps {
-	category: string;
-}
+// interface Drinks extends CommonProps {
+// 	category: string;
+// }
 
 interface Meals extends CommonProps {
 	subcategory: string;
@@ -22,7 +21,8 @@ interface Meals extends CommonProps {
 	category: string;
 }
 
-type Dish = Drinks | Meals;
+// type Dish = Drinks | Meals;
+type Dish = Meals;
 
 interface FilterMealsProps {
 	list: Dish[];
@@ -30,6 +30,8 @@ interface FilterMealsProps {
 
 const FilterMeals: React.FC<FilterMealsProps> = ({ list }) => {
 	const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+	const [showCategories, setShowCategories] = useState(false);
+
 	// Skapa list-signal för vilka rätter som ska visas
 	const listToShow = signal(list);
 
@@ -41,9 +43,6 @@ const FilterMeals: React.FC<FilterMealsProps> = ({ list }) => {
 	console.log('subcategories är: ', subcategories);
 
 	// När man klickar på filter ska alternativen expandera
-	// Klickar man i ett filter ska listan uppdateras
-
-	// const selectedFilters = [];
 
 	const handleCategoryClick = (category: string) => {
 		if (selectedFilters.includes(category)) {
@@ -55,37 +54,49 @@ const FilterMeals: React.FC<FilterMealsProps> = ({ list }) => {
 		}
 	};
 
-	console.log('selectedFilters är: ', selectedFilters);
+	effect(() => {
+		// för varje item i selectedFilters, lägg till de rätterna som matchar subcategory
+		if (selectedFilters.length > 0) {
+			const filteredList: Dish[] | [] = [];
+			selectedFilters.map((filter) => {
+				const filteredItems: Dish[] = list.filter((item) => {
+					return item.subcategory.includes(filter);
+				});
 
-	// Klickar man i ett till filter ska listan filtreras på båda de iklickade filtrena
-	// De filter man klickat i ska synas på sidan och gå att klicka ur
-	// När man klickar ur ett filter ska det filtret försvinna men de andra vara kvar
-	// Om alla filter är urklickade ska listan gå tillbaka till ursprungslistan
+				filteredList.push(...filteredItems);
+			});
 
-	// const filterBySubCategory = () => {
-	//     const filteredList = listToShow.value.filter((dish) => )
-	// }
+			// Uppdatera listToShow till den filtrerade listan
+			listToShow.value = filteredList;
+		} else {
+			listToShow.value = list;
+		}
+	});
 
 	return (
 		<div className='filter-container'>
-			<button>Filter</button>
-			<div>
-				{subcategories.map((category) => (
-					<button
-						key={category}
-						onClick={() => handleCategoryClick(category)}
-						className={
-							selectedFilters.includes(category)
-								? 'selected-filter'
-								: ''
-						}
-					>
-						{!selectedFilters.includes(category)
-							? category
-							: category + 'X'}
-					</button>
-				))}
-			</div>
+			<button onClick={() => setShowCategories(!showCategories)}>
+				Filter
+			</button>
+			{showCategories && (
+				<div className='filter-select'>
+					{subcategories.map((category) => (
+						<button
+							key={category}
+							onClick={() => handleCategoryClick(category)}
+							className={
+								selectedFilters.includes(category)
+									? 'selected-filter'
+									: ''
+							}
+						>
+							{!selectedFilters.includes(category)
+								? category
+								: category + 'X'}
+						</button>
+					))}
+				</div>
+			)}
 		</div>
 	);
 };
