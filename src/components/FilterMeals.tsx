@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { signal, effect } from '@preact/signals-core';
 import '../styles/filter.css';
 
-interface Dish {
+export interface Dish {
 	image: string;
 	id: number;
 	name: string;
