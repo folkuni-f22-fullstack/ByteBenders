@@ -1,56 +1,93 @@
 .navbar {
-  background-color: var(--dark-blue);
-  display: flex;
-  justify-content: space-around;
-  gap: 1em;
-  position: fixed;
-  bottom: 0;
-  min-width: 100vw;
-  padding: 0 0.5em;
-  z-index: 10;
+	background-color: var(--dark-blue);
+	display: flex;
+	justify-content: space-around;
+	gap: 1em;
+	position: fixed;
+	bottom: 0;
+	min-width: 100vw;
+	padding: 0 0.5em;
+	z-index: 10;
 }
 
-.navbar > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.link-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-.navbar > div > a {
-  color: var(--orange-color);
-  text-decoration: none;
-  padding: 0.5em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.link-container > button {
+	background-color: transparent;
+	border: none;
 }
 
-.navbar > div > a > div:hover {
-  border: 1px solid var(--orange-color);
+.link-container > a,
+.link-container > button > a {
+	color: var(--orange-color);
+	text-decoration: none;
+	padding: 0.5em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-.navbar > div > a > div {
-  border-radius: 50%;
-  padding: 0.5em;
-  border: 1px solid transparent;
+.nav-icon {
+	border-radius: 50%;
+	padding: 0.5em;
+	border: 1px solid transparent;
 }
 
-.navbar > div > a > div > svg {
-  height: 25px;
-  width: 25px;
+.nav-icon:hover,
+.active > .nav-icon {
+	border: 1px solid var(--orange-color);
 }
-.navbar > div > a > p {
-  font-size: 1em;
+
+.nav-icon > svg {
+	height: 25px;
+	width: 25px;
+}
+
+.nav-text {
+	font-size: 14px;
+}
+
+.modal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: var(--dark-blue);
+	color: var(--orange-color);
+	border: none;
+	padding: 2em 5em;
+	text-align: center;
+}
+
+.modal > button {
+	max-width: fit-content;
+	padding: 0.3em 0.5em;
+	background-color: var(--orange-color);
+	color: var(--dark-blue);
+	font-weight: bold;
+	font-size: 1em;
+	border: none;
+	cursor: pointer;
+	margin: 1em;
+}
+
+.modal > button:hover {
+	background-color: var(--orange-color);
+	color: var(--dark-blue);
 }
 
 @media screen and (min-width: 798px) {
-  .navbar {
-    flex-direction: column;
-    justify-content: start;
-    padding-top: 6em;
-    gap: 4em;
-    bottom: 0;
-    min-height: 100vh;
-    min-width: fit-content;
-  }
+	.navbar {
+		flex-direction: column;
+		justify-content: start;
+		padding-top: 6em;
+		gap: 4em;
+		bottom: 0;
+		min-height: 100vh;
+		min-width: fit-content;
+	}
 }
