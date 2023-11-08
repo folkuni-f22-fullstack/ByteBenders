@@ -3,6 +3,8 @@ import { BsCart3 } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import displayMeals from "../utils/popular.ts";
 import { NavLink } from "react-router-dom";
+import addToLS from "../utils/addCartLS";
+import { quantity } from "../utils/addCartLS";
 
 export default function PopularThisWeek() {
   const [randomMeals, setRandomMeals] = useState([]);
@@ -10,6 +12,16 @@ export default function PopularThisWeek() {
   useEffect(() => {
     displayMeals(randomMeals, setRandomMeals);
   }, []);
+
+  // Set value to 1
+  function refreshQuantity() {
+    quantity.value = 1
+  }
+
+  // Add to local storage
+  function handleAddToCart(id) {
+    addToLS(id)
+  }
 
   return (
     <section className="popular-main">
@@ -21,27 +33,27 @@ export default function PopularThisWeek() {
       </div>
       <section className="popular-section snaps-inline">
         {randomMeals &&
-          randomMeals.map((menuItem, index) => (
-            <NavLink
-              to={`/menu/${JSON.parse(menuItem.id)}`}
-              className="meals-link"
-              key={index}
-            >
-              <div className="meals-card">
+          randomMeals.map((menuItem) => (
+            <div className="meals-card" key={menuItem.id}>
+              <NavLink to={`/menu/${menuItem.id}`} className="meals-link">
                 <img
                   src={menuItem.image}
                   alt={`image of ${menuItem.name}`}
                   className="meals-img"
+                  onClick={refreshQuantity}
                 />
                 <div className="meals-text">
                   <p>{menuItem.name}</p>
-                  <p className="meals-price"> {menuItem.price} :- </p>
+                  <p className="meals-price">{menuItem.price} :-</p>
                 </div>
-                <button className="meals-btn">
-                  Add to cart <BsCart3 className="btn-icon" />
-                </button>
-              </div>
-            </NavLink>
+              </NavLink>
+              <button
+                className="meals-btn"
+                onClick={() => handleAddToCart(menuItem.id)}
+              >
+                Add to cart <BsCart3 className="btn-icon" />
+              </button>
+            </div>
           ))}
       </section>
     </section>
