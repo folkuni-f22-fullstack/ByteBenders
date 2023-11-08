@@ -12,8 +12,13 @@ export default function PopularThisWeek() {
   }, []);
 
   return (
-    <>
-      <h1 className="most-popular-title"> Most popular this week</h1>
+    <section className="popular-main">
+      <div className="pop-hero-div">
+        <h1 className="most-popular-title">
+          {" "}
+          Most popular <span className="pop-title-span">this week</span>
+        </h1>
+      </div>
       <section className="popular-section snaps-inline">
         {randomMeals &&
           randomMeals.map((menuItem, index) => (
@@ -39,6 +44,6 @@ export default function PopularThisWeek() {
             </NavLink>
           ))}
       </section>
-    </>
+    </section>
   );
 }
