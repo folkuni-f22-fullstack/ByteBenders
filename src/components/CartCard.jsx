@@ -16,10 +16,10 @@ function CartCard() {
   const [customizeState, setCustomizeState] = useState({});
   let [isPromo, setIsPromo] = useState("");
 
-  // Update cart
-  useEffect(() => {
-    setCartCopy(cartData);
-  }, [cartCopy])
+  // Update cart, !! Utkommenterad pga Infinity Loop !!
+  // useEffect(() => {
+  //   setCartCopy(cartData);
+  // }, [cartCopy])
 
   // Quantity count
   const updateCart = [...cartCopy];
