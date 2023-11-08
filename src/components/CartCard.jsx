@@ -92,7 +92,7 @@ function CartCard() {
   return (
     <>
       <NavLink to="/menu">
-        <BiArrowBack className="BiArrowBack" />
+        <BiArrowBack className="return-arrow-icon" />
       </NavLink>
       <section className="cart-section">
         <p className="cart-count">{cartCopy.length} items in cart</p>
