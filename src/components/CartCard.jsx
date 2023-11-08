@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import menuData from "../data/menu.json";
 import { BiMinus, BiPlus, BiArrowBack } from "react-icons/bi";
-import { BsCart3 } from "react-icons/bs";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { MdLabelOutline } from "react-icons/md";
 import { signal } from "@preact/signals-react";
@@ -14,9 +13,13 @@ function CartCard() {
   // Get item from local storage
   const cartData = JSON.parse(localStorage.getItem("cart")) || [];
   const [cartCopy, setCartCopy] = useState([...cartData]);
-  // let [totalPrice, setTotalPrice] = useState(0)
   const [customizeState, setCustomizeState] = useState({});
   let [isPromo, setIsPromo] = useState("");
+
+  // Update cart
+  useEffect(() => {
+    setCartCopy(cartData);
+  }, [cartCopy])
 
   // Quantity count
   const updateCart = [...cartCopy];
