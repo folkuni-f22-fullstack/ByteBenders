@@ -47,8 +47,8 @@
     background-color: transparent;
 }
 
-.BiMinus,
-.BiPlus {
+.biMinus,
+.biPlus {
     color: white;
     font-size: large;
 }
@@ -222,8 +222,8 @@
         font-size: medium;
     }
 
-    .BiMinus,
-    .BiPlus {
+    .biMinus,
+    .biPlus {
         color: black;
         font-size: 25px;
     }

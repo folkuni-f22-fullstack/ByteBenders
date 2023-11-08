@@ -79,14 +79,14 @@ export default function ProductDetailsRoute() {
                       className="amount-detail-button"
                       onClick={() => updateQuantity(-1)}
                     >
-                      <BiMinus className="BiMinus" />
+                      <BiMinus className="biMinus" />
                     </button>
                     <div className="amount-count">{quantity}</div>
                     <button
                       className="amount-detail-button"
                       onClick={() => updateQuantity(1)}
                     >
-                      <BiPlus className="BiPlus" />
+                      <BiPlus className="biPlus" />
                     </button>
                   </div>
                   <p className="price">{product.price * quantity} :-</p>
