@@ -2,10 +2,9 @@ import DoneOrderCard from "../components/DoneOrderCard";
 import '../styles/OrderCards.css'
 
 export default function DoneOrderRoute() {
-    // TODO: Saknas komponent
     return (
         <>
-            {/* // TODO : Addera class för logotypen */}
+            {/* // TODO : Ska header brukas istället för h1?*/}
             <h1 className="order-logotype">Fish & Friends</h1>
             <br />
             <div className="order-route-header">
