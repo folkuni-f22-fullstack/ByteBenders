@@ -89,13 +89,24 @@ function CartCard() {
     setCartCopy(updateCartComment);
   }
 
+  // Recursively counts items in cart
+  function numberOfCartItems() {
+    let count = 0;
+    cartCopy.forEach(item => {
+      count = count + item.quantity
+    })
+    return count
+  }
+  
   return (
     <>
       <NavLink to="/menu">
         <BiArrowBack className="return-arrow-icon" />
       </NavLink>
       <section className="cart-section">
-        <p className="cart-count">{cartCopy.length} items in cart</p>
+        <p className="cart-count">{
+        numberOfCartItems()
+        } items in cart</p>
         <div className="cart-card-container">
           {cartCopy.length === 0 ? (
             <div className="empty-cart-div">
