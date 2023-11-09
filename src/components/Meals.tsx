@@ -7,10 +7,21 @@ import '../styles/categories.css';
 import CartRoute from '../routes/CartRoute';
 import addToLS from '../utils/addCartLS';
 import { quantity } from '../utils/addCartLS';
+import FilterMeals from './FilterMeals.tsx';
+import { Dish } from '../interfaces/dish.ts';
+import SearchBar from './SearchBar.tsx';
 
 const Meals = () => {
 	const [selectedCategory, setSelectedCartegory] = useState('');
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const [listToShow, setListToShow] = useState([]);
+
+	useEffect(() => {
+		const filteredList = menuData.filter((item) =>
+			selectedCategory ? item.category === selectedCategory : true
+		);
+		setListToShow(filteredList);
+	}, [menuData, selectedCategory]);
 
 	const filteredItems = menuData.filter((item) =>
 		selectedCategory ? item.category === selectedCategory : true
@@ -43,11 +54,8 @@ const Meals = () => {
 	return (
 		<section className='meals-main'>
 			<section className='meals-section'>
-				<section className='category-text-section'>
-					<h4 className='category-header'>Categories</h4>
-					<p className='category-text'>
-						Select a category to explore our menu items
-					</p>
+				<section className='searchbar-section'>
+					<SearchBar />
 				</section>
 				<section className='category-button-section'>
 					<button
@@ -69,7 +77,13 @@ const Meals = () => {
 						Drinks
 					</button>
 				</section>
-				{filteredItems.map((menuItem) => (
+				<FilterMeals
+					list={filteredItems}
+					selectedCategory={selectedCategory}
+					listToShow={listToShow}
+					setListToShow={setListToShow}
+				/>
+				{listToShow.map((menuItem: Dish) => (
 					<div key={menuItem.id} className='meals-card'>
 						<NavLink
 							to={`/menu/${menuItem.id}`}
