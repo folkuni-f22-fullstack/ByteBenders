@@ -2,6 +2,9 @@ import { signal } from '@preact/signals-react';
 import menu from '../data/menu.json';
 import dishMatch from '../utils/search.ts';
 import { ChangeEvent } from 'react';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { BsFilter } from 'react-icons/bs';
+import '../styles/searchBar.css';
 
 const searchString = signal('');
 const fullMenu = signal(menu);
@@ -18,9 +21,22 @@ const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
 	}
 };
 
+// TODO: Lägg in FilterMeals här istället för i Meals
+// TODO: Koppla filter-btn till showFilters-variabeln
+
 const SearchBar = () => {
 	return (
-		<input type='text' id='search-input' onChange={handleSearchChange} />
+		<div className='search-bar'>
+			<AiOutlineSearch />
+			<input
+				type='text'
+				id='search-input'
+				onChange={handleSearchChange}
+			/>
+			<button className='filter-btn'>
+				<BsFilter />
+			</button>
+		</div>
 	);
 };
 

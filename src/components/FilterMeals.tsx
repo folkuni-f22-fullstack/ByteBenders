@@ -60,6 +60,10 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 		}
 	};
 
+	// TODO: Korta ner FilterMeals så att den bara returnerar filter-select
+	// TODO: Skapa state-variabel i Meals för att toggla visibility på filter
+	// TODO: fixa så att filtrena körs på hela menyn istället för inuti kategorierna
+
 	return (
 		<div
 			className={

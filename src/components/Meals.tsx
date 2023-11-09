@@ -9,6 +9,7 @@ import addToLS from '../utils/addCartLS';
 import { quantity } from '../utils/addCartLS';
 import FilterMeals from './FilterMeals.tsx';
 import { Dish } from '../interfaces/dish.ts';
+import SearchBar from './SearchBar.tsx';
 
 const Meals = () => {
 	const [selectedCategory, setSelectedCartegory] = useState('');
@@ -53,11 +54,8 @@ const Meals = () => {
 	return (
 		<section className='meals-main'>
 			<section className='meals-section'>
-				<section className='category-text-section'>
-					<h4 className='category-header'>Categories</h4>
-					<p className='category-text'>
-						Select a category to explore our menu items
-					</p>
+				<section className='searchbar-section'>
+					<SearchBar />
 				</section>
 				<section className='category-button-section'>
 					<button
