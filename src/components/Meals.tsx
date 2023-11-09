@@ -1,13 +1,15 @@
 import menuData from '../data/menu.json';
 import { useState, useEffect } from 'react';
+import { signal } from '@preact/signals-react';
 import { NavLink } from 'react-router-dom';
 import { BsCart3 } from 'react-icons/bs';
 import '../styles/meals.css';
 import '../styles/categories.css';
 import CartRoute from '../routes/CartRoute';
-import addToLS from "../utils/addCartLS";
+import addToLS from '../utils/addCartLS';
 import { quantity } from '../utils/addCartLS';
 import FilterMeals from './FilterMeals.tsx';
+import { listToShow } from './FilterMeals.tsx';
 
 const Meals = () => {
 	const [selectedCategory, setSelectedCartegory] = useState('');
@@ -17,6 +19,9 @@ const Meals = () => {
 		selectedCategory ? item.category === selectedCategory : true
 	);
 
+	// const listToShow = signal(filteredItems);
+	// Skapa list-signal för vilka rätter som ska visas
+
 	useEffect(() => {
 		// Lägg till en eventlyssnare för att upptäcka fönsterstorleksändringar
 		const handleResize = () => {
@@ -25,21 +30,23 @@ const Meals = () => {
 
 		window.addEventListener('resize', handleResize);
 
-    // Ta bort eventlyssnaren när komponenten rensas
-    return () => {
-      window.removeEventListener("resize", handleResize)
-    };
-  }, []);
+		// Ta bort eventlyssnaren när komponenten rensas
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
 
-  // Set value to 1
-  function refreshQuantity() {
-      quantity.value = 1
-  }
-  
-  // Add to local storage
-  function handleAddToCart(id) {
-    addToLS(id)
-  }
+	// Set value to 1
+	function refreshQuantity() {
+		quantity.value = 1;
+	}
+
+	// Add to local storage
+	function handleAddToCart(id) {
+		addToLS(id);
+	}
+
+	console.log('listToShow är: ', listToShow.value);
 
 	return (
 		<section className='meals-main'>
@@ -70,12 +77,17 @@ const Meals = () => {
 						Drinks
 					</button>
 				</section>
+				<FilterMeals
+					list={filteredItems}
+					selectedCategory={selectedCategory}
+					// listToShow={listToShow}
+				/>
 				{filteredItems.map((menuItem) => (
 					<div key={menuItem.id} className='meals-card'>
 						<NavLink
 							to={`/menu/${menuItem.id}`}
 							className='meals-link'
-              onClick={refreshQuantity}
+							onClick={refreshQuantity}
 						>
 							<img
 								src={menuItem.image}
@@ -89,7 +101,10 @@ const Meals = () => {
 								</p>
 							</div>
 						</NavLink>
-						<button className='meals-btn' onClick={() => handleAddToCart(menuItem.id)}>
+						<button
+							className='meals-btn'
+							onClick={() => handleAddToCart(menuItem.id)}
+						>
 							Add to cart <BsCart3 className='btn-icon' />
 						</button>
 					</div>
