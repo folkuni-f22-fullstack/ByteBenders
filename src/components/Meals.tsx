@@ -1,6 +1,5 @@
 import menuData from '../data/menu.json';
 import { useState, useEffect } from 'react';
-import { signal } from '@preact/signals-react';
 import { NavLink } from 'react-router-dom';
 import { BsCart3 } from 'react-icons/bs';
 import '../styles/meals.css';
@@ -9,18 +8,23 @@ import CartRoute from '../routes/CartRoute';
 import addToLS from '../utils/addCartLS';
 import { quantity } from '../utils/addCartLS';
 import FilterMeals from './FilterMeals.tsx';
-import { listToShow } from './FilterMeals.tsx';
+import { Dish } from '../interfaces/dish.ts';
 
 const Meals = () => {
 	const [selectedCategory, setSelectedCartegory] = useState('');
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const [listToShow, setListToShow] = useState([]);
+
+	useEffect(() => {
+		const filteredList = menuData.filter((item) =>
+			selectedCategory ? item.category === selectedCategory : true
+		);
+		setListToShow(filteredList);
+	}, [menuData, selectedCategory]);
 
 	const filteredItems = menuData.filter((item) =>
 		selectedCategory ? item.category === selectedCategory : true
 	);
-
-	// const listToShow = signal(filteredItems);
-	// Skapa list-signal för vilka rätter som ska visas
 
 	useEffect(() => {
 		// Lägg till en eventlyssnare för att upptäcka fönsterstorleksändringar
@@ -42,11 +46,9 @@ const Meals = () => {
 	}
 
 	// Add to local storage
-	function handleAddToCart(id) {
+	function handleAddToCart(id: number) {
 		addToLS(id);
 	}
-
-	console.log('listToShow är: ', listToShow.value);
 
 	return (
 		<section className='meals-main'>
@@ -80,9 +82,10 @@ const Meals = () => {
 				<FilterMeals
 					list={filteredItems}
 					selectedCategory={selectedCategory}
-					// listToShow={listToShow}
+					listToShow={listToShow}
+					setListToShow={setListToShow}
 				/>
-				{filteredItems.map((menuItem) => (
+				{listToShow.map((menuItem: Dish) => (
 					<div key={menuItem.id} className='meals-card'>
 						<NavLink
 							to={`/menu/${menuItem.id}`}

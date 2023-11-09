@@ -1,60 +1,48 @@
 import { useState, useEffect } from 'react';
-import { signal, effect } from '@preact/signals-react';
+import { Dish } from '../interfaces/dish';
+import { FilterMealsProps } from '../interfaces/filterMealsProps';
 import '../styles/filter.css';
-// import { listToShow } from './Meals.tsx';
-import { Signal } from '@preact/signals-react';
 
-export interface Dish {
-	image: string;
-	id: number;
-	name: string;
-	price: number;
-	category: string;
-	comment: string;
-	subcategory: string[];
-	description: string;
-	allergenes: string[];
-}
+const filterMenuBySubcategory = (
+	selectedFilters: string[],
+	list: Dish[],
+	setListToShow: (list: Dish[] | null) => void
+) => {
+	// OM några filter är iklickade -> mappa genom filtren och plocka fram de objekten som matchar den subkategorin och stoppa in i ny filtrerad lista
+	if (selectedFilters?.length > 0) {
+		const filteredList = [] as Dish[];
+		selectedFilters?.map((filter) => {
+			const filteredItems: Dish[] = list.filter((item) => {
+				return item.subcategory.includes(filter);
+			});
 
-export const listToShow: Signal<Dish[] | null> = signal(null);
+			filteredList.push(...filteredItems);
+		});
 
-interface FilterMealsProps {
-	list: Dish[];
-	selectedCategory: string;
-	// listToShow: Signal<Dish[]>;
-	// listToShow: Dish[];
-}
+		// Uppdatera listToShow till den filtrerade listan
+		setListToShow(filteredList);
+	} else {
+		// ANNARS ->
+		// Uppdatera listToShow till ursprungslistan
+		setListToShow(list);
+	}
+};
 
 const FilterMeals: React.FC<FilterMealsProps> = ({
 	list,
 	selectedCategory,
-	// listToShow,
+	listToShow,
+	setListToShow,
 }) => {
-	// const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+	const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 	const [showCategories, setShowCategories] = useState(false);
-	listToShow.value = list;
-	const selectedFilters: Signal<string[] | null> = signal(null);
 
-	effect(() => {
+	useEffect(() => {
 		// för varje item i selectedFilters, lägg till de rätterna som matchar subcategory
-		if (selectedFilters.value?.length) {
-			if (selectedFilters.value?.length > 0) {
-				const filteredList = [] as Dish[];
-				selectedFilters.value?.map((filter) => {
-					const filteredItems: Dish[] = list.filter((item) => {
-						return item.subcategory.includes(filter);
-					});
+		filterMenuBySubcategory(selectedFilters, list, setListToShow);
 
-					filteredList.push(...filteredItems);
-				});
-
-				// Uppdatera listToShow till den filtrerade listan
-				listToShow.value = filteredList;
-			} else {
-				listToShow.value = list;
-			}
-		}
-	});
+		console.log('listToShow är: ', listToShow);
+	}, [selectedFilters]);
 
 	// Skapa en lista med alla subkategorier, bara en av varje
 	const subcategories: string[] = [
@@ -62,27 +50,15 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 	];
 
 	// Lägger till subkategorin selectedFilters-arrayen om den klickas på, klickar man igen tas den bort
-	// const handleCategoryClick = (category: string) => {
-	// 	if (selectedFilters.includes(category)) {
-	// 		setSelectedFilters(
-	// 			selectedFilters.filter((filter) => filter !== category)
-	// 		);
-	// 	} else {
-	// 		setSelectedFilters([...selectedFilters, category]);
-	// 	}
-	// };
 	const handleCategoryClick = (category: string) => {
-		if (selectedFilters.value?.includes(category)) {
-			selectedFilters.value = selectedFilters.value.filter(
-				(filter: string) => filter !== category
+		if (selectedFilters?.includes(category)) {
+			setSelectedFilters(
+				selectedFilters.filter((filter: string) => filter !== category)
 			);
 		} else {
-			selectedFilters.value = [...selectedFilters.value, category];
+			setSelectedFilters([...selectedFilters, category]);
 		}
 	};
-
-	// console.log('listToShow är: ', listToShow.value);
-	// console.log('selectedCategory är: ', selectedCategory);
 
 	return (
 		<div
@@ -97,17 +73,17 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 			</button>
 			{showCategories && selectedCategory == 'meals' && (
 				<div className='filter-select'>
-					{subcategories.map((category) => (
+					{subcategories.map((category: string) => (
 						<button
 							key={category}
 							onClick={() => handleCategoryClick(category)}
 							className={
-								selectedFilters.value?.includes(category)
+								selectedFilters?.includes(category)
 									? 'selected-filter'
 									: ''
 							}
 						>
-							{!selectedFilters.value?.includes(category)
+							{!selectedFilters?.includes(category)
 								? category
 								: category + 'X'}
 						</button>
