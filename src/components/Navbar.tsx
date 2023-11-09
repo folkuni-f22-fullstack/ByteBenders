@@ -4,7 +4,7 @@ import '../styles/navbar.css';
 import MenuLink from './MenuLink.tsx';
 import { loggedIn } from '../routes/LoginRoute.tsx';
 import { effect, signal } from '@preact/signals-react';
-
+import { useNavigate } from 'react-router-dom'
 // variabel för att spara vilka ikoner som ska synas på navbaren
 const linksToShow = signal(linkObjects);
 
@@ -18,11 +18,13 @@ effect(() => {
 });
 
 const NavBar = () => {
+	const navigate = useNavigate()
 	const modal = useRef<HTMLDialogElement | null>(null);
 
 	const handleLogout = () => {
 		closeModal();
 		loggedIn.value = false;
+		navigate("")
 	};
 
 	const confirmLogout = () => {
