@@ -7,14 +7,27 @@ import '../styles/categories.css';
 import CartRoute from '../routes/CartRoute';
 import addToLS from '../utils/addCartLS';
 import { quantity } from '../utils/addCartLS';
+import { Dish } from '../interfaces/dish.ts';
+import SearchBar from './SearchBar.tsx';
+import { filterByCategory } from '../utils/filter.ts';
 
 const Meals = () => {
 	const [selectedCategory, setSelectedCartegory] = useState('');
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const [listToShow, setListToShow] = useState<Dish[]>([]);
 
-	const filteredItems = menuData.filter((item) =>
-		selectedCategory ? item.category === selectedCategory : true
-	);
+	// Updaterar listToShow om menyn eller vald kategori ändras
+	useEffect(() => {
+		setListToShow(filteredItems);
+	}, [menuData, selectedCategory]);
+
+	// Ursprungslistan som skickas med till sök och filter-funktionerna
+	const filteredItems: Dish[] = filterByCategory(selectedCategory);
+
+	// Lista med bara rätter, för de ska gå att filtrera, ej dryckerna
+	const allButDrinks = menuData.filter(
+		(item) => item.category !== 'drinks'
+	) as Dish[];
 
 	useEffect(() => {
 		// Lägg till en eventlyssnare för att upptäcka fönsterstorleksändringar
@@ -43,11 +56,15 @@ const Meals = () => {
 	return (
 		<section className='meals-main'>
 			<section className='meals-section'>
-				<section className='category-text-section'>
-					<h4 className='category-header'>Categories</h4>
-					<p className='category-text'>
-						Select a category to explore our menu items
-					</p>
+				<section className='searchbar-section'>
+					<SearchBar
+						list={filteredItems}
+						// setListToShow={setListToShow}
+						setListToShow={(newList) =>
+							setListToShow(newList || [])
+						}
+						allButDrinks={allButDrinks}
+					/>
 				</section>
 				<section className='category-button-section'>
 					<button
@@ -69,7 +86,7 @@ const Meals = () => {
 						Drinks
 					</button>
 				</section>
-				{filteredItems.map((menuItem) => (
+				{listToShow.map((menuItem: Dish) => (
 					<div key={menuItem.id} className='meals-card'>
 						<NavLink
 							to={`/menu/${menuItem.id}`}
