@@ -7,25 +7,27 @@ import '../styles/categories.css';
 import CartRoute from '../routes/CartRoute';
 import addToLS from '../utils/addCartLS';
 import { quantity } from '../utils/addCartLS';
-import FilterMeals from './FilterMeals.tsx';
 import { Dish } from '../interfaces/dish.ts';
 import SearchBar from './SearchBar.tsx';
+import { filterByCategory } from '../utils/filter.ts';
 
 const Meals = () => {
 	const [selectedCategory, setSelectedCartegory] = useState('');
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-	const [listToShow, setListToShow] = useState([]);
+	const [listToShow, setListToShow] = useState<Dish[]>([]);
 
+	// Updaterar listToShow om menyn eller vald kategori ändras
 	useEffect(() => {
-		const filteredList = menuData.filter((item) =>
-			selectedCategory ? item.category === selectedCategory : true
-		);
-		setListToShow(filteredList);
+		setListToShow(filteredItems);
 	}, [menuData, selectedCategory]);
 
-	const filteredItems = menuData.filter((item) =>
-		selectedCategory ? item.category === selectedCategory : true
-	);
+	// Ursprungslistan som skickas med till sök och filter-funktionerna
+	const filteredItems: Dish[] = filterByCategory(selectedCategory);
+
+	// Lista med bara rätter, för de ska gå att filtrera, ej dryckerna
+	const allButDrinks = menuData.filter(
+		(item) => item.category !== 'drinks'
+	) as Dish[];
 
 	useEffect(() => {
 		// Lägg till en eventlyssnare för att upptäcka fönsterstorleksändringar
@@ -55,7 +57,14 @@ const Meals = () => {
 		<section className='meals-main'>
 			<section className='meals-section'>
 				<section className='searchbar-section'>
-					<SearchBar />
+					<SearchBar
+						list={filteredItems}
+						// setListToShow={setListToShow}
+						setListToShow={(newList) =>
+							setListToShow(newList || [])
+						}
+						allButDrinks={allButDrinks}
+					/>
 				</section>
 				<section className='category-button-section'>
 					<button
@@ -77,12 +86,6 @@ const Meals = () => {
 						Drinks
 					</button>
 				</section>
-				<FilterMeals
-					list={filteredItems}
-					selectedCategory={selectedCategory}
-					listToShow={listToShow}
-					setListToShow={setListToShow}
-				/>
 				{listToShow.map((menuItem: Dish) => (
 					<div key={menuItem.id} className='meals-card'>
 						<NavLink
