@@ -1,30 +1,37 @@
-import { signal } from '@preact/signals-react';
+import { useState } from 'react';
 import menu from '../data/menu.json';
 import dishMatch from '../utils/search.ts';
 import { ChangeEvent } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { BsFilter } from 'react-icons/bs';
+import FilterMeals from './FilterMeals.tsx';
+import { SearchBarProps } from '../interfaces/search-and-filter-props.ts';
+import { Dish } from '../interfaces/dish.ts';
 import '../styles/searchBar.css';
 
-const searchString = signal('');
-const fullMenu = signal(menu);
-export const searchList = signal(fullMenu.value);
+const SearchBar: React.FC<SearchBarProps> = ({
+	list,
+	setListToShow,
+	allButDrinks,
+}) => {
+	const [showFilters, setShowFilters] = useState(false);
 
-const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-	searchString.value = event.target.value;
-	if (searchString.value) {
-		searchList.value = fullMenu.value.filter((dish) =>
-			dishMatch(dish.name, searchString.value)
-		);
-	} else {
-		searchList.value = fullMenu.value;
-	}
-};
+	const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const searchString = event.target.value;
+		if (searchString) {
+			const searchList: Dish[] | undefined = menu.filter((dish) =>
+				dishMatch(dish.name, searchString)
+			) as Dish[];
+			if (searchList) {
+				setListToShow(searchList);
+			} else {
+				setListToShow([]);
+			}
+		} else {
+			setListToShow(list);
+		}
+	};
 
-// TODO: Lägg in FilterMeals här istället för i Meals
-// TODO: Koppla filter-btn till showFilters-variabeln
-
-const SearchBar = () => {
 	return (
 		<div className='search-bar'>
 			<AiOutlineSearch />
@@ -33,9 +40,18 @@ const SearchBar = () => {
 				id='search-input'
 				onChange={handleSearchChange}
 			/>
-			<button className='filter-btn'>
+			<button
+				className='filter-btn'
+				onClick={() => setShowFilters(!showFilters)}
+			>
 				<BsFilter />
 			</button>
+			<FilterMeals
+				list={list}
+				setListToShow={setListToShow}
+				showFilters={showFilters}
+				allButDrinks={allButDrinks}
+			/>
 		</div>
 	);
 };

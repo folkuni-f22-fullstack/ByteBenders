@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react';
 import { Dish } from '../interfaces/dish';
-import { FilterMealsProps } from '../interfaces/filterMealsProps';
+import { FilterMealsProps } from '../interfaces/search-and-filter-props';
 import '../styles/filter.css';
 
 const filterMenuBySubcategory = (
 	selectedFilters: string[],
 	list: Dish[],
-	setListToShow: (list: Dish[] | null) => void
+	setListToShow: (list: Dish[] | null) => void,
+	allButDrinks: Dish[]
 ) => {
 	// OM några filter är iklickade -> mappa genom filtren och plocka fram de objekten som matchar den subkategorin och stoppa in i ny filtrerad lista
 	if (selectedFilters?.length > 0) {
 		const filteredList = [] as Dish[];
 		selectedFilters?.map((filter) => {
-			const filteredItems: Dish[] = list.filter((item) => {
+			const filteredItems: Dish[] = allButDrinks.filter((item) => {
 				return item.subcategory.includes(filter);
 			});
 
@@ -30,23 +31,25 @@ const filterMenuBySubcategory = (
 
 const FilterMeals: React.FC<FilterMealsProps> = ({
 	list,
-	selectedCategory,
-	listToShow,
 	setListToShow,
+	showFilters,
+	allButDrinks,
 }) => {
 	const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
-	const [showCategories, setShowCategories] = useState(false);
 
 	useEffect(() => {
 		// för varje item i selectedFilters, lägg till de rätterna som matchar subcategory
-		filterMenuBySubcategory(selectedFilters, list, setListToShow);
-
-		console.log('listToShow är: ', listToShow);
+		filterMenuBySubcategory(
+			selectedFilters,
+			list,
+			setListToShow,
+			allButDrinks
+		);
 	}, [selectedFilters]);
 
 	// Skapa en lista med alla subkategorier, bara en av varje
 	const subcategories: string[] = [
-		...new Set(list.flatMap((dish) => dish.subcategory)),
+		...new Set(allButDrinks.flatMap((dish) => dish.subcategory)),
 	];
 
 	// Lägger till subkategorin selectedFilters-arrayen om den klickas på, klickar man igen tas den bort
@@ -65,17 +68,8 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 	// TODO: fixa så att filtrena körs på hela menyn istället för inuti kategorierna
 
 	return (
-		<div
-			className={
-				selectedCategory == 'meals'
-					? 'filter-container'
-					: 'filter-container hidden'
-			}
-		>
-			<button onClick={() => setShowCategories(!showCategories)}>
-				Filter
-			</button>
-			{showCategories && selectedCategory == 'meals' && (
+		<div>
+			{showFilters && (
 				<div className='filter-select'>
 					{subcategories.map((category: string) => (
 						<button
