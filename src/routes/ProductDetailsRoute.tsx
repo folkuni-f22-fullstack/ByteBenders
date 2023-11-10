@@ -87,7 +87,7 @@ export default function ProductDetailsRoute() {
               Add to Cart
             </button>
           </section>
-          {windowWidth > 1200 ? (
+          {windowWidth > 798 ? (
             <div className="cart-route-container">
               <CartRoute />
             </div>
