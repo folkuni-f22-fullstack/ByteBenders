@@ -1,29 +1,61 @@
-import { useRef } from 'react';
-import { linkObjects, linkObjectsLoggedIn } from '../constants/nav-links.tsx';
+import { useRef, useState, useEffect } from 'react';
 import '../styles/navbar.css';
 import MenuLink from './MenuLink.tsx';
-import { loggedIn } from '../routes/LoginRoute.tsx';
-import { effect, signal } from '@preact/signals-react';
 import { useNavigate } from 'react-router-dom'
-// variabel för att spara vilka ikoner som ska synas på navbaren
-const linksToShow = signal(linkObjects);
-
-// Uppdaterar vilka ikoner som ska synas beroende på vilket värde loggedIn-variabeln har
-effect(() => {
-	if (loggedIn.value === true) {
-		linksToShow.value = linkObjectsLoggedIn;
-	} else if (loggedIn.value === false) {
-		linksToShow.value = linkObjects;
-	}
-});
+import { PiForkKnifeFill } from 'react-icons/pi';
+import { BsCart3, BsInfoLg, BsFillPersonFill } from 'react-icons/bs';
+import { BiSolidPencil } from 'react-icons/bi';
+import { GrUnorderedList } from 'react-icons/gr';
+import { MdDone, MdLogout } from 'react-icons/md';
+import { useRecoilState } from 'recoil';
+import { loginState } from '../recoil/loginState.js'
+import { cartState } from '../recoil/cartNumberState.js'
+import { getCartQuantity } from '../utils/general.ts'
 
 const NavBar = () => {
+	
+	const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState)
+	const [cartItems, setCartItems] = useRecoilState(cartState)
+	const [linksToShow, setLinksToShow] = useState([])
 	const navigate = useNavigate()
 	const modal = useRef<HTMLDialogElement | null>(null);
+	
+	// Lägger in antal i kundvagn vid komponent-mount
+	useEffect(() => {
+		setCartItems(getCartQuantity())
+	})
+
+	// Ikoner för navbaren utan inloggning
+	const linkObjects = [
+		{ icon: <PiForkKnifeFill />, text: 'Menu', to: 'menu' },
+		{ icon: <BsCart3 />, text: `Cart (${cartItems})`, to: 'cart' },
+		{ icon: <BsInfoLg />, text: 'About', to: 'information' },
+		{ icon: <BsFillPersonFill />, text: 'Log in', to: 'login' },
+	]
+	
+	const updatedLinkObjects = linkObjects.map(link => {
+		if (link.text === 'Cart') {
+		  return { ...link, text: `Cart (${cartItems})` };
+		}
+		return link;
+	  });
+	
+	// Ikoner för navbaren efter inloggning
+	const linkObjectsLoggedIn = [
+		{ icon: <BiSolidPencil />, text: 'Received', to: 'recieved' },
+		{ icon: <GrUnorderedList />, text: 'Current', to: 'current' },
+		{ icon: <MdDone />, text: 'Done', to: 'done' },
+		{ icon: <MdLogout />, text: 'Log out', to: '#' },
+	];
+
+	useEffect(() => {
+		setLinksToShow(isLoggedIn ? linkObjectsLoggedIn : updatedLinkObjects)
+	  }, [isLoggedIn, cartItems]);
+
 
 	const handleLogout = () => {
 		closeModal();
-		loggedIn.value = false;
+		setIsLoggedIn(false);
 		navigate("")
 	};
 
@@ -51,7 +83,7 @@ const NavBar = () => {
 
 	return (
 		<nav className='navbar'>
-			{linksToShow.value.map((link) => (
+			{linksToShow && linksToShow.map((link) => (
 				<div key={link.text} className='link-container'>
 					{link.text === 'Log out' ? (
 						<button onClick={confirmLogout}>

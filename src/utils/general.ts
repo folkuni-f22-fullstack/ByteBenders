@@ -25,3 +25,13 @@ export function setKeyFromLS(key, value) {
         return
     }
 }
+
+export function getCartQuantity() {
+    let count = 0;
+    const cart = JSON.parse(localStorage.getItem('cart'))
+
+    cart.forEach(item => {
+        count = count + item.quantity
+    })
+    return count
+}
