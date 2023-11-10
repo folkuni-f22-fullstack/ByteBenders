@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import menu from '../data/menu.json';
 import dishMatch from '../utils/search.ts';
 import { ChangeEvent } from 'react';
@@ -15,10 +15,27 @@ const SearchBar: React.FC<SearchBarProps> = ({
 	allButDrinks,
 }) => {
 	const [showFilters, setShowFilters] = useState(false);
+	const [searchMode, setSearchMode] = useState(false);
+	const [searchInput, setSearchInput] = useState('');
+
+	useEffect(() => {
+		if (searchInput) {
+			setSearchMode(true);
+		} else {
+			setSearchMode(false);
+		}
+	}, [searchInput]);
+
+	useEffect(() => {
+		if (!searchMode) {
+			setSearchInput('');
+		}
+	}, [searchMode]);
 
 	const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const searchString = event.target.value;
-		if (searchString) {
+		setSearchInput(searchString);
+		if (event.target.value) {
 			const searchList: Dish[] | undefined = menu.filter((dish) =>
 				dishMatch(dish.name, searchString)
 			) as Dish[];
@@ -34,23 +51,29 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
 	return (
 		<div className='search-bar'>
-			<AiOutlineSearch />
-			<input
-				type='text'
-				id='search-input'
-				onChange={handleSearchChange}
-			/>
-			<button
-				className='filter-btn'
-				onClick={() => setShowFilters(!showFilters)}
-			>
-				<BsFilter />
-			</button>
+			<div className='search-input-container'>
+				<AiOutlineSearch />
+				<input
+					type='text'
+					id='search-input'
+					onChange={handleSearchChange}
+					onFocus={() => setShowFilters(false)}
+					value={searchInput}
+				/>
+				<button
+					className='filter-btn'
+					onClick={() => setShowFilters(!showFilters)}
+				>
+					<BsFilter />
+				</button>
+			</div>
 			<FilterMeals
 				list={list}
 				setListToShow={setListToShow}
 				showFilters={showFilters}
 				allButDrinks={allButDrinks}
+				searchMode={searchMode}
+				setSearchMode={setSearchMode}
 			/>
 		</div>
 	);

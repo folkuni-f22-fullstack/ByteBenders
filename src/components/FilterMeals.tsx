@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Dish } from '../interfaces/dish';
 import { FilterMealsProps } from '../interfaces/search-and-filter-props';
-import '../styles/filter.css';
 
 const filterMenuBySubcategory = (
 	selectedFilters: string[],
@@ -34,6 +33,8 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 	setListToShow,
 	showFilters,
 	allButDrinks,
+	searchMode,
+	setSearchMode,
 }) => {
 	const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
@@ -47,6 +48,14 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 		);
 	}, [selectedFilters]);
 
+	useEffect(() => {
+		if (searchMode) {
+			setSelectedFilters([]);
+		}
+	}, [searchMode]);
+
+	console.log('selectedFilters är: ', selectedFilters);
+
 	// Skapa en lista med alla subkategorier, bara en av varje
 	const subcategories: string[] = [
 		...new Set(allButDrinks.flatMap((dish) => dish.subcategory)),
@@ -54,6 +63,7 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 
 	// Lägger till subkategorin selectedFilters-arrayen om den klickas på, klickar man igen tas den bort
 	const handleCategoryClick = (category: string) => {
+		setSearchMode(false);
 		if (selectedFilters?.includes(category)) {
 			setSelectedFilters(
 				selectedFilters.filter((filter: string) => filter !== category)
@@ -63,12 +73,8 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 		}
 	};
 
-	// TODO: Korta ner FilterMeals så att den bara returnerar filter-select
-	// TODO: Skapa state-variabel i Meals för att toggla visibility på filter
-	// TODO: fixa så att filtrena körs på hela menyn istället för inuti kategorierna
-
 	return (
-		<div>
+		<>
 			{showFilters && (
 				<div className='filter-select'>
 					{subcategories.map((category: string) => (
@@ -88,7 +94,7 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 					))}
 				</div>
 			)}
-		</div>
+		</>
 	);
 };
 
