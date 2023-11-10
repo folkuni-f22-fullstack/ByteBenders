@@ -7,6 +7,7 @@ import addToLS from "../utils/addCartLS";
 import { quantity } from "../utils/addCartLS.tsx";
 import "../styles/details.css";
 import CartRoute from "./CartRoute.tsx";
+import WindowSizeListener from "../utils/WindowListener.tsx";
 
 // details code imported and implemented with original
 
@@ -14,6 +15,7 @@ export default function ProductDetailsRoute() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   // let [quantity, setQuantity] = useState(1);
+  const windowWidth = WindowSizeListener();
 
   function findProduct(id) {
     return menuData.find((product) => product.id == id);
@@ -85,7 +87,11 @@ export default function ProductDetailsRoute() {
               Add to Cart
             </button>
           </section>
-          <CartRoute />
+          {windowWidth > 1200 ? (
+            <div className="cart-route-container">
+              <CartRoute />
+            </div>
+          ) : null}
         </main>
       )}
     </>
