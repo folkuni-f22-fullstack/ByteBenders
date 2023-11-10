@@ -18,6 +18,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 	const [searchMode, setSearchMode] = useState(false);
 	const [searchInput, setSearchInput] = useState('');
 
+	// searchMode kontrollerar om man ska söka eller filtrera
 	useEffect(() => {
 		if (searchInput) {
 			setSearchMode(true);
@@ -26,16 +27,18 @@ const SearchBar: React.FC<SearchBarProps> = ({
 		}
 	}, [searchInput]);
 
+	// searchMode sätts till false när man klickar på ett filter i FilterMeals -> då töms input-fältet
 	useEffect(() => {
 		if (!searchMode) {
 			setSearchInput('');
 		}
 	}, [searchMode]);
 
+	// Söker genom menyn och updaterar listToShow med rätterna som matchar. Om söksträngen är tom sätts listToShow till ursprungslistan
 	const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const searchString = event.target.value;
 		setSearchInput(searchString);
-		if (event.target.value) {
+		if (searchString) {
 			const searchList: Dish[] | undefined = menu.filter((dish) =>
 				dishMatch(dish.name, searchString)
 			) as Dish[];

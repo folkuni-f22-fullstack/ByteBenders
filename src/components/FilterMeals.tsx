@@ -1,32 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Dish } from '../interfaces/dish';
 import { FilterMealsProps } from '../interfaces/search-and-filter-props';
-
-const filterMenuBySubcategory = (
-	selectedFilters: string[],
-	list: Dish[],
-	setListToShow: (list: Dish[] | null) => void,
-	allButDrinks: Dish[]
-) => {
-	// OM några filter är iklickade -> mappa genom filtren och plocka fram de objekten som matchar den subkategorin och stoppa in i ny filtrerad lista
-	if (selectedFilters?.length > 0) {
-		const filteredList = [] as Dish[];
-		selectedFilters?.map((filter) => {
-			const filteredItems: Dish[] = allButDrinks.filter((item) => {
-				return item.subcategory.includes(filter);
-			});
-
-			filteredList.push(...filteredItems);
-		});
-
-		// Uppdatera listToShow till den filtrerade listan
-		setListToShow(filteredList);
-	} else {
-		// ANNARS ->
-		// Uppdatera listToShow till ursprungslistan
-		setListToShow(list);
-	}
-};
+import { updateSelectedFilters, filterBySubcategory } from '../utils/filter';
 
 const FilterMeals: React.FC<FilterMealsProps> = ({
 	list,
@@ -40,56 +14,45 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 
 	useEffect(() => {
 		// för varje item i selectedFilters, lägg till de rätterna som matchar subcategory
-		filterMenuBySubcategory(
-			selectedFilters,
-			list,
-			setListToShow,
-			allButDrinks
-		);
+		filterBySubcategory(selectedFilters, list, setListToShow, allButDrinks);
 	}, [selectedFilters]);
 
 	useEffect(() => {
 		if (searchMode) {
 			setSelectedFilters([]);
+			//tömmer filter när man skriver i sökfältet
 		}
 	}, [searchMode]);
-
-	console.log('selectedFilters är: ', selectedFilters);
 
 	// Skapa en lista med alla subkategorier, bara en av varje
 	const subcategories: string[] = [
 		...new Set(allButDrinks.flatMap((dish) => dish.subcategory)),
 	];
 
-	// Lägger till subkategorin selectedFilters-arrayen om den klickas på, klickar man igen tas den bort
+	// Lägger till subkategorin i selectedFilters-arrayen om den klickas på, klickar man igen tas den bort
 	const handleCategoryClick = (category: string) => {
-		setSearchMode(false);
-		if (selectedFilters?.includes(category)) {
-			setSelectedFilters(
-				selectedFilters.filter((filter: string) => filter !== category)
-			);
-		} else {
-			setSelectedFilters([...selectedFilters, category]);
-		}
+		setSearchMode(false); // <- tömmer sökfältet
+		const filteredList = updateSelectedFilters(selectedFilters, category);
+		setSelectedFilters(filteredList);
 	};
 
 	return (
 		<>
 			{showFilters && (
 				<div className='filter-select'>
-					{subcategories.map((category: string) => (
+					{subcategories.map((subcategory: string) => (
 						<button
-							key={category}
-							onClick={() => handleCategoryClick(category)}
+							key={subcategory}
+							onClick={() => handleCategoryClick(subcategory)}
 							className={
-								selectedFilters?.includes(category)
+								selectedFilters?.includes(subcategory)
 									? 'selected-filter'
 									: ''
 							}
 						>
-							{!selectedFilters?.includes(category)
-								? category
-								: category + 'X'}
+							{!selectedFilters?.includes(subcategory)
+								? subcategory
+								: subcategory + 'X'}
 						</button>
 					))}
 				</div>
