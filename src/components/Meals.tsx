@@ -6,21 +6,25 @@ import '../styles/meals.css';
 import '../styles/categories.css';
 import CartRoute from '../routes/CartRoute';
 import addToLS from '../utils/addCartLS';
-import { quantity } from '../utils/addCartLS';
 import FilterMeals from './FilterMeals.tsx';
 import { Dish } from '../interfaces/dish.ts';
 import SearchBar from './SearchBar.tsx';
+import { useRecoilState } from "recoil"
+import { cartState } from "../../src/utils/states.js"
 
 const Meals = () => {
 	const [selectedCategory, setSelectedCartegory] = useState('');
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 	const [listToShow, setListToShow] = useState([]);
+	const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+	const [cartCopy, setCartCopy] = useState([...cartData]);
+	const [isCartEmpty, setIsCartEmpty] = useRecoilState(cartState)
 
 	useEffect(() => {
 		const filteredList = menuData.filter((item) =>
 			selectedCategory ? item.category === selectedCategory : true
 		);
-		setListToShow(filteredList);
+		setListToShow(filteredList);		
 	}, [menuData, selectedCategory]);
 
 	const filteredItems = menuData.filter((item) =>
@@ -40,6 +44,7 @@ const Meals = () => {
 			window.removeEventListener('resize', handleResize);
 		};
 	}, []);
+	
 
 	// Set value to 1
 	function refreshQuantity() {
@@ -49,7 +54,8 @@ const Meals = () => {
 	// Add to local storage
 	function handleAddToCart(id: number) {
 		addToLS(id);
-	}
+		setIsCartEmpty(!isCartEmpty)
+	  }
 
 	return (
 		<section className='meals-main'>

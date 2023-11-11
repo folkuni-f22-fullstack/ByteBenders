@@ -13,6 +13,7 @@ import LandingPage from "./components/LandingPage.tsx";
 import RecOrderRoute from "./routes/RecOrderRoute.tsx";
 import CurrOrderRoute from "./routes/CurrOrderRoute.tsx";
 import DoneOrderRoute from "./routes/DoneOrderRoute.tsx";
+import { RecoilRoot } from "recoil";
 const router = createBrowserRouter([
   {
     path: "",
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
       },
       {
         path: "current",
-        element: <CurrOrderRoute/>
+        element: <CurrOrderRoute />
       },
       {
         path: "done",
@@ -63,6 +64,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RecoilRoot>
+      <RouterProvider router={router} />
+    </RecoilRoot>
   </React.StrictMode>
 );

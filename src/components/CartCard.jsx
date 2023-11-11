@@ -6,6 +6,8 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { MdLabelOutline } from "react-icons/md";
 import { signal } from "@preact/signals-react";
 import SendCartData from "./CartSendDb";
+import { useRecoilState } from "recoil"
+import { cartState } from "../../src/utils/states.js"
 
 export let promo = signal(0);
 export let totalPrice = signal(0);
@@ -15,11 +17,14 @@ function CartCard() {
   const [cartCopy, setCartCopy] = useState([...cartData]);
   const [customizeState, setCustomizeState] = useState({});
   let [isPromo, setIsPromo] = useState("");
+  const [isCartEmpty, setIsCartEmpty] = useRecoilState(cartState)
 
   // Update cart, !! Utkommenterad pga Infinity Loop !!
-  // useEffect(() => {
-  //   setCartCopy(cartData);
-  // }, [cartCopy])
+  useEffect(() => {
+    const updatedCart = JSON.parse(localStorage.getItem("cart")) || [];
+		setCartCopy([...updatedCart]); 
+    // isCartEmpty toggles from Meals.jsx
+  }, [isCartEmpty])
 
   // Quantity count
   const updateCart = [...cartCopy];
@@ -97,7 +102,7 @@ function CartCard() {
     })
     return count
   }
-  
+
   return (
     <>
       <NavLink to="/menu">
@@ -105,7 +110,7 @@ function CartCard() {
       </NavLink>
       <section className="cart-section">
         <p className="cart-count">{
-        numberOfCartItems()
+          numberOfCartItems()
         } items in cart</p>
         <div className="cart-card-container">
           {cartCopy.length === 0 ? (
