@@ -3,6 +3,8 @@ import { signal } from '@preact/signals-react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import '../styles/login.css';
 import { useNavigate } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
+import { loginState } from '../recoil/loginState.js'
 
 export const loggedIn = signal(false);
 
@@ -10,18 +12,19 @@ export default function LoginRoute() {
 	const [visible, setVisible] = useState(false);
 	const [userInput, setUserInput] = useState('');
 	const [passwordInput, setPasswordInput] = useState('');
+	const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState)
 	const navigate = useNavigate();
 
 	const handleLogin = () => {
 		if (userInput === '1234' && passwordInput === 'password') {
-			loggedIn.value = true;
+			setIsLoggedIn(true);
 			setUserInput('');
 			setPasswordInput('');
 			navigate("/recieved")
 		} else {
 			console.log('Wrong user or password');
 		}
-		console.log('loggedIn är: ', loggedIn.value);
+		// console.log('isLoggedIn är: ', isLoggedIn);
 
 	};
 
