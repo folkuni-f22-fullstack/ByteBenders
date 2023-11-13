@@ -2,7 +2,8 @@ import express from "express";
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { connectDb } from './db.js'
-import Meal from "./models/Meals.js";
+import mealrouter from  './mealRoutes.js'
+import orderrouter from './orderRoutes.js'
 
 const port = 1523
 const app = express()
@@ -25,8 +26,8 @@ app.use(express.static(pathToStaticFolder))
 
 
 // api
-
-// app.use('/api/meals', mealsRouter )
+app.use('/api/meals', mealrouter )
+app.use('/api/orders', orderrouter)
 // app.use('/api/orders', orderRouter)
 
 // start
