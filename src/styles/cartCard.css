@@ -222,6 +222,7 @@
   color: var(--orange-color);
   display: flex;
   align-self: center;
+  color: var(--orange-color)
 }
 
 .total-price--crossed {
