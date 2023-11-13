@@ -51,7 +51,7 @@ const router = createBrowserRouter([
       },
       {
         path: "current",
-        element: <CurrOrderRoute/>
+        element: <CurrOrderRoute />
       },
       {
         path: "done",
