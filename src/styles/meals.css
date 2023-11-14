@@ -106,7 +106,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 6em;
 }
 .pop-title-span {
   color: var(--white-card-color);
@@ -118,37 +117,39 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     margin-top: 2em;
+    margin-left: 1.5em;
   }
   .popular-section > .meals-link {
     height: auto;
   }
   .meals-section {
     margin-right: 22vw;
-    max-width: 65vw;
+    margin-left: 5.1em;
     justify-content: flex-start;
-    align-items: ;
+  }
+  .meals-section > * {
+    margin-left: 2em;
   }
   .meals-card {
     width: 12em;
     height: 14em;
   }
   .popular-main {
-    margin-left: 6em;
+    margin-left: 5.1em;
   }
   .pop-hero-div {
     width: 65%;
-    margin-left: 0.5em;
     border-radius: 1em;
-    margin-top: 7em;
+    margin-left: 2em;
   }
 }
 
 @media screen and (min-width: 798px) and (max-width: 1200px) {
   .meals-section {
-    max-width: 80vw;
+    max-width: 100vw;
   }
   .pop-hero-div {
-    max-width: 80vw;
+    width: 80%;
   }
 }
 
@@ -156,7 +157,9 @@
   .meals-section {
     margin-right: 0;
   }
-  .pop-hero-div {
-    width: 100%;
+}
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
+  .meals-section {
+    margin-right: 24em;
   }
 }
