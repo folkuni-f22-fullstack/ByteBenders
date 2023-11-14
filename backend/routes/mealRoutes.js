@@ -41,6 +41,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+// [DELETE]
 router.delete('/:id', async (req, res) => {
     try {
         await connectDb()
@@ -53,34 +54,20 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
-// const newMeal = new Meal({
-//     image: 'https://jow.fr/_next/image?url=https%3A%2F%2Fstatic.jow.fr%2F880x880%2Frecipes%2FEQ82JmY4aa4aog.png&w=2560&q=100',
-//     _id: 1777,
-//     name: 'MongoTestPlate8',
-//     price: 110,
-//     description: 'Description of the dish',
-//     category: 'Meals',
-//     subcategory: ['Sushi',],
-//     allergenes: ['Allergen1'],
-//     comment: ,
-// });
-
-
-// await connectDb()
-// try {
-//     await newMeal.save()
-// } catch (error) {
-//     console.log('Meal kunde inte pushas', error)
-// }
-
-// // [PRIVATE CHANNELS - POST] - Lägg till kanal
-// router.post('/private', authenticateToken, async (req, res) => {
-//     let maybeChannel = req.body
-
-//     // VALIDERING
-//     let approved = validateChannel(maybeChannel)
-//     if (!approved) {
-
+// [POST] 
+router.post('/', async (req, res) => {
+    try {
+        await connectDb();
+        const newMealData = req.body;
+        const newMeal = new Meal(newMealData);
+        const savedMeal = await newMeal.save();
+        console.log('Meal created:', savedMeal);
+        res.status(201).send(savedMeal);
+    } catch (error) {
+        console.error(error.message);
+        res.sendStatus(400);
+    }
+});
 
 
 export default router

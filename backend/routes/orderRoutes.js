@@ -59,9 +59,7 @@ router.post('/', async (req, res) => {
 
         const newOrderData = req.body; // Utgår från att datan ligger i req.body tillsvidare
         const newOrder = new Order(newOrderData);
-
         const savedOrder = await newOrder.save();
-
         console.log('Order created:', savedOrder);
         res.status(201).send(savedOrder);
     } catch (error) {
@@ -75,7 +73,6 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
         await connectDb();
-
         const orderId = req.params.id;
         const updatedOrderData = req.body; // Utgår från att datan ligger i req.body tillsvidare
 
@@ -85,9 +82,7 @@ router.put('/:id', async (req, res) => {
             console.log('Order not found');
             return res.sendStatus(404);
         }
-
         const updatedOrder = await Order.findByIdAndUpdate(orderId, updatedOrderData, { new: true });
-
         console.log('Order updated:', updatedOrder);
         res.status(200).send(updatedOrder);
     } catch (error) {
@@ -97,23 +92,4 @@ router.put('/:id', async (req, res) => {
 });
 
 
-
-
-
-// const newOrder = new Order({
-//     _id: 2,
-//     // date: { type: Date, default: Date.now() },
-//     content: ['Sushi Platter', 'Miso Soup'],
-//     usercomment: ' ',
-//     staffcomment: ' ',
-//     total: 50,
-//     done: true
-// });
-
-// await connectDb()
-// try {
-//     await newOrder.save()
-// } catch (error) {
-//     console.log('Order kunde inte pushas', error)
-// }
 export default router
