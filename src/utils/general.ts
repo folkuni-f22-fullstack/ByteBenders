@@ -28,10 +28,14 @@ export function setKeyFromLS(key, value) {
 
 export function getCartQuantity() {
     let count = 0;
-    const cart = JSON.parse(localStorage.getItem('cart'))
+    const cart = JSON.parse(localStorage.getItem('cart'));
 
-    cart.forEach(item => {
-        count = count + item.quantity
-    })
-    return count
+    // Check if 'cart' is not null and is an array
+    if (cart && Array.isArray(cart)) {
+        cart.forEach(item => {
+            count = count + item.quantity;
+        });
+    }
+
+    return count;
 }
