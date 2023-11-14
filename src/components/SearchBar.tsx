@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import menu from '../data/menu.json';
 import dishMatch from '../utils/search.ts';
 import { ChangeEvent } from 'react';
@@ -7,6 +7,8 @@ import { BsFilter } from 'react-icons/bs';
 import FilterMeals from './FilterMeals.tsx';
 import { SearchBarProps } from '../interfaces/search-and-filter-props.ts';
 import { Dish } from '../interfaces/dish.ts';
+import { useRecoilState } from 'recoil';
+import { subState } from '../../src/recoil/subCategoryState.js'
 import '../styles/searchBar.css';
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -14,9 +16,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
 	setListToShow,
 	allButDrinks,
 }) => {
-	const [showFilters, setShowFilters] = useState(false);
+	const [showFilters, setShowFilters] = useRecoilState(subState)
 	const [searchMode, setSearchMode] = useState(false);
 	const [searchInput, setSearchInput] = useState('');
+	const subMenuRef = useRef(null)
 
 	// searchMode kontrollerar om man ska söka eller filtrera
 	useEffect(() => {
@@ -52,6 +55,12 @@ const SearchBar: React.FC<SearchBarProps> = ({
 		}
 	};
 
+	const handleFilter = () => {
+		setShowFilters(true)
+		console.log('ShowFilter: ', showFilters);
+		
+	}
+
 	return (
 		<div className='search-bar'>
 			<div className='search-input-container'>
@@ -65,7 +74,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
 				/>
 				<button
 					className='filter-btn'
-					onClick={() => setShowFilters(!showFilters)}
+					onClick={handleFilter}
+					ref={subMenuRef}
 				>
 					<BsFilter />
 				</button>
@@ -73,10 +83,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
 			<FilterMeals
 				list={list}
 				setListToShow={setListToShow}
-				showFilters={showFilters}
+				// showFilters={showFilters}
 				allButDrinks={allButDrinks}
 				searchMode={searchMode}
 				setSearchMode={setSearchMode}
+				subMenuRef={subMenuRef}
 			/>
 		</div>
 	);
