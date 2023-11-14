@@ -1,12 +1,16 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
 import express from "express";
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { connectDb } from './db.js'
-import mealrouter from  './mealRoutes.js'
-import orderrouter from './orderRoutes.js'
+import mealrouter from  './routes/mealRoutes.js'
+import orderrouter from './routes/orderRoutes.js'
 
 const port = 1523
 const app = express()
+
+export const secret = process.env.MONGO_URI
 
 
 // felmeddelandet: "The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."
