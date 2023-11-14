@@ -1,5 +1,10 @@
 /* // TODO: Se till att få font att exporteras korrekt via ::root */
-.order-logotype{
+@import "../App.css";
+
+.order-logotype {
+    display: flex;
+    justify-content: center;
+    font-family: var(--font-heading);
     color: var(--orange-color);
 }
 
@@ -19,13 +24,15 @@
     margin-right: auto;
     background-color: var(--white-card-color);
     padding: 0.5em 1.5em;
-    width: 80%;
+    width: 350px;
+    box-shadow: var(--shadow);
 }
 
 /* Bakgrund för enbart done */
 .done-order-card {
     background-color: lightgray;
 }
+
 .current-order-card {
     background-color: var(--white-card-color);
 }
@@ -33,14 +40,16 @@
 .order-content {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     /* background-color: greenyellow; */
     width: 100%;
 }
-.order-info-section{
+
+.order-info-section {
+    display: flex;
     margin-left: auto;
     margin-right: auto;
-    display: flex;
+    align-items: flex-start;
     flex-direction: column;
     /* background-color: blue; */
     width: 90%;
@@ -55,30 +64,65 @@
 }
 
 
-
-.send-order-icon, .done-order-icon {
-    width: 60px;
-    height: 60px;
-    position: relative;
-    left: 85%;
-    margin-bottom: 5px;
-    margin-left: -15px;
+.done-order-icon,
+.send-order-icon {
+    color: var(--dark-blue);
+    width: 70px;
+    height: 70px;
     font-size: 60px;
-    color: var(--dark-blue)
 }
 
-.done-order-icon {
+.done-order-card .done-order-icon {
     color: rgb(45, 224, 45);
 }
 
 .extend-order-icons {
-    /* background-color: green; */
     color: var(--dark-blue);
     font-size: 35px;
     width: 35px;
     height: 35px;
 }
 
-.order-product-name{
+.order-product-name {
     font-size: large;
+    margin-bottom: 5px;
+}
+
+.additional-info-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.comment-section {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 499px) {
+
+    .recieved-order-card,
+    .done-order-card,
+    .current-order-card {
+        width: 325px;
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 798px) {
+
+    .recieved-order-card,
+    .done-order-card,
+    .current-order-card {
+        width: 380px;
+    }
+}
+
+@media screen and (min-width: 798px) {
+
+    .recieved-order-card,
+    .done-order-card,
+    .current-order-card {
+        width: 450px;
+    }
 }

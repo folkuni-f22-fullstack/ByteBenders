@@ -7,15 +7,15 @@ import addToLS from "../utils/addCartLS";
 import { quantity } from "../utils/addCartLS.tsx";
 import "../styles/details.css";
 import CartRoute from "./CartRoute.tsx";
-import WindowSizeListener from "../utils/WindowListener.tsx";
+import { useRecoilState } from "recoil";
+import { isCartEmptyState } from "../recoil/cartNumberState.js";
 
 // details code imported and implemented with original
 
 export default function ProductDetailsRoute() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  // let [quantity, setQuantity] = useState(1);
-  const windowWidth = WindowSizeListener();
+  const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
 
   function findProduct(id) {
     return menuData.find((product) => product.id == id);
@@ -38,6 +38,7 @@ export default function ProductDetailsRoute() {
   // Send to local storage
   function handleAddToCart() {
     addToLS(id);
+    setIsCartEmpty(!isCartEmpty);
   }
 
   return (

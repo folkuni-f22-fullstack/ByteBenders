@@ -5,9 +5,12 @@ import displayMeals from "../utils/popular.ts";
 import { NavLink } from "react-router-dom";
 import addToLS from "../utils/addCartLS";
 import { quantity } from "../utils/addCartLS";
+import { useRecoilState } from "recoil"
+import { isCartEmptyState } from "../recoil/cartNumberState.js"
 
 export default function PopularThisWeek() {
   const [randomMeals, setRandomMeals] = useState([]);
+  const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState)
 
   useEffect(() => {
     displayMeals(randomMeals, setRandomMeals);
@@ -21,6 +24,7 @@ export default function PopularThisWeek() {
   // Add to local storage
   function handleAddToCart(id) {
     addToLS(id)
+    setIsCartEmpty(!isCartEmpty)
   }
 
   return (

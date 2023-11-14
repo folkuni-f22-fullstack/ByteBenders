@@ -1,103 +1,63 @@
-import { useState } from 'react';
-import { signal, effect } from '@preact/signals-core';
-import '../styles/filter.css';
-
-export interface Dish {
-	image: string;
-	id: number;
-	name: string;
-	price: number;
-	category: string;
-	comment: string;
-	subcategory: string;
-	description: string;
-	allergenes: string[];
-}
-
-interface FilterMealsProps {
-	list: Dish[];
-	selectedCategory: string;
-}
+import { useState, useEffect } from 'react';
+import { FilterMealsProps } from '../interfaces/search-and-filter-props';
+import { updateSelectedFilters, filterBySubcategory } from '../utils/filter';
 
 const FilterMeals: React.FC<FilterMealsProps> = ({
 	list,
-	selectedCategory,
+	setListToShow,
+	showFilters,
+	allButDrinks,
+	searchMode,
+	setSearchMode,
 }) => {
 	const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
-	const [showCategories, setShowCategories] = useState(false);
 
-	// Skapa list-signal för vilka rätter som ska visas
-	const listToShow = signal(list);
+	useEffect(() => {
+		// för varje item i selectedFilters, lägg till de rätterna som matchar subcategory
+		filterBySubcategory(selectedFilters, list, setListToShow, allButDrinks);
+	}, [selectedFilters]);
+
+	useEffect(() => {
+		if (searchMode) {
+			setSelectedFilters([]);
+			//tömmer filter när man skriver i sökfältet
+		}
+	}, [searchMode]);
 
 	// Skapa en lista med alla subkategorier, bara en av varje
 	const subcategories: string[] = [
-		...new Set(list.flatMap((dish) => dish.subcategory)),
+		...new Set(allButDrinks.flatMap((dish) => dish.subcategory)),
 	];
 
-	// Lägger till subkategorin selectedFilters-arrayen om den klickas på, klickar man igen tas den bort
+	// Lägger till subkategorin i selectedFilters-arrayen om den klickas på, klickar man igen tas den bort
 	const handleCategoryClick = (category: string) => {
-		if (selectedFilters.includes(category)) {
-			setSelectedFilters(
-				selectedFilters.filter((filter) => filter !== category)
-			);
-		} else {
-			setSelectedFilters([...selectedFilters, category]);
-		}
+		setSearchMode(false); // <- tömmer sökfältet
+		const filteredList = updateSelectedFilters(selectedFilters, category);
+		setSelectedFilters(filteredList);
 	};
 
-	effect(() => {
-		// för varje item i selectedFilters, lägg till de rätterna som matchar subcategory
-		if (selectedFilters.length > 0) {
-			const filteredList = [] as Dish[];
-			selectedFilters.map((filter) => {
-				const filteredItems: Dish[] = list.filter((item) => {
-					return item.subcategory.includes(filter);
-				});
-
-				filteredList.push(...filteredItems);
-			});
-
-			// Uppdatera listToShow till den filtrerade listan
-			listToShow.value = filteredList;
-		} else {
-			listToShow.value = list;
-		}
-	});
-
-	// console.log('listToShow är: ', listToShow.value);
-	console.log('selectedCategory är: ', selectedCategory);
-
 	return (
-		<div
-			className={
-				selectedCategory == 'meals'
-					? 'filter-container'
-					: 'filter-container hidden'
-			}
-		>
-			<button onClick={() => setShowCategories(!showCategories)}>
-				Filter
-			</button>
-			{showCategories && selectedCategory == 'meals' && (
+		<>
+			{showFilters && (
 				<div className='filter-select'>
-					{subcategories.map((category) => (
+					{subcategories.map((subcategory: string) => (
 						<button
-							key={category}
-							onClick={() => handleCategoryClick(category)}
+							key={subcategory}
+							onClick={() => handleCategoryClick(subcategory)}
 							className={
-								selectedFilters.includes(category)
+								selectedFilters?.includes(subcategory)
 									? 'selected-filter'
 									: ''
 							}
 						>
-							{!selectedFilters.includes(category)
-								? category
-								: category + 'X'}
+							{!selectedFilters?.includes(subcategory)
+								? subcategory
+								: subcategory + 'X'}
 						</button>
 					))}
 				</div>
 			)}
-		</div>
+		</>
 	);
 };
 
