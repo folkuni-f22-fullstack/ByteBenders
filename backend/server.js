@@ -17,7 +17,7 @@ export const secret = process.env.MONGO_URI;
 
 //middleware
 app.use('/api', express.json());
-app.use((req, res, next) => {
+app.use('/', (req, res, next) => {
 	console.log(`${req.method} ${res.url}`, req.body);
 	next();
 });
