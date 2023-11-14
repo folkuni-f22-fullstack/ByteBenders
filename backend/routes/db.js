@@ -6,7 +6,7 @@ export async function connectDb() {
     const db = process.env.mongoURI
 
     try {
-        await mongoose.connect(db) 
+        await mongoose.connect(db)
         // ger tillbaka ett promise
         console.log('MongoDB ansluten..')
     } catch (error) {
