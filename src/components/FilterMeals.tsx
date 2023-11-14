@@ -1,16 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FilterMealsProps } from '../interfaces/search-and-filter-props';
 import { updateSelectedFilters, filterBySubcategory } from '../utils/filter';
+import { useRecoilState } from 'recoil';
+import { subState } from '../../src/recoil/subCategoryState.js'
 
 const FilterMeals: React.FC<FilterMealsProps> = ({
 	list,
 	setListToShow,
-	showFilters,
+	// showFilters,
 	allButDrinks,
 	searchMode,
 	setSearchMode,
+	subMenuRef
 }) => {
 	const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+	const [showFilters, setShowFilters] = useRecoilState(subState)
+	const subCategoryRef = useRef(null)
 
 	useEffect(() => {
 		// för varje item i selectedFilters, lägg till de rätterna som matchar subcategory
@@ -36,10 +41,31 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 		setSelectedFilters(filteredList);
 	};
 
+
+	// Close the submenu if a click occurs outside the element or on the submenu button
+	useEffect(() => {
+		function handleClickOutside(event) {
+			if (subCategoryRef.current && 
+				!subCategoryRef.current.contains(event.target) && 
+				event.target !== subMenuRef.current) {
+
+				setTimeout(() => {
+					setShowFilters(false);
+					console.log('Click outside (false)');
+				}, 0);
+			}
+		}
+		document.addEventListener("click", handleClickOutside, true)
+		return () => {
+			document.removeEventListener("click", handleClickOutside, true)
+		}
+	}, [subCategoryRef]);
+
+
 	return (
 		<>
 			{showFilters && (
-				<div className='filter-select'>
+				<div ref={subCategoryRef} className='filter-select'>
 					{subcategories.map((subcategory: string) => (
 						<button
 							key={subcategory}
@@ -52,7 +78,7 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 						>
 							{!selectedFilters?.includes(subcategory)
 								? subcategory
-								: subcategory + 'X'}
+								: subcategory + ' X'}
 						</button>
 					))}
 				</div>
