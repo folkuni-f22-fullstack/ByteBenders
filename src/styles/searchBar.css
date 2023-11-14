@@ -54,7 +54,7 @@
 .filter-select {
 	position: absolute;
 	width: 272px;
-	left: 7px;
+	left: 39px;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;

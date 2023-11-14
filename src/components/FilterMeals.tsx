@@ -51,7 +51,6 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 
 				setTimeout(() => {
 					setShowFilters(false);
-					console.log('Click outside (false)');
 				}, 0);
 			}
 		}

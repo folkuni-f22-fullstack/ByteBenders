@@ -55,12 +55,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
 		}
 	};
 
-	const handleFilter = () => {
-		setShowFilters(true)
-		console.log('ShowFilter: ', showFilters);
-		
-	}
-
 	return (
 		<div className='search-bar'>
 			<div className='search-input-container'>
@@ -74,7 +68,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 				/>
 				<button
 					className='filter-btn'
-					onClick={handleFilter}
+					onClick={() => setShowFilters(true)}
 					ref={subMenuRef}
 				>
 					<BsFilter />
