@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import dotenv from 'dotenv'
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 export async function connectDb() {
-    dotenv.config()
-    const db = process.env.mongoURI
+    const db = process.env.MONGO_URI
 
     try {
         await mongoose.connect(db)

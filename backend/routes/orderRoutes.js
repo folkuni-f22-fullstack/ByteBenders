@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from 'dotenv'
 import Order from "../models/Orders.js";
-import { connectDb } from "./db.js"
+import { connectDb } from "../db.js"
 import { connect } from "mongoose";
 
 const router = express.Router()

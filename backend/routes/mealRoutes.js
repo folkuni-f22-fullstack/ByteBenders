@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from 'dotenv'
 import Meal from "../models/Meals.js";
-import { connectDb } from "./db.js"
+import { connectDb } from "../db.js"
 
 // felmeddelandet: "The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."
 // kommer enbart fram när .env inte finns i samma folder som handlern som körs, fråga david om tips.
