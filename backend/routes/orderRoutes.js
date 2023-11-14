@@ -52,7 +52,49 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
+// [POST] 
+router.post('/', async (req, res) => {
+    try {
+        await connectDb();
 
+        const newOrderData = req.body; // Utgår från att datan ligger i req.body tillsvidare
+        const newOrder = new Order(newOrderData);
+
+        const savedOrder = await newOrder.save();
+
+        console.log('Order created:', savedOrder);
+        res.status(201).send(savedOrder);
+    } catch (error) {
+        console.error(error.message);
+        res.sendStatus(400);
+    }
+});
+
+
+// [PUT] :id
+router.put('/:id', async (req, res) => {
+    try {
+        await connectDb();
+
+        const orderId = req.params.id;
+        const updatedOrderData = req.body; // Utgår från att datan ligger i req.body tillsvidare
+
+        // Kolla om någon order matchar sökid
+        const existingOrder = await Order.findById(orderId);
+        if (!existingOrder) {
+            console.log('Order not found');
+            return res.sendStatus(404);
+        }
+
+        const updatedOrder = await Order.findByIdAndUpdate(orderId, updatedOrderData, { new: true });
+
+        console.log('Order updated:', updatedOrder);
+        res.status(200).send(updatedOrder);
+    } catch (error) {
+        console.error(error.message);
+        res.sendStatus(400);
+    }
+});
 
 
 
