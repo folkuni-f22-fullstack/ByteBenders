@@ -1,157 +1,168 @@
-@import '../App.css';
+@import "../App.css";
 .meals-section {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .meals-main {
-	display: flex;
-	justify-content: center;
-	align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 .meals-link {
-	text-decoration: none;
-	height: 100%;
+  text-decoration: none;
+  height: 100%;
 }
 .navlink {
-	text-decoration: none;
+  text-decoration: none;
 }
 .meals-card {
-	background-size: cover;
-	background-position: center;
-	width: 11em;
-	height: 13em;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	border-radius: 1em;
-	position: relative;
-	box-shadow: var(--shadow);
-	margin: var(--margin-between-card);
+  background-size: cover;
+  background-position: center;
+  width: 11em;
+  height: 13em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-radius: 1em;
+  position: relative;
+  box-shadow: var(--shadow);
+  margin: var(--margin-between-card);
 }
 .meals-img {
-	filter: brightness(0.6);
-	height: 100%;
-	object-fit: cover; /* Justera värdet för mörkare eller ljusare effekt */
-	border-radius: 1em 1em 0 0;
-	width: 100%;
+  filter: brightness(0.6);
+  height: 100%;
+  object-fit: cover; /* Justera värdet för mörkare eller ljusare effekt */
+  border-radius: 1em 1em 0 0;
+  width: 100%;
 }
 .meals-btn {
-	background-color: #263544;
-	border: none;
-	height: 4em;
-	width: 100%;
-	font-size: 16px;
-	font-weight: 500;
-	color: var(--white-card-color);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 0 0 1em 1em;
-	cursor: pointer;
+  background-color: #263544;
+  border: none;
+  height: 4em;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--white-card-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 0 1em 1em;
+  cursor: pointer;
 }
 .meals-cart {
-	font-size: 18px;
-	margin-left: 0.5em;
+  font-size: 18px;
+  margin-left: 0.5em;
 }
 .meals-text > .meals-price {
-	color: var(--orange-color);
-	padding-bottom: 1em;
-	padding-top: 0.25em;
+  color: var(--orange-color);
+  padding-bottom: 1em;
+  padding-top: 0.25em;
 }
 .meals-text {
-	position: absolute;
-	color: var(--text-color-card);
-	padding-left: 10px;
-	padding-bottom: 10px;
-	font-weight: bold;
-	bottom: 15%;
-	padding-right: 0.5em;
+  position: absolute;
+  color: var(--text-color-card);
+  padding-left: 10px;
+  padding-bottom: 10px;
+  font-weight: bold;
+  bottom: 15%;
+  padding-right: 0.5em;
 }
 .btn-icon {
-	font-size: 20px;
-	margin-left: 0.5em;
+  font-size: 20px;
+  margin-left: 0.5em;
 }
 
 .popular-section {
-	display: grid;
-	grid-auto-flow: column;
-	overflow-x: auto;
-	place-items: center;
-	overscroll-behavior-inline: contain;
-	z-index: -2;
+  display: grid;
+  grid-auto-flow: column;
+  overflow-x: auto;
+  place-items: center;
+  overscroll-behavior-inline: contain;
+  z-index: -2;
+  margin-left: 1em;
 }
 .snaps-inline {
-	scroll-snap-type: inline mandatory;
+  scroll-snap-type: inline mandatory;
 }
 .snaps-inline > * {
-	scroll-snap-align: start;
+  scroll-snap-align: start;
 }
 .most-popular-title {
-	color: var(--orange-color);
-	position: absolute;
-	font-size: 24px;
-	font-weight: 600;
+  color: var(--orange-color);
+  position: absolute;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .pop-hero-div {
-	width: 100%;
-	height: 12em;
-	background-image: url(../assets/images/backgrounds/popular-img-resize.jpg);
-	background-blend-mode: multiply;
-	background-color: rgb(116, 116, 116);
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  width: 100%;
+  height: 12em;
+  background-image: url(../assets/images/backgrounds/popular-img-resize.jpg);
+  background-blend-mode: multiply;
+  background-color: rgb(116, 116, 116);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6em;
 }
 .pop-title-span {
-	color: var(--white-card-color);
+  color: var(--white-card-color);
 }
 
 @media screen and (min-width: 798px) {
-	.popular-section {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: flex-start;
-		margin-top: 2em;
-	}
-	.popular-section > .meals-link {
-		height: auto;
-	}
-	.meals-section {
-		margin-right: 22vw;
-		max-width: 65vw;
-		justify-content: flex-start;
-		align-items: ;
-	}
-	.meals-card {
-		width: 12em;
-		height: 14em;
-	}
-	.popular-main {
-		margin-left: 6em;
-	}
-	.pop-hero-div {
-		width: 70%;
-		margin-left: 0.5em;
-		border-radius: 1em;
-	}
+  .popular-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 2em;
+    margin-left: 1.5em;
+  }
+  .popular-section > .meals-link {
+    height: auto;
+  }
+  .meals-section {
+    margin-right: 22vw;
+    margin-left: 5.1em;
+    justify-content: flex-start;
+  }
+  .meals-section > * {
+    margin-left: 2em;
+  }
+  .meals-card {
+    width: 12em;
+    height: 14em;
+  }
+  .popular-main {
+    margin-left: 5.1em;
+  }
+  .pop-hero-div {
+    width: 65%;
+    border-radius: 1em;
+    margin-left: 2.1em;
+    margin-top: 7em;
+  }
 }
 
 @media screen and (min-width: 798px) and (max-width: 1200px) {
-	.meals-section {
-		max-width: 80vw;
-	}
+  .meals-section {
+    max-width: 100vw;
+  }
+  .pop-hero-div {
+    width: 80%;
+  }
 }
 
 @media screen and (max-width: 1200px) {
-	.meals-section {
-		margin-right: 0;
-	}
-	.pop-hero-div {
-		width: 100%;
-	}
+  .meals-section {
+    margin-right: 0;
+  }
+}
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
+  .meals-section {
+    margin-right: 24em;
+  }
 }

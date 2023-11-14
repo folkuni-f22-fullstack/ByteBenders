@@ -1,7 +1,7 @@
 [
 	{
 		"image": "../../src/assets/images/cards/volcanoRoll.png",
-		"_id": 0,
+		"id": 0,
 		"name": "Volcano Roll",
 		"price": 140,
 		"description": "A spicy mix of crab, avocado, and cucumber, topped with spicy baked scallops and eel sauce.",
@@ -12,7 +12,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/sunsetRoll.png",
-		"_id": 1,
+		"id": 1,
 		"name": "Sunset Roll",
 		"price": 130,
 		"description": "Yellowtail, jalapeño, and cilantro rolled with avocado and cucumber, finished with yuzu citrus sauce.",
@@ -23,7 +23,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/salmon.png",
-		"_id": 2,
+		"id": 2,
 		"name": "Salmon Roll",
 		"price": 150,
 		"description": "Shrimp tempura, spicy tuna, and avocado, topped with sliced mango and sweet chili sauce.",
@@ -34,7 +34,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/greenIceCream.png",
-		"_id": 3,
+		"id": 3,
 		"name": "Green Tea Ice Cream",
 		"price": 60,
 		"description": "Creamy green tea-flavored ice cream.",
@@ -45,7 +45,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/tempuraBanana.png",
-		"_id": 4,
+		"id": 4,
 		"name": "Tempura Banana",
 		"price": 90,
 		"description": "Sliced banana tempura served with a scoop of vanilla ice cream and drizzled with honey",
@@ -56,7 +56,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/unagi.png",
-		"_id": 5,
+		"id": 5,
 		"name": "Unagi (Eel) (2 pieces)",
 		"price": 70,
 		"description": "Grilled eel glazed with eel sauce on seasoned rice.",
@@ -67,7 +67,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/sashimiSampler.png",
-		"_id": 6,
+		"id": 6,
 		"name": "Sashimi Sampler (6 pieces)",
 		"price": 150,
 		"description": "A selection of thinly sliced fresh fish (tuna, salmon, yellowtail, and snapper).",
@@ -78,7 +78,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/salmonNigiri.png",
-		"_id": 7,
+		"id": 7,
 		"name": "Salmon Nigiri (2 pieces)",
 		"price": 50,
 		"description": "Fresh salmon slices on top of small beds of seasoned rice, garnished with wasabi.",
@@ -89,7 +89,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/ebi.png",
-		"_id": 8,
+		"id": 8,
 		"name": "Ebi (Shrimp) Nigiri (2 pieces)",
 		"price": 45,
 		"description": "Cooked shrimp on top of rice with a touch of wasabi and soy sauce.",
@@ -100,18 +100,18 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/edamame.png",
-		"_id": 9,
+		"id": 9,
 		"name": "Edamame",
 		"price": 50,
 		"description": "Steamed young soybeans sprinkled with sea salt.",
-		"category": "s_ides",
+		"category": "sides",
 		"subcategory": ["Appetizers"],
 		"allergenes": [],
 		"comment": ""
 	},
 	{
 		"image": "../../src/assets/images/cards/sashimiPlate.png",
-		"_id": 10,
+		"id": 10,
 		"name": "Mixed Sashimi Platter",
 		"price": 290,
 		"description": "A larger assortment of sashimi, perfect for sharing.",
@@ -122,29 +122,29 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/agedashi.png",
-		"_id": 11,
+		"id": 11,
 		"name": "Agedashi Tofu",
 		"price": 70,
 		"description": "Lightly fried tofu served in a savory dashi broth with grated daikon and ginger.",
-		"category": "s_ides",
+		"category": "sides",
 		"subcategory": ["Appetizers"],
 		"allergenes": [],
 		"comment": ""
 	},
 	{
 		"image": "../../src/assets/images/cards/miso.png",
-		"_id": 12,
+		"id": 12,
 		"name": "Miso Soup",
 		"price": 40,
 		"description": "Traditional Japanese miso soup with tofu, seaweed, and green onions.",
-		"category": "s_ides",
+		"category": "sides",
 		"subcategory": ["Appetizers"],
 		"allergenes": [],
 		"comment": ""
 	},
 	{
 		"image": "../../src/assets/images/cards/tunaNigiri.png",
-		"_id": 13,
+		"id": 13,
 		"name": "Tuna Nigiri",
 		"price": 60,
 		"description": "Slices of premium tuna on rice, served with pickled ginger.",
@@ -155,7 +155,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/californiaRoll.png",
-		"_id": 14,
+		"id": 14,
 		"name": "California Roll",
 		"price": 99,
 		"description": "Crab, avocado, and cucumber rolled in sushi rice and seaweed.",
@@ -166,7 +166,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/tunaRoll.png",
-		"_id": 15,
+		"id": 15,
 		"name": "Spicy Tuna Roll",
 		"price": 110,
 		"description": "Fresh tuna mixed with spicy mayo, scallions, and cucumber, rolled in sushi rice and seaweed.",
@@ -177,7 +177,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/dragonRoll.png",
-		"_id": 16,
+		"id": 16,
 		"name": "Dragon Roll",
 		"price": 140,
 		"description": "Eel, cucumber, and avocado topped with thinly sliced avocado, eel sauce, and tobiko.",
@@ -188,7 +188,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/rainbowRoll.png",
-		"_id": 17,
+		"id": 17,
 		"name": "Rainbow Roll",
 		"price": 110,
 		"description": "A variety of fresh fish (tuna, salmon, yellowtail, and more) layered on a California roll.",
@@ -199,7 +199,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/vegetarianRoll.png",
-		"_id": 18,
+		"id": 18,
 		"name": "Vegetarian Roll",
 		"price": 90,
 		"description": "Asparagus, avocado, and cucumber rolled in sushi rice and seaweed.",
@@ -210,7 +210,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/coke.png",
-		"_id": 19,
+		"id": 19,
 		"name": "Coca Cola",
 		"price": 30,
 		"category": "drinks",
@@ -218,7 +218,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/fanta.png",
-		"_id": 20,
+		"id": 20,
 		"name": "Fanta",
 		"price": 30,
 		"category": "drinks",
@@ -226,7 +226,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/ramlosa.png",
-		"_id": 21,
+		"id": 21,
 		"name": "Ramlösa naturell",
 		"price": 30,
 		"category": "drinks",
@@ -234,7 +234,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/ramlosaLemon.png",
-		"_id": 22,
+		"id": 22,
 		"name": "Ramlösa citron",
 		"price": 30,
 		"category": "drinks",
@@ -242,7 +242,7 @@
 	},
 	{
 		"image": "../../src/assets/images/cards/water.png",
-		"_id": 23,
+		"id": 23,
 		"name": "Vatten",
 		"price": 30,
 		"category": "drinks",

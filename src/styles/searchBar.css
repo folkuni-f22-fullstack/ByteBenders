@@ -1,47 +1,48 @@
 .search-input-container {
-	position: relative;
-	width: fit-content;
+  position: relative;
+  width: fit-content;
+  margin-left: 2em;
 }
 
 .search-input-container > svg,
 .filter-btn {
-	position: absolute;
-	top: 5px;
+  position: absolute;
+  top: 5px;
 }
 
 .search-input-container > svg {
-	left: 5px;
+  left: 5px;
 }
 
 .filter-btn {
-	right: 5px;
+  right: 5px;
 }
 
 .filter-btn {
-	background-color: transparent;
-	border: none;
+  background-color: transparent;
+  border: none;
 }
 
 .search-input-container > svg,
 .filter-btn > svg {
-	height: 25px;
-	width: 25px;
+  height: 25px;
+  width: 25px;
 }
 
 #search-input {
-	padding: 0.3em 2em;
-	font-size: 1em;
+  padding: 0.3em 2em;
+  font-size: 1em;
 }
 
 .filter-container {
-	position: absolute;
-	background-color: #f0f5f7;
+  position: absolute;
+  background-color: #f0f5f7;
 }
 
 .filter-select {
-	position: absolute;
+  position: absolute;
 }
 
 .hidden {
-	visibility: hidden;
+  visibility: hidden;
 }
