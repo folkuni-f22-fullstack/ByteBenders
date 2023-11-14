@@ -9,6 +9,7 @@ import "../styles/details.css";
 import CartRoute from "./CartRoute.tsx";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
+import WindowSizeListener from "../utils/WindowListener.tsx";
 
 // details code imported and implemented with original
 
@@ -20,6 +21,8 @@ export default function ProductDetailsRoute() {
   function findProduct(id) {
     return menuData.find((product) => product.id == id);
   }
+
+  const windowWidth = WindowSizeListener();
 
   useEffect(() => {
     setProduct(findProduct(id));

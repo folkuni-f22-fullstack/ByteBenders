@@ -11,10 +11,10 @@ import SearchBar from "./SearchBar.tsx";
 import { filterByCategory } from "../utils/filter.ts";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
+import WindowSizeListener from "../utils/WindowListener.tsx";
 
 const Meals = () => {
   const [selectedCategory, setSelectedCartegory] = useState("");
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [listToShow, setListToShow] = useState<Dish[]>([]);
   const cartData = JSON.parse(localStorage.getItem("cart")) || [];
   const [cartCopy, setCartCopy] = useState([...cartData]);
@@ -33,19 +33,7 @@ const Meals = () => {
     (item) => item.category !== "drinks"
   ) as Dish[];
 
-  useEffect(() => {
-    // Lägg till en eventlyssnare för att upptäcka fönsterstorleksändringar
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    // Ta bort eventlyssnaren när komponenten rensas
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const windowWidth = WindowSizeListener();
 
   // Set value to 1
   function refreshQuantity() {
