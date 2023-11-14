@@ -1,6 +1,6 @@
 export interface Dish {
 	image: string;
-	id: number;
+	_id: number;
 	name: string;
 	price: number;
 	category: string;

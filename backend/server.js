@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url'
 import { connectDb } from './db.js'
 import mealrouter from  './routes/mealRoutes.js'
 import orderrouter from './routes/orderRoutes.js'
+import cors from 'cors'
 
 const port = 1523
 const app = express()
@@ -13,11 +14,8 @@ const app = express()
 export const secret = process.env.MONGO_URI
 
 
-// felmeddelandet: "The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."
-// kommer enbart fram när .env inte finns i samma folder som handlern som körs, fråga david om tips.
-
-
 //middleware
+app.use(cors())
 app.use('/api', express.json())
 app.use((req, res, next) => {
     console.log(`${req.method} ${res.url}`, req.body);
@@ -32,7 +30,6 @@ app.use(express.static(pathToStaticFolder))
 // api
 app.use('/api/meals', mealrouter )
 app.use('/api/orders', orderrouter)
-// app.use('/api/orders', orderRouter)
 
 // start
 app.listen(port, () => {
