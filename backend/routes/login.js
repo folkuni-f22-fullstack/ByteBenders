@@ -14,7 +14,9 @@ router.post('/', async (req, res) => {
 
 	// Om inte body är komplett eller saknas
 	if (!req.body || !req.body.name || !req.body.password) {
-		res.sendStatus(412); // Precondition failed
+		res.status(412).send({
+			message: 'Username or password is missing'
+		}) // Precondition Failed
 	}
 	const reqName = req.body.name;
 	const reqPassword = req.body.password;
@@ -26,29 +28,40 @@ router.post('/', async (req, res) => {
 
 	// Om användare ej finns
 	if (!maybeUser) {
-		res.sendStatus(404);
+		res.status(401).send({
+			message: 'Wrong username or password'
+		})// Unauthorized
 	}
 
 	// Om användare finns:
 	else if (maybeUser) {
-		console.log(
-			`${maybeUser.name} logged in at ${new Date().toISOString()}`
-		);
-
+		
 		// Jämför lösenord med bcrypt:
 		const isPasswordValid = await bcrypt.compare(
 			reqPassword,
 			maybeUser.password
-		);
-
+			);
+			
 		// Om lösenordet inte stämmer överrens
 		if (!isPasswordValid) {
-			res.sendStatus(401); // Unauthorized
+			res.status(401).send({
+				message: 'Wrong username or password'
+			})// Unauthorized
 		}
-
-		let token = await generateToken(maybeUser);
-		console.log('token: ', token);
-		res.send(token);
+		
+		else if (isPasswordValid) {
+			let token = await generateToken(maybeUser);
+			console.log('token: ', token);
+			const tokenPackage = {
+				token: token
+			}
+	
+			console.log(
+				`${maybeUser.name} logged in at ${new Date().toISOString()}`
+			);
+	
+			res.send(tokenPackage);
+		}
 	}
 });
 
@@ -74,9 +87,10 @@ async function addUser() {
 }
 
 // Test för att kolla att authenticateToken-middleware fungerar, kan tas bort när det finns riktiga endpoints
-router.get('/test', authenticateToken, (req, res) => {
-	console.log('Success');
-	res.sendStatus(205);
+router.get('/test', authenticateToken, async (req, res) => {
+	console.log('Success in login/test');
+
+	res.status(205).send({message: 'Success in login/test'});
 });
 
 export default router;

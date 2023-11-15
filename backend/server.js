@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import { connectDb } from './db.js';
 import mealrouter from './routes/mealRoutes.js';
 import orderrouter from './routes/orderRoutes.js';
+import cors from 'cors'
 import loginrouter from './routes/login.js';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -16,9 +17,10 @@ export const secret = process.env.MONGO_URI;
 // kommer enbart fram när .env inte finns i samma folder som handlern som körs, fråga david om tips.
 
 //middleware
+app.use(cors())
 app.use('/api', express.json());
 app.use('/', (req, res, next) => {
-	console.log(`${req.method} ${res.url}`, req.body);
+	console.log(`**Logger: ${req.method} ${req.url}`, req.body);
 	next();
 });
 

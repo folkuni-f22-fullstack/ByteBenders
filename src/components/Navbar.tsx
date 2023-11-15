@@ -11,8 +11,10 @@ import { useRecoilState } from "recoil";
 import { loginState } from "../recoil/loginState.js";
 import { cartState } from "../recoil/cartNumberState.js";
 import { getCartQuantity } from "../utils/general.ts";
+import { deleteCookie } from "../utils/cookieHandler.ts";
+
 const NavBar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);
   const [cartItems, setCartItems] = useRecoilState(cartState);
   const [linksToShow, setLinksToShow] = useState([]);
   const navigate = useNavigate();
@@ -47,13 +49,20 @@ const NavBar = () => {
   ];
 
   useEffect(() => {
-    setLinksToShow(isLoggedIn ? linkObjectsLoggedIn : updatedLinkObjects);
+    setLinksToShow(isLoggedIn.loggedIn ? linkObjectsLoggedIn : updatedLinkObjects);
   }, [isLoggedIn, cartItems]);
 
   const handleLogout = () => {
     closeModal();
-    setIsLoggedIn(false);
+    setIsLoggedIn({loggedIn: false, token: ''});
+    // deleteCookie()
     navigate("");
+
+    let d = new Date();
+    d.setTime(d.getTime() - (1 * 60 * 60 * 1000));
+    console.log(d);
+    
+    document.cookie = `user_cookie=; expires=${d.toUTCString()}`;  
   };
 
   const confirmLogout = () => {
