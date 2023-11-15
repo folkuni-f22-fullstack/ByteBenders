@@ -29,12 +29,6 @@
 	font-family: var(--font-heading);
 }
 
-.arrow-top {
-	color: #FFB550;
-	height: 30px;
-	width: 30px;
-}
-
 .about-content-container {
 	display: flex;
 	justify-content: center;
