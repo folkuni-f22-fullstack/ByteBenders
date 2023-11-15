@@ -1,5 +1,5 @@
 export default async function fetchAccount(username, password) {
-    const baseUrl = 'http://localhost:1523/api/login'
+    const baseUrl = '/api/login'
 
     try {
         let body = {

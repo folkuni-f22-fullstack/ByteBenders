@@ -77,7 +77,8 @@ export default function ProductDetailsRoute() {
             </div>
             <div className="details-text">
               <h4 className="detail-header">{product.name}</h4>
-              {product.allergenes.length !== 0 &&
+              {product.allergenes &&
+              product.allergenes.length !== 0 &&
                 product.allergenes[0] !== "" && (
                   <p className="allergenes-p">
                     <span className="allergenes-span">Allergenes:</span>{" "}

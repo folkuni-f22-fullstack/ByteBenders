@@ -8,7 +8,7 @@ export default function InformationRoute() {
         <div className="information">
             <div className='information--blur'>
                 <NavLink to="/menu">
-                    <BiArrowBack className='BiArrowBack arrow-top' />
+                    <BiArrowBack className='return-arrow-icon' />
                 </NavLink>
                 <header className="about-header">
                     <h1 className="about-heading">

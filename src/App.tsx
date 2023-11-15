@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import NavBar from "./components/Navbar.tsx";
 import { Header } from "./components/Header.tsx";
 import { useEffect } from "react";
@@ -16,9 +16,12 @@ function App() {
     checkLoginState(isLoggedIn, setIsLoggedIn)
   }, [])
 
+
+  const location = useLocation()
+  const showHeader = !'/information'.includes(location.pathname)
   return (
     <>
-      <Header />
+      {showHeader && <Header />}
       <NavBar />
       <Outlet />
     </>

@@ -250,7 +250,6 @@
   border: var(--next-button-border);
   border-radius: var(--next-button-border-radius);
   width: var(--next-button-width-mobil);
-
   font-size: var(--next-button-font-size-mobile);
   padding: 1em 4em;
 }

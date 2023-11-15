@@ -6,7 +6,7 @@ import mealrouter from './routes/mealRoutes.js';
 import orderrouter from './routes/orderRoutes.js';
 import cors from 'cors'
 import loginrouter from './routes/login.js';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 dotenv.config();
 
 const port = 1523;
@@ -29,9 +29,9 @@ const pathToStaticFolder = join(__dirname, '../dist');
 app.use(express.static(pathToStaticFolder));
 
 // api
-app.use('/api/meals', mealrouter);
-app.use('/api/orders', orderrouter);
-app.use('/api/login', loginrouter);
+app.use('/api/meals', mealrouter )
+app.use('/api/orders', orderrouter)
+app.use('/api/login', loginrouter)
 
 // start
 app.listen(port, () => {

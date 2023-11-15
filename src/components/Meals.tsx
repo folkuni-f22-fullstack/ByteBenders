@@ -12,6 +12,7 @@ import { filterByCategory } from "../utils/filter.ts";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
 import WindowSizeListener from "../utils/WindowListener.tsx";
+import axios from "axios";
 
 const Meals = () => {
   const [selectedCategory, setSelectedCartegory] = useState("");
@@ -19,19 +20,21 @@ const Meals = () => {
   const cartData = JSON.parse(localStorage.getItem("cart")) || [];
   const [cartCopy, setCartCopy] = useState([...cartData]);
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
+  const [errorMessage, setErrorMessage] = useState('')
 
-  // Updaterar listToShow om menyn eller vald kategori ändras
   useEffect(() => {
-    setListToShow(filteredItems);
-  }, [menuData, selectedCategory]);
+    axios.get('http://localhost:1523/api/meals')
+      .then(response => setListToShow(response.data))
+      .catch(error => console.error('error feching meals', error))
+  }, [])
 
   // Ursprungslistan som skickas med till sök och filter-funktionerna
   const filteredItems: Dish[] = filterByCategory(selectedCategory);
 
   // Lista med bara rätter, för de ska gå att filtrera, ej dryckerna
-  const allButDrinks = menuData.filter(
-    (item) => item.category !== "drinks"
-  ) as Dish[];
+  // const allButDrinks = menuData.filter(
+  //   (item) => item.category !== "drinks"
+  // ) as Dish[];
 
   const windowWidth = WindowSizeListener();
 
@@ -46,16 +49,17 @@ const Meals = () => {
     setIsCartEmpty(!isCartEmpty);
   }
 
+
   return (
     <section className="meals-main">
       <section className="meals-section">
         <section className="searchbar-section">
-          <SearchBar
+          {/* <SearchBar
             list={filteredItems}
             // setListToShow={setListToShow}
             setListToShow={(newList) => setListToShow(newList || [])}
             allButDrinks={allButDrinks}
-          />
+          /> */}
         </section>
         <section className="category-button-section">
           <button
@@ -78,9 +82,9 @@ const Meals = () => {
           </button>
         </section>
         {listToShow.map((menuItem: Dish) => (
-          <div key={menuItem.id} className="meals-card">
+          <div key={menuItem._id} className="meals-card">
             <NavLink
-              to={`/menu/${menuItem.id}`}
+              to={`/menu/${menuItem._id}`}
               className="meals-link"
               onClick={refreshQuantity}
             >
@@ -96,7 +100,7 @@ const Meals = () => {
             </NavLink>
             <button
               className="meals-btn"
-              onClick={() => handleAddToCart(menuItem.id)}
+              onClick={() => handleAddToCart(menuItem._id)}
             >
               Add to cart <BsCart3 className="btn-icon" />
             </button>
