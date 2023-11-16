@@ -21,6 +21,7 @@ function App() {
   const showHeader = !'/information'.includes(location.pathname)
   return (
     <>
+    <button onClick={() => testAuth(isLoggedIn.token)}> test </button>
       {showHeader && <Header />}
       <NavBar />
       <Outlet />

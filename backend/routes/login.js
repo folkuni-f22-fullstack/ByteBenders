@@ -90,7 +90,7 @@ async function addUser() {
 router.get('/test', authenticateToken, async (req, res) => {
 	console.log('Success in login/test');
 
-	res.status(205).send({message: 'Success in login/test'});
+	res.status(200).send({message: 'Success in login/test'});
 });
 
 export default router;
