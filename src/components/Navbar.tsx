@@ -60,30 +60,11 @@ const NavBar = () => {
   const confirmLogout = () => {
     modal.current?.showModal();
   };
-  const confirmLogout = () => {
-    modal.current?.showModal();
-  };
 
   const closeModal = () => {
     modal.current?.close();
   };
-  const closeModal = () => {
-    modal.current?.close();
-  };
 
-  const outsideClick = (e: React.MouseEvent) => {
-    const dialogDimensions = modal.current?.getBoundingClientRect();
-    if (dialogDimensions) {
-      if (
-        e.clientX < dialogDimensions.left ||
-        e.clientX > dialogDimensions.right ||
-        e.clientY < dialogDimensions.top ||
-        e.clientY > dialogDimensions.bottom
-      ) {
-        closeModal();
-      }
-    }
-  };
   const outsideClick = (e: React.MouseEvent) => {
     const dialogDimensions = modal.current?.getBoundingClientRect();
     if (dialogDimensions) {
@@ -112,37 +93,7 @@ const NavBar = () => {
             )}
           </div>
         ))}
-      return (
-      <nav className="navbar">
-        {linksToShow &&
-          linksToShow.map((link) => (
-            <div key={link.text} className="link-container">
-              {link.text === "Log out" ? (
-                <button onClick={confirmLogout}>
-                  <MenuLink
-                    linkto={link.to}
-                    icon={link.icon}
-                    text={link.text}
-                  />
-                </button>
-              ) : (
-                <MenuLink linkto={link.to} icon={link.icon} text={link.text} />
-              )}
-            </div>
-          ))}
 
-        <dialog
-          className="modal"
-          ref={modal}
-          onClick={(e) => {
-            outsideClick(e);
-          }}
-        >
-          <p>Log out?</p>
-          <button onClick={handleLogout}>Confirm</button>
-        </dialog>
-      </nav>
-      );
       <dialog
         className="modal"
         ref={modal}
