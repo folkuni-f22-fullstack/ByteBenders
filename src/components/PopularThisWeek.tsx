@@ -1,19 +1,31 @@
 import "../styles/meals.css";
 import { BsCart3 } from "react-icons/bs";
 import { useEffect, useState } from "react";
-import displayMeals from "../utils/popular.ts";
+// import displayMeals from "../utils/popular.ts";
 import { NavLink } from "react-router-dom";
 import addToLS from "../utils/addCartLS";
 import { quantity } from "../utils/addCartLS";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
+import axios from 'axios';
 
 export default function PopularThisWeek() {
   const [randomMeals, setRandomMeals] = useState([]);
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
 
   useEffect(() => {
-    displayMeals(randomMeals, setRandomMeals);
+    async function fetchPopular() {
+      try {
+        const response = await axios.get('/api/popular')
+        setRandomMeals(await response.data);
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchPopular()
+
+    return () => {}
   }, []);
 
   // Set value to 1
@@ -38,8 +50,8 @@ export default function PopularThisWeek() {
       <section className="popular-section snaps-inline">
         {randomMeals &&
           randomMeals.map((menuItem) => (
-            <div className="meals-card" key={menuItem.id}>
-              <NavLink to={`/menu/${menuItem.id}`} className="meals-link">
+            <div className="meals-card" key={menuItem._id}>
+              <NavLink to={`/menu/${menuItem._id}`} className="meals-link">
                 <img
                   src={menuItem.image}
                   alt={`image of ${menuItem.name}`}

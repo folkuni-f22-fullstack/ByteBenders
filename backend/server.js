@@ -6,6 +6,7 @@ import mealrouter from './routes/mealRoutes.js';
 import orderrouter from './routes/orderRoutes.js';
 import cors from 'cors'
 import loginrouter from './routes/login.js';
+import popularrouter from './routes/popularRoutes.js'
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use(express.static(pathToStaticFolder));
 app.use('/api/meals', mealrouter )
 app.use('/api/orders', orderrouter)
 app.use('/api/login', loginrouter)
+app.use('/api/popular', popularrouter)
 
 // start
 app.listen(port, () => {
