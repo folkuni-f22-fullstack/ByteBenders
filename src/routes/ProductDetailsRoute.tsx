@@ -1,89 +1,105 @@
 import { useParams } from "react-router-dom";
-import menuData from "../data/menu.json";
 import { useState, useEffect } from "react";
 import { BiArrowBack, BiMinus, BiPlus } from "react-icons/bi";
-import { BsCart3 } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import addToLS from "../utils/addCartLS";
 import { quantity } from "../utils/addCartLS.tsx";
 import "../styles/details.css";
-
-// details code imported and implemented with original
+import CartRoute from "./CartRoute.tsx";
+import { useRecoilState } from "recoil";
+import { isCartEmptyState } from "../recoil/cartNumberState.js";
+import WindowSizeListener from "../utils/WindowListener.tsx";
+import { Dish } from "../interfaces/dish.ts";
+import { getMealsID } from "../utils/fetch.tsx";
 
 export default function ProductDetailsRoute() {
-  const { id } = useParams();
-  const [product, setProduct] = useState(null);
-  // let [quantity, setQuantity] = useState(1);
+  const [product, setProduct] = useState<null | Dish[]>(null);
+  const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
 
-  function findProduct(id) {
-    return menuData.find((product) => product.id == id);
-  }
+  const windowWidth = WindowSizeListener();
+
+  const mealID = getMealsID()
 
   useEffect(() => {
-    setProduct(findProduct(id));
-  }, [id]);
+    async function fetchMealsId() {
+      setProduct(await mealID)
+    } try {
+      fetchMealsId()
+    } catch {
+      console.log("error");
+
+    }
+  }, []);
 
   // Quantity count
   function updateQuantity(change) {
     // Cannot be less than one
     if (quantity.value >= 1) {
-      let newQuantity = quantity.value += change
-      newQuantity = Math.max(newQuantity, 1)
-      quantity.value = newQuantity
+      let newQuantity = (quantity.value += change);
+      newQuantity = Math.max(newQuantity, 1);
+      quantity.value = newQuantity;
     }
   }
 
   // Send to local storage
-  function handleAddToCart() {
-    addToLS(id)
+  function handleAddToCart(id: number) {
+    addToLS(id);
+    setIsCartEmpty(!isCartEmpty);
   }
 
   return (
     <>
       {product && (
         <main className="details-page">
-          <div className="back-container">
+          <section className="details-container">
             <NavLink to="/menu">
               <BiArrowBack className="return-arrow-icon" />
             </NavLink>
-          </div>
-          <div className="content-container">
             <img
               src={product.image}
               alt={`image of ${product.name}`}
-              className="background-img"
+              className="dish-img"
             />
-            <section className="detail-popup">
-              <section className="detail-content">
-                <section className="top-row">
-                  <div className="amount">
-                    <button
-                      className="amount-detail-button"
-                      onClick={() => updateQuantity(-1)}
-                    >
-                      <BiMinus className="sub-amount-icon" />
-                    </button>
-                    <div className="amount-count">{quantity}</div>
-                    <button
-                      className="amount-detail-button"
-                      onClick={() => updateQuantity(1)}
-                    >
-                      <BiPlus className="add-amount-icon" />
-                    </button>
-                  </div>
-                  <p className="price">{product.price * quantity} :-</p>
-                </section>
-              </section>
-              <div className="description-section">
-                <h5 className="detail-header">{product.name}</h5>
-                <p className="description-text">{product.description}</p>
+            <div className="amount-price">
+              <div className="detail-amount">
+                <button
+                  className="amount-detail-button"
+                  onClick={() => updateQuantity(-1)}
+                >
+                  <BiMinus className="sub-amount-icon" />
+                </button>
+                <div className="amount-count">{quantity}</div>
+                <button
+                  className="amount-detail-button"
+                  onClick={() => updateQuantity(1)}
+                >
+                  <BiPlus className="add-amount-icon" />
+                </button>
               </div>
-              <button className="cart-btn" onClick={handleAddToCart}>
-                <p className="btn-text">Add to Cart</p>
-                <BsCart3 className="add-to-cart-from-details-icon" />
-              </button>
-            </section>
-          </div>
+              <p className="detail-price">{product.price * quantity} :-</p>
+            </div>
+            <div className="details-text">
+              <h4 className="detail-header">{product.name}</h4>
+              {product.allergenes &&
+                product.allergenes.length !== 0 &&
+                product.allergenes[0] !== "" && (
+                  <p className="allergenes-p">
+                    <span className="allergenes-span">Allergenes:</span>{" "}
+                    {product.allergenes}
+                  </p>
+                )}
+
+              <p className="description-text">{product.description}</p>
+            </div>
+            <button className="cart-btn" onClick={handleAddToCart}>
+              Add to Cart
+            </button>
+          </section>
+          {windowWidth > 798 ? (
+            <div className="cart-route-container">
+              <CartRoute />
+            </div>
+          ) : null}
         </main>
       )}
     </>
