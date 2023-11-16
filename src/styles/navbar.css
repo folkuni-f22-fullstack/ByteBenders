@@ -42,6 +42,10 @@
   border: 1px solid var(--orange-color);
 }
 
+ button > .active > .nav-icon {
+  border: 1px solid transparent;
+}
+
 .nav-icon > svg {
   height: 25px;
   width: 25px;
