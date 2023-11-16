@@ -37,9 +37,14 @@
   border: 1px solid transparent;
 }
 
+button > a > .nav-icon:hover,
 .nav-icon:hover,
 .active > .nav-icon {
   border: 1px solid var(--orange-color);
+}
+
+ button > .active > .nav-icon {
+  border: 1px solid transparent;
 }
 
 .nav-icon > svg {
