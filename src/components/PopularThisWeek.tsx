@@ -7,6 +7,7 @@ import addToLS from "../utils/addCartLS";
 import { quantity } from "../utils/addCartLS";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
+import Favorites from "./favorites.tsx";
 
 export default function PopularThisWeek() {
   const [randomMeals, setRandomMeals] = useState([]);
@@ -57,6 +58,7 @@ export default function PopularThisWeek() {
               >
                 Add to cart <BsCart3 className="btn-icon" />
               </button>
+              <Favorites menuItemId={menuItem.id} />
             </div>
           ))}
       </section>
