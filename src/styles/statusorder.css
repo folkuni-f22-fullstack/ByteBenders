@@ -6,7 +6,6 @@
   justify-content: space-evenly;
   height: 12em;
   margin: 1em 1em 0 1em;
-
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 2px;
 }
@@ -25,8 +24,8 @@
 }
 
 .orderstatus-icon {
-  width: 5em;
-  height: 5em;
+  width: 3em;
+  height: 3em;
 }
 .orderstatus-icon > .waiting {
   color: var(--dark-blue);
@@ -60,7 +59,6 @@
   border: var(--next-button-border);
   border-radius: var(--next-button-border-radius);
   width: var(--next-button-width-mobil);
-  height: var(--next-button-height-mobile);
-  font-size: var(--next-button-font-size-mobile);
-  padding: 1em 4em;
+  padding: 1em 2em;
+  cursor: pointer;
 }
