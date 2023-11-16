@@ -23,9 +23,10 @@ export default function LoginRoute() {
 			const login = await fetchAccount( userInput, passwordInput )
 
       if (!login.token) {
+        errorMsgRef.current.value = login
+        
         errorMsgRef.current.style.visibility = 'visible';
       }
-      
 			
 			else if ( login.token) {
         errorMsgRef.current.style.visibility = 'hidden';
