@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { signal } from '@preact/signals-react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import '../styles/login.css';
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { loginState } from '../recoil/loginState.js'
 import fetchAccount from '../utils/AJAX/fetchAccount.js'
+import WindowSizeListener from '../utils/WindowListener.tsx';
 
 export const loggedIn = signal(false);
 
@@ -16,6 +17,8 @@ export default function LoginRoute() {
 	const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState)
 	const navigate = useNavigate();
   const errorMsgRef = useRef(null)
+  let windowWidth = WindowSizeListener();
+  let textColor =  windowWidth > 800 ? "var(--dark-blue)" : "#FFFFFF"
 
 	const handleLogin = async () => {
 
@@ -81,7 +84,7 @@ export default function LoginRoute() {
           </div>
         </div>
 
-        <p ref={errorMsgRef} style={{ visibility: 'hidden', color: '#FFFFFF' }}> User or password not found.. </p>
+        <p ref={errorMsgRef} style={{ visibility: 'hidden', color: textColor }}> User or password not found.. </p>
         <button type="button" className="login-button" onClick={handleLogin}>
           Log in
         </button>
