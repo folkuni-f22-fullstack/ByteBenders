@@ -1,70 +1,81 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { RiCheckboxCircleLine } from 'react-icons/ri'
 import '../styles/OrderCards.css'
 import '../App.css'
+import { Order } from '../interfaces/order';
+import { getOrders } from '../utils/fetch';
+
 
 export default function DoneOrderCard() {
-    const [orderData, setOrderData] = useState({
-        orderNumber: 15235,
-        orderContent: [
-            {
-                productName: "California roll 8st",
-                amount: 1
-            },
-            {
-                productName: "Pepsi",
-                amount: 1
-            },
-        ]
-    })
+    const [orderData, setOrderData] = useState<Order[] | null>(null)
+    const [isExpanded, setIsExpanded] = useState<null | number>(null);
+
+    useEffect(() => {
+        async function fetchOrderID() {
+            try {
+                const fetchedData = await getOrders()
+                setOrderData(fetchedData)
+                console.log('Succeeded in fetching orders');
+            } catch (error) {
+                console.log('Failed to fetch orders');
+            }
+        }
+        fetchOrderID()
+    }, [])
 
     // todo Koppla faktiskt data från cart till Employee gränssnittet
-    const [isExpanded, setIsExpanded] = useState(false);
-    const toggleExpansion = () => {
-        setIsExpanded(!isExpanded);
-    };
+
+    if (orderData === null) {
+        // Lägg till något laddningsindikator eller annat meddelande medan data hämtas
+        return <div>Loading...</div>;
+    }
+
 
     return (
         <>
-            {/* <h1>Done Orders</h1> */}
-            <div className="done-order-card">
-                <div className="order-content">
-                    <h1> #{orderData.orderNumber} </h1>
+            {orderData && orderData.map(order => (
+                <div className="recieved-order-card" key={order._id}>
+                    <div className="order-content">
+                        <h1> <div >{order._id}</div> </h1>
+                        <div className="extend-order-icons">
+                            {isExpanded ? (
+                                <button
+                                    onClick={() => setIsExpanded(null)}
+                                    className='close-order-icon'>
+                                    <IoIosArrowUp />
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={() => setIsExpanded(order._id)}
+                                    className='open-order-icon'>
+                                    <IoIosArrowDown />
+                                </button>
+                            )}
+                        </div>
+                    </div >
+                    {isExpanded === order._id && (
+                        <ul className='order-info-section'>
+                            {order.content.map((item) => (
+                                <li className='order-product-name' key={item} >
+                                    {item}
+                                    <span className="amount-text">: x{order.total}</span>
+                                </li>
 
-                    <div onClick={toggleExpansion} className="extend-order-icons">
-                        {isExpanded ? (
-                            <div className='close-order-icon'>
-                                <IoIosArrowUp />
-                            </div>
-                        ) : (
-                            <div className='open-order-icon'>
-                                <IoIosArrowDown />
-                            </div>
-                        )}
-                    </div>
-                </div>
-                {isExpanded && (
-                    <ul className='order-info-section'>
-                        {orderData.orderContent.map(product => (
-                            <li className='order-product-name' key={product.productName}>
-                                {product.productName}
-                                <span className="amount-text">: x{product.amount}</span>
-                            </li>
-                        ))}
-                        {/* // TODO: Säkertställ att en kommentar renderas beroende av order inte product */}
-                        <section className="additional-info-section">
-                            <div className='comment-section'>
-                                <h3>Kommentar</h3>
-                                <span >Ingen Fisk</span>
-                            </div>
-                            <div className='done-order-icon'>
-                                <RiCheckboxCircleLine />
-                            </div>
-                        </section>
-                    </ul>
-                )}
-            </div>
+                            ))}
+                            <section className="additional-info-section">
+                                <div className='comment-section'>
+                                    <h3>Kommentar</h3>
+                                    <span >{order.usercomment}</span>
+                                </div>
+                                <div className='send-order-icon'> <RiCheckboxCircleLine />
+                                </div>
+                            </section>
+                        </ul>
+                    )
+                    }
+                </div >
+            ))}
         </>
     )
 }

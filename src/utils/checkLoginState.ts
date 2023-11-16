@@ -8,11 +8,11 @@ export default function checkLoginState(isLoggedIn: object, setIsLoggedIn: (valu
         if (cookie) {
             const tokenFromCookie = JSON.parse(cookie.split("=")[1])
             setIsLoggedIn({loggedIn: true, token: tokenFromCookie})
-            console.log('Logged in true');
+            // console.log('Logged in true');
             
         } else {
             setIsLoggedIn({loggedIn: false, token: ''})
-            console.log('Logged in false');
+            // console.log('Logged in false');
         }
     }
 }
