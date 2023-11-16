@@ -1,40 +1,41 @@
-import express from "express";
-import { join, dirname } from 'path'
-import { fileURLToPath } from 'url'
-import { connectDb } from "./db";
+import express from 'express';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { connectDb } from './db.js';
+import mealrouter from './routes/mealRoutes.js';
+import orderrouter from './routes/orderRoutes.js';
+import cors from 'cors'
+import loginrouter from './routes/login.js';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
-const port = process.send.mongoURI
-const app = express()
+const port = 1523;
+const app = express();
+export const secret = process.env.MONGO_URI;
 
-connectDb()
-// Kontrollera att DB import fungerar med MongoDB
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-const dist = join(__dirname, '../dist')
-app.use(express.static(dist))
+// felmeddelandet: "The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."
+// kommer enbart fram när .env inte finns i samma folder som handlern som körs, fråga david om tips.
 
 //middleware
 app.use(cors())
-app.use(express.json())
-app.use((req, res, next) => {
-    console.log(`${req.method} ${red.url}`, req.body);
-    next()
-})
+app.use('/api', express.json());
+app.use('/', (req, res, next) => {
+	console.log(`**Logger: ${req.method} ${req.url}`, req.body);
+	next();
+});
 
-
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const pathToStaticFolder = join(__dirname, '../dist');
+app.use(express.static(pathToStaticFolder));
 
 // api
-
-app.use('/api/meals', mealsRouter )
-app.use('/api/orders', orderRouter)
-
-
-
-
-
-
+app.use('/api/meals', mealrouter )
+app.use('/api/orders', orderrouter)
+app.use('/api/login', loginrouter)
 
 // start
 app.listen(port, () => {
-    console.log(`Server is listening on port ${port}...`)
-})
+	console.log(`Server is listening on port ${port}...`);
+});
+
+connectDb();

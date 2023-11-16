@@ -1,4 +1,5 @@
 import { signal } from "@preact/signals-react";
+
 import menuData from "../data/menu.json";
 
 export let quantity = signal(1)

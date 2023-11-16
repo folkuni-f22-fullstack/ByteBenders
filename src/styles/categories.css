@@ -1,55 +1,60 @@
 .category-section {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .searchbar-section {
-	display: flex;
-	/* width: 100%; */
-	flex-direction: column;
-	align-items: center;
-	margin: 2em 0 1em 0;
-	justify-content: center;
-	/* min-height: 5em; */
-	/* position: relative; */
+  display: flex;
+  /* width: 100%; */
+  flex-direction: column;
+  align-items: center;
+  margin: 2em 0 1em 0;
+  justify-content: center;
+  /* min-height: 5em; */
+  /* position: relative; */
 }
 .category-text {
-	font-size: small;
+  font-size: small;
 }
 .category-button-section {
-	width: 100%;
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 .category-button {
-	padding: 0.3em 0.9em;
-	border: none;
-	background-color: transparent;
-	border-radius: 0.3em;
-	transition: all 0.3s ease-in-out;
-	font-weight: bold;
-	font-size: 16px;
+  padding: 0.3em 0.9em;
+  border: none;
+  background-color: transparent;
+  border-radius: 0.3em;
+  transition: all 0.3s ease-in-out;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
 }
 .category-button:focus {
-	background-color: #ffb550;
-	color: white;
+  background-color: #ffb550;
+  color: white;
+}
+.category-button:hover {
+  background-color: #ffb550;
+  color: white;
 }
 .render-filteredfood-section {
-	width: 80%;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	transition: all 0.3s ease-in-out;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
 }
 @media screen and (min-width: 798px) {
-	.category-button-section {
-		justify-content: flex-start;
-	}
-	.category-button-section > * {
-		margin-right: 8em;
-	}
-	.category-text-section {
-		margin-left: 1em;
-	}
+  .category-button-section {
+    justify-content: flex-start;
+  }
+  .category-button-section > * {
+    margin-right: 8em;
+  }
+  .category-text-section {
+    margin-left: 1em;
+  }
 }

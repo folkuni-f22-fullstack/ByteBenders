@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import menuData from "../data/menu.json";
 import { useState, useEffect } from "react";
 import { BiArrowBack, BiMinus, BiPlus } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
@@ -7,21 +6,30 @@ import addToLS from "../utils/addCartLS";
 import { quantity } from "../utils/addCartLS.tsx";
 import "../styles/details.css";
 import CartRoute from "./CartRoute.tsx";
-
-// details code imported and implemented with original
+import { useRecoilState } from "recoil";
+import { isCartEmptyState } from "../recoil/cartNumberState.js";
+import WindowSizeListener from "../utils/WindowListener.tsx";
+import { Dish } from "../interfaces/dish.ts";
+import { getMealsID } from "../utils/fetch.tsx";
 
 export default function ProductDetailsRoute() {
-  const { id } = useParams();
-  const [product, setProduct] = useState(null);
-  // let [quantity, setQuantity] = useState(1);
+  const [product, setProduct] = useState<null | Dish[]>(null);
+  const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
 
-  function findProduct(id) {
-    return menuData.find((product) => product.id == id);
-  }
+  const windowWidth = WindowSizeListener();
+
+  const mealID = getMealsID()
 
   useEffect(() => {
-    setProduct(findProduct(id));
-  }, [id]);
+    async function fetchMealsId() {
+      setProduct(await mealID)
+    } try {
+      fetchMealsId()
+    } catch {
+      console.log("error");
+
+    }
+  }, []);
 
   // Quantity count
   function updateQuantity(change) {
@@ -34,8 +42,9 @@ export default function ProductDetailsRoute() {
   }
 
   // Send to local storage
-  function handleAddToCart() {
+  function handleAddToCart(id: number) {
     addToLS(id);
+    setIsCartEmpty(!isCartEmpty);
   }
 
   return (
@@ -71,7 +80,8 @@ export default function ProductDetailsRoute() {
             </div>
             <div className="details-text">
               <h4 className="detail-header">{product.name}</h4>
-              {product.allergenes.length !== 0 &&
+              {product.allergenes &&
+                product.allergenes.length !== 0 &&
                 product.allergenes[0] !== "" && (
                   <p className="allergenes-p">
                     <span className="allergenes-span">Allergenes:</span>{" "}
@@ -85,7 +95,11 @@ export default function ProductDetailsRoute() {
               Add to Cart
             </button>
           </section>
-          <CartRoute />
+          {windowWidth > 798 ? (
+            <div className="cart-route-container">
+              <CartRoute />
+            </div>
+          ) : null}
         </main>
       )}
     </>
