@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { signal } from '@preact/signals-react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import '../styles/login.css';
@@ -6,8 +6,6 @@ import { useNavigate } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { loginState } from '../recoil/loginState.js'
 import fetchAccount from '../utils/AJAX/fetchAccount.js'
-import { saveCookie } from "../utils/cookieHandler.ts";
-import { testAuth } from '../utils/AJAX/testAuth.js'
 
 export const loggedIn = signal(false);
 
@@ -17,40 +15,32 @@ export default function LoginRoute() {
 	const [passwordInput, setPasswordInput] = useState('');
 	const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState)
 	const navigate = useNavigate();
+  const errorMsgRef = useRef(null)
 
 	const handleLogin = async () => {
-		// if (userInput === '1234' && passwordInput === 'password') {
-		// 	setIsLoggedIn(true);
-		// 	setUserInput('');
-		// 	setPasswordInput('');
-		// 	navigate("/recieved")
-		// } else {
-		// 	console.log('Wrong user or password');
-		// }
-		// console.log('isLoggedIn är: ', isLoggedIn);
 
 		try {
-			// Försök logga in mha ajax
 			const login = await fetchAccount( userInput, passwordInput )
+
+      if (!login.token) {
+        errorMsgRef.current.style.visibility = 'visible';
+      }
+      
 			
-			console.log(login);
-			
-			if ( login.token) {
+			else if ( login.token) {
+        errorMsgRef.current.style.visibility = 'hidden';
 				setIsLoggedIn({ loggedIn: true, token: login.token})
 				setUserInput('');
 				setPasswordInput('');
 				navigate("/recieved")
-				console.log('login success');
-				// saveCookie(login.token)
 				let d = new Date();
 				d.setTime(d.getTime() + 1 * 60 * 60 * 1000);
 				document.cookie = `user_cookie=${JSON.stringify(
 					login.token
 				)}; expires=${d.toUTCString()}`;
 			}
-			// Om lyckas sätt recoilstate till inloggad
 		} catch (error) {
-			// 
+			console.log(error);
 		}
 
 	};
@@ -90,6 +80,7 @@ export default function LoginRoute() {
           </div>
         </div>
 
+        <p ref={errorMsgRef} style={{ visibility: 'hidden', color: '#FFFFFF' }}> User or password not found.. </p>
         <button type="button" className="login-button" onClick={handleLogin}>
           Log in
         </button>

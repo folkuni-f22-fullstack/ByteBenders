@@ -7,7 +7,6 @@ import "./App.css";
 import checkLoginState from "./utils/checkLoginState.ts";
 import { useRecoilState } from 'recoil'
 import { loginState } from './recoil/loginState.js'
-import { testAuth } from '../src/utils/AJAX/testAuth.js'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState)
@@ -21,7 +20,6 @@ function App() {
   const showHeader = !'/information'.includes(location.pathname)
   return (
     <>
-    <button onClick={() => testAuth(isLoggedIn.token)}> test </button>
       {showHeader && <Header />}
       <NavBar />
       <Outlet />

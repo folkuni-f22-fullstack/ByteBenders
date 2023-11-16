@@ -17,6 +17,7 @@ router.post('/', async (req, res) => {
 		res.status(412).send({
 			message: 'Username or password is missing'
 		}) // Precondition Failed
+		return
 	}
 	const reqName = req.body.name;
 	const reqPassword = req.body.password;

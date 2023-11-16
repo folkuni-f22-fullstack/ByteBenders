@@ -5,7 +5,6 @@ dotenv.config();
 const secret = process.env.SECRET_KEY;
 
 export function authenticateToken(req, res, next) {
-	console.log('*********första i authenticate**********')
 	console.log('authenticateToken: req.body: ', req?.body);
 	let token = req.headers?.authorization;
 	console.log('authenticateToken: token: ', token);
