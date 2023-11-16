@@ -47,8 +47,6 @@ export default function LoginRoute() {
 				document.cookie = `user_cookie=${JSON.stringify(
 					login.token
 				)}; expires=${d.toUTCString()}`;
-				
-				testAuth(login.token)
 			}
 			// Om lyckas sätt recoilstate till inloggad
 		} catch (error) {
