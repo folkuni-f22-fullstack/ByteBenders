@@ -11,10 +11,9 @@ import { useRecoilState } from "recoil";
 import { loginState } from "../recoil/loginState.js";
 import { cartState } from "../recoil/cartNumberState.js";
 import { getCartQuantity } from "../utils/general.ts";
-import { deleteCookie } from "../utils/cookieHandler.ts";
 
 const NavBar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [cartItems, setCartItems] = useRecoilState(cartState);
   const [linksToShow, setLinksToShow] = useState([]);
   const navigate = useNavigate();
@@ -28,14 +27,14 @@ const NavBar = () => {
   // Ikoner för navbaren utan inloggning
   const linkObjects = [
     { icon: <PiForkKnifeFill />, text: "Menu", to: "menu" },
-    { icon: <BsCart3 />, text: `Cart (${cartItems})`, to: "cart" },
+    { icon: <BsCart3 />, text: `Cart`, to: "cart" },
     { icon: <BsInfoLg />, text: "About", to: "information" },
     { icon: <BsFillPersonFill />, text: "Log in", to: "login" },
   ];
 
   const updatedLinkObjects = linkObjects.map((link) => {
     if (link.text === "Cart") {
-      return { ...link, text: `Cart (${cartItems})` };
+      return { ...link, text: `Cart` };
     }
     return link;
   });
@@ -49,18 +48,13 @@ const NavBar = () => {
   ];
 
   useEffect(() => {
-    setLinksToShow(isLoggedIn.loggedIn ? linkObjectsLoggedIn : updatedLinkObjects);
+    setLinksToShow(isLoggedIn ? linkObjectsLoggedIn : updatedLinkObjects);
   }, [isLoggedIn, cartItems]);
 
   const handleLogout = () => {
     closeModal();
-    setIsLoggedIn({loggedIn: false, token: ''});
+    setIsLoggedIn(false);
     navigate("");
-
-    let d = new Date();
-    d.setTime(d.getTime() - (1 * 60 * 60 * 1000));
-    
-    document.cookie = `user_cookie=; expires=${d.toUTCString()}`;  
   };
 
   const confirmLogout = () => {

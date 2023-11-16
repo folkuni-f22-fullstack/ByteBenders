@@ -100,6 +100,11 @@
     flex-direction: column;
 }
 
+.close-order-icon, .open-order-icon {
+    border: none;
+    background-color: transparent;
+}
+
 @media screen and (max-width: 499px) {
 
     .recieved-order-card,

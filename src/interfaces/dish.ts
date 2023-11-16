@@ -1,4 +1,4 @@
-export interface Dish {
+export type Dish = {
 	image: string;
 	_id: number;
 	name: string;
