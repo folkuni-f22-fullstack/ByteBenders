@@ -10,6 +10,8 @@ import { cartState } from "../recoil/cartNumberState.js";
 import { getCartQuantity } from "../utils/general";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
+import { isOrdered } from "../components/CartSendDb.jsx";
+import OrderStatusCustomer from "./OrderStatusCustomer.tsx";
 
 export let promo = signal(0);
 export let totalPrice = signal(0);
@@ -21,6 +23,7 @@ function CartCard() {
   let [isPromo, setIsPromo] = useState("");
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
   const [cartItems, setCartItems] = useRecoilState(cartState);
+  const [orderFinished, setOrderFinished] = useState(null);
 
   // Update cart, !! Utkommenterad pga Infinity Loop !!
   useEffect(() => {
@@ -179,6 +182,8 @@ function CartCard() {
                   ></input>
                 </div>
               ))}
+              {/* orderstatus */}
+              {isOrdered.value && !orderFinished && <OrderStatusCustomer />}
             </>
           )}
         </div>
