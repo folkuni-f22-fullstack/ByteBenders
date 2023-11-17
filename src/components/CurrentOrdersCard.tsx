@@ -5,6 +5,7 @@ import '../styles/OrderCards.css';
 import '../App.css';
 import { Order } from '../interfaces/order';
 import { getOrders } from '../utils/fetch';
+import { putOrder } from '../utils/fetch';
 
 
 export default function CurrentOrderCard() {
@@ -15,7 +16,8 @@ export default function CurrentOrderCard() {
         async function fetchOrderID() {
             try {
                 const fetchedData = await getOrders()
-                setOrderData(fetchedData)
+                const currentOrders = fetchedData?.filter(order => order.status === 'current');
+                setOrderData(currentOrders)
                 console.log('Succeeded in fetching orders');
             } catch (error) {
                 console.log('Failed to fetch orders');
@@ -32,9 +34,27 @@ export default function CurrentOrderCard() {
     }
 
 
+    const handleToggleStatus = async (order: Order, newStatus: string) => {
+        try {
+            // Update the "status" property in the database
+            await putOrder(order, newStatus);
+
+            // Refetch orders after updating the "status"
+            const updatedOrders = await getOrders();
+            setOrderData(updatedOrders);
+            console.log('Order updated');
+
+        } catch (error) {
+            console.log('Failed to update order status');
+        }
+    };
+
+    const currentOrders = orderData.filter(order => order.status === 'current');
+
+
     return (
         <>
-            {orderData && orderData.map(order => (
+            {currentOrders && currentOrders.map(order => (
                 <div className="recieved-order-card" key={order._id}>
                     <div className="order-content">
                         <h1> <div >{order._id}</div> </h1>
@@ -68,8 +88,8 @@ export default function CurrentOrderCard() {
                                     <h3>Kommentar</h3>
                                     <span >{order.usercomment}</span>
                                 </div>
-                                <div className='send-order-icon'> <BsCheckCircleFill />
-                                </div>
+                                <button className='send-order-icon' onClick={() => handleToggleStatus(order, 'done')}> <BsCheckCircleFill />
+                                </button>
                             </section>
                         </ul>
                     )

@@ -73,6 +73,7 @@ router.put('/:id', async (req, res) => {
 		await connectDb();
 		const orderId = req.params.id;
 		const updatedOrderData = req.body; // Utgår från att datan ligger i req.body tillsvidare
+		const updatedStatus = req.body.status
 
 		// Kolla om någon order matchar sökid
 		const existingOrder = await Order.findById(orderId);
@@ -85,8 +86,13 @@ router.put('/:id', async (req, res) => {
 			updatedOrderData,
 			{ new: true }
 		);
-		console.log('Order updated:', updatedOrder);
-		res.status(200).send(updatedOrder);
+		const updateStatus = await Order.updateOne(
+			{ _id: orderId },
+			{ $set: { status: updatedStatus } }
+		);
+
+		console.log('Status uppdaterad');
+		res.status(200).send(updateStatus)
 	} catch (error) {
 		console.error(error.message);
 		res.sendStatus(400);
