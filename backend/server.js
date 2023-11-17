@@ -14,9 +14,6 @@ const port = 1523;
 const app = express();
 export const secret = process.env.MONGO_URI;
 
-// felmeddelandet: "The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."
-// kommer enbart fram när .env inte finns i samma folder som handlern som körs, fråga david om tips.
-
 //middleware
 app.use(cors())
 app.use('/api', express.json());
