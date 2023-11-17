@@ -23,19 +23,19 @@ function App() {
 
   putOrder(order, 'current')
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
         
-        await isOrderLocked(1)
-      } catch (error) {
+  //       await isOrderLocked(1)
+  //     } catch (error) {
         
-      }
+  //     }
 
-    }
-    fetchData()
+  //   }
+  //   fetchData()
 
-  }, [])
+  // }, [])
 
 
   // {order.locked ? (
