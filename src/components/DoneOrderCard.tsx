@@ -5,6 +5,7 @@ import '../styles/OrderCards.css'
 import '../App.css'
 import { Order } from '../interfaces/order';
 import { getOrders } from '../utils/fetch';
+import { putOrder } from '../utils/fetch';
 
 
 export default function DoneOrderCard() {
@@ -15,7 +16,8 @@ export default function DoneOrderCard() {
         async function fetchOrderID() {
             try {
                 const fetchedData = await getOrders()
-                setOrderData(fetchedData)
+                const doneOrders = fetchedData?.filter(order => order.status === 'done');
+                setOrderData(doneOrders)
                 console.log('Succeeded in fetching orders');
             } catch (error) {
                 console.log('Failed to fetch orders');
@@ -32,9 +34,28 @@ export default function DoneOrderCard() {
     }
 
 
+    // const handleToggleStatus = async (order: Order, newStatus: string) => {
+    //     try {
+    //         // Update the "status" property in the database
+    //         await putOrder(order, newStatus);
+
+    //         // Refetch orders after updating the "status"
+    //         const updatedOrders = await getOrders();
+    //         setOrderData(updatedOrders);
+    //         console.log('Order updated');
+            
+    //     } catch (error) {
+    //         console.log('Failed to update order status');
+    //     }
+    // };
+
+    const doneOrders = orderData.filter(order => order.status === 'done');
+
+
+
     return (
         <>
-            {orderData && orderData.map(order => (
+            {doneOrders && doneOrders.map(order => (
                 <div className="recieved-order-card" key={order._id}>
                     <div className="order-content">
                         <h1> <div >{order._id}</div> </h1>
