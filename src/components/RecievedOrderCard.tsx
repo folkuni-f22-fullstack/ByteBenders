@@ -5,6 +5,7 @@ import '../styles/OrderCards.css'
 import '../App.css'
 import { Order } from '../interfaces/order';
 import { getOrders } from '../utils/fetch';
+import { putOrder } from '../utils/fetch';
 
 
 export default function RecievedOrderCard() {
@@ -15,7 +16,8 @@ export default function RecievedOrderCard() {
         async function fetchOrderID() {
             try {
                 const fetchedData = await getOrders()
-                setOrderData(fetchedData)
+                const receivedOrders = fetchedData?.filter(order => order.status === 'received');
+                setOrderData(receivedOrders)
                 console.log('Succeeded in fetching orders');
             } catch (error) {
                 console.log('Failed to fetch orders');
@@ -30,11 +32,29 @@ export default function RecievedOrderCard() {
         // Lägg till något laddningsindikator eller annat meddelande medan data hämtas
         return <div>Loading...</div>;
     }
-    
+
+
+    const handleToggleStatus = async (order: Order, newStatus: string) => {
+        try {
+            // Update the "status" property in the database
+            await putOrder(order, newStatus);
+
+            // Refetch orders after updating the "status"
+            const updatedOrders = await getOrders();
+            setOrderData(updatedOrders);
+            console.log('Order updated', updatedOrders);
+            
+        } catch (error) {
+            console.log('Failed to update order status');
+        }
+    };
+
+    const receivedOrders = orderData.filter(order => order.status === 'received');
+
 
     return (
         <>
-            {orderData && orderData.map(order => (
+            {receivedOrders && receivedOrders.map(order => (
                 <div className="recieved-order-card" key={order._id}>
                     <div className="order-content">
                         <h1> <div >{order._id}</div> </h1>
@@ -69,8 +89,8 @@ export default function RecievedOrderCard() {
                                     <h3>Kommentar</h3>
                                     <span >{order.usercomment}</span>
                                 </div>
-                                <div className='send-order-icon'> <BsFillArrowRightCircleFill />
-                                </div>
+                                <button className='send-order-icon' onClick={() => handleToggleStatus(order, 'current')}> <BsFillArrowRightCircleFill />
+                                </button>
                             </section>
                         </ul>
                     )

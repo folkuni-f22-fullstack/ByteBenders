@@ -22,24 +22,6 @@ export function getMealsID() {
 	return getMeals()
 }
 
-// export async function getOrderID() {
-// 	const { orderid } = useParams()
-// 	const getOrdersUrl = `/api/orders/${orderid}`
-
-	// async function getOrders(): Promise<Order[]> {
-		// try {
-		// 	const response = await fetch(getOrdersUrl)
-		// 	const orderData = await response.json()
-
-		// 	console.log('Order API response', orderData);
-		// 	return orderData
-		// } catch (error) {
-		// 	console.log(error);
-		// 	throw new Error("Something went wrong while fetching meal details")
-		// }
-	// }
-	// return getOrders
-// }
 
 export async function getOrders() {
 	// const { orderid } = useParams()
@@ -50,7 +32,7 @@ export async function getOrders() {
 			const response = await fetch(getOrdersUrl)
 			const orderData = await response.json()
 
-			console.log('Order API response', orderData);
+			// console.log('Order API response', orderData);
 			return orderData
 		} catch (error) {
 			console.log(error);
@@ -58,5 +40,37 @@ export async function getOrders() {
 		}
 	// }
 	// return getOrders
+}
+
+export async function putOrder(order: Order, newStatus: string) {
+	// const { orderid } = useParams()
+	const putOrderUrl = `/api/orders/${order._id}`
+
+	// body = {
+	// 	// _id: id,
+	// 	status: newStatus
+	// }
+	console.log('orderstatus innan' , order.status);
+	
+	order.status = newStatus
+	console.log('orderstatus efter', order.status);
+	
+	const options = {
+		method: 'PUT',
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(order)
+	}
+	
+		try {
+			const response = await fetch(putOrderUrl, options)
+			const orderData = await response.json()
+
+			console.log('Order API response', orderData);
+			return orderData
+		} catch (error) {
+			console.log(error);
+			throw new Error("Something went wrong while fetching meal details")
+		}
+
 }
 

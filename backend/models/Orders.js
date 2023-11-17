@@ -7,7 +7,7 @@ const orderSchema = new mongoose.Schema({
     usercomment: String,
     staffcomment: String,
     total: Number,
-    done: Boolean
+    status: String,
 })
 
 const Order = mongoose.model('Order', orderSchema)
