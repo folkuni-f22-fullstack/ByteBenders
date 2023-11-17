@@ -11,6 +11,7 @@ import { useRecoilState } from "recoil";
 import { loginState } from "../recoil/loginState.js";
 import { cartState } from "../recoil/cartNumberState.js";
 import { getCartQuantity } from "../utils/general.ts";
+import { deleteCookie } from "../utils/cookieHandler.ts";
 
 const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
@@ -48,12 +49,13 @@ const NavBar = () => {
   ];
 
   useEffect(() => {
-    setLinksToShow(isLoggedIn ? updatedLinkObjects : linkObjectsLoggedIn);
-  }, [isLoggedIn, cartItems]);
+    setLinksToShow(isLoggedIn.loggedIn ? linkObjectsLoggedIn : updatedLinkObjects);
+  }, [isLoggedIn.loggedIn, cartItems]);
 
   const handleLogout = () => {
     closeModal();
-    setIsLoggedIn(false);
+    setIsLoggedIn({ loggedIn: false });
+    deleteCookie()
     navigate("");
   };
 
