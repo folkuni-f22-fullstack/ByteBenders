@@ -34,9 +34,11 @@ export default function PopularThisWeek() {
   }
 
   // Add to local storage
-  function handleAddToCart(id) {
-    addToLS(id);
+  async function handleAddToCart(id: number) {
+    await addToLS(id);
     setIsCartEmpty(!isCartEmpty);
+    console.log('Popular id: ', id);
+    
   }
 
   return (

@@ -13,6 +13,8 @@ import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
 import WindowSizeListener from "../utils/WindowListener.tsx";
 import axios from "axios";
+// import { signal } from "@preact/signals-react";
+
 
 const Meals = () => {
   const [selectedCategory, setSelectedCartegory] = useState("");
@@ -23,7 +25,7 @@ const Meals = () => {
   const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
-    axios.get('http://localhost:1523/api/meals')
+    axios.get('/api/meals')
       .then(response => setListToShow(response.data))
       .catch(error => console.error('error feching meals', error))
   }, [])
@@ -44,9 +46,11 @@ const Meals = () => {
   }
 
   // Add to local storage
-  function handleAddToCart(id: number) {
-    addToLS(id);
+  async function handleAddToCart(id: number) {
+    await addToLS(id);
     setIsCartEmpty(!isCartEmpty);
+    console.log('Meal id: ', id);
+    
   }
 
 
