@@ -35,10 +35,9 @@ export default function PopularThisWeek() {
 
   // Add to local storage
   async function handleAddToCart(id: number) {
-    await addToLS(id);
+    await addToLS(id, "api/popular");
     setIsCartEmpty(!isCartEmpty);
     console.log('Popular id: ', id);
-    
   }
 
   return (
@@ -67,7 +66,7 @@ export default function PopularThisWeek() {
               </NavLink>
               <button
                 className="meals-btn"
-                onClick={() => handleAddToCart(menuItem.id)}
+                onClick={() => handleAddToCart(menuItem._id)}
               >
                 Add to cart <BsCart3 className="btn-icon" />
               </button>

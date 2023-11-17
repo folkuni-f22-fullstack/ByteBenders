@@ -62,6 +62,10 @@ button > a > .nav-icon:hover,
   background-color: #314558;
 }
 
+button > .active > .nav-icon {
+  background-color: transparent;
+}
+
 .nav-icon > svg {
   height: 25px;
   width: 25px;
