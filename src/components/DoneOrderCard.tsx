@@ -34,20 +34,20 @@ export default function DoneOrderCard() {
     }
 
 
-    const handleToggleStatus = async (order: Order, newStatus: string) => {
-        try {
-            // Update the "status" property in the database
-            await putOrder(order, newStatus);
+    // const handleToggleStatus = async (order: Order, newStatus: string) => {
+    //     try {
+    //         // Update the "status" property in the database
+    //         await putOrder(order, newStatus);
 
-            // Refetch orders after updating the "status"
-            const updatedOrders = await getOrders();
-            setOrderData(updatedOrders);
-            console.log('Order updated');
+    //         // Refetch orders after updating the "status"
+    //         const updatedOrders = await getOrders();
+    //         setOrderData(updatedOrders);
+    //         console.log('Order updated');
             
-        } catch (error) {
-            console.log('Failed to update order status');
-        }
-    };
+    //     } catch (error) {
+    //         console.log('Failed to update order status');
+    //     }
+    // };
 
     const doneOrders = orderData.filter(order => order.status === 'done');
 
@@ -89,8 +89,8 @@ export default function DoneOrderCard() {
                                     <h3>Kommentar</h3>
                                     <span >{order.usercomment}</span>
                                 </div>
-                                <button className='send-order-icon' onClick={() => handleToggleStatus(order, 'received')}> <RiCheckboxCircleLine />
-                                </button>
+                                <div className='send-order-icon'> <RiCheckboxCircleLine />
+                                </div>
                             </section>
                         </ul>
                     )
