@@ -4,7 +4,7 @@
 
 // Returnerar en tid som maträtten bör vara klar på
 export function finishedTime(count) {
-    if (!localStorage.getItem('ETA')) {
+    if ((!localStorage.getItem('ETA') && (!localStorage.getItem('order')))) {
         const currentDate = new Date();
         const currentHour = currentDate.getHours();
         const currentMinutes = currentDate.getMinutes();
