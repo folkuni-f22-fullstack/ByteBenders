@@ -8,6 +8,7 @@ const orderSchema = new mongoose.Schema({
     staffcomment: String,
     total: Number,
     status: String,
+    locked: Boolean
 })
 
 const Order = mongoose.model('Order', orderSchema)

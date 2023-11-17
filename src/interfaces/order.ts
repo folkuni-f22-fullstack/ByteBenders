@@ -6,4 +6,5 @@ export type Order = {
     staffcomment: string;
     total: number;
     status: string;
+    locked: boolean;
 }
