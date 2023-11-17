@@ -42,9 +42,10 @@ export default function ProductDetailsRoute() {
   }
 
   // Send to local storage
-  function handleAddToCart(id: number) {
-    addToLS(id);
+  async function handleAddToCart(id: number) {
+    await addToLS(id);
     setIsCartEmpty(!isCartEmpty);
+    console.log('From detail id: ', id);
   }
 
   return (

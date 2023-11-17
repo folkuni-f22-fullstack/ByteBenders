@@ -12,7 +12,7 @@ export function getMealsID() {
 			const detailsData = await response.json();
 
 			// Log the response here
-			console.log('Meal API Response:', detailsData);
+			// console.log('Meal API Response:', detailsData);
 			return detailsData;
 		} catch (error) {
 			console.log(error);
