@@ -48,7 +48,7 @@ const NavBar = () => {
   ];
 
   useEffect(() => {
-    setLinksToShow(isLoggedIn ? linkObjectsLoggedIn : updatedLinkObjects);
+    setLinksToShow(isLoggedIn ? updatedLinkObjects : linkObjectsLoggedIn);
   }, [isLoggedIn, cartItems]);
 
   const handleLogout = () => {
