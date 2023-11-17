@@ -7,6 +7,7 @@ import "./App.css";
 import checkLoginState from "./utils/checkLoginState.ts";
 import { useRecoilState } from 'recoil'
 import { loginState } from './recoil/loginState.js'
+import { isOrderLocked, putOrder } from "./utils/fetch.tsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState)
@@ -15,6 +16,33 @@ function App() {
     checkLoginState(isLoggedIn, setIsLoggedIn)
   }, [])
 
+  let order = {
+    _id: 1,
+    status: 'current'
+  }
+
+  putOrder(order, 'current')
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        
+        await isOrderLocked(1)
+      } catch (error) {
+        
+      }
+
+    }
+    fetchData()
+
+  }, [])
+
+
+  // {order.locked ? (
+  //   <p>order is locked bla bla </p>
+  // ) : (
+  //   button 
+  // )}
 
   const location = useLocation()
   const showHeader = !'/information'.includes(location.pathname)

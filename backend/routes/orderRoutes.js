@@ -81,22 +81,52 @@ router.put('/:id', async (req, res) => {
 			console.log('Order not found');
 			return res.sendStatus(404);
 		}
-		const updatedOrder = await Order.findByIdAndUpdate(
-			orderId,
-			updatedOrderData,
+
+		const updatedOrder = await Order.findOneAndUpdate(
+			{ _id: orderId },
+			{ locked: true, status: updatedStatus },
 			{ new: true }
 		);
-		const updateStatus = await Order.updateOne(
-			{ _id: orderId },
-			{ $set: { status: updatedStatus } }
-		);
-
+		
 		console.log('Status uppdaterad');
-		res.status(200).send(updateStatus)
+		res.status(200).send(updatedOrder)
 	} catch (error) {
 		console.error(error.message);
 		res.sendStatus(400);
 	}
 });
+
+//////////////////
+
+/*const orderSchema = new mongoose.Schema({
+    _id: Number,
+    date: { type: Date, default: Date.now() },
+    content: [],
+    usercomment: String,
+    staffcomment: String,
+    total: Number,
+    status: String,
+    locked: Boolean
+})*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default router;

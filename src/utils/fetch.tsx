@@ -42,7 +42,39 @@ export async function getOrders() {
 	// return getOrders
 }
 
-export async function putOrder(order: Order, newStatus: string) {
+// export async function putOrder(order: Order, newStatus: string) {
+// 	// const { orderid } = useParams()
+// 	const putOrderUrl = `/api/orders/${order._id}`
+
+// 	// body = {
+// 	// 	// _id: id,
+// 	// 	status: newStatus
+// 	// }
+// 	console.log('orderstatus innan' , order.status);
+	
+// 	order.status = newStatus
+// 	console.log('orderstatus efter', order.status);
+	
+// 	const options = {
+// 		method: 'PUT',
+// 		headers: { "Content-Type": "application/json" },
+// 		body: JSON.stringify(order)
+// 	}
+	
+// 		try {
+// 			const response = await fetch(putOrderUrl, options)
+// 			const orderData = await response.json()
+
+// 			console.log('Order API response', orderData);
+// 			return orderData
+// 		} catch (error) {
+// 			console.log(error);
+// 			throw new Error("Something went wrong while fetching meal details")
+// 		}
+
+// }
+
+export async function putOrder(order, newStatus) {
 	// const { orderid } = useParams()
 	const putOrderUrl = `/api/orders/${order._id}`
 
@@ -74,3 +106,25 @@ export async function putOrder(order: Order, newStatus: string) {
 
 }
 
+export async function isOrderLocked(id) {
+
+	const getOrdersUrl = `/api/orders/${id}`
+
+	const options = {
+		method: 'GET',
+		headers: { "Content-Type": "application/json" }
+	}
+
+		try {
+			const response = await fetch(getOrdersUrl, options)
+			const orderData = await response.json()
+
+			console.log(orderData.locked);
+			
+
+			return orderData.locked
+		} catch (error) {
+			console.log(error);
+			throw new Error("Something went wrong while fetching meal details")
+		}
+}
