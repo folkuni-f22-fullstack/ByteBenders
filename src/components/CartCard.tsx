@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import menuData from "../data/menu.json";
 import { BiMinus, BiPlus, BiArrowBack } from "react-icons/bi";
 import { BsCart3 } from "react-icons/bs";
 import { MdLabelOutline } from "react-icons/md";
 import { signal } from "@preact/signals-react";
-import SendCartData from "./CartSendDb";
+import SendCartData from "./CartSendDb.jsx";
 import { cartState } from "../recoil/cartNumberState.js";
-import { getCartQuantity } from "../utils/general";
+import { getCartQuantity } from "../utils/general.ts";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
-import { isOrdered } from "../components/CartSendDb.jsx";
+import { isOrdered } from "./CartSendDb.jsx";
 import OrderStatusCustomer from "./OrderStatusCustomer.tsx";
+import axios from "axios";
+import { Dish } from "../interfaces/dish.ts";
+
 
 export let promo = signal(0);
 export let totalPrice = signal(0);
@@ -24,6 +26,13 @@ function CartCard() {
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
   const [cartItems, setCartItems] = useRecoilState(cartState);
   const [orderFinished, setOrderFinished] = useState(null);
+  const [listToShow, setListToShow] = useState<Dish[]>([]);
+
+  useEffect(() => {
+    axios.get('/api/meals')
+      .then(response => setListToShow(response.data))
+      .catch(error => console.error('error feching meals', error))
+  }, [])
 
   // Update cart, !! Utkommenterad pga Infinity Loop !!
   useEffect(() => {
@@ -35,8 +44,8 @@ function CartCard() {
   // Quantity count
   const updateCart = [...cartCopy];
   function updateQuantity(index, change) {
-    const findItem = menuData.find(
-      (cartItem) => cartItem.id == updateCart[index].id
+    const findItem = listToShow.find(
+      (cartItem) => cartItem._id == updateCart[index].id
     );
 
     // Set counter

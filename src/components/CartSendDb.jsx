@@ -1,4 +1,4 @@
-import { promo, totalPrice } from "./CartCard";
+import { promo, totalPrice } from "./CartCard.tsx";
 import { randomizer } from "../utils/general";
 import { signal } from '@preact/signals-react'
 export let orderNumber = signal(null)

@@ -41,9 +41,6 @@ export default function ProductDetailsRoute() {
   }
 
   // Send to local storage
-
-
-
   function handleAddToCart() {
     const cartItem = {
       id: product._id,

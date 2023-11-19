@@ -1,4 +1,4 @@
-import CartCard from "../components/CartCard.jsx";
+import CartCard from "../components/CartCard.tsx";
 import { isOrdered } from "../components/CartSendDb.jsx";
 import { useEffect, useState } from "react";
 

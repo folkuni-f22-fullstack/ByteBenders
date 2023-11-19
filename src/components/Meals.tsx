@@ -1,4 +1,3 @@
-import menuData from "../data/menu.json";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { BsCart3 } from "react-icons/bs";
