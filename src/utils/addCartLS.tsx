@@ -14,7 +14,7 @@ async function addToLS(id: number, endpoint: string) {
         id: productID._id,
         image: productID.image,
         name: productID.name,
-        price: productID.price * quantity,
+        total: productID.price * quantity,
         quantity: quantity,
         comment: productID.comment,
       };

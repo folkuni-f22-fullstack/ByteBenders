@@ -46,7 +46,7 @@ export default function ProductDetailsRoute() {
       id: product._id,
       image: product.image,
       name: product.name,
-      price: product.price * quantity,
+      total: product.price * quantity,
       quantity: quantity,
       comment: product.comment,
     };

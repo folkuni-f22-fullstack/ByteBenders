@@ -26,11 +26,11 @@ function CartCard() {
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
   const [cartItems, setCartItems] = useRecoilState(cartState);
   const [orderFinished, setOrderFinished] = useState(null);
-  const [listToShow, setListToShow] = useState<Dish[]>([]);
+  const [cartItem, setCartItem] = useState<Dish[]>([]);
 
   useEffect(() => {
     axios.get('/api/meals')
-      .then(response => setListToShow(response.data))
+      .then(response => setCartItem(response.data))
       .catch(error => console.error('error feching meals', error))
   }, [])
 
@@ -44,16 +44,16 @@ function CartCard() {
   // Quantity count
   const updateCart = [...cartCopy];
   function updateQuantity(index, change) {
-    const findItem = listToShow.find(
+    const findItem = cartItem.find(
       (cartItem) => cartItem._id == updateCart[index].id
     );
 
     // Set counter
     updateCart[index].quantity += change;
     if (change === 1) {
-      updateCart[index].price += findItem.price;
+      updateCart[index].total += findItem.price;
     } else if (change === -1) {
-      updateCart[index].price -= findItem.price;
+      updateCart[index].total -= findItem.price;
     }
 
     // Remove from local storage when quantity equal 0
@@ -72,7 +72,7 @@ function CartCard() {
   function calculateTotalPrice() {
     let total = 0;
     cartCopy.forEach((item) => {
-      total += item.price;
+      total += item.total;
     });
     return total;
   }
@@ -155,7 +155,7 @@ function CartCard() {
                     {item.name}{" "}
                   </NavLink>
                   <p className="sub-text">Lorem ipsum</p>
-                  <p className="card-price"> {item.price}:- </p>
+                  <p className="card-price"> {item.total}:- </p>
                   <div className="amount-container">
                     <button
                       className="sub"

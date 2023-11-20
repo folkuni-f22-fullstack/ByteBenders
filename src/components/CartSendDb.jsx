@@ -22,7 +22,7 @@ function SendCartData() {
             body: JSON.stringify({
                 id: randomizer(0, 9999999),
                 name: cartData.name,
-                price: promo.value !== 0 ? promo.value : totalPrice.value,
+                total: promo.value !== 0 ? promo.value : totalPrice.value,
                 comment: cartData.comment,
             }),
             headers: {
