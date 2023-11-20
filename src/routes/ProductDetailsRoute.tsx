@@ -55,7 +55,7 @@ export default function ProductDetailsRoute() {
     const matchingId = existingCartData.findIndex((item) => item.id === cartItem.id)
     if (matchingId !== -1) {
       existingCartData[matchingId].quantity += cartItem.quantity
-      existingCartData[matchingId].price += cartItem.price
+      existingCartData[matchingId].total += cartItem.total
     } else {
       existingCartData.push(cartItem)
     }
