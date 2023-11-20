@@ -93,7 +93,7 @@ export async function postOrder() {
       // Omstrukturera parsedOrderData efter vad din backend förväntar sig
       const formattedOrderData = {
         orderId: randomId,
-        content: parsedOrderData.content ,
+        content: parsedOrderData ,
         usercomment: parsedOrderData.usercomment || "",
         staffcomment: parsedOrderData.staffcomment || "",
         total: parsedOrderData.total ,
