@@ -90,13 +90,17 @@ export async function postOrder() {
 
       //   console.log("Data from localStorage:", parsedOrderData);
 
+      let sum = 0
+      parsedOrderData.map((dish => {sum = sum + (dish.quantity * dish.total)}))
+      
+
       // Omstrukturera parsedOrderData efter vad din backend förväntar sig
       const formattedOrderData = {
         orderId: randomId,
         content: parsedOrderData ,
-        usercomment: parsedOrderData.usercomment || "",
-        staffcomment: parsedOrderData.staffcomment || "",
-        total: parsedOrderData.total ,
+        // usercomment: parsedOrderData.usercomment || "",
+        // staffcomment: parsedOrderData.staffcomment || "",
+        total: sum ,
         status: "received",
         locked: parsedOrderData.locked || false,
       };
