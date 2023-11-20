@@ -3,7 +3,7 @@ import axios from "axios";
 
 export let quantity = signal(1)
 // Send to local storage
-async function addToLS(id: number) {
+async function addToLS(id: number, endpoint: string) {
 
   try {
     const response = await axios.get("/api/meals")

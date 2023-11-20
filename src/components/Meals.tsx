@@ -1,4 +1,3 @@
-import menuData from "../data/menu.json";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { BsCart3 } from "react-icons/bs";
@@ -14,7 +13,6 @@ import { isCartEmptyState } from "../recoil/cartNumberState.js";
 import WindowSizeListener from "../utils/WindowListener.tsx";
 import axios from "axios";
 // import { signal } from "@preact/signals-react";
-
 
 const Meals = () => {
   const [selectedCategory, setSelectedCartegory] = useState("");
@@ -47,10 +45,8 @@ const Meals = () => {
 
   // Add to local storage
   async function handleAddToCart(id: number) {
-    await addToLS(id);
-    setIsCartEmpty(!isCartEmpty);
-    console.log('Meal id: ', id);
-    
+    await addToLS(id, "/api/meals");
+    setIsCartEmpty(!isCartEmpty);   
   }
 
 

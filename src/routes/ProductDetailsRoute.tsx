@@ -27,7 +27,6 @@ export default function ProductDetailsRoute() {
       fetchMealsId()
     } catch {
       console.log("error");
-
     }
   }, []);
 
@@ -42,10 +41,26 @@ export default function ProductDetailsRoute() {
   }
 
   // Send to local storage
-  async function handleAddToCart(id: number) {
-    await addToLS(id);
+  function handleAddToCart() {
+    const cartItem = {
+      id: product._id,
+      image: product.image,
+      name: product.name,
+      total: product.price * quantity,
+      quantity: quantity,
+      comment: product.comment,
+    };
+    const existingCartData = JSON.parse(localStorage.getItem("cart")) || []
+
+    const matchingId = existingCartData.findIndex((item) => item.id === cartItem.id)
+    if (matchingId !== -1) {
+      existingCartData[matchingId].quantity += cartItem.quantity
+      existingCartData[matchingId].total += cartItem.total
+    } else {
+      existingCartData.push(cartItem)
+    }
+    localStorage.setItem("cart", JSON.stringify(existingCartData));
     setIsCartEmpty(!isCartEmpty);
-    console.log('From detail id: ', id);
   }
 
   return (
