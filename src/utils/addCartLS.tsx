@@ -11,19 +11,24 @@ async function addToLS(id: number) {
 
     const productID = product.find((product) => product._id == id)
     const cartItem = {
-      id: productID._id,
+      // _id: productID._id,
       image: productID.image,
+      content: [],
+      usercomment: "",
+      staffcomment: "",
       name: productID.name,
-      price: productID.price * quantity,
+      total: productID.price * quantity,
       quantity: quantity,
       comment: productID.comment,
+      locked: false,
+      status: ""
     };
     const existingCartData = JSON.parse(localStorage.getItem("cart")) || []
 
     const matchingId = existingCartData.findIndex((item) => item.id === cartItem.id)
     if (matchingId !== -1) {
       existingCartData[matchingId].quantity += cartItem.quantity
-      existingCartData[matchingId].price += cartItem.price
+      existingCartData[matchingId].total += cartItem.total
     } else {
       existingCartData.push(cartItem)
     }

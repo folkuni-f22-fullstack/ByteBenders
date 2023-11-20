@@ -55,12 +55,26 @@ router.delete('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
 	try {
 		await connectDb();
-
 		const newOrderData = req.body; // Utgår från att datan ligger i req.body tillsvidare
-		const newOrder = new Order(newOrderData);
-		const savedOrder = await newOrder.save();
-		console.log('Order created:', savedOrder);
-		res.status(201).send(savedOrder);
+		console.log('req.body: ', req.body);
+		// const newOrder = new Order({newOrderData});
+		// console.log('newOrder: ', newOrder);
+		// const savedOrder = await newOrder.save();
+		console.log('newOrderData.content: ', newOrderData.content)
+
+
+		let maybeOrder = new Order({
+			orderId: newOrderData.orderId,
+			content: newOrderData.content,
+			usercomment: newOrderData.usercomment,
+			staffcomment: newOrderData.staffcomment,
+			total: newOrderData.total,
+			status: newOrderData.status,
+			locked: newOrderData.locked
+		})
+		await maybeOrder.save();
+		// console.log('Order created:', savedOrder);
+		// res.status(201).send(savedOrder);
 	} catch (error) {
 		console.error(error.message);
 		res.sendStatus(400);

@@ -5,12 +5,12 @@ import { BiMinus, BiPlus, BiArrowBack } from "react-icons/bi";
 import { BsCart3 } from "react-icons/bs";
 import { MdLabelOutline } from "react-icons/md";
 import { signal } from "@preact/signals-react";
-import SendCartData from "./CartSendDb";
+import SendCartData from "./CartSendDb.tsx";
 import { cartState } from "../recoil/cartNumberState.js";
-import { getCartQuantity } from "../utils/general";
+import { getCartQuantity } from "../utils/general.ts";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
-import { isOrdered } from "../components/CartSendDb.jsx";
+import { isOrdered } from "./CartSendDb.js";
 import OrderStatusCustomer from "./OrderStatusCustomer.tsx";
 
 export let promo = signal(0);
@@ -42,9 +42,9 @@ function CartCard() {
     // Set counter
     updateCart[index].quantity += change;
     if (change === 1) {
-      updateCart[index].price += findItem.price;
+      updateCart[index].total += findItem.total;
     } else if (change === -1) {
-      updateCart[index].price -= findItem.price;
+      updateCart[index].total -= findItem.total;
     }
 
     // Remove from local storage when quantity equal 0
@@ -63,7 +63,7 @@ function CartCard() {
   function calculateTotalPrice() {
     let total = 0;
     cartCopy.forEach((item) => {
-      total += item.price;
+      total += item.total;
     });
     return total;
   }
@@ -146,7 +146,7 @@ function CartCard() {
                     {item.name}{" "}
                   </NavLink>
                   <p className="sub-text">Lorem ipsum</p>
-                  <p className="card-price"> {item.price}:- </p>
+                  <p className="card-price"> {item.total}:- </p>
                   <div className="amount-container">
                     <button
                       className="sub"

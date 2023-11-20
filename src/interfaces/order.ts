@@ -1,5 +1,6 @@
 export type Order = {
-    _id: number;
+    // _id: string;
+    orderId: number,
     date: string;
     content: string[];
     usercomment: string;

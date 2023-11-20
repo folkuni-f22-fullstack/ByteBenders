@@ -17,7 +17,7 @@ function SendCartData() {
         isOrdered.value = true
         
         // Temporary URL until we have a server
-        const response = await fetch("../../src/data/cart.json", {
+        const response = await fetch(`/api/order/`, {
             method: "POST",
             body: JSON.stringify({
                 id: randomizer(0, 9999999),
@@ -51,7 +51,7 @@ function SendCartData() {
             const orderItem = {
                 id: element.id,
                 name: element.name,
-                price: promo.value !== 0 ? promo.value : totalPrice.value,
+                total: promo.value !== 0 ? promo.value : totalPrice.value,
                 comment: element.comment,
             };
             order.orderItems.push(orderItem);
