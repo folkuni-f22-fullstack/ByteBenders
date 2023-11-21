@@ -129,7 +129,7 @@ button > .active > .nav-icon {
 	color: var(--dark-blue);
 }
 
-@media screen and (min-width: 798px) {
+@media screen and (min-width: 1200px) {
 	.navbar {
 		flex-direction: column;
 		justify-content: start;
