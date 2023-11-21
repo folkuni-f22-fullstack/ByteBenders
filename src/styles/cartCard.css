@@ -306,10 +306,18 @@
   }
   .cart-section {
     height: 100vh;
+    padding-bottom: 7em;
     background-color: #ffffff;
     width: 22em;
     position: fixed;
     top: 0;
     right: 0;
+  }
+}
+
+
+@media screen and (min-width: 1200px) {
+  .cart-section {
+    padding-bottom: 0;
   }
 }

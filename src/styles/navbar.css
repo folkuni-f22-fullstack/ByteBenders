@@ -16,7 +16,6 @@
 	bottom: 0;
 	min-width: 100vw;
 	padding: 0 0.5em;
-	z-index: 10;
 }
 
 .link-container {
@@ -92,7 +91,7 @@ button > .active > .nav-icon {
 	right: 7px;
 }
 .modal {
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -110,6 +109,7 @@ button > .active > .nav-icon {
 	border: none;
 	padding: 2em 5em;
 	text-align: center;
+	border-radius: 10px;
 }
 
 .modal > button {
@@ -122,6 +122,8 @@ button > .active > .nav-icon {
 	border: none;
 	cursor: pointer;
 	margin: 1em;
+	border-radius: 10px;
+	padding: 0.5em 1em;
 }
 
 .modal > button:hover {
