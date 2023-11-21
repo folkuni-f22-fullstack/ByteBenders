@@ -1,10 +1,14 @@
 import { promo, totalPrice } from "./CartCard.tsx";
 import { randomizer } from "../utils/general";
 import { signal } from '@preact/signals-react'
+import { postOrder } from "../utils/fetch.tsx";
+import { useRecoilState } from 'recoil'
+import { orderState } from '../recoil/isOrderedState.js'
 export let orderNumber = signal(null)
 export let isOrdered = signal(false)
 
 function SendCartData() {
+    const [isOrdered, setIsOrdered] = useRecoilState(orderState)
     const cartData = JSON.parse(localStorage.getItem("cart")) || [];
 
     // Ska skicka till LS utöver DB, dessutom ha ett ID
@@ -63,7 +67,8 @@ function SendCartData() {
     }
 
     return (
-        <button className="send-cart-button" onClick={handlePost}>
+        // Bytte onClick från "handlePost" till "postOrder" för testning // Victor
+        <button className="send-cart-button" onClick={() => postOrder(isOrdered, setIsOrdered)}>
             Checkout
         </button>
     );

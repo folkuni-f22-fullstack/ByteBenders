@@ -9,7 +9,8 @@ import { cartState } from "../recoil/cartNumberState.js";
 import { getCartQuantity } from "../utils/general.ts";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
-import { isOrdered } from "./CartSendDb.js";
+import { orderState } from '../recoil/isOrderedState.js'
+// import { isOrdered } from "./CartSendDb.js";
 import OrderStatusCustomer from "./OrderStatusCustomer.tsx";
 import axios from "axios";
 import { Dish } from "../interfaces/dish.ts";
@@ -17,7 +18,7 @@ import { Dish } from "../interfaces/dish.ts";
 
 export let promo = signal(0);
 export let totalPrice = signal(0);
-function CartCard() {
+function CartCard( { isOrdered } ) {
   // Get item from local storage
   const cartData = JSON.parse(localStorage.getItem("cart")) || [];
   const [cartCopy, setCartCopy] = useState([...cartData]);
@@ -27,11 +28,19 @@ function CartCard() {
   const [cartItems, setCartItems] = useRecoilState(cartState);
   const [orderFinished, setOrderFinished] = useState(null);
   const [cartItem, setCartItem] = useState<Dish[]>([]);
+  const [showOrderStatus, setShowOrderStatus] = useState()
+  // const [isOrdered, setIsOrdered] = useRecoilState(orderState);
 
   useEffect(() => {
     axios.get('/api/meals')
       .then(response => setCartItem(response.data))
       .catch(error => console.error('error feching meals', error))
+    console.log('isOrdered (CartCard): ', isOrdered);
+    
+  }, [])
+  
+  useEffect(() => {
+    setShowOrderStatus( isOrdered )
   }, [])
 
   // Update cart, !! Utkommenterad pga Infinity Loop !!
@@ -123,6 +132,11 @@ function CartCard() {
     setCartItems(getCartQuantity());
   }, [cartCopy]);
 
+  useEffect(() => {
+
+  })
+
+
   return (
     <>
       <NavLink to="/menu">
@@ -191,10 +205,10 @@ function CartCard() {
                   ></input>
                 </div>
               ))}
-              {/* orderstatus */}
-              {isOrdered.value && !orderFinished && <OrderStatusCustomer />}
             </>
           )}
+          {/* orderstatus */}
+          {isOrdered && <OrderStatusCustomer /> }
         </div>
         {/* Promo */}
         <div className="cart-promo-container">

@@ -1,7 +1,10 @@
 import { useParams } from "react-router-dom";
 import { Dish } from "../interfaces/dish";
 import { Order } from "../interfaces/order";
+import { signal } from '@preact/signals-react'
 import { randomizer } from "./general";
+
+export let isOrdered = signal(false)
 
 export function getMealsID() {
   const { id } = useParams();
@@ -73,7 +76,8 @@ export async function putOrder(order: Order, newStatus: string) {
   }
 }
 
-export async function postOrder() {
+export async function postOrder(isOrdered, setIsOrdered) {
+  // const [isOrdered, setIsOrdered] = useRecoilState(orderState)
   const postOrderUrl = "http://localhost:1523/api/orders";
   const orderData = localStorage.getItem("cart");
   let orderContent = JSON.parse(localStorage.getItem("order"));
@@ -116,17 +120,29 @@ export async function postOrder() {
       console.log("Request Headers:", options.headers);
       console.log("Request Body:", options.body);
 
+      /* KOMMENTERA TILLBAKA
       const response = await fetch(postOrderUrl, options);
 
       if (!response.ok) {
         throw new Error(`Server responded with status: ${response.status}`);
       }
+      */
 
       console.log("2");
-      const responseData = await response.json();
-      console.log("Order POST API response", responseData);
+      // const responseData = await response.json();
+      // console.log("Order POST API response", responseData);
       // Ta bort orderdatan från local storage efter att beställningen har skickats
       localStorage.removeItem("cart");
+
+      // 
+      setIsOrdered( {isOrdered: true, isWaiting: true} )
+      console.log('isOrdered: ', isOrdered);
+
+      localStorage.setItem('isOrdered', 'true')
+      // console.log('isOrdered: ', isOrdered);
+      
+
+
     } catch (error) {
       console.error(error);
       throw new Error("Something went wrong while posting order");

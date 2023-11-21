@@ -5,10 +5,14 @@ import { BiSolidTimer } from "react-icons/bi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { orderNumber, isOrdered } from "../components/CartSendDb.jsx";
 import { NavLink } from "react-router-dom";
+import { useRecoilState } from 'recoil'
+import { orderState } from '../recoil/isOrderedState.js'
 
 export default function OrderStatusCustomer() {
-  const [waiting, setWaiting] = useState(true);
-  const [count, setCount] = useState(15);
+  // const [waiting, setWaiting] = useState(true);
+  const [count, setCount] = useState(1);
+  const [orderNumber, setOrderNumber] = useState( localStorage.getItem('orderNumber') )
+  const [orderInRecoil, setOrderInRecoil] = useRecoilState(orderState)
 
   function setFinishedTime(count) {
     // Om ingen order redan finns
@@ -41,6 +45,7 @@ export default function OrderStatusCustomer() {
   }
 
   useEffect(() => {
+    setOrderNumber( JSON.parse(localStorage.getItem("orderNumber")) )
     setFinishedTime(count);
     setDishFinished();
   }, []);
@@ -54,7 +59,8 @@ export default function OrderStatusCustomer() {
       const orderMinute = Number(orderTime.split(":")[1]);
 
       if (orderMinute <= currentMinute) {
-        setWaiting(false);
+        setOrderInRecoil({ isWaiting: false})
+        // setWaiting(false);
       }
     }
   }
@@ -67,19 +73,19 @@ export default function OrderStatusCustomer() {
 
   return (
     <div className="CustomerStatusOrder">
-      <div className={waiting ? "order-waiting" : "order-finished"}>
+      <div className={orderInRecoil.isWaiting ? "order-waiting" : "order-finished"}>
         <h1>
           {" "}
-          Order: <span className="yellow"> {orderNumber.value} </span>{" "}
+          Order: <span className="yellow"> {orderNumber && orderNumber} </span>{" "}
         </h1>
 
-        {waiting ? (
+        {orderInRecoil.isWaiting ? (
           <BiSolidTimer className="orderstatus-icon waiting" />
         ) : (
           <AiOutlineCheckCircle className="orderstatus-icon finished" />
         )}
 
-        {waiting ? (
+        {orderInRecoil.isWaiting ? (
           <h3>
             Färdig kl:{" "}
             <span className="yellow"> {setFinishedTime(count)} </span>
