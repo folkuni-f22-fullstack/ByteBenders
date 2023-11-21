@@ -1,15 +1,14 @@
-import { Dish } from './dish';
+import { Dish } from "./dish";
 
 export interface SearchBarProps {
-	list: Dish[];
-	setListToShow: (list: Dish[] | null) => void;
-	allButDrinks: Dish[];
+  list: Dish[]; // Rätter filtrerade efter kategori
+  setListToShow: (list: Dish[] | null) => void;
+  fullMenu: Dish[]; //alla rätter
 }
 
 export interface FilterMealsProps extends SearchBarProps {
-	showFilters: boolean;
-	// searchInput: string;
-	// setSearchInput: (value: string | '') => void;
-	searchMode: boolean;
-	setSearchMode: (value: boolean) => void;
+  searchMode: boolean;
+  setSearchMode: (value: boolean) => void;
+  fullMenu: Dish[];
+  subMenuRef: HTMLButtonElement;
 }
