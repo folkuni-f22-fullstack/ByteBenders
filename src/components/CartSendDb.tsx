@@ -12,18 +12,22 @@ function SendCartData() {
 
     // Ska skicka till LS utöver DB, dessutom ha ett ID
     async function handlePost() {
-        postOrder()
-        localStorage.removeItem('cart')
-        // localStorage.setItem('pendingOrder', 'true')
-        setCurrentOrder({ 
-            isOrdered: true, 
-            isWaiting: true, 
-            orderNumber: localStorage.getItem('orderNumber') 
-        })
-        setIsCartEmpty(!isCartEmpty);
+        let cart = localStorage.getItem('cart')
 
-        console.log(currentOrder);
-        
+        if (cart) {
+            postOrder()
+            localStorage.removeItem('cart')
+    
+            // localStorage.setItem('pendingOrder', 'true')
+            setCurrentOrder({ 
+                isOrdered: true, 
+                isWaiting: true, 
+                orderNumber: localStorage.getItem('orderNumber') 
+            })
+            setIsCartEmpty(!isCartEmpty);
+    
+            // console.log(currentOrder);
+        }
     }
 
     return (

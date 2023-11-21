@@ -17,6 +17,7 @@ export default function OrderStatusCustomer() {
     const orderText = useRef(null);
     const eraseButton = useRef(null);
     const intervalRef = useRef(null);
+    const ETAtext = useRef(null)
 
     // Denna useEffect kollar vid mount om order finns
     useEffect(() => {
@@ -55,29 +56,34 @@ export default function OrderStatusCustomer() {
             } else {
                 orderText.current.innerText =
                     "Your order has been erased and you can now make a new order.";
+                eraseButton.current.style.visibility = 'hidden';
+                ETAtext.current.style.display = 'none';
 
-                setCurrentOrder({
-                    isOrdered: false,
-                    isWaiting: false,
-                    orderNumber: undefined,
-                });
+                    setTimeout(() => {
+                      setCurrentOrder({
+                          isOrdered: false,
+                          isWaiting: false,
+                          orderNumber: undefined,
+                      });
+      
+                      // RADERA FRÅN LS
+                      localStorage.removeItem("orderNumber");
+                      localStorage.removeItem("ETA");
+      
+                      // RADERA FRÅN DATABAS
+                      axios
+                          .delete(`/api/customer/${orderId}`)
+                          .then((response) => {
+                              console.log(
+                                  "Order successfully erased!",
+                                  response.data
+                              );
+                          })
+                          .catch((error) => {
+                              console.error("Something went wrong...", error);
+                          });
 
-                // RADERA FRÅN LS
-                localStorage.removeItem("orderNumber");
-                localStorage.removeItem("ETA");
-
-                // RADERA FRÅN DATABAS
-                axios
-                    .delete(`/api/customer/${orderId}`)
-                    .then((response) => {
-                        console.log(
-                            "Order successfully erased!",
-                            response.data
-                        );
-                    })
-                    .catch((error) => {
-                        console.error("Something went wrong...", error);
-                    });
+                    }, 3000)
             }
         } catch (error) {
             orderText.current.innerText =
@@ -99,17 +105,18 @@ export default function OrderStatusCustomer() {
                         </h1>
                         <BiSolidTimer className="orderstatus-icon waiting" />
                         <>
-                            <h3>
+                            <h3 ref={ETAtext}>
                                 Estimated done:{" "}
                                 <span className="yellow">
                                     {finishedTime(count)}
                                 </span>
                             </h3>
-                            <p ref={orderText}>
+                            <p ref={orderText} className="order-text">
                                 Try erasing order and start over? <br /> (as
                                 long as the order has not been locked)
                             </p>
                             <button
+                            className="orange-button"
                                 ref={eraseButton}
                                 onClick={() =>
                                     attemptErase(currentOrder.orderNumber)
@@ -135,7 +142,7 @@ export default function OrderStatusCustomer() {
                             <h3> Enjoy your meal </h3>
                             <NavLink to="/">
                                 <button
-                                    className="place-new-order"
+                                    className="orange-button"
                                     onClick={handleClick}
                                 >
                                     {" "}
