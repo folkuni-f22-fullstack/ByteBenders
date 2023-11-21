@@ -6,13 +6,9 @@ export const filterByCategory = (
   selectedCategory: string,
   fullMenu: Dish[]
 ) => {
-  if (selectedCategory === "all") {
-    return fullMenu;
-  } else {
-    return fullMenu.filter((item) =>
-      selectedCategory ? item.category === selectedCategory : true
-    ) as Dish[];
-  }
+  return fullMenu.filter((item) =>
+    selectedCategory ? item.category === selectedCategory : true
+  ) as Dish[];
 };
 
 // Lägger till filtret i selectedFilters om det inte redan finns med. Finns det redan med tas det istället bort.
