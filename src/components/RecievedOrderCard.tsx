@@ -51,7 +51,7 @@ export default function RecievedOrderCard() {
         }
     };
 
-    
+
     const handleDeleteOrder = async (orderId: number) => {
         try {
             const response = await fetch(`/api/orders/${orderId}`, {
@@ -61,7 +61,7 @@ export default function RecievedOrderCard() {
                     // You might need to include authentication headers if required
                 },
             });
-    
+
             if (response.ok) {
                 console.log('Order deleted successfully');
                 // Order deleted successfully, update the order list
@@ -74,8 +74,8 @@ export default function RecievedOrderCard() {
             console.error('Error deleting order:', error.message);
         }
     };
-    
-    
+
+
     const receivedOrders = orderData.filter(order => order.status === 'received');
 
     return (
@@ -102,26 +102,24 @@ export default function RecievedOrderCard() {
                     </div >
                     {isExpanded === order._id && (
                         <section className='order-info-section'>
-                          <ul className='order-info-list'>
+                            <ul className='order-info-list'>
                                 {order.content.map((item) => (
                                     <li className='order-product-name' key={item.name} >
                                         {item.name} {item.quantity}x
                                     </li>
                                 ))}
                             </ul>
-                            <div className='comment-section'>
-                                <h3 className='order-comment'>Comments:</h3>
-                                <span >{order.usercomment}</span>
-                            </div>
+                            <h3 className='order-comment'>Comments:</h3>
+                            <span className='user-comment'>{order.usercomment}</span>
                             <button className='send-order-icon' onClick={() => handleToggleStatus(order, 'current')}> <BsFillArrowRightCircleFill />
                             </button>
-                                {!order.locked && (
-                                    <button
+                            {!order.locked && (
+                                <button
                                     className='delete-order-icon'
                                     onClick={() => handleDeleteOrder(order._id)}
-                                    ><MdDeleteForever />
-                                    </button>
-                                )}
+                                ><MdDeleteForever />
+                                </button>
+                            )}
                         </section>
                     )
                     }

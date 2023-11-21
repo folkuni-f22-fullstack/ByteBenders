@@ -19,7 +19,6 @@ async function addToLS(id: number, endpoint: string) {
       name: productID.name,
       total: productID.price * quantity,
       quantity: quantity,
-      comment: productID.comment,
       locked: false,
       status: ""
     };

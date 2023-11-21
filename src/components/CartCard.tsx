@@ -97,11 +97,11 @@ function CartCard() {
   }, [cartCopy]);
 
   // Send customize order to local storage
-  function updateComment(id) {
+  function updateComment(name) {
     const updateCartComment = cartCopy.map((item) => {
-      if (item.id === id) {
+      if (item.name === name) {
         // Copy of item and update comment property by id. If undifined set empty string as default value.
-        return { ...item, comment: customizeState[id] || "" };
+        return { ...item, usercomment: customizeState[name] || "" };
       }
       return item;
     });
@@ -176,18 +176,18 @@ function CartCard() {
                     className="customize-order"
                     type="text"
                     placeholder={
-                      item.comment == ""
+                      item.usercomment == ""
                         ? "Customize your order +"
-                        : item.comment
+                        : item.usercomment
                     }
                     // display data for specific item or empty string
-                    value={customizeState[item.id] || ""}
+                    value={customizeState[item.name] || ""}
                     onChange={(e) => {
                       const newCustomizeState = { ...customizeState };
-                      newCustomizeState[item.id] = e.target.value;
+                      newCustomizeState[item.name] = e.target.value;
                       setCustomizeState(newCustomizeState);
                     }}
-                    onBlur={() => updateComment(item.id)}
+                    onBlur={() => updateComment(item.name)}
                   ></input>
                 </div>
               ))}

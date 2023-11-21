@@ -83,10 +83,8 @@ export default function CurrentOrderCard() {
                                     </li>
                                 ))}
                             </ul>
-                            <div className='comment-section'>
-                                <h3 className='order-comment'>Comments:</h3>
-                                <span >{order.usercomment}</span>
-                            </div>
+                            <h3 className='order-comment'>Comments:</h3>
+                            <span >{order.usercomment}</span>
                             <button className='send-order-icon' onClick={() => handleToggleStatus(order, 'done')}> <BsCheckCircleFill />
                             </button>
                         </section>

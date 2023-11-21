@@ -84,17 +84,17 @@ export async function postOrder() {
 
   if (orderData) {
     try {
-      const parsedOrderData = JSON.parse(orderData);
-      console.log("orderdata:", orderData);
-      console.log('parsedOrderData.content: ', parsedOrderData.content);
- 
-      //   console.log("Data from localStorage:", parsedOrderData);     
+      const parsedOrderData = JSON.parse(orderData);   
+
+      // Extract all usercomments
+      const allUserComments = parsedOrderData.map(comment => comment.usercomment)
+      const combineAllUserComments = allUserComments.join('. ')
 
       // Omstrukturera parsedOrderData efter vad din backend förväntar sig
       const formattedOrderData = {
         orderId: randomId,
         content: parsedOrderData ,
-        // usercomment: parsedOrderData.usercomment || "",
+        usercomment:  combineAllUserComments || '',
         // staffcomment: parsedOrderData.staffcomment || "",
         total: promo.value !== 0 ? promo.value : totalPrice.value,
         status: "received",
