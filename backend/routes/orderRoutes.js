@@ -42,9 +42,9 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         await connectDb();
-        const orderId = req.params.id;
+        const orderId = req.params.id.orderId;
         console.log('Deleting order with ID:', orderId);
-        const order = await Order.deleteOne({ _id: orderId });
+        const order = await Order.deleteOne({ id: orderId });
         console.log('Order deletion result:', order);
         res.sendStatus(200);
     } catch (error) {
