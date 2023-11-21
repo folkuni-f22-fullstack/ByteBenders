@@ -45,20 +45,20 @@ function CartCard() {
   const updateCart = [...cartCopy];
   function updateQuantity(index, change) {
     const findItem = cartItem.find(
-      (cartItem) => cartItem._id == updateCart[index].id
+      (cartItem) => cartItem.name == updateCart[index].name
     );
 
     // Set counter
     updateCart[index].quantity += change;
     if (change === 1) {
-      updateCart[index].total += findItem.total;
+      updateCart[index].total += findItem.price;
     } else if (change === -1) {
-      updateCart[index].total -= findItem.total;
+      updateCart[index].total -= findItem.price;
     }
 
     // Remove from local storage when quantity equal 0
     if (updateCart[index].quantity === 0) {
-      localStorage.removeItem(updateCart[index].id);
+      localStorage.removeItem(updateCart[index].name);
       updateCart.splice(index, 1);
     }
 

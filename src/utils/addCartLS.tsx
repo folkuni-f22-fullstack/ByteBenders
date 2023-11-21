@@ -25,7 +25,7 @@ async function addToLS(id: number, endpoint: string) {
     };
     const existingCartData = JSON.parse(localStorage.getItem("cart")) || []
 
-    const matchingId = existingCartData.findIndex((item) => item.id === cartItem.id)
+    const matchingId = existingCartData.findIndex((item) => item.name === cartItem.name)
     if (matchingId !== -1) {
       existingCartData[matchingId].quantity += cartItem.quantity
       existingCartData[matchingId].total += cartItem.total
