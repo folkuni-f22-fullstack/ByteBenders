@@ -54,7 +54,7 @@ export default function DoneOrderCard() {
 
 
     return (
-        <>
+        <section className='recieved-order-container'>
             {doneOrders && doneOrders.map(order => (
                 <div className="recieved-order-card" key={order._id}>
                     <div className="order-content">
@@ -97,6 +97,6 @@ export default function DoneOrderCard() {
                     }
                 </div >
             ))}
-        </>
+        </section>
     )
 }

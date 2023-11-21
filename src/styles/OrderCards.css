@@ -1,6 +1,76 @@
 /* // TODO: Se till att få font att exporteras korrekt via ::root */
 @import "../App.css";
 
+.order-route-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 7em;
+}
+
+.recieved-order-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recieved-order-card {
+    width: 300px;
+    background-color: var(--white-card-color);
+    border-radius: 10px;
+    margin-top: 1em;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 2px;
+    padding: 1em 1.5em;
+}
+
+.order-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-id {
+    font-size: 0.6em;
+}
+
+.close-order-icon,
+.open-order-icon {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 499px) {
+
+    .recieved-order-card,
+    .done-order-card,
+    .current-order-card {
+        width: 450px;
+    }
+    .order-id {
+        font-size: 0.8em;
+    }
+}
+
+@media screen and (min-width: 798px) {
+
+    .recieved-order-card,
+    .done-order-card,
+    .current-order-card {
+        width: 500px;
+    }
+    .order-id {
+        font-size: 1em;
+    }
+} 
+
+/* .recieved-order-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 0.5rem
+}
+
 .order-logotype {
     display: flex;
     justify-content: center;
@@ -12,6 +82,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 5em;
 }
 
 .recieved-order-card,
@@ -19,16 +90,19 @@
 .current-order-card {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    margin-left: auto;
-    margin-right: auto;
+    align-items: center;
+    justify-content: center;
     background-color: var(--white-card-color);
-    padding: 0.5em 1.5em;
-    width: 350px;
+    padding: 0.5em 0.5em;
+    width: 315px;
     box-shadow: var(--shadow);
 }
 
-/* Bakgrund för enbart done */
+.order-id {
+    font-size: 0.6em;
+}
+
+
 .done-order-card {
     background-color: lightgray;
 }
@@ -38,11 +112,6 @@
 }
 
 .order-content {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    /* background-color: greenyellow; */
-    width: 100%;
 }
 
 .order-info-section {
@@ -51,7 +120,6 @@
     margin-right: auto;
     align-items: flex-start;
     flex-direction: column;
-    /* background-color: blue; */
     width: 90%;
 }
 
@@ -61,6 +129,8 @@
 .done-order-card .amount-text {
     font-weight: 700;
     color: var(--orange-color);
+    display: flex;
+    justify-content: space-between;
 }
 
 
@@ -100,12 +170,18 @@
     flex-direction: column;
 }
 
+.extend-order-icons {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
 .close-order-icon, .open-order-icon {
     border: none;
     background-color: transparent;
-}
+} */
 
-@media screen and (max-width: 499px) {
+/* @media screen and (max-width: 499px) {
 
     .recieved-order-card,
     .done-order-card,
@@ -130,4 +206,4 @@
     .current-order-card {
         width: 450px;
     }
-}
+} */

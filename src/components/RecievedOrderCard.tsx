@@ -53,11 +53,11 @@ export default function RecievedOrderCard() {
 
 
     return (
-        <>
+        <section className='recieved-order-container'>
             {receivedOrders && receivedOrders.map(order => (
                 <div className="recieved-order-card" key={order._id}>
                     <div className="order-content">
-                        <h1> <div >{order._id}</div> </h1>
+                        <h1> <div className='order-id'>{order._id}</div> </h1>
                         <div className="extend-order-icons">
                             {isExpanded ? (
                                 <button
@@ -97,6 +97,6 @@ export default function RecievedOrderCard() {
                     }
                 </div >
             ))}
-        </>
+        </section>
     )
 }
