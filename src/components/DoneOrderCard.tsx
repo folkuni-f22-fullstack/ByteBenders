@@ -43,7 +43,7 @@ export default function DoneOrderCard() {
     //         const updatedOrders = await getOrders();
     //         setOrderData(updatedOrders);
     //         console.log('Order updated');
-            
+
     //     } catch (error) {
     //         console.log('Failed to update order status');
     //     }
@@ -60,7 +60,7 @@ export default function DoneOrderCard() {
                     <div className="order-content">
                         <h1> <div >{order.orderId}</div> </h1>
                         <div className="extend-order-icons">
-                            {isExpanded ? (
+                            {isExpanded === order._id ? (
                                 <button
                                     onClick={() => setIsExpanded(null)}
                                     className='close-order-icon'>
@@ -76,22 +76,22 @@ export default function DoneOrderCard() {
                         </div>
                     </div >
                     {isExpanded === order._id && (
-                        <ul className='order-info-section'>
-                            {order.content.map((item) => (
-                                <li className='order-product-name' key={item.name} >
-                                    {item.name}
-                                    <span className="amount-text">: {item.quantity}x</span>
-                                </li>
-                            ))}
-                            <section className="additional-info-section">
-                                <div className='comment-section'>
-                                    <h3>Kommentar</h3>
-                                    <span >{order.usercomment}</span>
-                                </div>
-                                <div className='send-order-icon'> <RiCheckboxCircleLine />
-                                </div>
-                            </section>
-                        </ul>
+                        <section className='order-info-section'>
+                            <ul className='order-info-list'>
+                                {order.content.map((item) => (
+                                    <li className='order-product-name' key={item.name} >
+                                        {item.name} {item.quantity}x
+                                    </li>
+                                ))}
+                            </ul>
+                            <div className='comment-section'>
+                                <h3 className='order-comment'>Comments:</h3>
+                                <span >{order.usercomment}</span>
+                            </div>
+                            <div className='send-order-icon'> <RiCheckboxCircleLine />
+                            </div>
+                        </section>
+
                     )
                     }
                 </div >

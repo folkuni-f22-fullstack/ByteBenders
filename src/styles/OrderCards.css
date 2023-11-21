@@ -12,6 +12,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 10em;
 }
 
 .recieved-order-card {
@@ -33,9 +34,51 @@
     font-size: 0.6em;
 }
 
+.order-comment {
+    font-size: 0.8em;
+}
+
 .close-order-icon,
 .open-order-icon {
     border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.order-info-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.order-info-list {
+    grid-column: 1 /span 3;
+    grid-row: 1;
+    margin-top: 0.5em;
+    list-style-type: none;
+}
+
+.comment-section {
+    grid-column: 1;
+    grid-row: 2;
+    font-size: 1em;
+    display: flex;
+    align-self: center;
+}
+
+.done-order-icon,
+.send-order-icon {
+    grid-column: 3;
+    grid-row: 2;
+    color: var(--dark-blue);
+    width: 50px;
+    height: 50px;
+    font-size: 60px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-start;
+    justify-self: flex-end;
     background-color: transparent;
     cursor: pointer;
 }
@@ -60,6 +103,9 @@
         width: 500px;
     }
     .order-id {
+        font-size: 1em;
+    }
+    .order-comment {
         font-size: 1em;
     }
 } 
