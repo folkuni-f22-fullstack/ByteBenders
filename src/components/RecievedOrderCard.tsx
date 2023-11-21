@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { BsFillArrowRightCircleFill } from 'react-icons/bs'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { MdDeleteForever } from "react-icons/md";
+
 import '../styles/OrderCards.css'
 import '../App.css'
 import { Order } from '../interfaces/order';
@@ -26,10 +28,8 @@ export default function RecievedOrderCard() {
         fetchOrderID()
     }, [])
 
-    // todo Koppla faktiskt data från cart till Employee gränssnittet
 
     if (orderData === null) {
-        // Lägg till något laddningsindikator eller annat meddelande medan data hämtas
         return <div>Loading...</div>;
     }
 
@@ -51,8 +51,32 @@ export default function RecievedOrderCard() {
         }
     };
 
+    
+    const handleDeleteOrder = async (orderId: number) => {
+        try {
+            const response = await fetch(`/api/orders/${orderId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // You might need to include authentication headers if required
+                },
+            });
+    
+            if (response.ok) {
+                console.log('Order deleted successfully');
+                // Order deleted successfully, update the order list
+                const updatedOrders = await getOrders();
+                setOrderData(updatedOrders);
+            } else {
+                console.error('Failed to delete order:', response.status, response.statusText);
+            }
+        } catch (error) {
+            console.error('Error deleting order:', error.message);
+        }
+    };
+    
+    
     const receivedOrders = orderData.filter(order => order.status === 'received');
-
 
     return (
         <section className='recieved-order-container'>
@@ -91,6 +115,13 @@ export default function RecievedOrderCard() {
                             </div>
                             <button className='send-order-icon' onClick={() => handleToggleStatus(order, 'current')}> <BsFillArrowRightCircleFill />
                             </button>
+                                {!order.locked && (
+                                    <button
+                                    className='delete-order-icon'
+                                    onClick={() => handleDeleteOrder(order._id)}
+                                    ><MdDeleteForever />
+                                    </button>
+                                )}
                         </section>
                     )
                     }
