@@ -4,7 +4,12 @@
 
 // Returnerar en tid som maträtten bör vara klar på
 export function finishedTime(count) {
-    if ((!localStorage.getItem('ETA') && (!localStorage.getItem('order')))) {
+    
+    if (
+        (!localStorage.getItem('ETA') 
+        &&
+        (!localStorage.getItem('orderNumber'))
+        )) {
         const currentDate = new Date();
         const currentHour = currentDate.getHours();
         const currentMinutes = currentDate.getMinutes();
@@ -30,7 +35,7 @@ export function finishedTime(count) {
 }
 
 
-export function checkIfDishIsFinished(count, setWaiting) {
+export function checkIfDishIsFinished(count, setCurrentOrder) {
     let orderTime = finishedTime(count);
 
     if (orderTime) {
@@ -47,7 +52,7 @@ export function checkIfDishIsFinished(count, setWaiting) {
         
         // Jämför hela datumet och tiden för att se om ordern är klar
         if (currentDate >= orderDate) {
-            setWaiting(false);
+            setCurrentOrder({ isOrdered: true, isWaiting: false });
         }
     }
 }

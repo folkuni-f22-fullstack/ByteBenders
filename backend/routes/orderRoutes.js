@@ -23,8 +23,9 @@ router.get('/', async (req, res) => {
 // [GET] :id
 router.get('/:id', async (req, res) => {
 	await connectDb();
+	console.log('GET');
 	try {
-		let foundOrder = await Order.findOne({ _id: req.params.id });
+		let foundOrder = await Order.findOne({ _id: req.params.orderid });
 		if (foundOrder !== undefined) {
 			console.log('Order Found', foundOrder);
 			res.status(302).send(foundOrder);
@@ -40,15 +41,18 @@ router.get('/:id', async (req, res) => {
 
 // [DELETE]
 router.delete('/:id', async (req, res) => {
-	try {
-		await connectDb();
-		const order = await Order.deleteOne({ _id: req.params.id });
-		console.log(order);
-		res.sendStatus(200);
-	} catch (error) {
-		console.log(error.message);
-		res.sendStatus(404);
-	}
+	console.log('DELETE');
+	await connectDb();
+    try {
+        const orderId = req.params.id;
+        console.log('Deleting order with ID:', orderId);
+        const order = await Order.deleteOne({ _id: orderId });
+        console.log('Order deletion result:', order);
+        res.sendStatus(200);
+    } catch (error) {
+        console.log(error.message);
+        res.sendStatus(404);
+    }
 });
 
 // [POST]

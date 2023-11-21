@@ -1,45 +1,50 @@
 import { useEffect, useState, useRef } from "react";
 import "../styles/statusorder.css";
-import { getKeyFromLS } from "../utils/general";
 import { BiSolidTimer } from "react-icons/bi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
-import { orderNumber, isOrdered } from "../components/CartSendDb.jsx";
 import { NavLink } from "react-router-dom";
 import { isOrderLocked } from "../utils/fetch.js";
 import { finishedTime } from "../utils/orderstatus.js";
 import { checkIfDishIsFinished } from "../utils/orderstatus.js";
-import axios from 'axios'
+import { orderState } from "../recoil/orderState.js";
+import { useRecoilState } from "recoil";
+import axios from "axios";
 
 export default function OrderStatusCustomer() {
     const [count, setCount] = useState(15);
-    const [ETA, setETA] = useState(null);
-    const [waiting, setWaiting] = useState(true);
-    const [lockedOrder, setLockedOrder] = useState(false);
+    const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
+
     const orderText = useRef(null);
     const eraseButton = useRef(null);
     const intervalRef = useRef(null);
 
+    // Denna useEffect kollar vid mount om order finns
+    useEffect(() => {
+        checkIfDishIsFinished(count, setCurrentOrder);
+    }, []);
+
     // Denna useEffect kollar med 5 sekunders mellanrum om ETA har passerat, har den det så sätter den waiting till false
     useEffect(() => {
         intervalRef.current = setInterval(() => {
-            checkIfDishIsFinished(count, setWaiting);
-            if (!waiting) {
+            checkIfDishIsFinished(count, setCurrentOrder);
+            if (!currentOrder.isWaiting) {
                 clearInterval(intervalRef.current);
             }
         }, 2000);
-
         return () => clearInterval(intervalRef.current);
-    }, [count, waiting]);
+    }, [count, currentOrder.isWaiting]);
 
-    // för knappen "Place new order"
+    // knappen "Place new order"
     function handleClick() {
-        localStorage.removeItem("order");
+        localStorage.removeItem("orderNumber");
         localStorage.removeItem("ETA");
-        isOrdered.value = false;
+        setCurrentOrder({ isOrdered: false, isWaiting: false });
     }
 
-    // för knappen "try"
+    // knappen "try"
     async function attemptErase(orderId) {
+        // orderId hämtas från LS, därav parse
+        orderId = JSON.parse(orderId);
 
         try {
             const response = await isOrderLocked(orderId);
@@ -51,19 +56,28 @@ export default function OrderStatusCustomer() {
                 orderText.current.innerText =
                     "Your order has been erased and you can now make a new order.";
 
-                // RADERA FRÅN LS
-                localStorage.removeItem('order')
-                localStorage.removeItem('ETA')
+                setCurrentOrder({
+                    isOrdered: false,
+                    isWaiting: false,
+                    orderNumber: undefined,
+                });
 
-                // RADERA FRÅN DB
-                axios.delete(`/api/orders/${orderId}`)
-                    .then(response => {
-                        console.log('Order successfully erased!', response.data);
+                // RADERA FRÅN LS
+                localStorage.removeItem("orderNumber");
+                localStorage.removeItem("ETA");
+
+                // RADERA FRÅN DATABAS
+                axios
+                    .delete(`/api/customer/${orderId}`)
+                    .then((response) => {
+                        console.log(
+                            "Order successfully erased!",
+                            response.data
+                        );
                     })
-                    .catch(error => {
-                        console.error('Something went wrong...', error)
-                    })
-                
+                    .catch((error) => {
+                        console.error("Something went wrong...", error);
+                    });
             }
         } catch (error) {
             orderText.current.innerText =
@@ -71,61 +85,67 @@ export default function OrderStatusCustomer() {
             console.log(error);
         }
     }
-  }
 
     return (
-        <div className="CustomerStatusOrder">
-            <div className={waiting ? "order-waiting" : "order-finished"}>
-                <h1>
-                    {" "}
-                    Order: <span className="yellow">
-                        {" "}
-                        {orderNumber.value}{" "}
-                    </span>{" "}
-                </h1>
-
-                {waiting ? (
-                    <BiSolidTimer className="orderstatus-icon waiting" />
-                ) : (
-                    <AiOutlineCheckCircle className="orderstatus-icon finished" />
-                )}
-
-                {waiting ? (
-                    <>
-                    <h3>
-                        Estimated done:{" "}
-                        <span className="yellow"> {finishedTime(count)} </span>
-                    </h3>
-                    <p ref={orderText}>
-                        {" "}
-                        Try erasing order and start over? <br /> (as long as the
-                        order has not been locked) {" "}
-                    </p>
-                    <button
-                        ref={eraseButton}
-                        onClick={() => attemptErase(orderNumber.value)}
-                    >
-                        {" "}
-                        Try{" "}
-                    </button>
-                    </>
-
-                ) : (
-                    <>
-                        <h3> Enjoy your meal </h3>
-                        <NavLink to="/">
+        <div>
+            {currentOrder.isOrdered && currentOrder.isWaiting && (
+                <div className="CustomerStatusOrder">
+                    <div className="order-waiting">
+                        <h1>
+                            Order:{" "}
+                            <span className="yellow">
+                                {currentOrder.orderNumber}
+                            </span>
+                        </h1>
+                        <BiSolidTimer className="orderstatus-icon waiting" />
+                        <>
+                            <h3>
+                                Estimated done:{" "}
+                                <span className="yellow">
+                                    {finishedTime(count)}
+                                </span>
+                            </h3>
+                            <p ref={orderText}>
+                                Try erasing order and start over? <br /> (as
+                                long as the order has not been locked)
+                            </p>
                             <button
-                                className="place-new-order"
-                                onClick={handleClick}
+                                ref={eraseButton}
+                                onClick={() =>
+                                    attemptErase(currentOrder.orderNumber)
+                                }
                             >
-                                {" "}
-                                Place new order{" "}
+                                Try
                             </button>
-                        </NavLink>
-                    </>
-                )}
-
-            </div>
+                        </>
+                    </div>
+                </div>
+            )}
+            {currentOrder.isOrdered && !currentOrder.isWaiting && (
+                <div className="CustomerStatusOrder">
+                    <div className="order-finished">
+                        <h1>
+                            Order:{" "}
+                            <span className="yellow">
+                                {currentOrder.orderNumber}
+                            </span>
+                        </h1>
+                        <AiOutlineCheckCircle className="orderstatus-icon finished" />
+                        <>
+                            <h3> Enjoy your meal </h3>
+                            <NavLink to="/">
+                                <button
+                                    className="place-new-order"
+                                    onClick={handleClick}
+                                >
+                                    {" "}
+                                    Place new order{" "}
+                                </button>
+                            </NavLink>
+                        </>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

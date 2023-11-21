@@ -16,34 +16,6 @@ function App() {
     checkLoginState(isLoggedIn, setIsLoggedIn)
   }, [])
 
-  let order = {
-    _id: 1,
-    status: 'current'
-  }
-
-  putOrder(order, 'current')
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-        
-  //       await isOrderLocked(1)
-  //     } catch (error) {
-        
-  //     }
-
-  //   }
-  //   fetchData()
-
-  // }, [])
-
-
-  // {order.locked ? (
-  //   <p>order is locked bla bla </p>
-  // ) : (
-  //   button 
-  // )}
-
   const location = useLocation()
   const showHeader = !'/information'.includes(location.pathname)
   return (

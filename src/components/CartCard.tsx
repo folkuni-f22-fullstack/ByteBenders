@@ -9,10 +9,11 @@ import { cartState } from "../recoil/cartNumberState.js";
 import { getCartQuantity } from "../utils/general.ts";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
-import { isOrdered } from "./CartSendDb.js";
+// import { isOrdered } from "./CartSendDb.js";
 import OrderStatusCustomer from "./OrderStatusCustomer.tsx";
 import axios from "axios";
 import { Dish } from "../interfaces/dish.ts";
+import { orderState } from '../recoil/orderState.js'
 
 
 export let promo = signal(0);
@@ -27,6 +28,7 @@ function CartCard() {
   const [cartItems, setCartItems] = useRecoilState(cartState);
   const [orderFinished, setOrderFinished] = useState(null);
   const [cartItem, setCartItem] = useState<Dish[]>([]);
+  const [currentOrder, setCurrentOrder] = useRecoilState(orderState)
 
   useEffect(() => {
     axios.get('/api/meals')
@@ -191,10 +193,10 @@ function CartCard() {
                   ></input>
                 </div>
               ))}
-              {/* orderstatus */}
-              {isOrdered.value && !orderFinished && <OrderStatusCustomer />}
             </>
           )}
+          {/* orderstatus */}
+          { <OrderStatusCustomer />}
         </div>
         {/* Promo */}
         <div className="cart-promo-container">
