@@ -27,7 +27,6 @@ export default function LoginRoute() {
 			errorMsgRef.current.style.visibility = 'visible';
 			return;
 		}
-		console.log('return funkade inte');
 
 		try {
 			const login = await fetchAccount(userInput, passwordInput);
