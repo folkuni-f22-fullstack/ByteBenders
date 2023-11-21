@@ -40,16 +40,19 @@ router.get('/:id', async (req, res) => {
 
 // [DELETE]
 router.delete('/:id', async (req, res) => {
-	try {
-		await connectDb();
-		const order = await Order.deleteOne({ _id: req.params.id });
-		console.log(order);
-		res.sendStatus(200);
-	} catch (error) {
-		console.log(error.message);
-		res.sendStatus(404);
-	}
+    try {
+        await connectDb();
+        const orderId = req.params.id;
+        console.log('Deleting order with ID:', orderId);
+        const order = await Order.deleteOne({ _id: orderId });
+        console.log('Order deletion result:', order);
+        res.sendStatus(200);
+    } catch (error) {
+        console.log(error.message);
+        res.sendStatus(404);
+    }
 });
+
 
 // [POST]
 router.post('/', async (req, res) => {
