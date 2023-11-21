@@ -41,9 +41,8 @@ router.get('/:id', async (req, res) => {
 
 // [DELETE]
 router.delete('/:id', async (req, res) => {
-	console.log('DELETE');
-	await connectDb();
     try {
+        await connectDb();
         const orderId = req.params.id;
         console.log('Deleting order with ID:', orderId);
         const order = await Order.deleteOne({ _id: orderId });
@@ -54,6 +53,7 @@ router.delete('/:id', async (req, res) => {
         res.sendStatus(404);
     }
 });
+
 
 // [POST]
 router.post('/', async (req, res) => {

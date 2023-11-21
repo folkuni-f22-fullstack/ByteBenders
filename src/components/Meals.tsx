@@ -11,32 +11,33 @@ import { filterByCategory } from "../utils/filter.ts";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
 import WindowSizeListener from "../utils/WindowListener.tsx";
-import axios from "axios";
+import { menuState } from "../recoil/menuState.js";
 // import { signal } from "@preact/signals-react";
 
 const Meals = () => {
-  const [selectedCategory, setSelectedCartegory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [listToShow, setListToShow] = useState<Dish[]>([]);
   const cartData = JSON.parse(localStorage.getItem("cart")) || [];
   const [cartCopy, setCartCopy] = useState([...cartData]);
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState("");
+  const [fullMenu, setFullMenu] = useRecoilState<Dish[]>(menuState);
 
   useEffect(() => {
-    axios.get('/api/meals')
-      .then(response => setListToShow(response.data))
-      .catch(error => console.error('error feching meals', error))
-  }, [])
+    setListToShow(filteredItems);
+  }, [selectedCategory, fullMenu]);
 
   // Ursprungslistan som skickas med till sök och filter-funktionerna
-  const filteredItems: Dish[] = filterByCategory(selectedCategory);
-
-  // Lista med bara rätter, för de ska gå att filtrera, ej dryckerna
-  // const allButDrinks = menuData.filter(
-  //   (item) => item.category !== "drinks"
-  // ) as Dish[];
+  const filteredItems: Dish[] =
+    selectedCategory === "all"
+      ? fullMenu
+      : filterByCategory(selectedCategory, fullMenu);
 
   const windowWidth = WindowSizeListener();
+
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(category);
+  };
 
   // Set value to 1
   function refreshQuantity() {
@@ -46,41 +47,62 @@ const Meals = () => {
   // Add to local storage
   async function handleAddToCart(id: number) {
     await addToLS(id, "/api/meals");
-    setIsCartEmpty(!isCartEmpty);   
+    setIsCartEmpty(!isCartEmpty);
   }
-
 
   return (
     <section className="meals-main">
       <section className="meals-section">
         <section className="searchbar-section">
-          {/* <SearchBar
+          <SearchBar
             list={filteredItems}
-            // setListToShow={setListToShow}
             setListToShow={(newList) => setListToShow(newList || [])}
-            allButDrinks={allButDrinks}
-          /> */}
+            fullMenu={fullMenu}
+          />
         </section>
         <section className="category-button-section">
           <button
-            onClick={() => setSelectedCartegory("meals")}
-            className="category-button"
+            onClick={() => handleCategoryClick("all")}
+            className={
+              selectedCategory === "all"
+                ? "category-button selected"
+                : "category-button"
+            }
+          >
+            All
+          </button>
+          <button
+            onClick={() => handleCategoryClick("meals")}
+            className={
+              selectedCategory === "meals"
+                ? "category-button selected"
+                : "category-button"
+            }
           >
             Meals
           </button>
           <button
-            onClick={() => setSelectedCartegory("sides")}
-            className="category-button"
+            onClick={() => handleCategoryClick("s_ides")}
+            className={
+              selectedCategory === "s_ides"
+                ? "category-button selected"
+                : "category-button"
+            }
           >
             Sides
           </button>
           <button
-            onClick={() => setSelectedCartegory("drinks")}
-            className="category-button"
+            onClick={() => handleCategoryClick("drinks")}
+            className={
+              selectedCategory === "drinks"
+                ? "category-button selected"
+                : "category-button"
+            }
           >
             Drinks
           </button>
         </section>
+        {/* Kolla om listToShow finns, annars sätt en spinner */}
         {listToShow.map((menuItem: Dish) => (
           <div key={menuItem._id} className="meals-card">
             <NavLink
