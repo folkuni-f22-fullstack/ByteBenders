@@ -145,13 +145,17 @@
     margin-left: 2.1em;
     margin-top: 7em;
   }
+  .popular-section {
+    width: 65%;
+  }
 }
 
 @media screen and (min-width: 798px) and (max-width: 1200px) {
   .meals-section {
     max-width: 100vw;
   }
-  .pop-hero-div {
+  .pop-hero-div,
+  .popular-section {
     width: 80%;
   }
 }

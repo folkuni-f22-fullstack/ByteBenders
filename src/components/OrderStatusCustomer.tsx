@@ -71,6 +71,7 @@ export default function OrderStatusCustomer() {
             console.log(error);
         }
     }
+  }
 
     return (
         <div className="CustomerStatusOrder">

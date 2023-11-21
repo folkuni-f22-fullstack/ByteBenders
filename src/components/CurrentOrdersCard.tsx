@@ -67,14 +67,14 @@ export default function CurrentOrderCard() {
                                 </button>
                             ) : (
                                 <button
-                                    onClick={() => setIsExpanded(order._id)}
+                                    onClick={() => setIsExpanded(order.id)}
                                     className='open-order-icon'>
                                     <IoIosArrowDown />
                                 </button>
                             )}
                         </div>
                     </div >
-                    {isExpanded === order._id && (
+                    {isExpanded === order.id && (
                         <ul className='order-info-section'>
                             {order.content.map((item) => (
                                 <li className='order-product-name' key={item} >

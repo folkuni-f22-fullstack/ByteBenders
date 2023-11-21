@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
-    _id: Number,
+    // _id: String,
+    orderId: Number,
     date: { type: Date, default: Date.now() },
-    content: [],
+    content: Array,
     usercomment: String,
     staffcomment: String,
     total: Number,
