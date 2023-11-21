@@ -132,7 +132,7 @@ export async function postOrder() {
   }
 }
 
-export async function deleteOrder(orderId: number) {
+export async function deleteOrder(orderId: string) {
   const deleteOrderUrl = `/api/orders/${orderId}`;
 
   try {
