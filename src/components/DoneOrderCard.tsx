@@ -18,9 +18,9 @@ export default function DoneOrderCard() {
                 const fetchedData = await getOrders()
                 const doneOrders = fetchedData?.filter(order => order.status === 'done');
                 setOrderData(doneOrders)
-                console.log('Succeeded in fetching orders');
+                console.log('Succeeded in fetching done orders');
             } catch (error) {
-                console.log('Failed to fetch orders');
+                console.log('Failed to fetch done orders');
             }
         }
         fetchOrderID()

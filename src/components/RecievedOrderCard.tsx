@@ -20,9 +20,9 @@ export default function RecievedOrderCard() {
                 const fetchedData = await getOrders()
                 const receivedOrders = fetchedData?.filter(order => order.status === 'received');
                 setOrderData(receivedOrders)
-                console.log('Succeeded in fetching orders');
+                console.log('Succeeded in fetching received orders');
             } catch (error) {
-                console.log('Failed to fetch orders');
+                console.log('Failed to fetch received orders');
             }
         }
         fetchOrderID()
