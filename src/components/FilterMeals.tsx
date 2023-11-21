@@ -8,7 +8,6 @@ import { Dish } from "../interfaces/dish.js";
 const FilterMeals: React.FC<FilterMealsProps> = ({
   list,
   setListToShow,
-  // showFilters,
   searchMode,
   setSearchMode,
   subMenuRef,
