@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Dish } from "../interfaces/dish";
 import { Order } from "../interfaces/order";
+import { promo, totalPrice } from "../components/CartCard";
 import { randomizer } from "./general";
 
 export function getMealsID() {
@@ -86,13 +87,8 @@ export async function postOrder() {
       const parsedOrderData = JSON.parse(orderData);
       console.log("orderdata:", orderData);
       console.log('parsedOrderData.content: ', parsedOrderData.content);
-      
-
-      //   console.log("Data from localStorage:", parsedOrderData);
-
-      let sum = 0
-      parsedOrderData.map((dish => {sum = sum + (dish.quantity * dish.total)}))
-      
+ 
+      //   console.log("Data from localStorage:", parsedOrderData);     
 
       // Omstrukturera parsedOrderData efter vad din backend förväntar sig
       const formattedOrderData = {
@@ -100,7 +96,7 @@ export async function postOrder() {
         content: parsedOrderData ,
         // usercomment: parsedOrderData.usercomment || "",
         // staffcomment: parsedOrderData.staffcomment || "",
-        total: sum ,
+        total: promo.value !== 0 ? promo.value : totalPrice.value,
         status: "received",
         locked: parsedOrderData.locked || false,
       };
