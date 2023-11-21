@@ -43,7 +43,9 @@ export default function RecievedOrderCard() {
             const updatedOrders = await getOrders();
             setOrderData(updatedOrders);
             console.log('Order updated', updatedOrders);
+            // console.log(orderData);
             
+
         } catch (error) {
             console.log('Failed to update order status');
         }
@@ -57,7 +59,7 @@ export default function RecievedOrderCard() {
             {receivedOrders && receivedOrders.map(order => (
                 <div className="recieved-order-card" key={order._id}>
                     <div className="order-content">
-                        <h1> <div >{order._id}</div> </h1>
+                        <h1> <div >{order.orderId}</div> </h1>
                         <div className="extend-order-icons">
                             {isExpanded ? (
                                 <button
@@ -77,13 +79,11 @@ export default function RecievedOrderCard() {
                     {isExpanded === order._id && (
                         <ul className='order-info-section'>
                             {order.content.map((item) => (
-                                <li className='order-product-name' key={item} >
-                                    {item}
-                                    <span className="amount-text">: x{order.total}</span>
+                                <li className='order-product-name' key={item.name} >
+                                    {item.name}
+                                    <span className="amount-text">: {item.quantity}x</span>
                                 </li>
-
                             ))}
-                            {/* // TODO: Säkertställ att en kommentar renderas beroende av order inte product */}
                             <section className="additional-info-section">
                                 <div className='comment-section'>
                                     <h3>Kommentar</h3>

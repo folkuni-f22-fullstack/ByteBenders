@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
 	await connectDb();
 	try {
-		let foundOrder = await Order.findOne({ _id: req.params.id });
+		let foundOrder = await Order.findOne({ _id: req.params.orderid });
 		if (foundOrder !== undefined) {
 			console.log('Order Found', foundOrder);
 			res.status(302).send(foundOrder);
