@@ -87,7 +87,7 @@ export default function RecievedOrderCard() {
             <div className="order-content">
               <h1>
                 {" "}
-                <div className="order-id">{order._id}</div>{" "}
+                <div >{order.orderId}</div>{" "}
               </h1>
               <div className="extend-order-icons">
                 {isExpanded === order._id ? (
