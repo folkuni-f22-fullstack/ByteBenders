@@ -15,13 +15,12 @@ import axios from "axios";
 const SearchBar: React.FC<SearchBarProps> = ({
   list,
   setListToShow,
-  // allButDrinks,
   fullMenu,
 }) => {
   const [showFilters, setShowFilters] = useRecoilState(subState);
   const [searchMode, setSearchMode] = useState(false);
   const [searchInput, setSearchInput] = useState("");
-  const subMenuRef = useRef(null);
+  const subMenuRef = useRef<HTMLButtonElement | null>(null);
 
   // searchMode kontrollerar om man ska söka eller filtrera
   useEffect(() => {
@@ -100,7 +99,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <FilterMeals
         list={list}
         setListToShow={setListToShow}
-        // showFilters={showFilters}
         searchMode={searchMode}
         setSearchMode={setSearchMode}
         subMenuRef={subMenuRef}

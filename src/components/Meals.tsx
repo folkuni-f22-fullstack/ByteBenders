@@ -15,7 +15,7 @@ import { menuState } from "../recoil/menuState.js";
 // import { signal } from "@preact/signals-react";
 
 const Meals = () => {
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [listToShow, setListToShow] = useState<Dish[]>([]);
   const cartData = JSON.parse(localStorage.getItem("cart")) || [];
   const [cartCopy, setCartCopy] = useState([...cartData]);
@@ -26,6 +26,14 @@ const Meals = () => {
   useEffect(() => {
     setListToShow(filteredItems);
   }, [selectedCategory]);
+
+  useEffect(() => {
+    const filteredItems: Dish[] =
+      selectedCategory === "all"
+        ? fullMenu
+        : filterByCategory(selectedCategory, fullMenu);
+    setListToShow(filteredItems);
+  }, [selectedCategory, fullMenu]);
 
   // Ursprungslistan som skickas med till sök och filter-funktionerna
   const filteredItems: Dish[] = filterByCategory(selectedCategory, fullMenu);
@@ -59,9 +67,9 @@ const Meals = () => {
         </section>
         <section className="category-button-section">
           <button
-            onClick={() => handleCategoryClick("")}
+            onClick={() => handleCategoryClick("all")}
             className={
-              selectedCategory === ""
+              selectedCategory === "all"
                 ? "category-button selected"
                 : "category-button"
             }
