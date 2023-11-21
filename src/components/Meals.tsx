@@ -25,18 +25,13 @@ const Meals = () => {
 
   useEffect(() => {
     setListToShow(filteredItems);
-  }, [selectedCategory]);
-
-  useEffect(() => {
-    const filteredItems: Dish[] =
-      selectedCategory === "all"
-        ? fullMenu
-        : filterByCategory(selectedCategory, fullMenu);
-    setListToShow(filteredItems);
   }, [selectedCategory, fullMenu]);
 
   // Ursprungslistan som skickas med till sök och filter-funktionerna
-  const filteredItems: Dish[] = filterByCategory(selectedCategory, fullMenu);
+  const filteredItems: Dish[] =
+    selectedCategory === "all"
+      ? fullMenu
+      : filterByCategory(selectedCategory, fullMenu);
 
   const windowWidth = WindowSizeListener();
 
