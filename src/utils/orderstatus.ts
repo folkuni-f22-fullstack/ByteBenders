@@ -6,10 +6,8 @@
 export function finishedTime(count) {
     
     if (
-        (!localStorage.getItem('ETA') 
-        &&
-        (!localStorage.getItem('orderNumber'))
-        )) {
+        !localStorage.getItem('ETA') 
+        ) {
         const currentDate = new Date();
         const currentHour = currentDate.getHours();
         const currentMinutes = currentDate.getMinutes();
@@ -36,7 +34,8 @@ export function finishedTime(count) {
 
 
 export function checkIfDishIsFinished(count, setCurrentOrder) {
-    let orderTime = finishedTime(count);
+    // let orderTime = finishedTime(count);
+    let orderTime = localStorage.getItem('ETA');
 
     if (orderTime) {
         // Hämtar aktuell tid
