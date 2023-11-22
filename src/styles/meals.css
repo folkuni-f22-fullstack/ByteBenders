@@ -1,15 +1,9 @@
 @import "../App.css";
 .meals-section {
-<<<<<<< HEAD
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	padding-bottom: 7em;
-=======
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
->>>>>>> feature-search
+  padding-bottom: 7em;
 }
 .meals-main {
   display: flex;
@@ -121,44 +115,6 @@
 }
 
 @media screen and (min-width: 1200px) {
-<<<<<<< HEAD
-	.popular-section {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: flex-start;
-		margin-top: 2em;
-		margin-left: 1.5em;
-	}
-	.popular-section > .meals-link {
-		height: auto;
-	}
-	.meals-section {
-		margin-right: 22vw;
-		margin-left: 5.1em;
-		justify-content: flex-start;
-		padding-bottom: 2em;
-	}
-	.meals-section > * {
-		margin-left: 2em;
-	}
-	.meals-card {
-		width: 12em;
-		height: 14em;
-	}
-	.popular-main {
-		margin-left: 5.1em;
-	}
-	.pop-hero-div {
-		width: 65%;
-		border-radius: 1em;
-		margin-left: 2.1em;
-		margin-top: 7em;
-	}
-	.popular-section {
-		width: 65%;
-	}
-}
-=======
   .popular-section {
     display: flex;
     flex-wrap: wrap;
@@ -173,6 +129,7 @@
     margin-right: 22em;
     margin-left: 5.1em;
     justify-content: flex-start;
+    padding-bottom: 2em;
   }
   .meals-section > * {
     margin-left: 2em;
@@ -194,10 +151,3 @@
     width: 65%;
   }
 }
-
-@media screen and (max-width: 1200px) {
-  .meals-section {
-    margin-right: 0;
-  }
-}
->>>>>>> feature-search
