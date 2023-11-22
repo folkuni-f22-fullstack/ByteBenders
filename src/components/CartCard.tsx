@@ -58,8 +58,18 @@ function CartCard() {
 
     // Remove from local storage when quantity equal 0
     if (updateCart[index].quantity === 0) {
-      localStorage.removeItem(updateCart[index].name);
-      updateCart.splice(index, 1);
+      // remove item by index
+      const removedItem = updateCart.splice(index, 1)[0];
+
+      // Check if removeItem exist and have a valid name
+      if (removedItem && removedItem.name) {
+          localStorage.removeItem(removedItem.name);
+
+          // Remove comment from customizeState
+          const newCustomizeState = { ...customizeState };
+          delete newCustomizeState[removedItem.name];
+          setCustomizeState(newCustomizeState);
+      }
     }
 
     // Update local storage
@@ -98,7 +108,7 @@ function CartCard() {
 
   // Send customize order to local storage
   function updateComment(name) {
-    const updateCartComment = cartCopy.map((item) => {
+    const updateCartComment = updateCart.map((item) => {
       if (item.name === name) {
         // Copy of item and update comment property by id. If undifined set empty string as default value.
         return { ...item, usercomment: customizeState[name] || "" };
