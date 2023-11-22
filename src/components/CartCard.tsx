@@ -133,7 +133,7 @@ function CartCard() {
       <section className="cart-section">
         <p className="cart-count">{numberOfCartItems()} items in cart</p>
         <div className="cart-card-container">
-          {cartCopy.length === 0 ? (
+          {cartCopy.length === 0 && !currentOrder.isOrdered? (
             <div className="empty-cart-div">
               <BsCart3 className="empty-cart-icon" />
               <h2 className="empty-h2">Your cart is empty!</h2>
