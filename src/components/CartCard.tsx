@@ -80,15 +80,22 @@ function CartCard() {
 
   // Discount
   function promoCode() {
-    if (isPromo === "discount20%") {
-      const discount = (totalPrice / 100) * 20;
-      const newPrice = Math.round(totalPrice - discount);
-      promo.value = newPrice;
-    } else if (isPromo === "") {
-      promo.value = 0;
-    } else {
-      promo.value = 0;
-    }
+    const storedPromoCode = localStorage.getItem("promo-code");
+    
+    switch (true) {
+      case storedPromoCode && storedPromoCode !== "0":
+        promo.value = JSON.parse(storedPromoCode);
+        break;
+        
+      case isPromo === "discount20%":
+        promo.value = Math.round(totalPrice * 0.8);
+        localStorage.setItem("promo-code", JSON.stringify(promo.value));
+        break;
+          
+      default:
+        promo.value = 0;
+        break;
+      }
   }
 
   // Update discount and total price
