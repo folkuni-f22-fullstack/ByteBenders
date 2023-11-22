@@ -28,6 +28,7 @@
   padding: 1em 1em 0 1em;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 2px;
+  position: relative;
 }
 
 .cart-image-container {
@@ -53,9 +54,8 @@
 .sub-text {
   grid-column: 2 / span 4;
   grid-row: 2;
-  display: flex;
-  align-self: flex-start;
-  margin-bottom: 1em;
+  position: absolute;
+  top: 1em;
 }
 
 .card-price {
@@ -71,9 +71,9 @@
 .amount-container {
   grid-column: 2;
   grid-row: 2 / span 2;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 5px;
+  display: flex;
+  margin-bottom: 0.5em;
 }
 
 .sub-text,

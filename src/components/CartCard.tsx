@@ -156,8 +156,8 @@ function CartCard() {
                     {" "}
                     {item.name}{" "}
                   </NavLink>
-                  <p className="sub-text">Lorem ipsum</p>
                   <p className="card-price"> {item.total}:- </p>
+                  <p className="sub-text">Amount: </p>
                   <div className="amount-container">
                     <button
                       className="sub"
