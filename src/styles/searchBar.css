@@ -1,5 +1,7 @@
 .search-bar {
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .search-input-container {
@@ -53,7 +55,7 @@
 .filter-select {
   position: absolute;
   width: 272px;
-  left: 8px;
+  top: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
