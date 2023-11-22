@@ -74,6 +74,28 @@ export async function putOrder(order: Order, newStatus: string) {
   }
 }
 
+export async function isOrderLocked(id) {
+
+	const getOrdersUrl = `/api/customer/${id}`
+
+	const options = {
+		method: 'GET',
+		headers: { "Content-Type": "application/json" }
+	}
+
+		try {
+			const response = await fetch(getOrdersUrl, options)
+			const orderData = await response.json()
+
+			console.log(orderData.locked);
+			
+
+			return orderData.locked
+		} catch (error) {
+			console.log(error);
+			throw new Error("Something went wrong while fetching meal details")
+		}
+}
 export async function postOrder() {
   const postOrderUrl = "http://localhost:1523/api/orders";
   const orderData = localStorage.getItem("cart");
@@ -112,16 +134,19 @@ export async function postOrder() {
       console.log("Request Headers:", options.headers);
       console.log("Request Body:", options.body);
 
-      const response = await fetch(postOrderUrl, options);
-
-      if (!response.ok) {
-        throw new Error(`Server responded with status: ${response.status}`);
-      }
-
-      console.log("2");
+	    const response = await fetch(postOrderUrl, options);
+	  
+	    if (!response.ok) {
+		  throw new Error(`Server responded with status: ${response.status}`);
+		}
+		
+		console.log("2");
+		
+		
       const responseData = await response.json();
       console.log("Order POST API response", responseData);
-      // Ta bort orderdatan från local storage efter att beställningen har skickats
+      
+	// Ta bort orderdatan från local storage efter att beställningen har skickats
       localStorage.removeItem("cart");
     } catch (error) {
       console.error(error);
@@ -193,3 +218,27 @@ export async function deleteOrder(orderId: string) {
 function generateUniqueId() {
   return parseInt(Date.now() + 1 + Math.random().toString(36).substring(2), 10);
 }
+
+// export async function deleteOrder(orderId: string) {
+// 	const deleteOrderUrl = `/api/orders/${orderId}`;
+  
+// 	try {
+// 		const response = await fetch(deleteOrderUrl, {
+// 			method: 'DELETE',
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 				// You might need to include authentication headers if required
+// 			},
+// 		});
+  
+// 		if (response.ok) {
+// 			console.log('Order deleted successfully');
+// 		} else if (response.status === 404) {
+// 			console.error('Order not found');
+// 		} else {
+// 			console.error('Failed to delete order:', response.status, response.statusText);
+// 		}
+// 	} catch (error) {
+// 		console.error('Error deleting order:', error.message);
+// 	}
+//   }

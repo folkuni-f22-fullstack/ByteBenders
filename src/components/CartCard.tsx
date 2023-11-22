@@ -9,10 +9,11 @@ import { cartState } from "../recoil/cartNumberState.js";
 import { getCartQuantity } from "../utils/general.ts";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
-import { isOrdered } from "./CartSendDb.js";
+// import { isOrdered } from "./CartSendDb.js";
 import OrderStatusCustomer from "./OrderStatusCustomer.tsx";
 import axios from "axios";
 import { Dish } from "../interfaces/dish.ts";
+import { orderState } from '../recoil/orderState.js'
 
 
 export let promo = signal(0);
@@ -27,6 +28,7 @@ function CartCard() {
   const [cartItems, setCartItems] = useRecoilState(cartState);
   const [orderFinished, setOrderFinished] = useState(null);
   const [cartItem, setCartItem] = useState<Dish[]>([]);
+  const [currentOrder, setCurrentOrder] = useRecoilState(orderState)
 
   useEffect(() => {
     axios.get('/api/meals')
@@ -141,7 +143,7 @@ function CartCard() {
       <section className="cart-section">
         <p className="cart-count">{numberOfCartItems()} items in cart</p>
         <div className="cart-card-container">
-          {cartCopy.length === 0 ? (
+          {cartCopy.length === 0 && !currentOrder.isOrdered? (
             <div className="empty-cart-div">
               <BsCart3 className="empty-cart-icon" />
               <h2 className="empty-h2">Your cart is empty!</h2>
@@ -186,7 +188,7 @@ function CartCard() {
                     className="customize-order"
                     type="text"
                     placeholder={
-                      item.usercomment == ""
+                      item.usercomment === ""
                         ? "Customize your order +"
                         : item.usercomment
                     }
@@ -201,10 +203,10 @@ function CartCard() {
                   ></input>
                 </div>
               ))}
-              {/* orderstatus */}
-              {isOrdered.value && !orderFinished && <OrderStatusCustomer />}
             </>
           )}
+          {/* orderstatus */}
+          { <OrderStatusCustomer />}
         </div>
         {/* Promo */}
         <div className="cart-promo-container">
@@ -229,7 +231,7 @@ function CartCard() {
             </p>
           </div>
         </div>
-        <SendCartData />
+        <SendCartData customizeState={customizeState} setCustomizeState={setCustomizeState}/>
       </section>
     </>
   );

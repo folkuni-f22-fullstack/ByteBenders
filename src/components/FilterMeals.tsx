@@ -36,7 +36,7 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
   // }
   // console.log("fullMenu är: ", fullMenu);
 
-  console.log("allButDrinks är: ", allButDrinks);
+  // console.log("allButDrinks är: ", allButDrinks);
 
   // Skapa en lista med alla subkategorier, bara en av varje
   const subcategories: string[] = [

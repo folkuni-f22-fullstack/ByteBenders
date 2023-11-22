@@ -18,9 +18,9 @@ export default function CurrentOrderCard() {
                 const fetchedData = await getOrders()
                 const currentOrders = fetchedData?.filter(order => order.status === 'current');
                 setOrderData(currentOrders)
-                console.log('Succeeded in fetching orders');
+                console.log('Succeeded in fetching current orders');
             } catch (error) {
-                console.log('Failed to fetch orders');
+                console.log('Failed to fetch current orders');
             }
         }
         fetchOrderID()
