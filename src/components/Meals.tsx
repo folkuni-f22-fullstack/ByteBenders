@@ -12,6 +12,8 @@ import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
 import WindowSizeListener from "../utils/WindowListener.tsx";
 import { menuState } from "../recoil/menuState.js";
+import { selectedFiltersState } from "../recoil/selectedFiltersState.js";
+import { TiDelete } from "react-icons/ti";
 // import { signal } from "@preact/signals-react";
 
 const Meals = () => {
@@ -22,6 +24,8 @@ const Meals = () => {
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
   const [errorMessage, setErrorMessage] = useState("");
   const [fullMenu, setFullMenu] = useRecoilState<Dish[]>(menuState);
+  const [selectedFilters, setSelectedFilters] =
+    useRecoilState(selectedFiltersState);
 
   useEffect(() => {
     setListToShow(filteredItems);
@@ -50,6 +54,13 @@ const Meals = () => {
     setIsCartEmpty(!isCartEmpty);
   }
 
+  const handleRemoveFilter = (filterToRemove) => {
+    const updatedFilters = selectedFilters.filter(
+      (filter) => filter !== filterToRemove
+    );
+    setSelectedFilters(updatedFilters);
+  };
+
   return (
     <section className="meals-main">
       <section className="meals-section">
@@ -59,6 +70,22 @@ const Meals = () => {
             setListToShow={(newList) => setListToShow(newList || [])}
             fullMenu={fullMenu}
           />
+          {selectedFilters.length > 0 ? (
+            <div className="selected-filters-div">
+              <span className="filter-span">Filters: </span>{" "}
+              {selectedFilters.map((filter) => (
+                <span key={filter} className="filter-item">
+                  {filter}
+                  <TiDelete
+                    onClick={() => handleRemoveFilter(filter)}
+                    className="remove-filter-icon"
+                  />
+                </span>
+              ))}
+            </div>
+          ) : (
+            ""
+          )}
         </section>
         <section className="category-button-section">
           <button
