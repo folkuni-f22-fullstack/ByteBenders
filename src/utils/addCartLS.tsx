@@ -19,7 +19,6 @@ async function addToLS(id: number, endpoint: string) {
       name: productID.name,
       total: productID.price * quantity,
       quantity: quantity,
-      comment: productID.comment,
       locked: false,
       status: ""
     };
@@ -29,6 +28,10 @@ async function addToLS(id: number, endpoint: string) {
     if (matchingId !== -1) {
       existingCartData[matchingId].quantity += cartItem.quantity
       existingCartData[matchingId].total += cartItem.total
+
+      if (!existingCartData[matchingId].usercomment) {
+        existingCartData[matchingId].usercomment = cartItem.usercomment;
+      }
     } else {
       existingCartData.push(cartItem)
     }

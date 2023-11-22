@@ -1,8 +1,6 @@
-import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { BiArrowBack, BiMinus, BiPlus } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
-import addToLS from "../utils/addCartLS";
 import { quantity } from "../utils/addCartLS.tsx";
 import "../styles/details.css";
 import CartRoute from "./CartRoute.tsx";
@@ -11,6 +9,7 @@ import { isCartEmptyState } from "../recoil/cartNumberState.js";
 import WindowSizeListener from "../utils/WindowListener.tsx";
 import { Dish } from "../interfaces/dish.ts";
 import { getMealsID } from "../utils/fetch.tsx";
+import axios from "axios";
 
 export default function ProductDetailsRoute() {
   const [product, setProduct] = useState<null | Dish[]>(null);
@@ -43,12 +42,16 @@ export default function ProductDetailsRoute() {
   // Send to local storage
   function handleAddToCart() {
     const cartItem = {
-      id: product._id,
+      // _id: productID._id,
       image: product.image,
+      content: [],
+      usercomment: "",
+      staffcomment: "",
       name: product.name,
       total: product.price * quantity,
       quantity: quantity,
-      comment: product.comment,
+      locked: false,
+      status: ""
     };
     const existingCartData = JSON.parse(localStorage.getItem("cart")) || []
 

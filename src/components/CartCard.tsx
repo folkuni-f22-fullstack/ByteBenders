@@ -59,8 +59,18 @@ function CartCard() {
 
     // Remove from local storage when quantity equal 0
     if (updateCart[index].quantity === 0) {
-      localStorage.removeItem(updateCart[index].name);
-      updateCart.splice(index, 1);
+      // remove item by index
+      const removedItem = updateCart.splice(index, 1)[0];
+
+      // Check if removeItem exist and have a valid name
+      if (removedItem && removedItem.name) {
+          localStorage.removeItem(removedItem.name);
+
+          // Remove comment from customizeState
+          const newCustomizeState = { ...customizeState };
+          delete newCustomizeState[removedItem.name];
+          setCustomizeState(newCustomizeState);
+      }
     }
 
     // Update local storage
@@ -98,11 +108,11 @@ function CartCard() {
   }, [cartCopy]);
 
   // Send customize order to local storage
-  function updateComment(id) {
-    const updateCartComment = cartCopy.map((item) => {
-      if (item.id === id) {
+  function updateComment(name) {
+    const updateCartComment = updateCart.map((item) => {
+      if (item.name === name) {
         // Copy of item and update comment property by id. If undifined set empty string as default value.
-        return { ...item, comment: customizeState[id] || "" };
+        return { ...item, usercomment: customizeState[name] || "" };
       }
       return item;
     });
@@ -177,18 +187,18 @@ function CartCard() {
                     className="customize-order"
                     type="text"
                     placeholder={
-                      item.comment == ""
+                      item.usercomment === ""
                         ? "Customize your order +"
-                        : item.comment
+                        : item.usercomment
                     }
                     // display data for specific item or empty string
-                    value={customizeState[item.id] || ""}
+                    value={customizeState[item.name] || ""}
                     onChange={(e) => {
                       const newCustomizeState = { ...customizeState };
-                      newCustomizeState[item.id] = e.target.value;
+                      newCustomizeState[item.name] = e.target.value;
                       setCustomizeState(newCustomizeState);
                     }}
-                    onBlur={() => updateComment(item.id)}
+                    onBlur={() => updateComment(item.name)}
                   ></input>
                 </div>
               ))}
@@ -220,7 +230,7 @@ function CartCard() {
             </p>
           </div>
         </div>
-        <SendCartData />
+        <SendCartData customizeState={customizeState} setCustomizeState={setCustomizeState}/>
       </section>
     </>
   );

@@ -11,20 +11,24 @@ function SendCartData() {
     const [currentOrder, setCurrentOrder] = useRecoilState(orderState)
 
     // Ska skicka till LS utöver DB, dessutom ha ett ID
-    async function handlePost() {
-        let cart = localStorage.getItem('cart')
+    function handlePost() {
+        setIsCartEmpty(!isCartEmpty);
+        let cart = JSON.parse(localStorage.getItem('cart')) || []
 
+        console.log('cart before: ', cart);
         if (cart) {
             postOrder()
             localStorage.removeItem('cart')
-    
+
             // localStorage.setItem('pendingOrder', 'true')
             setCurrentOrder({ 
                 isOrdered: true, 
                 isWaiting: true, 
                 orderNumber: localStorage.getItem('orderNumber') 
             })
-            setIsCartEmpty(!isCartEmpty);
+            
+            let cartAfter = JSON.parse(localStorage.getItem('cart')) || []
+            console.log('cart after: ', cartAfter);
     
             // console.log(currentOrder);
         }
