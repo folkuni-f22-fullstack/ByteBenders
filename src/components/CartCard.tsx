@@ -9,7 +9,6 @@ import { cartState } from "../recoil/cartNumberState.js";
 import { getCartQuantity } from "../utils/general.ts";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
-// import { isOrdered } from "./CartSendDb.js";
 import OrderStatusCustomer from "./OrderStatusCustomer.tsx";
 import axios from "axios";
 import { Dish } from "../interfaces/dish.ts";
@@ -166,8 +165,8 @@ function CartCard() {
                     {" "}
                     {item.name}{" "}
                   </NavLink>
-                  <p className="sub-text">Lorem ipsum</p>
                   <p className="card-price"> {item.total}:- </p>
+                  <p className="sub-text">Amount: </p>
                   <div className="amount-container">
                     <button
                       className="sub"
