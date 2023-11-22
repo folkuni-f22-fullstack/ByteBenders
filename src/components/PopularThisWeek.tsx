@@ -7,25 +7,33 @@ import addToLS from "../utils/addCartLS";
 import { quantity } from "../utils/addCartLS";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
-import axios from 'axios';
+import { getCartQuantity } from "../utils/general.ts";
+import { cartState } from "../recoil/cartNumberState.js";
+import axios from "axios";
 
 export default function PopularThisWeek() {
   const [randomMeals, setRandomMeals] = useState([]);
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
+  const [updateCartTrigger, setUpdateCartTrigger] = useState(0);
+  const [cartItems, setCartItems] = useRecoilState(cartState);
+
+  useEffect(() => {
+    setCartItems(getCartQuantity());
+  }, [updateCartTrigger]);
 
   useEffect(() => {
     async function fetchPopular() {
       try {
-        const response = await axios.get('/api/popular')
+        const response = await axios.get("/api/popular");
         setRandomMeals(await response.data);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     }
 
-    fetchPopular()
+    fetchPopular();
 
-    return () => {}
+    return () => {};
   }, []);
 
   // Set value to 1
@@ -37,7 +45,8 @@ export default function PopularThisWeek() {
   async function handleAddToCart(id: number) {
     await addToLS(id, "api/popular");
     setIsCartEmpty(!isCartEmpty);
-    console.log('Popular id: ', id);
+    console.log("Popular id: ", id);
+    setUpdateCartTrigger((prev) => prev + 1);
   }
 
   return (

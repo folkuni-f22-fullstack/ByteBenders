@@ -12,8 +12,7 @@ import { isCartEmptyState } from "../recoil/cartNumberState.js";
 import OrderStatusCustomer from "./OrderStatusCustomer.tsx";
 import axios from "axios";
 import { Dish } from "../interfaces/dish.ts";
-import { orderState } from '../recoil/orderState.js'
-
+import { orderState } from "../recoil/orderState.js";
 
 export let promo = signal(0);
 export let totalPrice = signal(0);
@@ -27,13 +26,14 @@ function CartCard() {
   const [cartItems, setCartItems] = useRecoilState(cartState);
   const [orderFinished, setOrderFinished] = useState(null);
   const [cartItem, setCartItem] = useState<Dish[]>([]);
-  const [currentOrder, setCurrentOrder] = useRecoilState(orderState)
+  const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
 
   useEffect(() => {
-    axios.get('/api/meals')
-      .then(response => setCartItem(response.data))
-      .catch(error => console.error('error feching meals', error))
-  }, [])
+    axios
+      .get("/api/meals")
+      .then((response) => setCartItem(response.data))
+      .catch((error) => console.error("error feching meals", error));
+  }, []);
 
   // Update cart, !! Utkommenterad pga Infinity Loop !!
   useEffect(() => {
@@ -132,7 +132,7 @@ function CartCard() {
       <section className="cart-section">
         <p className="cart-count">{numberOfCartItems()} items in cart</p>
         <div className="cart-card-container">
-          {cartCopy.length === 0 && !currentOrder.isOrdered? (
+          {cartCopy.length === 0 && !currentOrder.isOrdered ? (
             <div className="empty-cart-div">
               <BsCart3 className="empty-cart-icon" />
               <h2 className="empty-h2">Your cart is empty!</h2>
@@ -195,7 +195,7 @@ function CartCard() {
             </>
           )}
           {/* orderstatus */}
-          { <OrderStatusCustomer />}
+          {<OrderStatusCustomer />}
         </div>
         {/* Promo */}
         <div className="cart-promo-container">
