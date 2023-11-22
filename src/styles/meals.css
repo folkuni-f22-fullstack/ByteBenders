@@ -3,6 +3,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	padding-bottom: 7em;
 }
 .meals-main {
 	display: flex;
@@ -128,6 +129,7 @@
 		margin-right: 22vw;
 		margin-left: 5.1em;
 		justify-content: flex-start;
+		padding-bottom: 2em;
 	}
 	.meals-section > * {
 		margin-left: 2em;
@@ -147,16 +149,5 @@
 	}
 	.popular-section {
 		width: 65%;
-	}
-}
-
-@media screen and (max-width: 1200px) {
-	.meals-section {
-		margin-right: 0;
-	}
-}
-@media screen and (min-width: 1200px) and (max-width: 1400px) {
-	.meals-section {
-		margin-right: 24em;
 	}
 }
