@@ -28,6 +28,7 @@
   padding: 1em 1em 0 1em;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 2px;
+  position: relative;
 }
 
 .cart-image-container {
@@ -53,9 +54,8 @@
 .sub-text {
   grid-column: 2 / span 4;
   grid-row: 2;
-  display: flex;
-  align-self: flex-start;
-  margin-bottom: 1em;
+  position: absolute;
+  top: 1em;
 }
 
 .card-price {
@@ -71,9 +71,9 @@
 .amount-container {
   grid-column: 2;
   grid-row: 2 / span 2;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 5px;
+  display: flex;
+  margin-bottom: 0.5em;
 }
 
 .sub-text,
@@ -300,24 +300,17 @@
   }
 }
 
-@media screen and (min-width: 798px) {
+@media screen and (min-width: 1200px) {
   .cart-card-container {
     height: 56vh;
   }
   .cart-section {
     height: 100vh;
-    padding-bottom: 7em;
+    padding-bottom: 0em;
     background-color: #ffffff;
     width: 22em;
     position: fixed;
     top: 0;
     right: 0;
-  }
-}
-
-
-@media screen and (min-width: 1200px) {
-  .cart-section {
-    padding-bottom: 0;
   }
 }

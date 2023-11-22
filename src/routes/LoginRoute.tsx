@@ -19,7 +19,7 @@ export default function LoginRoute() {
 	const navigate = useNavigate();
 	const errorMsgRef = useRef(null);
 	let windowWidth = WindowSizeListener();
-	let textColor = windowWidth > 800 ? 'var(--dark-blue)' : '#FFFFFF';
+	let textColor = windowWidth > 1200 ? 'var(--dark-blue)' : '#FFFFFF';
 
 	const handleLogin = async () => {
 		const inputsAreValid = isValidLogin(userInput, passwordInput);

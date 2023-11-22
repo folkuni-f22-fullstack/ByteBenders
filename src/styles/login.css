@@ -87,7 +87,7 @@
   cursor: pointer;
 }
 
-@media screen and (min-width: 798px) {
+@media screen and (min-width: 1200px) {
   .LoginRoute {
     justify-content: end;
   }
