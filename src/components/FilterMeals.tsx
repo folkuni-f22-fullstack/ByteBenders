@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import { subState } from "../../src/recoil/subCategoryState.js";
 import { Dish } from "../interfaces/dish.js";
 import { selectedFiltersState } from "../recoil/selectedFiltersState.js";
+import { TiDelete } from "react-icons/ti";
 
 const FilterMeals: React.FC<FilterMealsProps> = ({
   list,
@@ -80,9 +81,14 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
                 selectedFilters?.includes(subcategory) ? "selected-filter" : ""
               }
             >
-              {!selectedFilters?.includes(subcategory)
-                ? subcategory
-                : subcategory + " X"}
+              {!selectedFilters?.includes(subcategory) ? (
+                subcategory
+              ) : (
+                <>
+                  {subcategory}
+                  <TiDelete className="selected-filter-icon" />
+                </>
+              )}
             </button>
           ))}
         </div>
