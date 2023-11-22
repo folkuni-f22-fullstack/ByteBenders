@@ -300,24 +300,17 @@
   }
 }
 
-@media screen and (min-width: 798px) {
+@media screen and (min-width: 1200px) {
   .cart-card-container {
     height: 56vh;
   }
   .cart-section {
     height: 100vh;
-    padding-bottom: 7em;
+    padding-bottom: 0em;
     background-color: #ffffff;
     width: 22em;
     position: fixed;
     top: 0;
     right: 0;
-  }
-}
-
-
-@media screen and (min-width: 1200px) {
-  .cart-section {
-    padding-bottom: 0;
   }
 }
