@@ -16,7 +16,7 @@ function SendCartData() {
         
         if (cart) {
             postOrder()
-            localStorage.removeItem('cart')
+            // localStorage.removeItem('cart')
             
             // localStorage.setItem('pendingOrder', 'true')
             setCurrentOrder({ 
