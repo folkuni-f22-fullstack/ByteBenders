@@ -42,6 +42,8 @@ function CartCard() {
     // isCartEmpty toggles from Meals.jsx
   }, [isCartEmpty]);
 
+  console.log(isCartEmpty);
+
   // Quantity count
   const updateCart = [...cartCopy];
   function updateQuantity(index, change) {
@@ -123,6 +125,8 @@ function CartCard() {
   useEffect(() => {
     setCartItems(getCartQuantity());
   }, [cartCopy]);
+
+  console.log(cartItems);
 
   return (
     <>

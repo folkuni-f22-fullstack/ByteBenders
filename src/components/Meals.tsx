@@ -13,10 +13,8 @@ import { isCartEmptyState } from "../recoil/cartNumberState.js";
 import WindowSizeListener from "../utils/WindowListener.tsx";
 import { menuState } from "../recoil/menuState.js";
 import { selectedFiltersState } from "../recoil/selectedFiltersState.js";
-import { getCartQuantity } from "../utils/general.ts";
 import { TiDelete } from "react-icons/ti";
 import { cartState } from "../recoil/cartNumberState.js";
-// import { signal } from "@preact/signals-react";
 
 const Meals = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -28,12 +26,7 @@ const Meals = () => {
   const [fullMenu, setFullMenu] = useRecoilState<Dish[]>(menuState);
   const [selectedFilters, setSelectedFilters] =
     useRecoilState(selectedFiltersState);
-  const [updateCartTrigger, setUpdateCartTrigger] = useState(0);
-  const [cartItems, setCartItems] = useRecoilState(cartState);
-
-  useEffect(() => {
-    setCartItems(getCartQuantity());
-  }, [updateCartTrigger]);
+  let [cartItems, setCartItems] = useRecoilState(cartState);
 
   useEffect(() => {
     setListToShow(filteredItems);
@@ -60,7 +53,8 @@ const Meals = () => {
   async function handleAddToCart(id: number) {
     await addToLS(id, "/api/meals");
     setIsCartEmpty(!isCartEmpty);
-    setUpdateCartTrigger((prev) => prev + 1);
+    setCartItems((cartItems += 1));
+    console.log(cartItems);
   }
 
   const handleRemoveFilter = (filterToRemove) => {

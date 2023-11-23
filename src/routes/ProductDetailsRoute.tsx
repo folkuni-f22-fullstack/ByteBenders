@@ -1,8 +1,6 @@
-import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { BiArrowBack, BiMinus, BiPlus } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
-import addToLS from "../utils/addCartLS";
 import { quantity } from "../utils/addCartLS.tsx";
 import "../styles/details.css";
 import CartRoute from "./CartRoute.tsx";
@@ -11,20 +9,23 @@ import { isCartEmptyState } from "../recoil/cartNumberState.js";
 import WindowSizeListener from "../utils/WindowListener.tsx";
 import { Dish } from "../interfaces/dish.ts";
 import { getMealsID } from "../utils/fetch.tsx";
+import { cartState } from "../recoil/cartNumberState.js";
 
 export default function ProductDetailsRoute() {
   const [product, setProduct] = useState<null | Dish[]>(null);
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
+  let [cartItems, setCartItems] = useRecoilState(cartState);
 
   const windowWidth = WindowSizeListener();
 
-  const mealID = getMealsID()
+  const mealID = getMealsID();
 
   useEffect(() => {
     async function fetchMealsId() {
-      setProduct(await mealID)
-    } try {
-      fetchMealsId()
+      setProduct(await mealID);
+    }
+    try {
+      fetchMealsId();
     } catch {
       console.log("error");
     }
@@ -50,17 +51,20 @@ export default function ProductDetailsRoute() {
       quantity: quantity,
       comment: product.comment,
     };
-    const existingCartData = JSON.parse(localStorage.getItem("cart")) || []
+    const existingCartData = JSON.parse(localStorage.getItem("cart")) || [];
 
-    const matchingId = existingCartData.findIndex((item) => item.name === cartItem.name)
+    const matchingId = existingCartData.findIndex(
+      (item) => item.name === cartItem.name
+    );
     if (matchingId !== -1) {
-      existingCartData[matchingId].quantity += cartItem.quantity
-      existingCartData[matchingId].total += cartItem.total
+      existingCartData[matchingId].quantity += cartItem.quantity;
+      existingCartData[matchingId].total += cartItem.total;
     } else {
-      existingCartData.push(cartItem)
+      existingCartData.push(cartItem);
     }
     localStorage.setItem("cart", JSON.stringify(existingCartData));
     setIsCartEmpty(!isCartEmpty);
+    setCartItems((cartItems += 1));
   }
 
   return (

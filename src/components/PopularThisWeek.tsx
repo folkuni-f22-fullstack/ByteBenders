@@ -1,25 +1,18 @@
 import "../styles/meals.css";
 import { BsCart3 } from "react-icons/bs";
 import { useEffect, useState } from "react";
-// import displayMeals from "../utils/popular.ts";
 import { NavLink } from "react-router-dom";
 import addToLS from "../utils/addCartLS";
 import { quantity } from "../utils/addCartLS";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
-import { getCartQuantity } from "../utils/general.ts";
 import { cartState } from "../recoil/cartNumberState.js";
 import axios from "axios";
 
 export default function PopularThisWeek() {
   const [randomMeals, setRandomMeals] = useState([]);
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
-  const [updateCartTrigger, setUpdateCartTrigger] = useState(0);
-  const [cartItems, setCartItems] = useRecoilState(cartState);
-
-  useEffect(() => {
-    setCartItems(getCartQuantity());
-  }, [updateCartTrigger]);
+  let [cartItems, setCartItems] = useRecoilState(cartState);
 
   useEffect(() => {
     async function fetchPopular() {
@@ -46,7 +39,7 @@ export default function PopularThisWeek() {
     await addToLS(id, "api/popular");
     setIsCartEmpty(!isCartEmpty);
     console.log("Popular id: ", id);
-    setUpdateCartTrigger((prev) => prev + 1);
+    setCartItems((cartItems += 1));
   }
 
   return (
