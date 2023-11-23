@@ -16,17 +16,16 @@ function SendCartData() {
 
         if (cart) {
             postOrder()
-            localStorage.removeItem('cart')
-    
-            // localStorage.setItem('pendingOrder', 'true')
+            
             setCurrentOrder({ 
                 isOrdered: true, 
                 isWaiting: true, 
                 orderNumber: localStorage.getItem('orderNumber') 
             })
             setIsCartEmpty(!isCartEmpty);
-    
-            // console.log(currentOrder);
+
+            localStorage.removeItem('cart')
+            localStorage.removeItem('promo-code')
         }
     }
 
