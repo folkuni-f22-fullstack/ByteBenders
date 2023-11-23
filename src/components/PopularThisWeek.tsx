@@ -38,7 +38,6 @@ export default function PopularThisWeek() {
   async function handleAddToCart(id: number) {
     await addToLS(id, "api/popular");
     setIsCartEmpty(!isCartEmpty);
-    console.log("Popular id: ", id);
     setCartItems((cartItems += 1));
   }
 

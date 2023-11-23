@@ -39,10 +39,7 @@ function CartCard() {
   useEffect(() => {
     const updatedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartCopy([...updatedCart]);
-    // isCartEmpty toggles from Meals.jsx
   }, [isCartEmpty]);
-
-  console.log(isCartEmpty);
 
   // Quantity count
   const updateCart = [...cartCopy];
@@ -82,22 +79,15 @@ function CartCard() {
 
   // Discount
   function promoCode() {
-    const storedPromoCode = localStorage.getItem("promo-code");
-    
-    switch (true) {
-      case storedPromoCode && storedPromoCode !== "0":
-        promo.value = JSON.parse(storedPromoCode);
-        break;
-        
-      case isPromo === "discount20%":
-        promo.value = Math.round(totalPrice * 0.8);
-        localStorage.setItem("promo-code", JSON.stringify(promo.value));
-        break;
-          
-      default:
-        promo.value = 0;
-        break;
-      }
+    if (isPromo === "discount20%") {
+      const discount = (totalPrice / 100) * 20;
+      const newPrice = Math.round(totalPrice - discount);
+      promo.value = newPrice;
+    } else if (isPromo === "") {
+      promo.value = 0;
+    } else {
+      promo.value = 0;
+    }
   }
 
   // Update discount and total price
@@ -132,8 +122,6 @@ function CartCard() {
   useEffect(() => {
     setCartItems(getCartQuantity());
   }, [cartCopy]);
-
-  console.log(cartItems);
 
   return (
     <>

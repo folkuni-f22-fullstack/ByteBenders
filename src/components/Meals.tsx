@@ -54,7 +54,6 @@ const Meals = () => {
     await addToLS(id, "/api/meals");
     setIsCartEmpty(!isCartEmpty);
     setCartItems((cartItems += 1));
-    console.log(cartItems);
   }
 
   const handleRemoveFilter = (filterToRemove) => {
