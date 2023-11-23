@@ -19,8 +19,8 @@ export let promo = signal(0);
 export let totalPrice = signal(0);
 function CartCard() {
   // Get item from local storage
-  const cartData = JSON.parse(localStorage.getItem("cart")) || [];
-  const [cartCopy, setCartCopy] = useState([...cartData]);
+  // const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+  const [cartCopy, setCartCopy] = useState([]);
   const [customizeState, setCustomizeState] = useState({});
   let [isPromo, setIsPromo] = useState("");
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
@@ -38,9 +38,9 @@ function CartCard() {
   // Update cart, !! Utkommenterad pga Infinity Loop !!
   useEffect(() => {
     const updatedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCartCopy([...updatedCart]);
+    setCartCopy(updatedCart);
     // isCartEmpty toggles from Meals.jsx
-  }, [isCartEmpty]);
+  }, [localStorage.getItem('cart'), isCartEmpty]);
 
   // Quantity count
   const updateCart = [...cartCopy];
@@ -64,12 +64,12 @@ function CartCard() {
 
       // Check if removeItem exist and have a valid name
       if (removedItem && removedItem.name) {
-          localStorage.removeItem(removedItem.name);
+        localStorage.removeItem(removedItem.name);
 
-          // Remove comment from customizeState
-          const newCustomizeState = { ...customizeState };
-          delete newCustomizeState[removedItem.name];
-          setCustomizeState(newCustomizeState);
+        // Remove comment from customizeState
+        const newCustomizeState = { ...customizeState };
+        delete newCustomizeState[removedItem.name];
+        setCustomizeState(newCustomizeState);
       }
     }
 
@@ -142,7 +142,7 @@ function CartCard() {
       <section className="cart-section">
         <p className="cart-count">{numberOfCartItems()} items in cart</p>
         <div className="cart-card-container">
-          {cartCopy.length === 0 && !currentOrder.isOrdered? (
+          {cartCopy.length === 0 && !currentOrder.isOrdered ? (
             <div className="empty-cart-div">
               <BsCart3 className="empty-cart-icon" />
               <h2 className="empty-h2">Your cart is empty!</h2>
@@ -205,7 +205,7 @@ function CartCard() {
             </>
           )}
           {/* orderstatus */}
-          { <OrderStatusCustomer />}
+          {<OrderStatusCustomer />}
         </div>
         {/* Promo */}
         <div className="cart-promo-container">
@@ -230,7 +230,7 @@ function CartCard() {
             </p>
           </div>
         </div>
-        <SendCartData customizeState={customizeState} setCustomizeState={setCustomizeState}/>
+        <SendCartData />
       </section>
     </>
   );
