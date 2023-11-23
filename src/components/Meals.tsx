@@ -49,6 +49,12 @@ const Meals = () => {
     quantity.value = 1;
   }
 
+
+  useEffect(() => {
+    JSON.parse(localStorage.getItem("cart")) || [];
+    // isCartEmpty toggles from Meals.jsx
+  }, [localStorage.getItem('cart'), isCartEmpty]);
+
   // Add to local storage
   async function handleAddToCart(id: number) {
     await addToLS(id, "/api/meals");

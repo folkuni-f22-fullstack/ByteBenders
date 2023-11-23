@@ -18,8 +18,8 @@ export let promo = signal(0);
 export let totalPrice = signal(0);
 function CartCard() {
   // Get item from local storage
-  const cartData = JSON.parse(localStorage.getItem("cart")) || [];
-  const [cartCopy, setCartCopy] = useState([...cartData]);
+  // const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+  const [cartCopy, setCartCopy] = useState([]);
   const [customizeState, setCustomizeState] = useState({});
   let [isPromo, setIsPromo] = useState("");
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
@@ -38,8 +38,9 @@ function CartCard() {
   // Update cart, !! Utkommenterad pga Infinity Loop !!
   useEffect(() => {
     const updatedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCartCopy([...updatedCart]);
-  }, [isCartEmpty]);
+    setCartCopy(updatedCart);
+    // isCartEmpty toggles from Meals.jsx
+  }, [localStorage.getItem("cart"), isCartEmpty]);
 
   // Quantity count
   const updateCart = [...cartCopy];
@@ -58,8 +59,18 @@ function CartCard() {
 
     // Remove from local storage when quantity equal 0
     if (updateCart[index].quantity === 0) {
-      localStorage.removeItem(updateCart[index].name);
-      updateCart.splice(index, 1);
+      // remove item by index
+      const removedItem = updateCart.splice(index, 1)[0];
+
+      // Check if removeItem exist and have a valid name
+      if (removedItem && removedItem.name) {
+        localStorage.removeItem(removedItem.name);
+
+        // Remove comment from customizeState
+        const newCustomizeState = { ...customizeState };
+        delete newCustomizeState[removedItem.name];
+        setCustomizeState(newCustomizeState);
+      }
     }
 
     // Update local storage
@@ -97,11 +108,11 @@ function CartCard() {
   }, [cartCopy]);
 
   // Send customize order to local storage
-  function updateComment(id) {
-    const updateCartComment = cartCopy.map((item) => {
-      if (item.id === id) {
+  function updateComment(name) {
+    const updateCartComment = updateCart.map((item) => {
+      if (item.name === name) {
         // Copy of item and update comment property by id. If undifined set empty string as default value.
-        return { ...item, comment: customizeState[id] || "" };
+        return { ...item, usercomment: customizeState[name] || "" };
       }
       return item;
     });
@@ -131,66 +142,70 @@ function CartCard() {
       <section className="cart-section">
         <p className="cart-count">{numberOfCartItems()} items in cart</p>
         <div className="cart-card-container">
-          {cartCopy.length === 0 && !currentOrder.isOrdered ? (
-            <div className="empty-cart-div">
-              <BsCart3 className="empty-cart-icon" />
-              <h2 className="empty-h2">Your cart is empty!</h2>
-              <p className="empty-p">
-                Looks like you haven't added anything to the cart yet.
-              </p>
-            </div>
-          ) : (
+          {!currentOrder.isOrdered && !currentOrder.isWaiting && (
             <>
-              {/* Cart */}
-              {cartCopy.map((item, index) => (
-                <div className="cart-card" key={index}>
-                  <NavLink
-                    to={`/menu/${item.id}`}
-                    className="cart-image-container"
-                  >
-                    <img className="cart-image" src={item.image} />
-                  </NavLink>
-                  <NavLink to={`/menu/${item.id}`} className="cart-name">
-                    {" "}
-                    {item.name}{" "}
-                  </NavLink>
-                  <p className="card-price"> {item.total}:- </p>
-                  <p className="sub-text">Amount: </p>
-                  <div className="amount-container">
-                    <button
-                      className="sub"
-                      onClick={() => updateQuantity(index, -1)}
-                    >
-                      {" "}
-                      <BiMinus className="BiMinus" />
-                    </button>
-                    <p className="food-amount">{item.quantity} </p>
-                    <button
-                      className="plus"
-                      onClick={() => updateQuantity(index, 1)}
-                    >
-                      <BiPlus className="BiPlus" />
-                    </button>
-                  </div>
-                  <input
-                    className="customize-order"
-                    type="text"
-                    placeholder={
-                      item.comment == ""
-                        ? "Customize your order +"
-                        : item.comment
-                    }
-                    // display data for specific item or empty string
-                    value={customizeState[item.id] || ""}
-                    onChange={(e) => {
-                      const newCustomizeState = { ...customizeState };
-                      newCustomizeState[item.id] = e.target.value;
-                      setCustomizeState(newCustomizeState);
-                    }}
-                    onBlur={() => updateComment(item.id)}
-                  ></input>
+              {cartCopy.length === 0 && !currentOrder.isOrdered ? (
+                <div className="empty-cart-div">
+                  <BsCart3 className="empty-cart-icon" />
+                  <h2 className="empty-h2">Your cart is empty!</h2>
+                  <p className="empty-p">
+                    Looks like you haven't added anything to the cart yet.
+                  </p>
                 </div>
-              ))}
+              ) : (
+                <>
+                  {/* Cart */}
+                  {cartCopy.map((item, index) => (
+                    <div className="cart-card" key={index}>
+                      <NavLink
+                        to={`/menu/${item.id}`}
+                        className="cart-image-container"
+                      >
+                        <img className="cart-image" src={item.image} />
+                      </NavLink>
+                      <NavLink to={`/menu/${item.id}`} className="cart-name">
+                        {" "}
+                        {item.name}{" "}
+                      </NavLink>
+                      <p className="card-price"> {item.total}:- </p>
+                      <p className="sub-text">Amount: </p>
+                      <div className="amount-container">
+                        <button
+                          className="sub"
+                          onClick={() => updateQuantity(index, -1)}
+                        >
+                          {" "}
+                          <BiMinus className="BiMinus" />
+                        </button>
+                        <p className="food-amount">{item.quantity} </p>
+                        <button
+                          className="plus"
+                          onClick={() => updateQuantity(index, 1)}
+                        >
+                          <BiPlus className="BiPlus" />
+                        </button>
+                      </div>
+                      <input
+                        className="customize-order"
+                        type="text"
+                        placeholder={
+                          item.usercomment === ""
+                            ? "Customize your order +"
+                            : item.usercomment
+                        }
+                        // display data for specific item or empty string
+                        value={customizeState[item.name] || ""}
+                        onChange={(e) => {
+                          const newCustomizeState = { ...customizeState };
+                          newCustomizeState[item.name] = e.target.value;
+                          setCustomizeState(newCustomizeState);
+                        }}
+                        onBlur={() => updateComment(item.name)}
+                      ></input>
+                    </div>
+                  ))}
+                </>
+              )}
             </>
           )}
           {/* orderstatus */}

@@ -29,7 +29,8 @@ async function addToLS(id: number, endpoint: string) {
     if (matchingId !== -1) {
       existingCartData[matchingId].quantity += cartItem.quantity
       existingCartData[matchingId].total += cartItem.total
-    } else {
+    }
+    else {
       existingCartData.push(cartItem)
     }
     localStorage.setItem("cart", JSON.stringify(existingCartData));

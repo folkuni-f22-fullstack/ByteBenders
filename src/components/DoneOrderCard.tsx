@@ -84,10 +84,8 @@ export default function DoneOrderCard() {
                                     </li>
                                 ))}
                             </ul>
-                            <div className='comment-section'>
-                                <h3 className='order-comment'>Comments:</h3>
-                                <span >{order.usercomment}</span>
-                            </div>
+                            <h3 className='order-comment'>Comments:</h3>
+                            <span >{order.usercomment}</span>
                             <div className='send-order-icon'> <RiCheckboxCircleLine />
                             </div>
                         </section>

@@ -9,6 +9,7 @@ import { isCartEmptyState } from "../recoil/cartNumberState.js";
 import WindowSizeListener from "../utils/WindowListener.tsx";
 import { Dish } from "../interfaces/dish.ts";
 import { getMealsID } from "../utils/fetch.tsx";
+import axios from "axios";
 import { cartState } from "../recoil/cartNumberState.js";
 
 export default function ProductDetailsRoute() {
@@ -44,12 +45,16 @@ export default function ProductDetailsRoute() {
   // Send to local storage
   function handleAddToCart() {
     const cartItem = {
-      id: product._id,
+      // _id: productID._id,
       image: product.image,
+      content: [],
+      usercomment: "",
+      staffcomment: "",
       name: product.name,
       total: product.price * quantity,
       quantity: quantity,
-      comment: product.comment,
+      locked: false,
+      status: "",
     };
     const existingCartData = JSON.parse(localStorage.getItem("cart")) || [];
 
