@@ -142,6 +142,8 @@ function CartCard() {
       <section className="cart-section">
         <p className="cart-count">{numberOfCartItems()} items in cart</p>
         <div className="cart-card-container">
+        {!currentOrder.isOrdered && !currentOrder.isWaiting && (
+          <>
           {cartCopy.length === 0 && !currentOrder.isOrdered ? (
             <div className="empty-cart-div">
               <BsCart3 className="empty-cart-icon" />
@@ -158,7 +160,7 @@ function CartCard() {
                   <NavLink
                     to={`/menu/${item.id}`}
                     className="cart-image-container"
-                  >
+                    >
                     <img className="cart-image" src={item.image} />
                   </NavLink>
                   <NavLink to={`/menu/${item.id}`} className="cart-name">
@@ -171,7 +173,7 @@ function CartCard() {
                     <button
                       className="sub"
                       onClick={() => updateQuantity(index, -1)}
-                    >
+                      >
                       {" "}
                       <BiMinus className="BiMinus" />
                     </button>
@@ -188,8 +190,8 @@ function CartCard() {
                     type="text"
                     placeholder={
                       item.usercomment === ""
-                        ? "Customize your order +"
-                        : item.usercomment
+                      ? "Customize your order +"
+                      : item.usercomment
                     }
                     // display data for specific item or empty string
                     value={customizeState[item.name] || ""}
@@ -199,11 +201,13 @@ function CartCard() {
                       setCustomizeState(newCustomizeState);
                     }}
                     onBlur={() => updateComment(item.name)}
-                  ></input>
+                    ></input>
                 </div>
               ))}
             </>
           )}
+          </>
+        )}
           {/* orderstatus */}
           {<OrderStatusCustomer />}
         </div>
@@ -215,7 +219,7 @@ function CartCard() {
             type="text"
             placeholder="Promo code"
             onChange={(e) => setIsPromo(e.target.value)}
-          />
+            />
           <button className="apply-promo-button" onClick={promoCode}>
             Apply
           </button>
