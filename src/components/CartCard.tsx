@@ -93,32 +93,36 @@ function CartCard() {
 		return total;
 	}
 
-	// Discount
-	function promoCode() {
-		const storedPromoCode = localStorage.getItem('promo-code');
+  // Update promo code
+  function handlePromoCodeChange(e) {
+    const newPromoCode = e.target.value
+    setIsPromo(newPromoCode)
+    localStorage.setItem('promo-code', newPromoCode)
+  }
 
-		switch (true) {
-			case storedPromoCode && storedPromoCode !== '0':
-				promo.value = JSON.parse(storedPromoCode);
-				break;
+  // Handle dicount
+  function promoCode() {
+    const storedPromoCode = localStorage.getItem("promo-code") || ''
+    setIsPromo(storedPromoCode)
 
-			case isPromo === 'discount20%':
-				promo.value = Math.round(totalPrice * 0.8);
-				localStorage.setItem('promo-code', JSON.stringify(promo.value));
-				break;
+    const storedDiscount = localStorage.getItem("new-price")
+    promo.value = JSON.parse(storedDiscount)
 
-			default:
-				promo.value = 0;
-				break;
-		}
-	}
+    if (storedPromoCode === "discount20%") {
+      const discount = Math.round(totalPrice * 0.8)
+      promo.value = discount
+      localStorage.setItem("new-price", JSON.stringify(promo.value))
+    } else if (isPromo === "") {
+      promo.value = 0
+    } else {
+      promo.value = 0
+    }
+  }
 
-	///windowwith problemer
-	// useEffect(() => {
-	// 	if (windowWidth > 1200) {
-	// 		navigate('/menu');
-	// 	}
-	// }, [windowWidth]);
+  useEffect(() => {
+    promoCode()
+  }, [])
+
 
 	// Update discount and total price
 	useEffect(() => {
