@@ -6,26 +6,41 @@ import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
 import { orderState } from "../recoil/orderState.js";
 
-function SendCartData() {
+function SendCartData({ customerNameRef, customerMailRef, setIsNameValid, setIsMailValid }) {
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
   const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
 
-  // Ska skicka till LS utöver DB, dessutom ha ett ID
   function handlePost() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const isMailRegexOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerMailRef.current.value)
+    const isNameRegexOk = /^[a-zA-Z\- ]+$/.test(customerNameRef.current.value)
+    
+    // For error styling
+    isMailRegexOk ? setIsMailValid(true) : setIsMailValid(false)
+    isNameRegexOk ? setIsNameValid(true) : setIsNameValid(false)
+    
+    // For function gate keeping
+    if (cart.length <= 0) { return }
+    if (!isMailRegexOk || !isNameRegexOk) {return}
 
-    if (cart) {
-      postOrder();
-
-      // localStorage.setItem('pendingOrder', 'true')
-      setCurrentOrder({
-        isOrdered: true,
-        isWaiting: true,
-        orderNumber: localStorage.getItem("orderNumber"),
-      });
-
-      setIsCartEmpty(!isCartEmpty);
+    const customerInfo = { 
+      customerName: customerNameRef.current.value,
+      customerMail: customerMailRef.current.value
     }
+
+    postOrder(customerInfo);
+
+    setCurrentOrder({
+      isOrdered: true,
+      isWaiting: true,
+      orderNumber: localStorage.getItem("orderNumber"),
+    });
+
+    setIsCartEmpty(!isCartEmpty);
+    setIsNameValid(true)
+    setIsMailValid(true)
+    customerMailRef.current.value = ''
+    customerNameRef.current.value = ''
   }
 
   return (

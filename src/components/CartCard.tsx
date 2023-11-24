@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { NavLink, Navigate } from 'react-router-dom';
 import { BiMinus, BiPlus, BiArrowBack } from 'react-icons/bi';
 import { BsCart3 } from 'react-icons/bs';
@@ -29,6 +29,10 @@ function CartCard() {
 	const [orderFinished, setOrderFinished] = useState(null);
 	const [cartItem, setCartItem] = useState<Dish[]>([]);
 	const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
+	const [isNameValid, setIsNameValid] = useState(true)
+	const [isMailValid, setIsMailValid] = useState(true)
+	const customerNameRef = useRef(null)
+	const customerMailRef = useRef(null)
 	// const navigate = useNavigate();
 
 	const windowWidth = WindowSizeListener();
@@ -304,7 +308,37 @@ function CartCard() {
             )}
 					</div>
 				</div>
-				<SendCartData />
+
+				{/* "First and last name"-input field */}
+				<div className={`userinput-container ${!isNameValid ? 'invalid-input' : ''}`}>
+					<input
+						ref={customerNameRef}
+						className='user-input'
+						id="customer-name"
+						type='text'
+						placeholder='First and last name'
+						onChange={() => setIsNameValid(true)}
+						/>
+				</div>
+
+				{/* "Mail address"-input field */}
+				<div className={`userinput-container ${!isMailValid ? 'invalid-input' : ''}`}>
+					<input
+						ref={customerMailRef}
+						className='user-input'
+						id="customer-mail"
+						type='text'
+						placeholder='Mail address'
+						onChange={() => setIsMailValid(true)}
+					/>
+				</div>
+
+				<SendCartData 
+				customerNameRef={customerNameRef} 
+				customerMailRef={customerMailRef}
+				setIsNameValid={setIsNameValid}
+				setIsMailValid={setIsMailValid}
+				/>
 			</section>
 		</>
 	);

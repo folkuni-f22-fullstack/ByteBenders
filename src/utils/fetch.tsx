@@ -94,10 +94,9 @@ export async function isOrderLocked(id) {
     throw new Error("Something went wrong while fetching meal details");
   }
 }
-export async function postOrder() {
-  const postOrderUrl = "http://localhost:1523/api/orders";
+export async function postOrder(customerInfo) {
+  const postOrderUrl = "/api/orders";
   const orderData = localStorage.getItem("cart");
-  let orderContent = JSON.parse(localStorage.getItem("order"));
 
   const randomId = generateUniqueId();
   localStorage.setItem("orderNumber", JSON.stringify(randomId));
@@ -116,6 +115,8 @@ export async function postOrder() {
       // Omstrukturera parsedOrderData efter vad din backend förväntar sig
       const formattedOrderData = {
         orderId: randomId,
+        customername: customerInfo.customerName,
+        customermail: customerInfo.customerMail,
         content: parsedOrderData,
         usercomment: combineAllUserComments || "",
         // staffcomment: parsedOrderData.staffcomment || "",
