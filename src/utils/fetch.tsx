@@ -45,7 +45,7 @@ export async function getOrders() {
 
 export async function putOrder(order: Order, newStatus: string) {
   // const { orderid } = useParams()
-  const putOrderUrl = `/api/orders/${order._id}`;
+  const putOrderUrl = `/api/orders/${order.orderId}`;
 
   // body = {
   // 	// _id: id,
@@ -242,3 +242,77 @@ function generateUniqueId() {
 // 		console.error('Error deleting order:', error.message);
 // 	}
 //   }
+
+
+
+
+
+
+// function createUpdatedObject() {
+//   const updatedOrder = { 
+//     orderId: updatedOrder.orderId,
+//     date: updatedOrder.date,
+//     content: updatedOrder.content,
+//     usercomment: updatedOrder.usercomment,
+//     staffcomment: updatedOrder.staffcomment,
+//     total: updatedOrder.total,
+//     status: updatedOrder.status,
+//     locked: updatedOrder.locked
+//   }
+
+//   return updatedOrder
+// }
+
+
+
+
+
+export async function updateLockedOrder(order, type, value) {
+  // console.log('order: ', order);
+  
+
+  const baseUrl = `/api/editorder/${order.orderId}`
+
+  let body = {}
+
+  if (type === 'comment') {
+    body = {
+      orderId: order.orderId,
+      staffcomment: value,
+      total: order.total,
+    }
+  }
+
+  if (type === 'total') {
+    body = {
+      orderId: order.orderId,
+      staffcomment: order.staffcomment,
+      total: Number(value),
+    }
+  }
+
+  
+
+  try {  
+      const options = {
+          method: 'PUT',
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(body)
+      }
+
+      let response = await fetch(baseUrl, options)
+      const data = await response.json()
+      console.log('data: ', data);
+      
+      return response
+          
+      
+      
+      // console.log('data: ', data);
+      // Data är ett objekt med egenskapen token som är jwt-strängen || ett objekt med egenskapen message som är ett felmeddelande
+  } catch (error) {
+      /* Detta catch-block körs endast när servern inte kan nås */
+      console.log( 'error.message: ', error.message);
+      return error.message
+  }
+}
