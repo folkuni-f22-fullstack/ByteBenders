@@ -277,7 +277,8 @@ function CartCard() {
 						className='promo-code'
 						type='text'
 						placeholder='Promo code'
-						onChange={(e) => setIsPromo(e.target.value)}
+            value={(!currentOrder.isOrdered && !currentOrder.isWaiting) ? isPromo : ''}
+						onChange={handlePromoCodeChange}
 					/>
 					<button className='apply-promo-button' onClick={promoCode}>
 						Apply
@@ -287,16 +288,20 @@ function CartCard() {
 				<div className='cart-total-container'>
 					<p className='total-text'>Total:</p>
 					<div className='price'>
-						{promo != 0 && <p className='new-price'>{promo}:-</p>}
-						<p
-							className={
-								promo == 0
-									? 'total-price'
-									: 'total-price--crossed'
-							}
-						>
-							{totalPrice}:-
-						</p>
+          {!currentOrder.isOrdered && !currentOrder.isWaiting ? (
+              <>
+                {promo != 0 && <p className="new-price">{promo}:-</p>}
+                <p className={promo == 0 ? "total-price" : "total-price--crossed"}>
+                  {totalPrice}:-
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="total-price">
+                  0:-
+                </p>
+              </>
+            )}
 					</div>
 				</div>
 				<SendCartData />
