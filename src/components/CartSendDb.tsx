@@ -25,7 +25,7 @@ function SendCartData() {
         orderNumber: localStorage.getItem("orderNumber"),
       });
 
-      // console.log(currentOrder);
+      localStorage.removeItem('promo-code')
       setIsCartEmpty(!isCartEmpty);
     }
   }
