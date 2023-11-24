@@ -11,7 +11,7 @@ async function addToLS(id: number, endpoint: string) {
 
 		const productID = product.find((product) => product._id == id);
 		const cartItem = {
-			// _id: productID._id,
+			_id: productID._id,
 			image: productID.image,
 			content: [],
 			usercomment: '',

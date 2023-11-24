@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BiArrowBack, BiMinus, BiPlus } from 'react-icons/bi';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { quantity } from '../utils/addCartLS.tsx';
 import '../styles/details.css';
 import CartRoute from './CartRoute.tsx';
@@ -15,6 +15,7 @@ import { updateQuantity } from '../utils/quantityChange.ts';
 export default function ProductDetailsRoute() {
 	const [product, setProduct] = useState<null | Dish[]>(null);
 	const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
+	const { id } = useParams<{ id: string }>();
 
 	const windowWidth = WindowSizeListener();
 
@@ -29,7 +30,7 @@ export default function ProductDetailsRoute() {
 		} catch {
 			console.log('error');
 		}
-	}, []);
+	}, [id]);
 
 	// Send to local storage
 	function handleAddToCart() {
