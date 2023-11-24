@@ -29,7 +29,7 @@ function CartCard() {
 	const [orderFinished, setOrderFinished] = useState(null);
 	const [cartItem, setCartItem] = useState<Dish[]>([]);
 	const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const windowWidth = WindowSizeListener();
 
@@ -114,11 +114,11 @@ function CartCard() {
 	}
 
 	///windowwith problemer
-	useEffect(() => {
-		if (windowWidth > 1200) {
-			navigate('/menu');
-		}
-	}, [windowWidth]);
+	// useEffect(() => {
+	// 	if (windowWidth > 1200) {
+	// 		navigate('/menu');
+	// 	}
+	// }, [windowWidth]);
 
 	// Update discount and total price
 	useEffect(() => {
@@ -192,6 +192,7 @@ function CartCard() {
 												/>
 											</NavLink>
 											<NavLink
+												key={item._id}
 												to={`/menu/${item._id}`}
 												className='cart-name'
 											>
