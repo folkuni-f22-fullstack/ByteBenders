@@ -113,17 +113,13 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-//// ARKIVET
-
 // [POST]
 router.post("/done", async (req, res) => {
   try {
     await connectDb();
-    const doneOrderData = req.body; // Utgår från att datan ligger i req.body tillsvidare
+    const doneOrderData = req.body;
     console.log("req.body: ", req.body);
-    // const newOrder = new Order({newOrderData});
-    // console.log('newOrder: ', newOrder);
-    // const savedOrder = await newOrder.save();
+
     console.log("newOrderData.content: ", doneOrderData.content);
 
     let maybeDoneOrder = new History({
@@ -137,13 +133,12 @@ router.post("/done", async (req, res) => {
     });
     await maybeDoneOrder.save();
 
-    await Order.findandDeleteOne({ orderId: maybeDoneOrder.orderId });
-    // console.log('Order created:', savedOrder);
-    // res.status(201).send(savedOrder);
+    await Order.deleteOne({ orderId: maybeDoneOrder.orderId });
+
     res.status(200).send(maybeDoneOrder);
   } catch (error) {
     console.error(error.message);
-    res.sendStatus(400);
+    res.sendStatus(404);
   }
 });
 

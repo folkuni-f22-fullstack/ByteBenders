@@ -93,7 +93,7 @@ export default function DoneOrderCard() {
                 <span>{order.usercomment}</span>
                 <div
                   className="send-order-icon"
-                  onClick={() => postDoneOrder(orderId)}
+                  onClick={() => postDoneOrder(order)}
                 >
                   <RiCheckboxCircleLine />
                 </div>
