@@ -78,14 +78,16 @@ export default function DoneOrderCard() {
                     {isExpanded === order._id && (
                         <section className='order-info-section'>
                             <ul className='order-info-list'>
-                                {order.content.map((item) => (
+                            {order.content.map((item) => (
                                     <li className='order-product-name' key={item.name} >
                                         {item.name} {item.quantity}x
                                     </li>
                                 ))}
                             </ul>
-                            <h3 className='order-comment'>Comments:</h3>
-                            <span >{order.usercomment}</span>
+                            <div className='user-comment-section'>
+                                <p className='order-comment'>Comments:</p>
+                                <span className="user-comment">{order.usercomment}</span>
+                            </div>
                             <div className='send-order-icon'> <RiCheckboxCircleLine />
                             </div>
                         </section>

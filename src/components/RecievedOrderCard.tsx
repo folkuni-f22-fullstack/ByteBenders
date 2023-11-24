@@ -110,9 +110,9 @@ export default function RecievedOrderCard() {
                                     </li>
                                 ))}
                             </ul>
-                            <div className='comment-section'>
-                                <h3 className='order-comment'>Comments:</h3>
-                                <span >{order.usercomment}</span>
+                            <div className='user-comment-section'>
+                                <p className='order-comment'>Comments:</p>
+                                <span className="user-comment">{order.usercomment}</span>
                             </div>
                             <button className='send-order-icon' onClick={() => handleToggleStatus(order, 'current')}> <BsFillArrowRightCircleFill />
                             </button>

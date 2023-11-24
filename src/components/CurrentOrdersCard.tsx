@@ -11,7 +11,7 @@ import { useRef } from "react";
 import { GoCheckbox } from "react-icons/go";
 import { updateLockedOrder } from "../utils/fetch";
 
-export default function CurrentOrderCard({change, setChange}) {
+export default function CurrentOrderCard({ change, setChange }) {
   const [orderData, setOrderData] = useState<Order[] | null>(null);
   const [isExpanded, setIsExpanded] = useState<null | number>(null);
   const [priceChange, setPriceChange] = useState(null);
@@ -118,7 +118,7 @@ export default function CurrentOrderCard({change, setChange}) {
       console.log(error);
     }
 
-    setChange( change++ )
+    setChange(change++)
   }
 
   const currentOrders = orderData.filter((order) => order.status === "current");
@@ -167,12 +167,16 @@ export default function CurrentOrderCard({change, setChange}) {
                 {/* RENDER ORDER MEALS END */}
 
                 {/* USER COMMENT SECTION START */}
-                <h3 className="order-comment">User commments:</h3>
-                <span>{order.usercomment}</span>
+                <div className='user-comment-section'>
+                  <p className="order-comment">User commments:</p>
+                  <span className="user-comment">{order.usercomment}</span>
+                </div>
                 {/* USER COMMENT SECTION END */}
                 {/* STAFF COMMENT SECTION START */}
-                <h3 className="order-comment">Staff commments:</h3>
-                <span>{order.staffcomment}</span>
+                <div className='staff-comment-section'>
+                  <p className="order-staff-comment">Staff commments:</p>
+                  <span className="staff-comment">{order.staffcomment}</span>
+                </div>
                 {/* STAFF COMMENT SECTION END */}
 
                 <section className="staff-edit-section">
@@ -228,29 +232,28 @@ export default function CurrentOrderCard({change, setChange}) {
                   {/* NEW TOTAL SECTION END */}
                 </section>
 
-                <section className="bottom-handlers-section">
-                  {/* SEND ORDER START */}
-                  <button
-                    className="send-order-icon"
-                    onClick={() => handleToggleStatus(order, "done")}
-                  >
-                    <BsCheckCircleFill />
-                  </button>
-                  {/* SEND ORDER END */}
+                {/* SEND ORDER START */}
+                <button
+                  className="send-order-icon"
+                  onClick={() => handleToggleStatus(order, "done")}
+                >
+                  <BsCheckCircleFill />
+                </button>
+                {/* SEND ORDER END */}
 
-                  {/* DELETE ORDER START */}
-                  <button
-                    className="delete-order-icon"
-                    onClick={() => handleDeleteOrder(order._id)}
-                  >
-                    <MdDeleteForever />
-                  </button>
-                  {/* DELETE ORDER END */}
-                </section>
+                {/* DELETE ORDER START */}
+                <button
+                  className="delete-order-icon"
+                  onClick={() => handleDeleteOrder(order._id)}
+                >
+                  <MdDeleteForever />
+                </button>
+                {/* DELETE ORDER END */}
               </section>
             )}
           </div>
-        ))}
-    </section>
+        ))
+      }
+    </section >
   );
 }
