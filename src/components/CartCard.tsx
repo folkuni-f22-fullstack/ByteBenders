@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import { BiMinus, BiPlus, BiArrowBack } from "react-icons/bi";
 import { BsCart3 } from "react-icons/bs";
 import { MdLabelOutline } from "react-icons/md";
@@ -13,6 +13,8 @@ import OrderStatusCustomer from "./OrderStatusCustomer.tsx";
 import axios from "axios";
 import { Dish } from "../interfaces/dish.ts";
 import { orderState } from "../recoil/orderState.js";
+import { useNavigate } from "react-router-dom";
+import WindowSizeListener from "../utils/WindowListener.tsx";
 
 export let promo = signal(0);
 export let totalPrice = signal(0);
@@ -27,6 +29,9 @@ function CartCard() {
   const [orderFinished, setOrderFinished] = useState(null);
   const [cartItem, setCartItem] = useState<Dish[]>([]);
   const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
+  const navigate = useNavigate();
+
+  const windowWidth = WindowSizeListener();
 
   useEffect(() => {
     axios
@@ -100,6 +105,13 @@ function CartCard() {
       promo.value = 0;
     }
   }
+
+  ///windowwith problemer
+  useEffect(() => {
+    if (windowWidth > 1200) {
+      navigate("/menu");
+    }
+  }, [windowWidth]);
 
   // Update discount and total price
   useEffect(() => {

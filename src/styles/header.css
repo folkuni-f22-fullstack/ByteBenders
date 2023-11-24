@@ -1,5 +1,5 @@
 .header {
-  padding: 1em 0 2em 0;
+  padding: 0.5em 0 2em 0;
   position: absolute;
   top: 0;
 }
@@ -10,7 +10,7 @@
   color: var(--orange-color);
 }
 
-@media screen and (max-width: 798px) {
+@media screen and (max-width: 1200px) {
   .header {
     width: 100%;
     display: flex;
@@ -19,6 +19,12 @@
   }
   .title-header {
     margin-left: 0;
-    font-size: 42px;
+    font-size: 52px;
+  }
+}
+@media screen and (max-width: 592px) {
+  .title-header {
+    font-size: 40px;
+    padding: 0.3em 0em;
   }
 }

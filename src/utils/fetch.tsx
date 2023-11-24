@@ -75,55 +75,56 @@ export async function putOrder(order: Order, newStatus: string) {
 }
 
 export async function isOrderLocked(id) {
+  const getOrdersUrl = `/api/customer/${id}`;
 
-	const getOrdersUrl = `/api/customer/${id}`
+  const options = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  };
 
-	const options = {
-		method: 'GET',
-		headers: { "Content-Type": "application/json" }
-	}
+  try {
+    const response = await fetch(getOrdersUrl, options);
+    const orderData = await response.json();
 
-		try {
-			const response = await fetch(getOrdersUrl, options)
-			const orderData = await response.json()
+    console.log(orderData.locked);
 
-			console.log(orderData.locked);
-			
-
-			return orderData.locked
-		} catch (error) {
-			console.log(error);
-			throw new Error("Something went wrong while fetching meal details")
-		}
+    return orderData.locked;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Something went wrong while fetching meal details");
+  }
 }
 export async function postOrder() {
   const postOrderUrl = "http://localhost:1523/api/orders";
   const orderData = localStorage.getItem("cart");
   let orderContent = JSON.parse(localStorage.getItem("order"));
 
-  const randomId = generateUniqueId()
-  localStorage.setItem('orderNumber', JSON.stringify(randomId))
+  const randomId = generateUniqueId();
+  localStorage.setItem("orderNumber", JSON.stringify(randomId));
+  console.log(randomId);
 
   if (orderData) {
     try {
-      const parsedOrderData = JSON.parse(orderData);   
+      const parsedOrderData = JSON.parse(orderData);
 
       // Extract all usercomments
-      const allUserComments = parsedOrderData.map(comment => comment.usercomment)
-      const combineAllUserComments = allUserComments.join('. ')
+      const allUserComments = parsedOrderData.map(
+        (comment) => comment.usercomment
+      );
+      const combineAllUserComments = allUserComments.join(". ");
 
       // Omstrukturera parsedOrderData efter vad din backend förväntar sig
       const formattedOrderData = {
         orderId: randomId,
-        content: parsedOrderData ,
-        usercomment:  combineAllUserComments || '',
+        content: parsedOrderData,
+        usercomment: combineAllUserComments || "",
         // staffcomment: parsedOrderData.staffcomment || "",
         total: promo.value !== 0 ? promo.value : totalPrice.value,
         status: "received",
         locked: parsedOrderData.locked || false,
       };
       console.log("Fortmattedorderdata:", formattedOrderData);
-      console.log("parsedorderdata",parsedOrderData);
+      console.log("parsedorderdata", parsedOrderData);
 
       const options = {
         method: "POST",
@@ -134,19 +135,18 @@ export async function postOrder() {
       console.log("Request Headers:", options.headers);
       console.log("Request Body:", options.body);
 
-	    const response = await fetch(postOrderUrl, options);
-	  
-	    if (!response.ok) {
-		  throw new Error(`Server responded with status: ${response.status}`);
-		}
-		
-		console.log("2");
-		
-		
+      const response = await fetch(postOrderUrl, options);
+
+      if (!response.ok) {
+        throw new Error(`Server responded with status: ${response.status}`);
+      }
+
+      console.log("2");
+
       const responseData = await response.json();
       console.log("Order POST API response", responseData);
-      
-	// Ta bort orderdatan från local storage efter att beställningen har skickats
+
+      // Ta bort orderdatan från local storage efter att beställningen har skickats
       localStorage.removeItem("cart");
     } catch (error) {
       console.error(error);
@@ -161,26 +161,29 @@ export async function deleteOrder(orderId: string) {
   const deleteOrderUrl = `/api/orders/${orderId}`;
 
   try {
-      const response = await fetch(deleteOrderUrl, {
-          method: 'DELETE',
-          headers: {
-              'Content-Type': 'application/json',
-              // You might need to include authentication headers if required
-          },
-      });
+    const response = await fetch(deleteOrderUrl, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        // You might need to include authentication headers if required
+      },
+    });
 
-      if (response.ok) {
-          console.log('Order deleted successfully');
-      } else if (response.status === 404) {
-          console.error('Order not found');
-      } else {
-          console.error('Failed to delete order:', response.status, response.statusText);
-      }
+    if (response.ok) {
+      console.log("Order deleted successfully");
+    } else if (response.status === 404) {
+      console.error("Order not found");
+    } else {
+      console.error(
+        "Failed to delete order:",
+        response.status,
+        response.statusText
+      );
+    }
   } catch (error) {
-      console.error('Error deleting order:', error.message);
+    console.error("Error deleting order:", error.message);
   }
 }
-
 
 // export async function postOrder() {
 // 	const postOrderUrl = `/api/orders`;
@@ -215,13 +218,17 @@ export async function deleteOrder(orderId: string) {
 
 // Call the function to post the order
 
+// function generateUniqueId() {
+//   return parseInt(Date.now() + 1 + Math.random().toString(36).substring(2), 10);
+// }
+
 function generateUniqueId() {
-  return parseInt(Date.now() + 1 + Math.random().toString(36).substring(2), 10);
+  return Math.floor(Math.random() * 100000);
 }
 
 // export async function deleteOrder(orderId: string) {
 // 	const deleteOrderUrl = `/api/orders/${orderId}`;
-  
+
 // 	try {
 // 		const response = await fetch(deleteOrderUrl, {
 // 			method: 'DELETE',
@@ -230,7 +237,7 @@ function generateUniqueId() {
 // 				// You might need to include authentication headers if required
 // 			},
 // 		});
-  
+
 // 		if (response.ok) {
 // 			console.log('Order deleted successfully');
 // 		} else if (response.status === 404) {
