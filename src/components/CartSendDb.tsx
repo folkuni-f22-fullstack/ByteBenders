@@ -16,7 +16,6 @@ function SendCartData() {
 
     if (cart) {
       postOrder();
-      // localStorage.removeItem('cart')
 
       // localStorage.setItem('pendingOrder', 'true')
       setCurrentOrder({
@@ -25,7 +24,6 @@ function SendCartData() {
         orderNumber: localStorage.getItem("orderNumber"),
       });
 
-      localStorage.removeItem('promo-code')
       setIsCartEmpty(!isCartEmpty);
     }
   }

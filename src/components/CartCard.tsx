@@ -88,25 +88,36 @@ function CartCard() {
     return total;
   }
 
-  // Discount
-  function promoCode() {
-    const storedPromoCode = localStorage.getItem("promo-code");
-
-    switch (true) {
-      case storedPromoCode && storedPromoCode !== "0":
-        promo.value = JSON.parse(storedPromoCode);
-        break;
-
-      case isPromo === "discount20%":
-        promo.value = Math.round(totalPrice * 0.8);
-        localStorage.setItem("promo-code", JSON.stringify(promo.value));
-        break;
-
-      default:
-        promo.value = 0;
-        break;
-      }
+  // Update promo code
+  function handlePromoCodeChange(e) {
+    const newPromoCode = e.target.value
+    setIsPromo(newPromoCode)
+    localStorage.setItem('promo-code', newPromoCode)
   }
+
+  // Handle dicount
+  function promoCode() {
+    const storedPromoCode = localStorage.getItem("promo-code") || ''
+    setIsPromo(storedPromoCode)
+
+    const storedDiscount = localStorage.getItem("new-price")
+    promo.value = JSON.parse(storedDiscount)
+
+    if (storedPromoCode === "discount20%") {
+      const discount = Math.round(totalPrice * 0.8)
+      promo.value = discount
+      localStorage.setItem("new-price", JSON.stringify(promo.value))
+    } else if (isPromo === "") {
+      promo.value = 0
+    } else {
+      promo.value = 0
+    }
+  }
+
+  useEffect(() => {
+    promoCode()
+  }, [])
+
 
   // Update discount and total price
   useEffect(() => {
@@ -225,7 +236,8 @@ function CartCard() {
             className="promo-code"
             type="text"
             placeholder="Promo code"
-            onChange={(e) => setIsPromo(e.target.value)}
+            value={(!currentOrder.isOrdered && !currentOrder.isWaiting) ? isPromo : ''}
+            onChange={handlePromoCodeChange}
           />
           <button className="apply-promo-button" onClick={promoCode}>
             Apply
@@ -235,10 +247,20 @@ function CartCard() {
         <div className="cart-total-container">
           <p className="total-text">Total:</p>
           <div className="price">
-            {promo != 0 && <p className="new-price">{promo}:-</p>}
-            <p className={promo == 0 ? "total-price" : "total-price--crossed"}>
-              {totalPrice}:-
-            </p>
+            {!currentOrder.isOrdered && !currentOrder.isWaiting ? (
+              <>
+                {promo != 0 && <p className="new-price">{promo}:-</p>}
+                <p className={promo == 0 ? "total-price" : "total-price--crossed"}>
+                  {totalPrice}:-
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="total-price">
+                  0:-
+                </p>
+              </>
+            )}
           </div>
         </div>
         <SendCartData />
