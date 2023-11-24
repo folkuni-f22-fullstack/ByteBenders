@@ -94,14 +94,14 @@ router.put('/:id', async (req, res) => {
 		const updatedStatus = req.body.status
 
 		// Kolla om någon order matchar sökid
-		const existingOrder = await Order.findById(orderId);
+		const existingOrder = await Order.findOne({orderId: orderId});
 		if (!existingOrder) {
 			console.log('Order not found');
 			return res.sendStatus(404);
 		}
 
 		const updatedOrder = await Order.findOneAndUpdate(
-			{ _id: orderId },
+			{ orderId: orderId },
 			{ locked: true, status: updatedStatus },
 			{ new: true }
 		);
@@ -113,6 +113,7 @@ router.put('/:id', async (req, res) => {
 		res.sendStatus(400);
 	}
 });
+
 
 //////////////////
 
@@ -126,7 +127,6 @@ router.put('/:id', async (req, res) => {
     status: String,
     locked: Boolean
 })*/
-
 
 
 
