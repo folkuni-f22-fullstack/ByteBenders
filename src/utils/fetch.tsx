@@ -3,6 +3,7 @@ import { Dish } from "../interfaces/dish";
 import { Order } from "../interfaces/order";
 import { promo, totalPrice } from "../components/CartCard";
 import { randomizer } from "./general";
+import axios from "axios";
 
 export function getMealsID() {
   const { id } = useParams();
@@ -249,3 +250,17 @@ function generateUniqueId() {
 // 		console.error('Error deleting order:', error.message);
 // 	}
 //   }
+export async function postDoneOrder(order: History) {
+  try {
+    const response = await axios.post("/api/order/done", order);
+
+    // Om förfrågan lyckas, logga svaret från servern
+    console.log("Response from server:", response.data);
+
+    // Här kan du eventuellt hantera ytterligare logik eller uppdateringar efter att du har skickat doneOrder
+  } catch (error) {
+    // Om något går fel, logga felet
+    console.error("Error posting doneOrder:", error);
+    // Här kan du hantera fel, till exempel visa ett felmeddelande för användaren
+  }
+}
