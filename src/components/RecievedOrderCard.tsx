@@ -110,7 +110,7 @@ export default function RecievedOrderCard() {
                                     </li>
                                 ))}
                             </ul>
-                            <div className='user-comment-section'>
+                            <div className='user-comment-section user-comment-section--margin'>
                                 <p className='order-comment'>Comments:</p>
                                 <span className="user-comment">{order.usercomment}</span>
                             </div>

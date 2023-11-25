@@ -8,7 +8,6 @@ import { Order } from "../interfaces/order";
 import { getOrders } from "../utils/fetch";
 import { putOrder } from "../utils/fetch";
 import { useRef } from "react";
-import { GoCheckbox } from "react-icons/go";
 import { updateLockedOrder } from "../utils/fetch";
 
 export default function CurrentOrderCard({ change, setChange }) {
@@ -158,11 +157,9 @@ export default function CurrentOrderCard({ change, setChange }) {
                   {order.content.map((item) => (
                     <li className="order-product-name" key={item.name}>
                       {item.name} {item.quantity}x
-                      <div>
-                        Total: <span>{order.total}</span> Kr
-                      </div>
                     </li>
                   ))}
+                  <hr className="linebreak-current" />
                 </ul>
                 {/* RENDER ORDER MEALS END */}
 
@@ -183,54 +180,48 @@ export default function CurrentOrderCard({ change, setChange }) {
                   {/* EDIT STAFF COMMENT SECTION START */}
                   <div className="input-icon">
                     <input
+                      className="edit-current-input edit-current-desktop"
                       type="text"
                       placeholder="Add comment"
                       ref={commentInput}
                       onChange={() => handleCommentChange()}
+                      onBlur={() => sendChange(order, "comment", commentChange)}
                     />
-                    <button
-                      onClick={() =>
-                        sendChange(order, "comment", commentChange)
-                      }
-                    >
-                      <GoCheckbox />
-                    </button>
                   </div>
                   {/*  EDIT STAFF COMMENT SECTION END */}
 
                   {/* DISCOUNT SECTION START */}
                   <div className="input-icon">
                     <input
+                      className="edit-current-input"
                       type="text"
                       placeholder="Apply discount"
                       ref={discountInput}
                       onChange={(event) => handleDiscountChange(event)}
+                      onBlur={() => calculateNewPrice(order, discountChange)}
                     />
-                    <button
-                      type="apply discount"
-                      onClick={() => calculateNewPrice(order, discountChange)}
-                    >
-                      <GoCheckbox />
-                    </button>
                   </div>
                   {/* DISCOUNT SECTION END */}
 
                   {/* NEW TOTAL SECTION START */}
                   <div className="input-icon">
                     <input
+                      className="edit-current-input"
                       type="text"
                       placeholder="Edit order price"
                       ref={totalInput}
                       onChange={(order) => handlePriceChange(order)}
+                      onBlur={() => sendChange(order, "total", priceChange)}
                     />
-                    <button
-                      onClick={() => sendChange(order, "total", priceChange)}
-                    >
-                      <GoCheckbox />
-                    </button>
                   </div>
                   {/* NEW TOTAL SECTION END */}
                 </section>
+
+                {order.content.map((item) => (
+                  <div className=' current-price' key={item.name}>
+                    Total: <span>{order.total}</span> Kr
+                  </div>
+                ))}
 
                 {/* SEND ORDER START */}
                 <button
