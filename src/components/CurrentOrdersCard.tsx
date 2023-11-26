@@ -86,19 +86,22 @@ export default function CurrentOrderCard({ change, setChange }) {
     }
   };
 
-  function handleCommentChange(event) {
-    const newComment = String(commentInput.current.value);
-    setCommentChange(newComment);
+  // Handle new staff comment
+  function handleCommentChange(orderId: number, event: React.ChangeEvent<HTMLInputElement>) {
+    const newComment = String(event.target.value);
+    setCommentChange((prev) => ({ ...prev, [orderId]: newComment }))
   }
 
-  function handlePriceChange(order) {
-    const newTotal = Number(totalInput.current.value);
-    setPriceChange(newTotal);
+  // Handle new price
+  function handlePriceChange(orderId: number, event: React.ChangeEvent<HTMLInputElement>) {
+    const newTotal = Number(event.target.value);
+    setPriceChange((prev) => ({ ...prev, [orderId]: newTotal }))
   }
 
-  function handleDiscountChange(order) {
-    const newTotal = Number(discountInput.current.value);
-    setDiscountChange(newTotal);
+  // Handle discount
+  function handleDiscountChange(orderId: number, event: React.ChangeEvent<HTMLInputElement>) {
+    const newDiscount = Number(event.target.value);
+    setDiscountChange((prev) => ({ ...prev, [orderId]: newDiscount }))
   }
 
   async function calculateNewPrice(order, percentage) {
@@ -117,7 +120,7 @@ export default function CurrentOrderCard({ change, setChange }) {
       console.log(error);
     }
 
-    setChange(change++)
+    setChange((prevChange) => prevChange + 1)
   }
 
   const currentOrders = orderData.filter((order) => order.status === "current");
@@ -184,8 +187,8 @@ export default function CurrentOrderCard({ change, setChange }) {
                       type="text"
                       placeholder="Add comment"
                       ref={commentInput}
-                      onChange={() => handleCommentChange()}
-                      onBlur={() => sendChange(order, "comment", commentChange)}
+                      onChange={(event) => handleCommentChange(order._id, event)}
+                      onBlur={() => sendChange(order, "comment", commentChange[order._id])}
                     />
                   </div>
                   {/*  EDIT STAFF COMMENT SECTION END */}
@@ -197,8 +200,8 @@ export default function CurrentOrderCard({ change, setChange }) {
                       type="text"
                       placeholder="Apply discount"
                       ref={discountInput}
-                      onChange={(event) => handleDiscountChange(event)}
-                      onBlur={() => calculateNewPrice(order, discountChange)}
+                      onChange={(event) => handleDiscountChange(order._id, event)}
+                      onBlur={() => calculateNewPrice(order, discountChange[order._id])}
                     />
                   </div>
                   {/* DISCOUNT SECTION END */}
@@ -210,8 +213,8 @@ export default function CurrentOrderCard({ change, setChange }) {
                       type="text"
                       placeholder="Edit order price"
                       ref={totalInput}
-                      onChange={(order) => handlePriceChange(order)}
-                      onBlur={() => sendChange(order, "total", priceChange)}
+                      onChange={(event) => handlePriceChange(order._id, event)}
+                      onBlur={() => sendChange(order, "total", priceChange[order._id])}
                     />
                   </div>
                   {/* NEW TOTAL SECTION END */}
