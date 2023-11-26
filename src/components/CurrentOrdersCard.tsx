@@ -13,9 +13,9 @@ import { updateLockedOrder } from "../utils/fetch";
 export default function CurrentOrderCard({ change, setChange }) {
   const [orderData, setOrderData] = useState<Order[] | null>(null);
   const [isExpanded, setIsExpanded] = useState<null | number>(null);
-  const [priceChange, setPriceChange] = useState(null);
-  const [commentChange, setCommentChange] = useState(null);
-  const [discountChange, setDiscountChange] = useState(null);
+  const [priceChange, setPriceChange] = useState({});
+  const [commentChange, setCommentChange] = useState({});
+  const [discountChange, setDiscountChange] = useState({});
   // const [change, setChange] = useState(false);
 
   const totalInput = useRef(null);
@@ -94,9 +94,21 @@ export default function CurrentOrderCard({ change, setChange }) {
 
   // Handle new price
   function handlePriceChange(orderId: number, event: React.ChangeEvent<HTMLInputElement>) {
-    const newTotal = Number(event.target.value);
-    setPriceChange((prev) => ({ ...prev, [orderId]: newTotal }))
+    const newTotal = event.target.value
+
+    // Prevent new price to be 0
+    const isNotEmpty = newTotal.length > 0;
+  
+    if (isNotEmpty) {
+      const parsedTotal = Number(newTotal);
+      
+      if (!isNaN(parsedTotal)) {
+        setPriceChange((prev) => ({ ...prev, [orderId]: parsedTotal }));
+      } else {
+        console.error("Invalid input: not a valid number");
+      }
   }
+}
 
   // Handle discount
   function handleDiscountChange(orderId: number, event: React.ChangeEvent<HTMLInputElement>) {
@@ -104,8 +116,9 @@ export default function CurrentOrderCard({ change, setChange }) {
     setDiscountChange((prev) => ({ ...prev, [orderId]: newDiscount }))
   }
 
+  // Calculate discount
   async function calculateNewPrice(order, percentage) {
-    const newPrice = order.total - (order.total / 100) * percentage;
+    const newPrice = Math.round(order.total - (order.total / 100) * percentage)
     await sendChange(order, "total", newPrice);
   }
 
