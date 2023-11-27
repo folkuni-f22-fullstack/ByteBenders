@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import { BsCart3 } from 'react-icons/bs';
 import '../styles/meals.css';
 import '../styles/categories.css';
 import CartRoute from '../routes/CartRoute';
@@ -13,18 +11,18 @@ import { isCartEmptyState } from '../recoil/cartNumberState.js';
 import WindowSizeListener from '../utils/WindowListener.tsx';
 import { menuState } from '../recoil/menuState.js';
 import { selectedFiltersState } from '../recoil/selectedFiltersState.js';
-import { TiDelete } from 'react-icons/ti';
 import { cartState } from '../recoil/cartNumberState.js';
-import { refreshQuantity } from '../utils/quantityChange.ts';
 import CategoryButton from './CategoryButton.tsx';
+import MealCard from './MealCard.tsx';
+import SelectedFilters from './SelectedFilters.tsx';
 
 const Meals = () => {
 	const [selectedCategory, setSelectedCategory] = useState('all');
 	const [listToShow, setListToShow] = useState<Dish[]>([]);
-	const cartData = JSON.parse(localStorage.getItem('cart')) || [];
-	const [cartCopy, setCartCopy] = useState([...cartData]);
+	// const cartData = JSON.parse(localStorage.getItem('cart')) || [];
+	// const [cartCopy, setCartCopy] = useState([...cartData]);
 	const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
-	const [errorMessage, setErrorMessage] = useState('');
+	// const [errorMessage, setErrorMessage] = useState('');
 	const [fullMenu, setFullMenu] = useRecoilState<Dish[]>(menuState);
 	const [selectedFilters, setSelectedFilters] =
 		useRecoilState<string[]>(selectedFiltersState);
@@ -84,23 +82,11 @@ const Meals = () => {
 						}
 						fullMenu={fullMenu}
 					/>
-					{selectedFilters.length > 0 ? (
-						<div className='selected-filters-div'>
-							<span className='filter-span'>Filters: </span>{' '}
-							{selectedFilters.map((filter) => (
-								<span key={filter} className='filter-item'>
-									{filter}
-									<TiDelete
-										onClick={() =>
-											handleRemoveFilter(filter)
-										}
-										className='remove-filter-icon'
-									/>
-								</span>
-							))}
-						</div>
-					) : (
-						''
+					{selectedFilters.length > 0 && (
+						<SelectedFilters
+							selectedFilters={selectedFilters}
+							handleRemoveFilter={handleRemoveFilter}
+						/>
 					)}
 				</section>
 				<section className='category-button-section'>
@@ -116,31 +102,11 @@ const Meals = () => {
 				</section>
 				{/* Kolla om listToShow finns, annars sätt en spinner */}
 				{listToShow.map((menuItem: Dish) => (
-					<div key={menuItem._id} className='meals-card'>
-						<NavLink
-							to={`/menu/${menuItem._id}`}
-							className='meals-link'
-							onClick={refreshQuantity}
-						>
-							<img
-								src={menuItem.image}
-								alt={`image of ${menuItem.name}`}
-								className='meals-img'
-							/>
-							<div className='meals-text'>
-								<p>{menuItem.name}</p>
-								<p className='meals-price'>
-									{menuItem.price} :-
-								</p>
-							</div>
-						</NavLink>
-						<button
-							className='meals-btn'
-							onClick={() => handleAddToCart(menuItem._id)}
-						>
-							Add to cart <BsCart3 className='btn-icon' />
-						</button>
-					</div>
+					<MealCard
+						key={menuItem._id}
+						menuItem={menuItem}
+						handleAddToCart={handleAddToCart}
+					/>
 				))}
 			</section>
 			{windowWidth > 1200 ? (

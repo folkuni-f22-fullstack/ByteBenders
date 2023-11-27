@@ -38,24 +38,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
 		}
 	}, [searchMode]);
 
-	//   Söker genom menyn och updaterar listToShow med rätterna som matchar. Om söksträngen är tom sätts listToShow till ursprungslistan
-	// const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-	// 	const searchString = event.target.value;
-	// 	setSearchInput(searchString);
-	// 	if (searchString) {
-	// 		const searchList: Dish[] | undefined = menu.filter((dish) =>
-	// 			dishMatch(dish.name, searchString)
-	// 		) as Dish[];
-	// 		if (searchList) {
-	// 			setListToShow(searchList);
-	// 		} else {
-	// 			setListToShow([]);
-	// 		}
-	// 	} else {
-	// 		setListToShow(list);
-	// 	}
-	// };
-
 	//om uef en funktion som anropas i uef som är asyncron
 
 	const handleSearchChange = async (event: ChangeEvent<HTMLInputElement>) => {
