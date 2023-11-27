@@ -70,7 +70,7 @@ const Meals = () => {
       <section className="meals-section">
         <section className="searchbar-section">
           <SearchBar
-            filteredDishes={filteredItems}
+            list={filteredItems}
             setListToShow={(newList) => setListToShow(newList || [])}
             fullMenu={fullMenu}
           />

@@ -13,7 +13,7 @@ import "../styles/searchBar.css";
 import axios from "axios";
 
 const SearchBar: React.FC<SearchBarProps> = ({
-  filteredDishes,
+  list,
   setListToShow,
   fullMenu,
 }) => {
@@ -79,7 +79,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         </button>
       </div>
       <FilterMeals
-        filteredDishes={filteredDishes}
+        list={list}
         setListToShow={setListToShow}
         searchMode={searchMode}
         setSearchMode={setSearchMode}

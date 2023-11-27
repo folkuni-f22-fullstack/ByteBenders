@@ -8,7 +8,7 @@ import { selectedFiltersState } from "../recoil/selectedFiltersState.js";
 import { TiDelete } from "react-icons/ti";
 
 const FilterMeals: React.FC<FilterMealsProps> = ({
-  filteredDishes,
+  list,
   setListToShow,
   searchMode,
   setSearchMode,
@@ -22,12 +22,7 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 
   useEffect(() => {
     // för varje item i selectedFilters, lägg till de rätterna som matchar subcategory
-    filterBySubcategory(
-      selectedFilters,
-      filteredDishes,
-      setListToShow,
-      allButDrinks
-    );
+    filterBySubcategory(selectedFilters, list, setListToShow, allButDrinks);
   }, [selectedFilters]);
 
   useEffect(() => {

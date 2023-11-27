@@ -1,8 +1,8 @@
 import { Dish } from "./dish";
 
 export interface SearchBarProps {
-  filteredDishes: Dish[]; // Rätter filtrerade efter kategori
-  setListToShow: (filteredDishes: Dish[] | null) => void;
+  list: Dish[]; // Rätter filtrerade efter kategori
+  setListToShow: (list: Dish[] | null) => void;
   fullMenu: Dish[]; //alla rätter
 }
 
