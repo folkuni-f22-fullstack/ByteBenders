@@ -82,7 +82,7 @@
 }
 
 .staff-comment {
-  height: 3em;
+  /* height: 3em; */
 }
 
 .staff-edit-section {
@@ -108,6 +108,16 @@
   position: absolute;
   right: 0px;
   bottom: 8px;
+  background-color: var(--dark-blue);
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 0.2em 0.4em;
+  cursor: pointer;
+  border: none;
+}
+
+.reset-button {
+  width: 9em;
   background-color: var(--dark-blue);
   color: #ffffff;
   border-radius: 5px;

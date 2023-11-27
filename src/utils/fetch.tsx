@@ -284,14 +284,22 @@ export async function postDoneOrder(order) {
 
 
 export async function updateLockedOrder(order, type, value) {
-  // console.log('order: ', order);
-  
-
   const baseUrl = `/api/editorder/${order.orderId}`
 
+  let newStaffComment = '';
+  if (type === 'comment' && order.staffcomment && order.staffcomment !== '') {
+    newStaffComment = order.staffcomment + ', ' + value;
+  } else if (type === 'comment') {
+    newStaffComment = value;
+  } else if (type === 'comment-reset') {
+    newStaffComment = '';
+  } else {
+    newStaffComment = order.staffcomment || '';
+  }
+  
   let body = {
     orderId: order.orderId,
-    staffcomment: type === 'comment' ? value : order.staffcomment,
+    staffcomment: newStaffComment,
     total: type === 'total' ? Number(value) : order.total,
   };
 

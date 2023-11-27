@@ -89,12 +89,12 @@ export default function CurrentOrderCard({ change, setChange }) {
 
   // Calculate discount
   async function calculateNewPrice(order, percentage) {
-    const newPrice = Math.round(order.total - (order.total / 100) * percentage)
-    await sendChange(order, "total", newPrice)
+    const newPrice = Math.round(order.total - (order.total / 100) * percentage);
+    await sendChange(order, "total", newPrice);
   }
 
   async function sendChange(order, type, change) {
-    if (change === null || change === "" || change === undefined) {
+    if (change === null || change === undefined) {
       return
     }
 
@@ -158,7 +158,7 @@ export default function CurrentOrderCard({ change, setChange }) {
                 {/* USER COMMENT SECTION END */}
                 {/* STAFF COMMENT SECTION START */}
                 <div className='staff-comment-section'>
-                  <p className="order-staff-comment">Staff commments:</p>
+                  <p className="order-staff-comment">Staff comments:</p>
                   <span className="staff-comment">{order.staffcomment}</span>
                 </div>
                 {/* STAFF COMMENT SECTION END */}
@@ -169,18 +169,18 @@ export default function CurrentOrderCard({ change, setChange }) {
                     <input
                       className="edit-current-input edit-current-desktop"
                       type="text"
-                      placeholder="Add comment"
+                      placeholder="Add staff comment"
                       ref={commentInput}
                       onChange={(event) => handleCommentChange(order._id, event)}
                     />
                     {commentInput.current !== null && commentInput.current.value !== '' && (
-                    <button 
-                    className="confirm-button" 
-                    onClick={() => {
-                      sendChange(order, "comment", commentChange[order._id])
-                      commentInput.current.value = ''
-                    }}
-                    >
+                      <button 
+                      className="confirm-button" 
+                      onClick={() => {
+                        sendChange(order, "comment", commentChange[order._id])
+                        commentInput.current.value = ''
+                      }}
+                      >
                     Confirm
                     </button>
                     )}
@@ -192,7 +192,7 @@ export default function CurrentOrderCard({ change, setChange }) {
                     <input
                       className="edit-current-input"
                       type="text"
-                      placeholder="Apply discount"
+                      placeholder="Apply discount percentage"
                       ref={discountInput}
                       onChange={(event) => handleDiscountChange(order._id, event)}
                     />
@@ -200,7 +200,7 @@ export default function CurrentOrderCard({ change, setChange }) {
                     <button 
                     className="confirm-button" 
                     onClick={() => {
-                      calculateNewPrice(order, discountChange[order._id])
+                      calculateNewPrice(order, discountChange[order._id]),
                       discountInput.current.value = ''
                     }}
                     >
@@ -226,7 +226,7 @@ export default function CurrentOrderCard({ change, setChange }) {
                           sendChange(order, "total", priceChange[order._id])
                           totalInput.current.value = ''
                         }}
-                      >
+                        >
                         Confirm
                       </button>
                     )}
@@ -250,6 +250,8 @@ export default function CurrentOrderCard({ change, setChange }) {
                 {/* SEND ORDER END */}
 
                   {/* DELETE ORDER START */}
+                  <button className="reset-button"
+                  onClick={() => sendChange(order, "comment-reset", '')}> Reset comments</button>
                   <button
                     className="delete-order-icon"
                     onClick={() => handleDeleteOrder(order._id, isLoggedIn.token)}
