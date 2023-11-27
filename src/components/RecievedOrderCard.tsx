@@ -57,7 +57,7 @@ export default function RecievedOrderCard() {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          // You might need to include authentication headers if required
+          "Authorization": isLoggedIn.token
         },
       });
 
