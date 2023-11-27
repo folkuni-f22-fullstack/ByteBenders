@@ -147,7 +147,7 @@
   height: 4.2em;
   background-color: var(--white-card-color);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 2px;
-  margin: 3em 1em 0 1em;
+  margin: 2em 1em 1em 1em;
   border-radius: 10px;
 }
 
@@ -198,7 +198,7 @@
   align-items: center;
   padding: 1em;
   height: 4.2em;
-  margin: 1em;
+  margin: 0em 1em;
   width: 90%;
   max-width: 30em;
   font-weight: bold;
@@ -254,7 +254,7 @@
   height: 3.5em;
   background-color: var(--white-card-color);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 2px;
-  margin: 0.5em 1em 0 1em;
+  margin: 1em 1em 0 1em;
   border-radius: 10px;
 }
 
@@ -274,7 +274,7 @@
   width: var(--next-button-width-mobil);
   font-size: var(--next-button-font-size-mobile);
   padding: 1em 4em;
-  margin-top: 0.5em;
+  margin-top: 1em;
 }
 
 .send-cart-button:hover {
@@ -358,4 +358,8 @@
 
 .invalid-input {
   outline: 1px solid red;
+}
+
+.send-cart-button {
+  margin-bottom: 1em;
 }

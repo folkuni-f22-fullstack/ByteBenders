@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Dish } from "../interfaces/dish";
 import { Order } from "../interfaces/order";
-import { promo, totalPrice } from "../components/CartCard";
+import { promo, totalPrice } from "../components/CartInput";
 import { randomizer } from "./general";
 
 export function getMealsID() {
