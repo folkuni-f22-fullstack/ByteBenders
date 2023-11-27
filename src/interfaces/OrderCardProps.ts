@@ -5,6 +5,6 @@ export type OrderCardProps = {
 	order: Order;
 	page: string;
 	setOrderData: Dispatch<SetStateAction<Order[] | null>>;
-	change: number;
-	setChange: (value: number) => void;
+	change?: number;
+	setChange?: (value: number) => void;
 };
