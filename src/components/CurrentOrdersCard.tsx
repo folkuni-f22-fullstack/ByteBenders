@@ -258,8 +258,7 @@ export default function CurrentOrderCard({ change, setChange }) {
                   </button>
                   {/* DELETE ORDER END */}
                 </section>
-              </section>
-            )}
+        )}
           </div>
         ))
       }

@@ -258,7 +258,29 @@ function generateUniqueId() {
 // }
 
 
+export async function postDoneOrder(order) {
+  const postDoneOrderUrl = "/api/orders/done";
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(order),
+  };
 
+  try {
+    const response = await fetch(postDoneOrderUrl, options);
+    // const postDoneOrderData = await response.json();
+    console.log(response);
+
+    // Om förfrågan lyckas, logga svaret från servern
+    console.log("Response from server:", order);
+
+    // Här kan du eventuellt hantera ytterligare logik eller uppdateringar efter att du har skickat doneOrder
+  } catch (error) {
+    // Om något går fel, logga felet
+    console.error("Error posting doneOrder:", error);
+    // Här kan du hantera fel, till exempel visa ett felmeddelande för användaren
+  }
+}
 
 
 export async function updateLockedOrder(order, type, value) {
