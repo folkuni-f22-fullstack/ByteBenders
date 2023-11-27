@@ -82,7 +82,7 @@ export default function CurrentOrderCard({ change, setChange }) {
         );
       }
     } catch (error) {
-      console.error("Error deleting order:", error.message);
+      console.error("Error deleting order:", error.message)
     }
   };
 
@@ -95,20 +95,8 @@ export default function CurrentOrderCard({ change, setChange }) {
   // Handle new price
   function handlePriceChange(orderId: number, event: React.ChangeEvent<HTMLInputElement>) {
     const newTotal = event.target.value
-
-    // Prevent new price to be 0
-    const isNotEmpty = newTotal.length > 0;
-  
-    if (isNotEmpty) {
-      const parsedTotal = Number(newTotal);
-      
-      if (!isNaN(parsedTotal)) {
-        setPriceChange((prev) => ({ ...prev, [orderId]: parsedTotal }));
-      } else {
-        console.error("Invalid input: not a valid number");
-      }
+    setPriceChange((prev) => ({ ...prev, [orderId]: newTotal }))
   }
-}
 
   // Handle discount
   function handleDiscountChange(orderId: number, event: React.ChangeEvent<HTMLInputElement>) {
@@ -119,21 +107,22 @@ export default function CurrentOrderCard({ change, setChange }) {
   // Calculate discount
   async function calculateNewPrice(order, percentage) {
     const newPrice = Math.round(order.total - (order.total / 100) * percentage)
-    await sendChange(order, "total", newPrice);
+    await sendChange(order, "total", newPrice)
   }
 
   async function sendChange(order, type, change) {
     if (change === null || change === "" || change === undefined) {
-      return;
+      return
     }
 
     try {
-      await updateLockedOrder(order, type, change);
+      await updateLockedOrder(order, type, change)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
 
     setChange((prevChange) => prevChange + 1)
+    totalInput.current.value === ''
   }
 
   const currentOrders = orderData.filter((order) => order.status === "current");
@@ -194,41 +183,71 @@ export default function CurrentOrderCard({ change, setChange }) {
 
                 <section className="staff-edit-section">
                   {/* EDIT STAFF COMMENT SECTION START */}
-                  <div className="input-icon">
+                  <div className="current-input">
                     <input
                       className="edit-current-input edit-current-desktop"
                       type="text"
                       placeholder="Add comment"
                       ref={commentInput}
                       onChange={(event) => handleCommentChange(order._id, event)}
-                      onBlur={() => sendChange(order, "comment", commentChange[order._id])}
                     />
+                    {commentInput.current !== null && commentInput.current.value !== '' && (
+                    <button 
+                    className="confirm-button" 
+                    onClick={() => {
+                      sendChange(order, "comment", commentChange[order._id])
+                      commentInput.current.value = ''
+                    }}
+                    >
+                    Confirm
+                    </button>
+                    )}
                   </div>
                   {/*  EDIT STAFF COMMENT SECTION END */}
 
                   {/* DISCOUNT SECTION START */}
-                  <div className="input-icon">
+                  <div className="current-input">
                     <input
                       className="edit-current-input"
                       type="text"
                       placeholder="Apply discount"
                       ref={discountInput}
                       onChange={(event) => handleDiscountChange(order._id, event)}
-                      onBlur={() => calculateNewPrice(order, discountChange[order._id])}
                     />
+                    {discountInput.current !== null && discountInput.current.value !== '' && (
+                    <button 
+                    className="confirm-button" 
+                    onClick={() => {
+                      calculateNewPrice(order, discountChange[order._id])
+                      discountInput.current.value = ''
+                    }}
+                    >
+                    Confirm
+                    </button>
+                    )}
                   </div>
                   {/* DISCOUNT SECTION END */}
 
                   {/* NEW TOTAL SECTION START */}
-                  <div className="input-icon">
+                  <div className="current-input">
                     <input
                       className="edit-current-input"
                       type="text"
                       placeholder="Edit order price"
                       ref={totalInput}
                       onChange={(event) => handlePriceChange(order._id, event)}
-                      onBlur={() => sendChange(order, "total", priceChange[order._id])}
                     />
+                    {totalInput.current !== null && totalInput.current.value !== '' && (
+                      <button
+                        className="confirm-button"
+                        onClick={() => {
+                          sendChange(order, "total", priceChange[order._id])
+                          totalInput.current.value = ''
+                        }}
+                      >
+                        Confirm
+                      </button>
+                    )}
                   </div>
                   {/* NEW TOTAL SECTION END */}
                 </section>
