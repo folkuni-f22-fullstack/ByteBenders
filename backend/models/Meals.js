@@ -7,8 +7,8 @@ const mealSchema = new mongoose.Schema({
     price: Number,
     description: String,
     category: String,
-    subcategory: [], // Om du vill ha flera underkategorier som strängar
-    allergenes: [], // Om allergener är strängar
+    subcategory: [],
+    allergenes: [], 
     comment: String
 })
 

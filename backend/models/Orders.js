@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
-    // _id: String,
     orderId: Number,
     date: { type: Date, default: Date.now() },
     customername: String,

@@ -33,7 +33,6 @@ export default function LoginRoute() {
 
         errorMsgRef.current.style.visibility = "visible";
       } else if (login.token) {
-        console.log("login.token true");
 
         errorMsgRef.current.style.visibility = "hidden";
         setIsLoggedIn({ loggedIn: true, token: login.token });

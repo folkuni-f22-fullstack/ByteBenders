@@ -3,7 +3,6 @@ import { BsCart3 } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import addToLS from '../utils/addCartLS';
-import { quantity } from '../utils/addCartLS';
 import { useRecoilState } from 'recoil';
 import { isCartEmptyState } from '../recoil/cartNumberState.js';
 import { cartState } from '../recoil/cartNumberState.js';

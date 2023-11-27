@@ -23,7 +23,6 @@ const Meals = () => {
   const cartData = JSON.parse(localStorage.getItem("cart")) || [];
   const [cartCopy, setCartCopy] = useState([...cartData]);
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
-  const [errorMessage, setErrorMessage] = useState("");
   const [fullMenu, setFullMenu] = useRecoilState<Dish[]>(menuState);
   const [selectedFilters, setSelectedFilters] =
     useRecoilState<string[]>(selectedFiltersState);

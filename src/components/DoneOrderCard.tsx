@@ -6,7 +6,6 @@ import "../styles/OrderCards.css";
 import "../App.css";
 import { Order } from "../interfaces/order";
 import { getOrders } from "../utils/fetch";
-import { putOrder } from "../utils/fetch";
 import { postDoneOrder } from "../utils/fetch";
 import { loginState } from "../recoil/loginState.js";
 
@@ -31,7 +30,6 @@ export default function DoneOrderCard() {
     fetchOrderID();
   }, []);
 
-  // todo Koppla faktiskt data från cart till Employee gränssnittet
 
   if (orderData === null) {
     // Lägg till något laddningsindikator eller annat meddelande medan data hämtas

@@ -48,7 +48,7 @@ export default function RecievedOrderCard() {
       const updatedOrders = await getOrders(isLoggedIn.token);
       setOrderData(updatedOrders);
       console.log("Order updated", updatedOrders);
-      // console.log(orderData);
+      
     } catch (error) {
       console.log("Failed to update order status");
     }
