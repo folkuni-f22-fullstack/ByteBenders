@@ -12,7 +12,7 @@
 .loading-container {
   width: 100vw;
   display: flex;
- justify-content: center;
+  justify-content: center;
 }
 
 .recieved-order-container {
@@ -46,7 +46,7 @@
 }
 
 .order-info-list {
-  grid-column: 1 /span 4;
+  grid-column: 1 / span 4;
   grid-row: 1;
   margin-top: 0.5em;
   list-style-type: none;
@@ -64,7 +64,7 @@
 }
 
 .user-comment-section {
-  grid-column: 1 /span 3;
+  grid-column: 1 / span 3;
   grid-row: 2;
   margin-top: 0.5em;
 }
@@ -86,7 +86,7 @@
 }
 
 .staff-edit-section {
-  grid-column: 1 /span 4;
+  grid-column: 1 / span 4;
   grid-row: 4;
   margin-bottom: 2em;
 }
@@ -110,9 +110,10 @@
   bottom: 8px;
   background-color: var(--dark-blue);
   color: #ffffff;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 0.2em 0.4em;
   cursor: pointer;
+  border: none;
 }
 
 .close-order-icon,
@@ -171,7 +172,6 @@
 }
 
 @media screen and (min-width: 499px) {
-
   .recieved-order-card,
   .done-order-card,
   .current-order-card {
@@ -179,18 +179,18 @@
   }
 
   .current-price {
-    grid-column: 3 /span 2;
+    grid-column: 3 / span 2;
     justify-content: center;
   }
 
   .staff-edit-section {
-    grid-column: 3 /span 2;
-    grid-row: 2 /span 2;
+    grid-column: 3 / span 2;
+    grid-row: 2 / span 2;
   }
 
   .user-comment-section,
   .staff-comment-section {
-    grid-column: 1 /span 2;
+    grid-column: 1 / span 2;
     margin-right: 1.5em;
   }
 
@@ -211,7 +211,6 @@
 }
 
 @media screen and (min-width: 798px) {
-
   .recieved-order-card,
   .done-order-card,
   .current-order-card {
