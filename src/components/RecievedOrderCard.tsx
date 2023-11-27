@@ -34,7 +34,9 @@ export default function RecievedOrderCard() {
   }, []);
 
   if (orderData === null) {
-    return <div>Loading...</div>;
+    return <section className='loading-container'>
+      <div className="loading-order">Loading...</div>
+    </section>
   }
 
   const handleToggleStatus = async (order: Order, newStatus: string) => {
@@ -63,55 +65,56 @@ export default function RecievedOrderCard() {
     (order) => order.status === "received"
   );
 
-    return (
-        <section className='recieved-order-container'>
-            {receivedOrders && receivedOrders.map(order => (
-                <div className="recieved-order-card" key={order.orderId}>
-                    <div className="order-content">
-                        <h1> <div className='order-id'>{order.orderId}</div> </h1>
-                        <div className="extend-order-icons">
-                            {isExpanded === order.orderId ? (
-                                <button
-                                    onClick={() => setIsExpanded(null)}
-                                    className='close-order-icon'>
-                                    <IoIosArrowUp />
-                                </button>
-                            ) : (
-                                <button
-                                    onClick={() => setIsExpanded(order.orderId)}
-                                    className='open-order-icon'>
-                                    <IoIosArrowDown />
-                                </button>
-                            )}
-                        </div>
-                    </div >
-                    {isExpanded === order.orderId && (
-                        <section className='order-info-section'>
-                          <ul className='order-info-list'>
-                                {order.content.map((item) => (
-                                    <li className='order-product-name' key={item.name} >
-                                        {item.name} {item.quantity}x
-                                    </li>
-                                ))}
-                            </ul>
-                            <div className='comment-section'>
-                                <h3 className='order-comment'>Comments:</h3>
-                                <span >{order.usercomment}</span>
-                            </div>
-                            <button className='send-order-icon' onClick={() => handleToggleStatus(order, 'current')}> <BsFillArrowRightCircleFill />
-                            </button>
-                                {!order.locked && (
-                                    <button
-                                    className='delete-order-icon'
-                                    onClick={() => handleDeleteOrder(order._id, isLoggedIn.token)}
-                                    ><MdDeleteForever />
-                                    </button>
-                                )}
-                        </section>
-                    )
-                    }
-                </div >
-            ))}
-        </section>
-    )
+  return (
+    <section className='recieved-order-container'>
+      {receivedOrders && receivedOrders.map(order => (
+        <div className="recieved-order-card" key={order.orderId}>
+          <div className="order-content">
+            <h1> <div className='order-id'>{order.orderId}</div> </h1>
+            <div className="extend-order-icons">
+              {isExpanded === order._id ? (
+                <button
+                  onClick={() => setIsExpanded(null)}
+                  className='close-order-icon'>
+                  <IoIosArrowUp />
+                </button>
+              ) : (
+                <button
+                  onClick={() => setIsExpanded(order._id)}
+                  className='open-order-icon'>
+                  <IoIosArrowDown />
+                </button>
+              )}
+            </div>
+          </div >
+          {isExpanded === order._id && (
+            <section className='order-info-section'>
+              <ul className='order-info-list'>
+                {order.content.map((item) => (
+                  <li className='order-product-name' key={item.name} >
+                    {item.name} {item.quantity}x
+                  </li>
+                ))}
+                <hr className="linebreak-current" />
+              </ul>
+              <div className='user-comment-section user-comment-section--margin'>
+                <p className='order-comment'>Comments:</p>
+                <span className="user-comment">{order.usercomment}</span>
+              </div>
+              <button className='send-order-icon' onClick={() => handleToggleStatus(order, 'current')}> <BsFillArrowRightCircleFill />
+              </button>
+              {!order.locked && (
+                <button
+                  className='delete-order-icon'
+                  onClick={() => handleDeleteOrder(order._id)}
+                ><MdDeleteForever />
+                </button>
+              )}
+            </section>
+          )
+          }
+        </div >
+      ))}
+    </section>
+  )
 }

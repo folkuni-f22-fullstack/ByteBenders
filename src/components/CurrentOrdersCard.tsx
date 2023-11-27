@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useRecoilState } from 'recoil'
-import { loginState } from '../recoil/loginState.js'
+import { useRecoilState } from "recoil";
+import { loginState } from "../recoil/loginState.js";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { MdDeleteForever } from "react-icons/md";
@@ -10,18 +10,16 @@ import { Order } from "../interfaces/order";
 import { getOrders } from "../utils/fetch";
 import { putOrder } from "../utils/fetch";
 import { useRef } from "react";
-import { GoCheckbox } from "react-icons/go";
 import { updateLockedOrder } from "../utils/fetch";
 import { deleteOrder } from "../utils/AJAX/deleteOrder.js";
 
-export default function CurrentOrderCard({change, setChange}) {
+export default function CurrentOrderCard({ change, setChange }) {
   const [orderData, setOrderData] = useState<Order[] | null>(null);
   const [isExpanded, setIsExpanded] = useState<null | number>(null);
-  const [priceChange, setPriceChange] = useState(null);
-  const [commentChange, setCommentChange] = useState(null);
-  const [discountChange, setDiscountChange] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);
-  // const [change, setChange] = useState(false);
+  const [priceChange, setPriceChange] = useState({});
+  const [commentChange, setCommentChange] = useState({});
+  const [discountChange, setDiscountChange] = useState({});
 
   const totalInput = useRef(null);
   const commentInput = useRef(null);
@@ -43,11 +41,11 @@ export default function CurrentOrderCard({change, setChange}) {
     fetchOrderID();
   }, [change]);
 
-
-
   if (orderData === null) {
     // Lägg till något laddningsindikator eller annat meddelande medan data hämtas
-    return <div>Loading...</div>;
+    return <section className='loading-container'>
+      <div className="loading-order">Loading...</div>
+    </section>
   }
 
   const handleToggleStatus = async (order: Order, newStatus: string) => {
@@ -71,38 +69,42 @@ export default function CurrentOrderCard({change, setChange}) {
     setOrderData(updatedOrders);
   };
 
-  function handleCommentChange(event) {
-    const newComment = String(commentInput.current.value);
-    setCommentChange(newComment);
+  // Handle new staff comment
+  function handleCommentChange(orderId: number, event: React.ChangeEvent<HTMLInputElement>) {
+    const newComment = String(event.target.value);
+    setCommentChange((prev) => ({ ...prev, [orderId]: newComment }))
   }
 
-  function handlePriceChange(order) {
-    const newTotal = Number(totalInput.current.value);
-    setPriceChange(newTotal);
+  // Handle new price
+  function handlePriceChange(orderId: number, event: React.ChangeEvent<HTMLInputElement>) {
+    const newTotal = event.target.value
+    setPriceChange((prev) => ({ ...prev, [orderId]: newTotal }))
   }
 
-  function handleDiscountChange(order) {
-    const newTotal = Number(discountInput.current.value);
-    setDiscountChange(newTotal);
+  // Handle discount
+  function handleDiscountChange(orderId: number, event: React.ChangeEvent<HTMLInputElement>) {
+    const newDiscount = Number(event.target.value);
+    setDiscountChange((prev) => ({ ...prev, [orderId]: newDiscount }))
   }
 
+  // Calculate discount
   async function calculateNewPrice(order, percentage) {
-    const newPrice = order.total - (order.total / 100) * percentage;
-    await sendChange(order, "total", newPrice);
+    const newPrice = Math.round(order.total - (order.total / 100) * percentage)
+    await sendChange(order, "total", newPrice)
   }
 
   async function sendChange(order, type, change) {
     if (change === null || change === "" || change === undefined) {
-      return;
+      return
     }
 
     try {
-      await updateLockedOrder(order, type, change);
+      await updateLockedOrder(order, type, change)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
 
-    setChange( change++ )
+    setChange((prevChange) => prevChange + 1)
   }
 
   const currentOrders = orderData.filter((order) => order.status === "current");
@@ -142,85 +144,110 @@ export default function CurrentOrderCard({change, setChange}) {
                   {order.content.map((item) => (
                     <li className="order-product-name" key={item.name}>
                       {item.name} {item.quantity}x
-                      <div>
-                        Total: <span>{order.total}</span> Kr
-                      </div>
                     </li>
                   ))}
+                  <hr className="linebreak-current" />
                 </ul>
                 {/* RENDER ORDER MEALS END */}
 
                 {/* USER COMMENT SECTION START */}
-                <h3 className="order-comment">User commments:</h3>
-                <span>{order.usercomment}</span>
+                <div className='user-comment-section'>
+                  <p className="order-comment">User commments:</p>
+                  <span className="user-comment">{order.usercomment}</span>
+                </div>
                 {/* USER COMMENT SECTION END */}
                 {/* STAFF COMMENT SECTION START */}
-                <h3 className="order-comment">Staff commments:</h3>
-                <span>{order.staffcomment}</span>
+                <div className='staff-comment-section'>
+                  <p className="order-staff-comment">Staff commments:</p>
+                  <span className="staff-comment">{order.staffcomment}</span>
+                </div>
                 {/* STAFF COMMENT SECTION END */}
 
                 <section className="staff-edit-section">
                   {/* EDIT STAFF COMMENT SECTION START */}
-                  <div className="input-icon">
+                  <div className="current-input">
                     <input
+                      className="edit-current-input edit-current-desktop"
                       type="text"
                       placeholder="Add comment"
                       ref={commentInput}
-                      onChange={() => handleCommentChange()}
+                      onChange={(event) => handleCommentChange(order._id, event)}
                     />
-                    <button
-                      onClick={() =>
-                        sendChange(order, "comment", commentChange)
-                      }
+                    {commentInput.current !== null && commentInput.current.value !== '' && (
+                    <button 
+                    className="confirm-button" 
+                    onClick={() => {
+                      sendChange(order, "comment", commentChange[order._id])
+                      commentInput.current.value = ''
+                    }}
                     >
-                      <GoCheckbox />
+                    Confirm
                     </button>
+                    )}
                   </div>
                   {/*  EDIT STAFF COMMENT SECTION END */}
 
                   {/* DISCOUNT SECTION START */}
-                  <div className="input-icon">
+                  <div className="current-input">
                     <input
+                      className="edit-current-input"
                       type="text"
                       placeholder="Apply discount"
                       ref={discountInput}
-                      onChange={(event) => handleDiscountChange(event)}
+                      onChange={(event) => handleDiscountChange(order._id, event)}
                     />
-                    <button
-                      type="apply discount"
-                      onClick={() => calculateNewPrice(order, discountChange)}
+                    {discountInput.current !== null && discountInput.current.value !== '' && (
+                    <button 
+                    className="confirm-button" 
+                    onClick={() => {
+                      calculateNewPrice(order, discountChange[order._id])
+                      discountInput.current.value = ''
+                    }}
                     >
-                      <GoCheckbox />
+                    Confirm
                     </button>
+                    )}
                   </div>
                   {/* DISCOUNT SECTION END */}
 
                   {/* NEW TOTAL SECTION START */}
-                  <div className="input-icon">
+                  <div className="current-input">
                     <input
+                      className="edit-current-input"
                       type="text"
                       placeholder="Edit order price"
                       ref={totalInput}
-                      onChange={(order) => handlePriceChange(order)}
+                      onChange={(event) => handlePriceChange(order._id, event)}
                     />
-                    <button
-                      onClick={() => sendChange(order, "total", priceChange)}
-                    >
-                      <GoCheckbox />
-                    </button>
+                    {totalInput.current !== null && totalInput.current.value !== '' && (
+                      <button
+                        className="confirm-button"
+                        onClick={() => {
+                          sendChange(order, "total", priceChange[order._id])
+                          totalInput.current.value = ''
+                        }}
+                      >
+                        Confirm
+                      </button>
+                    )}
                   </div>
                   {/* NEW TOTAL SECTION END */}
                 </section>
 
-                <section className="bottom-handlers-section">
-                  {/* SEND ORDER START */}
-                  <button
-                    className="send-order-icon"
-                    onClick={() => handleToggleStatus(order, "done")}
-                  >
-                    <BsCheckCircleFill />
-                  </button>
-                  {/* SEND ORDER END */}
+                {order.content.map((item) => (
+                  <div className=' current-price' key={item.name}>
+                    Total: <span>{order.total}</span> Kr
+                  </div>
+                ))}
+
+                {/* SEND ORDER START */}
+                <button
+                  className="send-order-icon"
+                  onClick={() => handleToggleStatus(order, "done")}
+                >
+                  <BsCheckCircleFill />
+                </button>
+                {/* SEND ORDER END */}
 
                   {/* DELETE ORDER START */}
                   <button
@@ -234,7 +261,8 @@ export default function CurrentOrderCard({change, setChange}) {
               </section>
             )}
           </div>
-        ))}
-    </section>
+        ))
+      }
+    </section >
   );
 }

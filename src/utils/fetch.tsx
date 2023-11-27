@@ -50,9 +50,9 @@ export async function putOrder(order: Order, newStatus: string, token) {
 
   const options = {
     method: "PUT",
-    headers: { 
+    headers: {
       "Content-Type": "application/json",
-      "Authorization": token
+      Authorization: token,
     },
     body: JSON.stringify(order),
   };
@@ -144,8 +144,128 @@ export async function postOrder(customerInfo) {
   }
 }
 
-export async function updateLockedOrder(order: object, type: string, value: string | number) {
-  const baseUrl = `/api/editorder/${order.orderId}`;
+export async function deleteOrder(orderId: string) {
+  const deleteOrderUrl = `/api/orders/${orderId}`;
+
+  try {
+    const response = await fetch(deleteOrderUrl, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        // You might need to include authentication headers if required
+      },
+    });
+
+    if (response.ok) {
+      console.log("Order deleted successfully");
+    } else if (response.status === 404) {
+      console.error("Order not found");
+    } else {
+      console.error(
+        "Failed to delete order:",
+        response.status,
+        response.statusText
+      );
+    }
+  } catch (error) {
+    console.error("Error deleting order:", error.message);
+  }
+}
+
+// export async function postOrder() {
+// 	const postOrderUrl = `/api/orders`;
+// 	const orderData = localStorage.getItem("cart");
+
+// 	// if (!orderData) {
+// 	// 	try {
+// 	// 		console.log("No order data found");
+// 	// 	}catch (error){
+
+// 	// 	}
+// 	// 	return; // Exit the function if there's no order data
+// 	// }
+
+// 	const parsedOrderData = JSON.parse(orderData);
+
+// 	const options = {
+// 		method: "POST",
+// 		headers: { "Content-Type": "application/json" },
+// 		body: JSON.stringify(parsedOrderData),
+// 	};
+
+// 	try {
+// 		await fetch(postOrderUrl, options);
+
+// 		console.log("Order successfully posted");
+// 	} catch (error) {
+// 		console.error("Error posting order:", error.message);
+// 		throw new Error("Something went wrong when sending order from cart");
+// 	}
+// }
+
+// Call the function to post the order
+
+// function generateUniqueId() {
+//   return parseInt(Date.now() + 1 + Math.random().toString(36).substring(2), 10);
+// }
+
+function generateUniqueId() {
+  return Math.floor(Math.random() * 100000);
+}
+
+// export async function deleteOrder(orderId: string) {
+// 	const deleteOrderUrl = `/api/orders/${orderId}`;
+
+// 	try {
+// 		const response = await fetch(deleteOrderUrl, {
+// 			method: 'DELETE',
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 				// You might need to include authentication headers if required
+// 			},
+// 		});
+
+// 		if (response.ok) {
+// 			console.log('Order deleted successfully');
+// 		} else if (response.status === 404) {
+// 			console.error('Order not found');
+// 		} else {
+// 			console.error('Failed to delete order:', response.status, response.statusText);
+// 		}
+// 	} catch (error) {
+// 		console.error('Error deleting order:', error.message);
+// 	}
+//   }
+
+
+
+
+
+
+// function createUpdatedObject() {
+//   const updatedOrder = { 
+//     orderId: updatedOrder.orderId,
+//     date: updatedOrder.date,
+//     content: updatedOrder.content,
+//     usercomment: updatedOrder.usercomment,
+//     staffcomment: updatedOrder.staffcomment,
+//     total: updatedOrder.total,
+//     status: updatedOrder.status,
+//     locked: updatedOrder.locked
+//   }
+
+//   return updatedOrder
+// }
+
+
+
+
+
+export async function updateLockedOrder(order, type, value) {
+  // console.log('order: ', order);
+  
+
+  const baseUrl = `/api/editorder/${order.orderId}`
 
   let body = {
     orderId: order.orderId,
