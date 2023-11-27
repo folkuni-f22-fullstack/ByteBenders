@@ -67,6 +67,7 @@ export default function OrderStatusCustomer() {
 					});
 
 					// RADERA FRÅN LS
+					localStorage.removeItem('cart')
 					localStorage.removeItem('orderNumber');
 					localStorage.removeItem('ETA');
 
