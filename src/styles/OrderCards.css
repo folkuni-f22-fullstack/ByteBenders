@@ -9,6 +9,12 @@
   margin-top: 7em;
 }
 
+.loading-container {
+  width: 100vw;
+  display: flex;
+ justify-content: center;
+}
+
 .recieved-order-container {
   display: flex;
   flex-direction: column;
@@ -26,6 +32,9 @@
 }
 
 .order-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -111,7 +120,6 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
-  font-size: 1.2em;
 }
 
 .current-price {
@@ -125,6 +133,16 @@
 }
 
 .delete-order-icon {
+  grid-column: 1;
+  grid-row: 5;
+  display: flex;
+  justify-self: flex-start;
+  align-self: center;
+  border: none;
+  background-color: transparent;
+  font-size: 2em;
+  cursor: pointer;
+  color: var(--dark-blue);
   grid-column: 1;
   grid-row: 5;
   display: flex;
