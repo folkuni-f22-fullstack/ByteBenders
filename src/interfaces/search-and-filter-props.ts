@@ -2,7 +2,7 @@ import { Dish } from "./dish";
 
 export interface SearchBarProps {
   filteredDishes: Dish[]; // Rätter filtrerade efter kategori
-  setListToShow: (list: Dish[] | null) => void;
+  setListToShow: (filteredDishes: Dish[] | null) => void;
   fullMenu: Dish[]; //alla rätter
 }
 
