@@ -111,14 +111,14 @@ export default function CurrentOrderCard({change, setChange}) {
     <section className="recieved-order-container">
       {currentOrders &&
         currentOrders.map((order) => (
-          <div className="recieved-order-card" key={order._id}>
+          <div className="recieved-order-card" key={order.orderId}>
             <div className="order-content">
               <h1>
                 {" "}
                 <div>{order.orderId}</div>{" "}
               </h1>
               <div className="extend-order-icons">
-                {isExpanded === order._id ? (
+                {isExpanded === order.orderId ? (
                   <button
                     onClick={() => setIsExpanded(null)}
                     className="close-order-icon"
@@ -127,7 +127,7 @@ export default function CurrentOrderCard({change, setChange}) {
                   </button>
                 ) : (
                   <button
-                    onClick={() => setIsExpanded(order._id)}
+                    onClick={() => setIsExpanded(order.orderId)}
                     className="open-order-icon"
                   >
                     <IoIosArrowDown />
@@ -136,7 +136,7 @@ export default function CurrentOrderCard({change, setChange}) {
               </div>
             </div>
             {/* RENDER ORDER MEALS START */}
-            {isExpanded === order._id && (
+            {isExpanded === order.orderId && (
               <section className="order-info-section">
                 <ul className="order-info-list">
                   {order.content.map((item) => (

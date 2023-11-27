@@ -70,7 +70,7 @@ export default function RecievedOrderCard() {
                     <div className="order-content">
                         <h1> <div className='order-id'>{order.orderId}</div> </h1>
                         <div className="extend-order-icons">
-                            {isExpanded === order._id ? (
+                            {isExpanded === order.orderId ? (
                                 <button
                                     onClick={() => setIsExpanded(null)}
                                     className='close-order-icon'>
@@ -78,14 +78,14 @@ export default function RecievedOrderCard() {
                                 </button>
                             ) : (
                                 <button
-                                    onClick={() => setIsExpanded(order._id)}
+                                    onClick={() => setIsExpanded(order.orderId)}
                                     className='open-order-icon'>
                                     <IoIosArrowDown />
                                 </button>
                             )}
                         </div>
                     </div >
-                    {isExpanded === order._id && (
+                    {isExpanded === order.orderId && (
                         <section className='order-info-section'>
                           <ul className='order-info-list'>
                                 {order.content.map((item) => (

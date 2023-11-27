@@ -92,7 +92,7 @@ export async function postOrder(customerInfo) {
   const postOrderUrl = "/api/orders";
   const cartData = localStorage.getItem("cart");
 
-  const randomId = generateUniqueId();
+  const randomId = Math.floor(Math.random() * 100000);
   localStorage.setItem("orderNumber", JSON.stringify(randomId));
 
   if (!cartData) {
@@ -142,10 +142,6 @@ export async function postOrder(customerInfo) {
     console.error(error);
     throw new Error("Something went wrong while posting order");
   }
-}
-
-function generateUniqueId() {
-  return Math.floor(Math.random() * 100000);
 }
 
 export async function updateLockedOrder(order: object, type: string, value: string | number) {
