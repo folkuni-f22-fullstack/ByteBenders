@@ -13,13 +13,12 @@ import { useRef } from "react";
 import { updateLockedOrder } from "../utils/fetch";
 
 export default function CurrentOrderCard({ change, setChange }) {
-export default function CurrentOrderCard({ change, setChange }) {
   const [orderData, setOrderData] = useState<Order[] | null>(null);
   const [isExpanded, setIsExpanded] = useState<null | number>(null);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);
   const [priceChange, setPriceChange] = useState({});
   const [commentChange, setCommentChange] = useState({});
   const [discountChange, setDiscountChange] = useState({});
-  // const [change, setChange] = useState(false);
 
   const totalInput = useRef(null);
   const commentInput = useRef(null);
@@ -125,7 +124,6 @@ export default function CurrentOrderCard({ change, setChange }) {
     }
 
     setChange((prevChange) => prevChange + 1)
-    totalInput.current.value === ''
   }
 
   const currentOrders = orderData.filter((order) => order.status === "current");
