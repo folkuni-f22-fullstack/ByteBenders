@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { FilterMealsProps } from "../interfaces/search-and-filter-props";
 import { updateSelectedFilters, filterBySubcategory } from "../utils/filter";
 import { useRecoilState } from "recoil";
@@ -8,7 +8,7 @@ import { selectedFiltersState } from "../recoil/selectedFiltersState.js";
 import { TiDelete } from "react-icons/ti";
 
 const FilterMeals: React.FC<FilterMealsProps> = ({
-  list,
+  filteredDishes,
   setListToShow,
   searchMode,
   setSearchMode,
@@ -22,7 +22,12 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
 
   useEffect(() => {
     // för varje item i selectedFilters, lägg till de rätterna som matchar subcategory
-    filterBySubcategory(selectedFilters, list, setListToShow, allButDrinks);
+    filterBySubcategory(
+      selectedFilters,
+      filteredDishes,
+      setListToShow,
+      allButDrinks
+    );
   }, [selectedFilters]);
 
   useEffect(() => {
