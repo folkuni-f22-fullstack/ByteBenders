@@ -1,199 +1,201 @@
-import { useParams } from "react-router-dom";
-import { Dish } from "../interfaces/dish";
-import { Order } from "../interfaces/order";
-import { promo, totalPrice } from "../components/CartCard";
-import { randomizer } from "./general";
+import { useParams } from 'react-router-dom';
+import { Dish } from '../interfaces/dish';
+import { Order } from '../interfaces/order';
+import { promo, totalPrice } from '../components/CartCard';
+import { randomizer } from './general';
 
 export function getMealsID() {
-  const { id } = useParams();
-  const getMealsUrl = `/api/meals/${id}`;
+	const { id } = useParams();
+	const getMealsUrl = `/api/meals/${id}`;
 
-  async function getMeals(): Promise<Dish[]> {
-    try {
-      const response = await fetch(getMealsUrl);
-      const detailsData = await response.json();
+	async function getMeals(): Promise<Dish[]> {
+		try {
+			const response = await fetch(getMealsUrl);
+			const detailsData = await response.json();
 
-      // Log the response here
-      // console.log('Meal API Response:', detailsData);
-      return detailsData;
-    } catch (error) {
-      console.log(error);
-      throw new Error("Something went wrong while fetching meal details");
-    }
-  }
-  return getMeals();
+			// Log the response here
+			// console.log('Meal API Response:', detailsData);
+			return detailsData;
+		} catch (error) {
+			console.log(error);
+			throw new Error('Something went wrong while fetching meal details');
+		}
+	}
+	return getMeals();
 }
 
 export async function getOrders(token) {
-  // const { orderid } = useParams()
-  const getOrdersUrl = `/api/orders`;
+	// const { orderid } = useParams()
+	const getOrdersUrl = `/api/orders`;
 
-  const options = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token,
-    },
-  };
-  // async function getOrders(): Promise<Order[]> {
-  try {
-    const response = await fetch(getOrdersUrl, options);
-    const orderData = await response.json();
+	const options = {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: token,
+		},
+	};
+	// async function getOrders(): Promise<Order[]> {
+	try {
+		const response = await fetch(getOrdersUrl, options);
+		const orderData = await response.json();
 
-    // console.log('Order API response', orderData);
-    return orderData;
-  } catch (error) {
-    console.log(error);
-    throw new Error("Something went wrong while fetching meal details");
-  }
-  // }
-  // return getOrders
+		// console.log('Order API response', orderData);
+		return orderData;
+	} catch (error) {
+		console.log(error);
+		throw new Error('Something went wrong while fetching meal details');
+	}
+	// }
+	// return getOrders
 }
 
 export async function putOrder(order: Order, newStatus: string, token) {
-  // const { orderid } = useParams()
-  const putOrderUrl = `/api/orders/${order.orderId}`;
+	// const { orderid } = useParams()
+	const putOrderUrl = `/api/orders/${order.orderId}`;
 
-  // body = {
-  // 	// _id: id,
-  // 	status: newStatus
-  // }
-  console.log("orderstatus innan", order.status);
+	// body = {
+	// 	// _id: id,
+	// 	status: newStatus
+	// }
+	console.log('orderstatus innan', order.status);
 
-  order.status = newStatus;
-  console.log("orderstatus efter", order.status);
+	order.status = newStatus;
+	console.log('orderstatus efter', order.status);
 
-  const options = {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token,
-    },
-    body: JSON.stringify(order),
-  };
+	const options = {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: token,
+		},
+		body: JSON.stringify(order),
+	};
 
-  try {
-    const response = await fetch(putOrderUrl, options);
-    const orderData = await response.json();
+	try {
+		const response = await fetch(putOrderUrl, options);
+		const orderData = await response.json();
 
-    console.log("Order API response", orderData);
-    return orderData;
-  } catch (error) {
-    console.log(error);
-    throw new Error("Something went wrong while fetching meal details");
-  }
+		console.log('Order API response', orderData);
+		return orderData;
+	} catch (error) {
+		console.log(error);
+		throw new Error('Something went wrong while fetching meal details');
+	}
 }
 
 export async function isOrderLocked(id) {
-  const getOrdersUrl = `/api/customer/${id}`;
+	const getOrdersUrl = `/api/customer/${id}`;
 
-  const options = {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  };
+	const options = {
+		method: 'GET',
+		headers: { 'Content-Type': 'application/json' },
+	};
 
-  try {
-    const response = await fetch(getOrdersUrl, options);
-    const orderData = await response.json();
+	try {
+		const response = await fetch(getOrdersUrl, options);
+		const orderData = await response.json();
 
-    console.log(orderData.locked);
+		console.log(orderData.locked);
 
-    return orderData.locked;
-  } catch (error) {
-    console.log(error);
-    throw new Error("Something went wrong while fetching meal details");
-  }
+		return orderData.locked;
+	} catch (error) {
+		console.log(error);
+		throw new Error('Something went wrong while fetching meal details');
+	}
 }
 export async function postOrder(customerInfo) {
-  const postOrderUrl = "/api/orders";
-  const orderData = localStorage.getItem("cart");
+	const postOrderUrl = '/api/orders';
+	const orderData = localStorage.getItem('cart');
 
-  const randomId = generateUniqueId();
-  localStorage.setItem("orderNumber", JSON.stringify(randomId));
-  console.log(randomId);
+	const randomId = generateUniqueId();
+	localStorage.setItem('orderNumber', JSON.stringify(randomId));
+	console.log(randomId);
 
-  if (orderData) {
-    try {
-      const parsedOrderData = JSON.parse(orderData);
+	if (orderData) {
+		try {
+			const parsedOrderData = JSON.parse(orderData);
 
-      // Extract all usercomments
-      const allUserComments = parsedOrderData.map(
-        (comment) => comment.usercomment
-      );
-      const combineAllUserComments = allUserComments.join(". ");
+			// Extract all usercomments
+			const allUserComments = parsedOrderData.map(
+				(comment) => comment.usercomment
+			);
+			const combineAllUserComments = allUserComments.join('. ');
 
-      // Omstrukturera parsedOrderData efter vad din backend förväntar sig
-      const formattedOrderData = {
-        orderId: randomId,
-        customername: customerInfo.customerName,
-        customermail: customerInfo.customerMail,
-        content: parsedOrderData,
-        usercomment: combineAllUserComments || "",
-        // staffcomment: parsedOrderData.staffcomment || "",
-        total: promo.value !== 0 ? promo.value : totalPrice.value,
-        status: "received",
-        locked: parsedOrderData.locked || false,
-      };
-      console.log("Fortmattedorderdata:", formattedOrderData);
-      console.log("parsedorderdata", parsedOrderData);
+			// Omstrukturera parsedOrderData efter vad din backend förväntar sig
+			const formattedOrderData = {
+				orderId: randomId,
+				customername: customerInfo.customerName,
+				customermail: customerInfo.customerMail,
+				content: parsedOrderData,
+				usercomment: combineAllUserComments || '',
+				// staffcomment: parsedOrderData.staffcomment || "",
+				total: promo.value !== 0 ? promo.value : totalPrice.value,
+				status: 'received',
+				locked: parsedOrderData.locked || false,
+			};
+			console.log('Fortmattedorderdata:', formattedOrderData);
+			console.log('parsedorderdata', parsedOrderData);
 
-      const options = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formattedOrderData),
-      };
+			const options = {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(formattedOrderData),
+			};
 
-      console.log("Request Headers:", options.headers);
-      console.log("Request Body:", options.body);
+			console.log('Request Headers:', options.headers);
+			console.log('Request Body:', options.body);
 
-      const response = await fetch(postOrderUrl, options);
+			const response = await fetch(postOrderUrl, options);
 
-      if (!response.ok) {
-        throw new Error(`Server responded with status: ${response.status}`);
-      }
+			if (!response.ok) {
+				throw new Error(
+					`Server responded with status: ${response.status}`
+				);
+			}
 
-      console.log("2");
+			console.log('2');
 
-      const responseData = await response.json();
-      console.log("Order POST API response", responseData);
+			const responseData = await response.json();
+			console.log('Order POST API response', responseData);
 
-      // Ta bort orderdatan från local storage efter att beställningen har skickats
-      localStorage.removeItem("cart");
-    } catch (error) {
-      console.error(error);
-      throw new Error("Something went wrong while posting order");
-    }
-  } else {
-    console.log("Finns ingen orderData i local storage");
-  }
+			// Ta bort orderdatan från local storage efter att beställningen har skickats
+			localStorage.removeItem('cart');
+		} catch (error) {
+			console.error(error);
+			throw new Error('Something went wrong while posting order');
+		}
+	} else {
+		console.log('Finns ingen orderData i local storage');
+	}
 }
 
 export async function deleteOrder(orderId: string) {
-  const deleteOrderUrl = `/api/orders/${orderId}`;
+	const deleteOrderUrl = `/api/orders/${orderId}`;
 
-  try {
-    const response = await fetch(deleteOrderUrl, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        // You might need to include authentication headers if required
-      },
-    });
+	try {
+		const response = await fetch(deleteOrderUrl, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				// You might need to include authentication headers if required
+			},
+		});
 
-    if (response.ok) {
-      console.log("Order deleted successfully");
-    } else if (response.status === 404) {
-      console.error("Order not found");
-    } else {
-      console.error(
-        "Failed to delete order:",
-        response.status,
-        response.statusText
-      );
-    }
-  } catch (error) {
-    console.error("Error deleting order:", error.message);
-  }
+		if (response.ok) {
+			console.log('Order deleted successfully');
+		} else if (response.status === 404) {
+			console.error('Order not found');
+		} else {
+			console.error(
+				'Failed to delete order:',
+				response.status,
+				response.statusText
+			);
+		}
+	} catch (error) {
+		console.error('Error deleting order:', error.message);
+	}
 }
 
 // export async function postOrder() {
@@ -234,7 +236,7 @@ export async function deleteOrder(orderId: string) {
 // }
 
 function generateUniqueId() {
-  return Math.floor(Math.random() * 100000);
+	return Math.floor(Math.random() * 100000);
 }
 
 // export async function deleteOrder(orderId: string) {
@@ -261,27 +263,27 @@ function generateUniqueId() {
 // 	}
 //   }
 export async function postDoneOrder(order) {
-  const postDoneOrderUrl = "/api/orders/done";
-  const options = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(order),
-  };
+	const postDoneOrderUrl = '/api/orders/done';
+	const options = {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(order),
+	};
 
-  try {
-    const response = await fetch(postDoneOrderUrl, options);
-    // const postDoneOrderData = await response.json();
-    console.log(response);
+	try {
+		const response = await fetch(postDoneOrderUrl, options);
+		// const postDoneOrderData = await response.json();
+		console.log(response);
 
-    // Om förfrågan lyckas, logga svaret från servern
-    console.log("Response from server:", order);
+		// Om förfrågan lyckas, logga svaret från servern
+		console.log('Response from server:', order);
 
-    // Här kan du eventuellt hantera ytterligare logik eller uppdateringar efter att du har skickat doneOrder
-  } catch (error) {
-    // Om något går fel, logga felet
-    console.error("Error posting doneOrder:", error);
-    // Här kan du hantera fel, till exempel visa ett felmeddelande för användaren
-  }
+		// Här kan du eventuellt hantera ytterligare logik eller uppdateringar efter att du har skickat doneOrder
+	} catch (error) {
+		// Om något går fel, logga felet
+		console.error('Error posting doneOrder:', error);
+		// Här kan du hantera fel, till exempel visa ett felmeddelande för användaren
+	}
 }
 
 // function createUpdatedObject() {
@@ -300,48 +302,50 @@ export async function postDoneOrder(order) {
 // }
 
 export async function updateLockedOrder(order, type, value) {
-  // console.log('order: ', order);
+	// console.log('order: ', order);
 
-  const baseUrl = `/api/editorder/${order.orderId}`;
+	const baseUrl = `/api/editorder/${order.orderId}`;
 
-  let body = {};
+	let newStaffComment = '';
+	if (type === 'comment' && order.staffcomment && order.staffcomment !== '') {
+		newStaffComment = order.staffcomment + ', ' + value;
+	} else if (type === 'comment') {
+		newStaffComment = value;
+	} else if (type === 'comment-reset') {
+		newStaffComment = '';
+	} else {
+		newStaffComment = order.staffcomment || '';
+	}
 
-  if (type === "comment") {
-    body = {
-      orderId: order.orderId,
-      staffcomment: value,
-      total: order.total,
-    };
-  }
+	let body = {
+		orderId: order.orderId,
+		staffcomment: newStaffComment,
+		total:
+			type === 'total' || type === 'applyDiscount'
+				? Number(value)
+				: order.total,
+	};
 
-  if (type === "total") {
-    body = {
-      orderId: order.orderId,
-      staffcomment: order.staffcomment,
-      total: Number(value),
-    };
-  }
+	try {
+		const options = {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(body),
+		};
 
-  try {
-    const options = {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    };
+		let response = await fetch(baseUrl, options);
+		const data = await response.json();
+		console.log('data: ', data);
 
-    let response = await fetch(baseUrl, options);
-    const data = await response.json();
-    console.log("data: ", data);
+		return response;
 
-    return response;
-
-    // console.log('data: ', data);
-    // Data är ett objekt med egenskapen token som är jwt-strängen || ett objekt med egenskapen message som är ett felmeddelande
-  } catch (error) {
-    /* Detta catch-block körs endast när servern inte kan nås */
-    console.log("error.message: ", error.message);
-    return error.message;
-  }
+		// console.log('data: ', data);
+		// Data är ett objekt med egenskapen token som är jwt-strängen || ett objekt med egenskapen message som är ett felmeddelande
+	} catch (error) {
+		/* Detta catch-block körs endast när servern inte kan nås */
+		console.log('error.message: ', error.message);
+		return error.message;
+	}
 }
 
 // function createUpdatedObject() {
