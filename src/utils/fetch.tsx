@@ -24,13 +24,20 @@ export function getMealsID() {
   return getMeals();
 }
 
-export async function getOrders() {
+export async function getOrders(token) {
   // const { orderid } = useParams()
   const getOrdersUrl = `/api/orders`;
 
+  const options = {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": token
+    } 
+  }
   // async function getOrders(): Promise<Order[]> {
   try {
-    const response = await fetch(getOrdersUrl);
+    const response = await fetch(getOrdersUrl, options);
     const orderData = await response.json();
 
     // console.log('Order API response', orderData);
@@ -43,7 +50,7 @@ export async function getOrders() {
   // return getOrders
 }
 
-export async function putOrder(order: Order, newStatus: string) {
+export async function putOrder(order: Order, newStatus: string, token) {
   // const { orderid } = useParams()
   const putOrderUrl = `/api/orders/${order.orderId}`;
 
@@ -58,7 +65,10 @@ export async function putOrder(order: Order, newStatus: string) {
 
   const options = {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization": token
+    },
     body: JSON.stringify(order),
   };
 

@@ -3,12 +3,13 @@ import dotenv from 'dotenv';
 import Order from '../models/Orders.js';
 import { connectDb } from '../db.js';
 import { connect } from 'mongoose';
+import { authenticateToken } from '../utils/authentication.js';
 
 const router = express.Router();
 router.use(express.json());
 
 // [GET] all
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
 	await connectDb();
 	try {
 		let orders = await Order.find();
@@ -21,7 +22,7 @@ router.get('/', async (req, res) => {
 });
 
 // [GET] :id
-router.get('/:id', async (req, res) => {
+router.get('/:id', authenticateToken, async (req, res) => {
 	await connectDb();
 	console.log('GET');
 	try {
@@ -40,7 +41,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // [DELETE]
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authenticateToken, async (req, res) => {
     try {
         await connectDb();
         const orderId = req.params.id;
@@ -88,7 +89,7 @@ router.post('/', async (req, res) => {
 });
 
 // [PUT] :id
-router.put('/:id', async (req, res) => {
+router.put('/:id', authenticateToken, async (req, res) => {
 	try {
 		await connectDb();
 		const orderId = req.params.id;

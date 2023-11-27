@@ -5,11 +5,15 @@
   align-items: center;
   justify-content: space-evenly;
   /* height: 20em; */
-  padding: 0.5em;
+  padding: 2em;
   text-align: center;
   margin: 1em 1em 0 1em;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 2px;
+
+  & > * {
+    padding: 0.5em;
+  }
 }
 
 .order-waiting > * {
