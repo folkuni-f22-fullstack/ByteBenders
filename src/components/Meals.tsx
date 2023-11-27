@@ -27,6 +27,7 @@ const Meals = () => {
 	const [selectedFilters, setSelectedFilters] =
 		useRecoilState<string[]>(selectedFiltersState);
 	let [cartItems, setCartItems] = useRecoilState<number>(cartState);
+	const [searchMode, setSearchMode] = useState(false);
 
 	useEffect(() => {
 		setListToShow(filteredItems);
@@ -43,6 +44,7 @@ const Meals = () => {
 	const handleCategoryClick = (category: string) => {
 		setSelectedCategory(category);
 		setSelectedFilters([]);
+		setSearchMode(false);
 	};
 
 	useEffect(() => {
@@ -81,6 +83,8 @@ const Meals = () => {
 							setListToShow(newList || [])
 						}
 						fullMenu={fullMenu}
+						searchMode={searchMode}
+						setSearchMode={setSearchMode}
 					/>
 					{selectedFilters.length > 0 && (
 						<SelectedFilters

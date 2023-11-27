@@ -16,9 +16,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
 	list,
 	setListToShow,
 	fullMenu,
+	searchMode,
+	setSearchMode,
 }) => {
 	const [showFilters, setShowFilters] = useRecoilState(subState);
-	const [searchMode, setSearchMode] = useState(false);
 	const [searchInput, setSearchInput] = useState('');
 	const subMenuRef = useRef<HTMLButtonElement | null>(null);
 
