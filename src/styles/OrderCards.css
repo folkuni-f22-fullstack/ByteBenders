@@ -8,6 +8,12 @@
   margin-top: 7em;
 }
 
+.loading-container {
+  width: 100vw;
+  display: flex;
+ justify-content: center;
+}
+
 .recieved-order-container {
   display: flex;
   flex-direction: column;

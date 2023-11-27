@@ -11,7 +11,7 @@ import { useRef } from "react";
 import { GoCheckbox } from "react-icons/go";
 import { updateLockedOrder } from "../utils/fetch";
 
-export default function CurrentOrderCard({change, setChange}) {
+export default function CurrentOrderCard({ change, setChange }) {
   const [orderData, setOrderData] = useState<Order[] | null>(null);
   const [isExpanded, setIsExpanded] = useState<null | number>(null);
   const [priceChange, setPriceChange] = useState(null);
@@ -43,7 +43,9 @@ export default function CurrentOrderCard({change, setChange}) {
 
   if (orderData === null) {
     // Lägg till något laddningsindikator eller annat meddelande medan data hämtas
-    return <div>Loading...</div>;
+    return <section className='loading-container'>
+      <div className="loading-order">Loading...</div>
+    </section>
   }
 
   const handleToggleStatus = async (order: Order, newStatus: string) => {
@@ -118,7 +120,7 @@ export default function CurrentOrderCard({change, setChange}) {
       console.log(error);
     }
 
-    setChange( change++ )
+    setChange(change++)
   }
 
   const currentOrders = orderData.filter((order) => order.status === "current");

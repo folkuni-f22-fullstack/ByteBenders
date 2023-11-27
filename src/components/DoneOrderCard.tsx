@@ -30,7 +30,9 @@ export default function DoneOrderCard() {
 
     if (orderData === null) {
         // Lägg till något laddningsindikator eller annat meddelande medan data hämtas
-        return <div>Loading...</div>;
+        return <section className='loading-container'>
+            <div className="loading-order">Loading...</div>
+        </section>
     }
 
 
