@@ -4,6 +4,8 @@ import { updateSelectedFilters, filterBySubcategory } from "../utils/filter";
 import { useRecoilState } from "recoil";
 import { subState } from "../../src/recoil/subCategoryState.js";
 import { Dish } from "../interfaces/dish.js";
+import { selectedFiltersState } from "../recoil/selectedFiltersState.js";
+import { TiDelete } from "react-icons/ti";
 
 const FilterMeals: React.FC<FilterMealsProps> = ({
   list,
@@ -13,7 +15,8 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
   subMenuRef,
   fullMenu,
 }) => {
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [selectedFilters, setSelectedFilters] =
+    useRecoilState(selectedFiltersState);
   const [showFilters, setShowFilters] = useRecoilState(subState);
   const subCategoryRef = useRef(null);
 
@@ -34,9 +37,6 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
     (item) => item.category !== "drinks"
   ) as Dish[];
   // }
-  // console.log("fullMenu är: ", fullMenu);
-
-  console.log("allButDrinks är: ", allButDrinks);
 
   // Skapa en lista med alla subkategorier, bara en av varje
   const subcategories: string[] = [
@@ -81,9 +81,14 @@ const FilterMeals: React.FC<FilterMealsProps> = ({
                 selectedFilters?.includes(subcategory) ? "selected-filter" : ""
               }
             >
-              {!selectedFilters?.includes(subcategory)
-                ? subcategory
-                : subcategory + " X"}
+              {!selectedFilters?.includes(subcategory) ? (
+                subcategory
+              ) : (
+                <>
+                  {subcategory}
+                  <TiDelete className="selected-filter-icon" />
+                </>
+              )}
             </button>
           ))}
         </div>

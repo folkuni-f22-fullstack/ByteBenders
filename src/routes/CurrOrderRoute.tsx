@@ -1,7 +1,10 @@
 import CurrentOrderCard from "../components/CurrentOrdersCard";
 import '../styles/OrderCards.css'
+import { useState } from 'react'
 
 export default function CurrOrderRoute() {
+    const [change, setChange] = useState(0)
+
     return (
         <>
             <br />
@@ -11,7 +14,7 @@ export default function CurrOrderRoute() {
                     <br />
                 </div>
             </div>
-            <CurrentOrderCard />
+            <CurrentOrderCard change={change} setChange={setChange} />
         </>
     );
 }

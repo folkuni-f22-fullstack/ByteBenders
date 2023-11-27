@@ -12,8 +12,11 @@ import { useRecoilState } from 'recoil';
 import { isCartEmptyState } from '../recoil/cartNumberState.js';
 import WindowSizeListener from '../utils/WindowListener.tsx';
 import { menuState } from '../recoil/menuState.js';
+import { selectedFiltersState } from '../recoil/selectedFiltersState.js';
+import { TiDelete } from 'react-icons/ti';
+import { cartState } from '../recoil/cartNumberState.js';
+import { refreshQuantity } from '../utils/quantityChange.ts';
 import CategoryButton from './CategoryButton.tsx';
-// import { signal } from "@preact/signals-react";
 
 const Meals = () => {
 	const [selectedCategory, setSelectedCategory] = useState('all');
@@ -23,6 +26,9 @@ const Meals = () => {
 	const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [fullMenu, setFullMenu] = useRecoilState<Dish[]>(menuState);
+	const [selectedFilters, setSelectedFilters] =
+		useRecoilState<string[]>(selectedFiltersState);
+	let [cartItems, setCartItems] = useRecoilState<number>(cartState);
 
 	useEffect(() => {
 		setListToShow(filteredItems);
@@ -38,18 +44,28 @@ const Meals = () => {
 
 	const handleCategoryClick = (category: string) => {
 		setSelectedCategory(category);
+		setSelectedFilters([]);
 	};
 
-	// Set value to 1
-	function refreshQuantity() {
-		quantity.value = 1;
-	}
+	useEffect(() => {
+		JSON.parse(localStorage.getItem('cart')) || [];
+		// isCartEmpty toggles from Meals.jsx
+	}, [localStorage.getItem('cart'), isCartEmpty]);
 
 	// Add to local storage
 	async function handleAddToCart(id: number) {
 		await addToLS(id, '/api/meals');
 		setIsCartEmpty(!isCartEmpty);
+		setCartItems((cartItems += 1));
 	}
+
+	const handleRemoveFilter = (filterToRemove: string) => {
+		const updatedFilters = selectedFilters.filter(
+			(filter) => filter !== filterToRemove
+		);
+		setSelectedFilters(updatedFilters);
+	};
+
 	const categoryList = [
 		{ text: 'All', name: 'all' },
 		{ text: 'Meals', name: 'meals' },
@@ -68,6 +84,24 @@ const Meals = () => {
 						}
 						fullMenu={fullMenu}
 					/>
+					{selectedFilters.length > 0 ? (
+						<div className='selected-filters-div'>
+							<span className='filter-span'>Filters: </span>{' '}
+							{selectedFilters.map((filter) => (
+								<span key={filter} className='filter-item'>
+									{filter}
+									<TiDelete
+										onClick={() =>
+											handleRemoveFilter(filter)
+										}
+										className='remove-filter-icon'
+									/>
+								</span>
+							))}
+						</div>
+					) : (
+						''
+					)}
 				</section>
 				<section className='category-button-section'>
 					{categoryList.map((category) => (

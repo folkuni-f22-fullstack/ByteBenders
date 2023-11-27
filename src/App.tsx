@@ -10,6 +10,7 @@ import { loginState } from "./recoil/loginState.js";
 import axios from "axios";
 import { menuState } from "./recoil/menuState.js";
 import { Dish } from "./interfaces/dish.ts";
+import { isOrderLocked, putOrder } from "./utils/fetch.tsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);

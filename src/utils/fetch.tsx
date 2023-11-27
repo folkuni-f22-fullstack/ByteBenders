@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Dish } from "../interfaces/dish";
 import { Order } from "../interfaces/order";
+import { promo, totalPrice } from "../components/CartCard";
 import { randomizer } from "./general";
 
 export function getMealsID() {
@@ -23,13 +24,20 @@ export function getMealsID() {
   return getMeals();
 }
 
-export async function getOrders() {
+export async function getOrders(token) {
   // const { orderid } = useParams()
   const getOrdersUrl = `/api/orders`;
 
+  const options = {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": token
+    } 
+  }
   // async function getOrders(): Promise<Order[]> {
   try {
-    const response = await fetch(getOrdersUrl);
+    const response = await fetch(getOrdersUrl, options);
     const orderData = await response.json();
 
     // console.log('Order API response', orderData);
@@ -42,9 +50,9 @@ export async function getOrders() {
   // return getOrders
 }
 
-export async function putOrder(order: Order, newStatus: string) {
+export async function putOrder(order: Order, newStatus: string, token) {
   // const { orderid } = useParams()
-  const putOrderUrl = `/api/orders/${order._id}`;
+  const putOrderUrl = `/api/orders/${order.orderId}`;
 
   // body = {
   // 	// _id: id,
@@ -57,7 +65,10 @@ export async function putOrder(order: Order, newStatus: string) {
 
   const options = {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization": token
+    },
     body: JSON.stringify(order),
   };
 
@@ -73,39 +84,58 @@ export async function putOrder(order: Order, newStatus: string) {
   }
 }
 
-export async function postOrder() {
-  const postOrderUrl = "http://localhost:1523/api/orders";
-  const orderData = localStorage.getItem("cart");
-  let orderContent = JSON.parse(localStorage.getItem("order"));
+export async function isOrderLocked(id) {
+  const getOrdersUrl = `/api/customer/${id}`;
 
-  const randomId = generateUniqueId()
-  localStorage.setItem('orderNumber', JSON.stringify(randomId))
+  const options = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  };
+
+  try {
+    const response = await fetch(getOrdersUrl, options);
+    const orderData = await response.json();
+
+    console.log(orderData.locked);
+
+    return orderData.locked;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Something went wrong while fetching meal details");
+  }
+}
+export async function postOrder(customerInfo) {
+  const postOrderUrl = "/api/orders";
+  const orderData = localStorage.getItem("cart");
+
+  const randomId = generateUniqueId();
+  localStorage.setItem("orderNumber", JSON.stringify(randomId));
+  console.log(randomId);
 
   if (orderData) {
     try {
       const parsedOrderData = JSON.parse(orderData);
-      console.log("orderdata:", orderData);
-      console.log('parsedOrderData.content: ', parsedOrderData.content);
-      
 
-      //   console.log("Data from localStorage:", parsedOrderData);
-
-      let sum = 0
-      parsedOrderData.map((dish => {sum = sum + (dish.quantity * dish.total)}))
-      
+      // Extract all usercomments
+      const allUserComments = parsedOrderData.map(
+        (comment) => comment.usercomment
+      );
+      const combineAllUserComments = allUserComments.join(". ");
 
       // Omstrukturera parsedOrderData efter vad din backend förväntar sig
       const formattedOrderData = {
         orderId: randomId,
-        content: parsedOrderData ,
-        // usercomment: parsedOrderData.usercomment || "",
+        customername: customerInfo.customerName,
+        customermail: customerInfo.customerMail,
+        content: parsedOrderData,
+        usercomment: combineAllUserComments || "",
         // staffcomment: parsedOrderData.staffcomment || "",
-        total: sum ,
+        total: promo.value !== 0 ? promo.value : totalPrice.value,
         status: "received",
         locked: parsedOrderData.locked || false,
       };
       console.log("Fortmattedorderdata:", formattedOrderData);
-      console.log("parsedorderdata",parsedOrderData);
+      console.log("parsedorderdata", parsedOrderData);
 
       const options = {
         method: "POST",
@@ -123,8 +153,10 @@ export async function postOrder() {
       }
 
       console.log("2");
+
       const responseData = await response.json();
       console.log("Order POST API response", responseData);
+
       // Ta bort orderdatan från local storage efter att beställningen har skickats
       localStorage.removeItem("cart");
     } catch (error) {
@@ -133,6 +165,34 @@ export async function postOrder() {
     }
   } else {
     console.log("Finns ingen orderData i local storage");
+  }
+}
+
+export async function deleteOrder(orderId: string) {
+  const deleteOrderUrl = `/api/orders/${orderId}`;
+
+  try {
+    const response = await fetch(deleteOrderUrl, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        // You might need to include authentication headers if required
+      },
+    });
+
+    if (response.ok) {
+      console.log("Order deleted successfully");
+    } else if (response.status === 404) {
+      console.error("Order not found");
+    } else {
+      console.error(
+        "Failed to delete order:",
+        response.status,
+        response.statusText
+      );
+    }
+  } catch (error) {
+    console.error("Error deleting order:", error.message);
   }
 }
 
@@ -169,6 +229,108 @@ export async function postOrder() {
 
 // Call the function to post the order
 
+// function generateUniqueId() {
+//   return parseInt(Date.now() + 1 + Math.random().toString(36).substring(2), 10);
+// }
+
 function generateUniqueId() {
-  return parseInt(Date.now() + 1 + Math.random().toString(36).substring(2), 10);
+  return Math.floor(Math.random() * 100000);
+}
+
+// export async function deleteOrder(orderId: string) {
+// 	const deleteOrderUrl = `/api/orders/${orderId}`;
+
+// 	try {
+// 		const response = await fetch(deleteOrderUrl, {
+// 			method: 'DELETE',
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 				// You might need to include authentication headers if required
+// 			},
+// 		});
+
+// 		if (response.ok) {
+// 			console.log('Order deleted successfully');
+// 		} else if (response.status === 404) {
+// 			console.error('Order not found');
+// 		} else {
+// 			console.error('Failed to delete order:', response.status, response.statusText);
+// 		}
+// 	} catch (error) {
+// 		console.error('Error deleting order:', error.message);
+// 	}
+//   }
+
+
+
+
+
+
+// function createUpdatedObject() {
+//   const updatedOrder = { 
+//     orderId: updatedOrder.orderId,
+//     date: updatedOrder.date,
+//     content: updatedOrder.content,
+//     usercomment: updatedOrder.usercomment,
+//     staffcomment: updatedOrder.staffcomment,
+//     total: updatedOrder.total,
+//     status: updatedOrder.status,
+//     locked: updatedOrder.locked
+//   }
+
+//   return updatedOrder
+// }
+
+
+
+
+
+export async function updateLockedOrder(order, type, value) {
+  // console.log('order: ', order);
+  
+
+  const baseUrl = `/api/editorder/${order.orderId}`
+
+  let body = {}
+
+  if (type === 'comment') {
+    body = {
+      orderId: order.orderId,
+      staffcomment: value,
+      total: order.total,
+    }
+  }
+
+  if (type === 'total') {
+    body = {
+      orderId: order.orderId,
+      staffcomment: order.staffcomment,
+      total: Number(value),
+    }
+  }
+
+  
+
+  try {  
+      const options = {
+          method: 'PUT',
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(body)
+      }
+
+      let response = await fetch(baseUrl, options)
+      const data = await response.json()
+      console.log('data: ', data);
+      
+      return response
+          
+      
+      
+      // console.log('data: ', data);
+      // Data är ett objekt med egenskapen token som är jwt-strängen || ett objekt med egenskapen message som är ett felmeddelande
+  } catch (error) {
+      /* Detta catch-block körs endast när servern inte kan nås */
+      console.log( 'error.message: ', error.message);
+      return error.message
+  }
 }

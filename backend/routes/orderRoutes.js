@@ -3,12 +3,13 @@ import dotenv from 'dotenv';
 import Order from '../models/Orders.js';
 import { connectDb } from '../db.js';
 import { connect } from 'mongoose';
+import { authenticateToken } from '../utils/authentication.js';
 
 const router = express.Router();
 router.use(express.json());
 
 // [GET] all
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
 	await connectDb();
 	try {
 		let orders = await Order.find();
@@ -21,10 +22,11 @@ router.get('/', async (req, res) => {
 });
 
 // [GET] :id
-router.get('/:id', async (req, res) => {
+router.get('/:id', authenticateToken, async (req, res) => {
 	await connectDb();
+	console.log('GET');
 	try {
-		let foundOrder = await Order.findOne({ _id: req.params.id });
+		let foundOrder = await Order.findOne({ _id: req.params.orderid });
 		if (foundOrder !== undefined) {
 			console.log('Order Found', foundOrder);
 			res.status(302).send(foundOrder);
@@ -39,17 +41,20 @@ router.get('/:id', async (req, res) => {
 });
 
 // [DELETE]
-router.delete('/:id', async (req, res) => {
-	try {
-		await connectDb();
-		const order = await Order.deleteOne({ _id: req.params.id });
-		console.log(order);
-		res.sendStatus(200);
-	} catch (error) {
-		console.log(error.message);
-		res.sendStatus(404);
-	}
+router.delete('/:id', authenticateToken, async (req, res) => {
+    try {
+        await connectDb();
+        const orderId = req.params.id;
+        console.log('Deleting order with ID:', orderId);
+        const order = await Order.deleteOne({ _id: orderId });
+        console.log('Order deletion result:', order);
+        res.sendStatus(200);
+    } catch (error) {
+        console.log(error.message);
+        res.sendStatus(404);
+    }
 });
+
 
 // [POST]
 router.post('/', async (req, res) => {
@@ -65,6 +70,8 @@ router.post('/', async (req, res) => {
 
 		let maybeOrder = new Order({
 			orderId: newOrderData.orderId,
+			customername: newOrderData.customername,
+			customermail: newOrderData.customermail,
 			content: newOrderData.content,
 			usercomment: newOrderData.usercomment,
 			staffcomment: newOrderData.staffcomment,
@@ -82,7 +89,7 @@ router.post('/', async (req, res) => {
 });
 
 // [PUT] :id
-router.put('/:id', async (req, res) => {
+router.put('/:id', authenticateToken, async (req, res) => {
 	try {
 		await connectDb();
 		const orderId = req.params.id;
@@ -90,27 +97,57 @@ router.put('/:id', async (req, res) => {
 		const updatedStatus = req.body.status
 
 		// Kolla om någon order matchar sökid
-		const existingOrder = await Order.findById(orderId);
+		const existingOrder = await Order.findOne({orderId: orderId});
 		if (!existingOrder) {
 			console.log('Order not found');
 			return res.sendStatus(404);
 		}
-		const updatedOrder = await Order.findByIdAndUpdate(
-			orderId,
-			updatedOrderData,
+
+		const updatedOrder = await Order.findOneAndUpdate(
+			{ orderId: orderId },
+			{ locked: true, status: updatedStatus },
 			{ new: true }
 		);
-		const updateStatus = await Order.updateOne(
-			{ _id: orderId },
-			{ $set: { status: updatedStatus } }
-		);
-
+		
 		console.log('Status uppdaterad');
-		res.status(200).send(updateStatus)
+		res.status(200).send(updatedOrder)
 	} catch (error) {
 		console.error(error.message);
 		res.sendStatus(400);
 	}
 });
+
+
+//////////////////
+
+/*const orderSchema = new mongoose.Schema({
+    _id: Number,
+    date: { type: Date, default: Date.now() },
+    content: [],
+    usercomment: String,
+    staffcomment: String,
+    total: Number,
+    status: String,
+    locked: Boolean
+})*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default router;

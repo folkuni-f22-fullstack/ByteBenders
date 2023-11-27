@@ -4,10 +4,24 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  height: 12em;
+  /* height: 20em; */
+  padding: 2em;
+  text-align: center;
   margin: 1em 1em 0 1em;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 2px;
+
+  & > * {
+    padding: 0.5em;
+  }
+}
+
+.order-waiting > * {
+  padding: 0.5em;
+}
+
+.order-text {
+  font-size: 0.8em;
 }
 
 .CustomerStatusOrder .yellow {
@@ -52,7 +66,7 @@
   }
 }
 
-.place-new-order {
+.orange-button {
   background-color: var(--orange-color);
   color: var(--dark-blue);
   font-weight: var(--next-button-font-weight);

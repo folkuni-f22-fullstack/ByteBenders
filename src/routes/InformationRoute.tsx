@@ -1,7 +1,6 @@
 import { BiArrowBack } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import "../styles/about.css";
-import { postOrder } from "../utils/fetch";
 
 export default function InformationRoute() {
   // TODO: Saknas komponent
@@ -38,12 +37,6 @@ export default function InformationRoute() {
               <div className="contact-information">
                 <p>Contact us for questions at 070-432 5601.</p>
                 <p>Opening hours: Every day between 12.00-22.00</p>
-                <button
-                  onClick={postOrder}
-                  style={{ width: "10em", marginLeft: "5em" }}
-                >
-                  Skicka data
-                </button>
               </div>
             </article>
           </section>

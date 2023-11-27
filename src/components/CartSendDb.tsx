@@ -1,72 +1,53 @@
-import { promo, totalPrice } from "./CartCard.tsx";
-import { randomizer } from "../utils/general";
-import { signal } from '@preact/signals-react'
-export let orderNumber = signal(null)
-export let isOrdered = signal(false)
+import { signal } from "@preact/signals-react";
+export let orderNumber = signal(null);
+export let isOrdered = signal(false);
+import { postOrder } from "../utils/fetch.tsx";
+import { useRecoilState } from "recoil";
+import { isCartEmptyState } from "../recoil/cartNumberState.js";
+import { orderState } from "../recoil/orderState.js";
 
-function SendCartData() {
-    const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+function SendCartData({ customerNameRef, customerMailRef, setIsNameValid, setIsMailValid }) {
+  const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
+  const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
 
-    // Ska skicka till LS utöver DB, dessutom ha ett ID
+  function handlePost() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const isMailRegexOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerMailRef.current.value)
+    const isNameRegexOk = /^[a-zA-Z\- ]+$/.test(customerNameRef.current.value)
+    
+    // For error styling
+    isMailRegexOk ? setIsMailValid(true) : setIsMailValid(false)
+    isNameRegexOk ? setIsNameValid(true) : setIsNameValid(false)
+    
+    // For function gate keeping
+    if (cart.length <= 0) { return }
+    if (!isMailRegexOk || !isNameRegexOk) {return}
 
-    async function handlePost() {
-        console.log(orderNumber.value);
-
-        const newOrderNumber = randomizer(0, 99999999999999)
-        orderNumber.value = newOrderNumber
-        isOrdered.value = true
-        
-        // Temporary URL until we have a server
-        const response = await fetch(`/api/order/`, {
-            method: "POST",
-            body: JSON.stringify({
-                id: randomizer(0, 9999999),
-                name: cartData.name,
-                total: promo.value !== 0 ? promo.value : totalPrice.value,
-                comment: cartData.comment,
-            }),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        console.log("Response", response.status);
-        console.log("Price with dicount", promo.value);
-        console.log("Price without dicount", totalPrice.value);
-        console.log(cartData);
-
-        handlePostLS();
-		localStorage.removeItem('cart')
+    const customerInfo = { 
+      customerName: customerNameRef.current.value,
+      customerMail: customerMailRef.current.value
     }
 
-    function handlePostLS() {
-        let orderCartData = JSON.parse(localStorage.getItem("order")) || []
-        // const orderId = randomizer(0, 99999999);
+    postOrder(customerInfo);
 
-        const order = {
-            orderId: orderNumber.value,
-            orderItems: [],
-        }
+    setCurrentOrder({
+      isOrdered: true,
+      isWaiting: true,
+      orderNumber: localStorage.getItem("orderNumber"),
+    });
 
-        cartData.forEach((element) => {
-            const orderItem = {
-                id: element.id,
-                name: element.name,
-                total: promo.value !== 0 ? promo.value : totalPrice.value,
-                comment: element.comment,
-            };
-            order.orderItems.push(orderItem);
-        });
+    setIsCartEmpty(!isCartEmpty);
+    setIsNameValid(true)
+    setIsMailValid(true)
+    customerMailRef.current.value = ''
+    customerNameRef.current.value = ''
+  }
 
-        orderCartData.push(order);
-
-        localStorage.setItem("order", JSON.stringify(orderCartData));
-    }
-
-    return (
-        <button className="send-cart-button" onClick={handlePost}>
-            Checkout
-        </button>
-    );
+  return (
+    <button className="send-cart-button" onClick={handlePost}>
+      Checkout
+    </button>
+  );
 }
 
 export default SendCartData;

@@ -24,7 +24,7 @@ export default async function fetchAccount(username, password) {
         
         let data = await response.json()
         
-        // console.log('data: ', data);
+        console.log('data: ', data);
         // Data är ett objekt med egenskapen token som är jwt-strängen || ett objekt med egenskapen message som är ett felmeddelande
         return data
     } catch (error) {
