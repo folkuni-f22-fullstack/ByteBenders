@@ -343,29 +343,6 @@ export async function updateLockedOrder(order, type, value) {
     return error.message;
   }
 }
-export async function postDoneOrder(order) {
-  const postDoneOrderUrl = "/api/orders/done";
-  const options = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(order),
-  };
-
-  try {
-    const response = await fetch(postDoneOrderUrl, options);
-    // const postDoneOrderData = await response.json();
-    console.log(response);
-
-    // Om förfrågan lyckas, logga svaret från servern
-    console.log("Response from server:", order);
-
-    // Här kan du eventuellt hantera ytterligare logik eller uppdateringar efter att du har skickat doneOrder
-  } catch (error) {
-    // Om något går fel, logga felet
-    console.error("Error posting doneOrder:", error);
-    // Här kan du hantera fel, till exempel visa ett felmeddelande för användaren
-  }
-}
 
 // function createUpdatedObject() {
 //   const updatedOrder = {
@@ -382,47 +359,47 @@ export async function postDoneOrder(order) {
 //   return updatedOrder
 // }
 
-export async function updateLockedOrder(order, type, value) {
-  // console.log('order: ', order);
+// export async function updateLockedOrder(order, type, value) {
+//   // console.log('order: ', order);
 
-  const baseUrl = `/api/editorder/${order.orderId}`;
+//   const baseUrl = `/api/editorder/${order.orderId}`;
 
-  let body = {};
+//   let body = {};
 
-  if (type === "comment") {
-    body = {
-      orderId: order.orderId,
-      staffcomment: value,
-      total: order.total,
-    };
-  }
+//   if (type === "comment") {
+//     body = {
+//       orderId: order.orderId,
+//       staffcomment: value,
+//       total: order.total,
+//     };
+//   }
 
-  if (type === "total") {
-    body = {
-      orderId: order.orderId,
-      staffcomment: order.staffcomment,
-      total: Number(value),
-    };
-  }
+//   if (type === "total") {
+//     body = {
+//       orderId: order.orderId,
+//       staffcomment: order.staffcomment,
+//       total: Number(value),
+//     };
+//   }
 
-  try {
-    const options = {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    };
+//   try {
+//     const options = {
+//       method: "PUT",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(body),
+//     };
 
-    let response = await fetch(baseUrl, options);
-    const data = await response.json();
-    console.log("data: ", data);
+//     let response = await fetch(baseUrl, options);
+//     const data = await response.json();
+//     console.log("data: ", data);
 
-    return response;
+//     return response;
 
-    // console.log('data: ', data);
-    // Data är ett objekt med egenskapen token som är jwt-strängen || ett objekt med egenskapen message som är ett felmeddelande
-  } catch (error) {
-    /* Detta catch-block körs endast när servern inte kan nås */
-    console.log("error.message: ", error.message);
-    return error.message;
-  }
-}
+//     // console.log('data: ', data);
+//     // Data är ett objekt med egenskapen token som är jwt-strängen || ett objekt med egenskapen message som är ett felmeddelande
+//   } catch (error) {
+//     /* Detta catch-block körs endast när servern inte kan nås */
+//     console.log("error.message: ", error.message);
+//     return error.message;
+//   }
+// }
