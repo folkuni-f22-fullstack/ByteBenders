@@ -1,41 +1,22 @@
-import { useEffect, useState, useRef } from 'react';
-import { NavLink, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { BiMinus, BiPlus, BiArrowBack } from 'react-icons/bi';
 import { BsCart3 } from 'react-icons/bs';
-import { MdLabelOutline } from 'react-icons/md';
-import { signal } from '@preact/signals-react';
-import SendCartData from './CartSendDb.tsx';
 import { cartState } from '../recoil/cartNumberState.js';
 import { getCartQuantity } from '../utils/general.ts';
 import { useRecoilState } from 'recoil';
-import { isCartEmptyState } from '../recoil/cartNumberState.js';
 import OrderStatusCustomer from './OrderStatusCustomer.tsx';
 import axios from 'axios';
 import { Dish, DishInCart } from '../interfaces/dish.ts';
 import { orderState } from '../recoil/orderState.js';
-import { useNavigate } from 'react-router-dom';
-import WindowSizeListener from '../utils/WindowListener.tsx';
+import CartInput from './CartInput.tsx';
 
-export let promo = signal(0);
-export let totalPrice = signal(0);
 function CartCard() {
-	// Get item from local storage
-	// const cartData = JSON.parse(localStorage.getItem("cart")) || [];
 	const [cartCopy, setCartCopy] = useState<DishInCart[]>([]);
 	const [customizeState, setCustomizeState] = useState({});
-	let [isPromo, setIsPromo] = useState('');
-	const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
 	const [cartItems, setCartItems] = useRecoilState(cartState);
-	const [orderFinished, setOrderFinished] = useState(null);
 	const [cartItem, setCartItem] = useState<Dish[]>([]);
 	const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
-	const [isNameValid, setIsNameValid] = useState(true)
-	const [isMailValid, setIsMailValid] = useState(true)
-	const customerNameRef = useRef(null)
-	const customerMailRef = useRef(null)
-	// const navigate = useNavigate();
-
-	const windowWidth = WindowSizeListener();
 
 	useEffect(() => {
 		axios
@@ -44,12 +25,12 @@ function CartCard() {
 			.catch((error) => console.error('error feching meals', error));
 	}, []);
 
-	// Update cart, !! Utkommenterad pga Infinity Loop !!
+	// Update cart
 	useEffect(() => {
 		const updatedCart = JSON.parse(localStorage.getItem('cart')) || [];
 		setCartCopy(updatedCart);
 		// isCartEmpty toggles from Meals.jsx
-	}, [localStorage.getItem('cart'), isCartEmpty]);
+	}, [localStorage.getItem('cart')]);
 
 	// Quantity count
 	const updateCart: DishInCart[] = [...cartCopy];
@@ -87,52 +68,6 @@ function CartCard() {
 		setCartCopy(updateCart);
 		numberOfCartItems();
 	}
-
-	// Count total price
-	function calculateTotalPrice() {
-		let total = 0;
-		cartCopy.forEach((item) => {
-			total += item.total;
-		});
-		return total;
-	}
-
-  // Update promo code
-  function handlePromoCodeChange(e) {
-    const newPromoCode = e.target.value
-    setIsPromo(newPromoCode)
-    localStorage.setItem('promo-code', newPromoCode)
-  }
-
-  // Handle dicount
-  function promoCode() {
-    const storedPromoCode = localStorage.getItem("promo-code") || ''
-    setIsPromo(storedPromoCode)
-
-    const storedDiscount = localStorage.getItem("new-price")
-    promo.value = JSON.parse(storedDiscount)
-
-    if (storedPromoCode === "discount20%") {
-      const discount = Math.round(totalPrice * 0.8)
-      promo.value = discount
-      localStorage.setItem("new-price", JSON.stringify(promo.value))
-    } else if (isPromo === "") {
-      promo.value = 0
-    } else {
-      promo.value = 0
-    }
-  }
-
-  useEffect(() => {
-    promoCode()
-  }, [])
-
-
-	// Update discount and total price
-	useEffect(() => {
-		totalPrice.value = calculateTotalPrice();
-		promoCode();
-	}, [cartCopy]);
 
 	// Send customize order to local storage
 	function updateComment(name) {
@@ -174,7 +109,7 @@ function CartCard() {
 					{!currentOrder.isOrdered && !currentOrder.isWaiting && (
 						<>
 							{cartCopy.length === 0 &&
-							!currentOrder.isOrdered ? (
+								!currentOrder.isOrdered ? (
 								<div className='empty-cart-div'>
 									<BsCart3 className='empty-cart-icon' />
 									<h2 className='empty-h2'>
@@ -274,71 +209,7 @@ function CartCard() {
 					{/* orderstatus */}
 					{<OrderStatusCustomer />}
 				</div>
-				{/* Promo */}
-				<div className='cart-promo-container'>
-					<MdLabelOutline size={20} className='promo-icon' />
-					<input
-						className='promo-code'
-						type='text'
-						placeholder='Promo code'
-            value={(!currentOrder.isOrdered && !currentOrder.isWaiting) ? isPromo : ''}
-						onChange={handlePromoCodeChange}
-					/>
-					<button className='apply-promo-button' onClick={promoCode}>
-						Apply
-					</button>
-				</div>
-				{/* Total price */}
-				<div className='cart-total-container'>
-					<p className='total-text'>Total:</p>
-					<div className='price'>
-          {!currentOrder.isOrdered && !currentOrder.isWaiting ? (
-              <>
-                {promo != 0 && <p className="new-price">{promo}:-</p>}
-                <p className={promo == 0 ? "total-price" : "total-price--crossed"}>
-                  {totalPrice}:-
-                </p>
-              </>
-            ) : (
-              <>
-                <p className="total-price">
-                  0:-
-                </p>
-              </>
-            )}
-					</div>
-				</div>
-
-				{/* "First and last name"-input field */}
-				<div className={`userinput-container ${!isNameValid ? 'invalid-input' : ''}`}>
-					<input
-						ref={customerNameRef}
-						className='user-input'
-						id="customer-name"
-						type='text'
-						placeholder='First and last name'
-						onChange={() => setIsNameValid(true)}
-						/>
-				</div>
-
-				{/* "Mail address"-input field */}
-				<div className={`userinput-container ${!isMailValid ? 'invalid-input' : ''}`}>
-					<input
-						ref={customerMailRef}
-						className='user-input'
-						id="customer-mail"
-						type='text'
-						placeholder='Mail address'
-						onChange={() => setIsMailValid(true)}
-					/>
-				</div>
-
-				<SendCartData 
-				customerNameRef={customerNameRef} 
-				customerMailRef={customerMailRef}
-				setIsNameValid={setIsNameValid}
-				setIsMailValid={setIsMailValid}
-				/>
+				<CartInput />
 			</section>
 		</>
 	);

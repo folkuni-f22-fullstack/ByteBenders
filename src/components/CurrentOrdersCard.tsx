@@ -11,6 +11,7 @@ import { getOrders } from "../utils/fetch";
 import { putOrder } from "../utils/fetch";
 import { useRef } from "react";
 import { updateLockedOrder } from "../utils/fetch";
+import { deleteOrder } from "../utils/AJAX/deleteOrder.js";
 
 export default function CurrentOrderCard({ change, setChange }) {
   const [orderData, setOrderData] = useState<Order[] | null>(null);
@@ -61,31 +62,11 @@ export default function CurrentOrderCard({ change, setChange }) {
     }
   };
 
-  const handleDeleteOrder = async (orderId: number) => {
-    try {
-      const response = await fetch(`/api/orders/${orderId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          // You might need to include authentication headers if required
-        },
-      });
-
-      if (response.ok) {
-        console.log("Order deleted successfully");
-        // Order deleted successfully, update the order list
-        const updatedOrders = await getOrders(isLoggedIn.token);
-        setOrderData(updatedOrders);
-      } else {
-        console.error(
-          "Failed to delete order:",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.error("Error deleting order:", error.message)
-    }
+  const handleDeleteOrder = async (orderId: number, token) => {
+    try { deleteOrder(orderId, token) } 
+    catch (error) {console.log('ERROR: ', error);}
+    const updatedOrders = await getOrders(token);
+    setOrderData(updatedOrders);
   };
 
   // Handle new staff comment
@@ -132,14 +113,14 @@ export default function CurrentOrderCard({ change, setChange }) {
     <section className="recieved-order-container">
       {currentOrders &&
         currentOrders.map((order) => (
-          <div className="recieved-order-card" key={order._id}>
+          <div className="recieved-order-card" key={order.orderId}>
             <div className="order-content">
               <h1>
                 {" "}
                 <div>{order.orderId}</div>{" "}
               </h1>
               <div className="extend-order-icons">
-                {isExpanded === order._id ? (
+                {isExpanded === order.orderId ? (
                   <button
                     onClick={() => setIsExpanded(null)}
                     className="close-order-icon"
@@ -148,7 +129,7 @@ export default function CurrentOrderCard({ change, setChange }) {
                   </button>
                 ) : (
                   <button
-                    onClick={() => setIsExpanded(order._id)}
+                    onClick={() => setIsExpanded(order.orderId)}
                     className="open-order-icon"
                   >
                     <IoIosArrowDown />
@@ -157,7 +138,7 @@ export default function CurrentOrderCard({ change, setChange }) {
               </div>
             </div>
             {/* RENDER ORDER MEALS START */}
-            {isExpanded === order._id && (
+            {isExpanded === order.orderId && (
               <section className="order-info-section">
                 <ul className="order-info-list">
                   {order.content.map((item) => (
@@ -268,16 +249,16 @@ export default function CurrentOrderCard({ change, setChange }) {
                 </button>
                 {/* SEND ORDER END */}
 
-                {/* DELETE ORDER START */}
-                <button
-                  className="delete-order-icon"
-                  onClick={() => handleDeleteOrder(order._id)}
-                >
-                  <MdDeleteForever />
-                </button>
-                {/* DELETE ORDER END */}
-              </section>
-            )}
+                  {/* DELETE ORDER START */}
+                  <button
+                    className="delete-order-icon"
+                    onClick={() => handleDeleteOrder(order._id, isLoggedIn.token)}
+                  >
+                    <MdDeleteForever />
+                  </button>
+                  {/* DELETE ORDER END */}
+                </section>
+        )}
           </div>
         ))
       }

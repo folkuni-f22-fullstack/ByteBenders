@@ -4,6 +4,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { MdDeleteForever } from "react-icons/md";
 import { useRecoilState } from "recoil";
 import { loginState } from '../recoil/loginState.js'
+import { deleteOrder } from "../utils/AJAX/deleteOrder.js";
 
 import "../styles/OrderCards.css";
 import "../App.css";
@@ -53,31 +54,11 @@ export default function RecievedOrderCard() {
     }
   };
 
-  const handleDeleteOrder = async (orderId: number) => {
-    try {
-      const response = await fetch(`/api/orders/${orderId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          // You might need to include authentication headers if required
-        },
-      });
-
-      if (response.ok) {
-        console.log("Order deleted successfully");
-        // Order deleted successfully, update the order list
-        const updatedOrders = await getOrders(isLoggedIn.token);
-        setOrderData(updatedOrders);
-      } else {
-        console.error(
-          "Failed to delete order:",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.error("Error deleting order:", error.message);
-    }
+  const handleDeleteOrder = async (orderId: number, token) => {
+    try { deleteOrder(orderId, token) } 
+    catch (error) {console.log('ERROR: ', error);}
+    const updatedOrders = await getOrders(token);
+    setOrderData(updatedOrders);
   };
 
   const receivedOrders = orderData.filter(
