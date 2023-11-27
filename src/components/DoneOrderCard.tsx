@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRecoilState } from "recoil";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { RiCheckboxCircleLine } from "react-icons/ri";
 import "../styles/OrderCards.css";
@@ -7,15 +8,17 @@ import { Order } from "../interfaces/order";
 import { getOrders } from "../utils/fetch";
 import { putOrder } from "../utils/fetch";
 import { postDoneOrder } from "../utils/fetch";
+import { loginState } from "../recoil/loginState.js";
 
 export default function DoneOrderCard() {
   const [orderData, setOrderData] = useState<Order[] | null>(null);
   const [isExpanded, setIsExpanded] = useState<null | number>(null);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);
 
   useEffect(() => {
     async function fetchOrderID() {
       try {
-        const fetchedData = await getOrders();
+        const fetchedData = await getOrders(isLoggedIn.token);
         const doneOrders = fetchedData?.filter(
           (order) => order.status === "done"
         );
