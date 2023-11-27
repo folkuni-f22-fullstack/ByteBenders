@@ -35,20 +35,17 @@ export default function DoneOrderCard() {
     return <div>Loading...</div>;
   }
 
-  // const handleToggleStatus = async (order: Order, newStatus: string) => {
-  //     try {
-  //         // Update the "status" property in the database
-  //         await putOrder(order, newStatus);
-
-  //         // Refetch orders after updating the "status"
-  //         const updatedOrders = await getOrders();
-  //         setOrderData(updatedOrders);
-  //         console.log('Order updated');
-
-  //     } catch (error) {
-  //         console.log('Failed to update order status');
-  //     }
-  // };
+  const handleOrderDone = async (order: Order) => {
+    try {
+      await postDoneOrder(order);
+      //Skapar en ny array med ordrar, minus den som klickas på.
+      setOrderData((prevOrderData) =>
+        prevOrderData ? prevOrderData.filter((o) => o._id !== order._id) : null
+      );
+    } catch (error) {
+      console.log("Failed to mark order as done", error);
+    }
+  };
 
   const doneOrders = orderData.filter((order) => order.status === "done");
 
@@ -93,7 +90,7 @@ export default function DoneOrderCard() {
                 <span>{order.usercomment}</span>
                 <div
                   className="send-order-icon"
-                  onClick={() => postDoneOrder(order)}
+                  onClick={() => handleOrderDone(order)}
                 >
                   <RiCheckboxCircleLine />
                 </div>
