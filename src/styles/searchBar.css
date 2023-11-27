@@ -63,6 +63,7 @@
   border-radius: 0 0 1em 1em;
   background-color: var(--dark-blue);
   animation: subMenuContainer 0.1s ease-in;
+  z-index: 13;
 }
 
 @keyframes subMenuContainer {

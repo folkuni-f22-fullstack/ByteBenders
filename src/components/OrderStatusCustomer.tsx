@@ -39,6 +39,7 @@ export default function OrderStatusCustomer() {
 	function handleClick() {
 		localStorage.removeItem('orderNumber');
 		localStorage.removeItem('ETA');
+		localStorage.removeItem('cart')
 		setCurrentOrder({ isOrdered: false, isWaiting: false });
 	}
 

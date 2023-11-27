@@ -71,7 +71,6 @@
 .filter-item {
   display: flex;
   align-items: center;
-
   padding: 5px;
 }
 .remove-filter-icon {
