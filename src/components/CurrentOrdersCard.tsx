@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { loginState } from "../recoil/loginState.js";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { MdDeleteForever } from "react-icons/md";
@@ -17,6 +19,7 @@ export default function CurrentOrderCard({ change, setChange }) {
   const [priceChange, setPriceChange] = useState(null);
   const [commentChange, setCommentChange] = useState(null);
   const [discountChange, setDiscountChange] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);
   // const [change, setChange] = useState(false);
 
   const totalInput = useRef(null);
@@ -26,7 +29,7 @@ export default function CurrentOrderCard({ change, setChange }) {
   useEffect(() => {
     async function fetchOrderID() {
       try {
-        const fetchedData = await getOrders();
+        const fetchedData = await getOrders(isLoggedIn.token);
         const currentOrders = fetchedData?.filter(
           (order) => order.status === "current"
         );
@@ -39,8 +42,6 @@ export default function CurrentOrderCard({ change, setChange }) {
     fetchOrderID();
   }, [change]);
 
-
-
   if (orderData === null) {
     // Lägg till något laddningsindikator eller annat meddelande medan data hämtas
     return <section className='loading-container'>
@@ -51,10 +52,10 @@ export default function CurrentOrderCard({ change, setChange }) {
   const handleToggleStatus = async (order: Order, newStatus: string) => {
     try {
       // Update the "status" property in the database
-      await putOrder(order, newStatus);
+      await putOrder(order, newStatus, isLoggedIn.token);
 
       // Refetch orders after updating the "status"
-      const updatedOrders = await getOrders();
+      const updatedOrders = await getOrders(isLoggedIn.token);
       setOrderData(updatedOrders);
       console.log("Order updated");
     } catch (error) {
@@ -75,7 +76,7 @@ export default function CurrentOrderCard({ change, setChange }) {
       if (response.ok) {
         console.log("Order deleted successfully");
         // Order deleted successfully, update the order list
-        const updatedOrders = await getOrders();
+        const updatedOrders = await getOrders(isLoggedIn.token);
         setOrderData(updatedOrders);
       } else {
         console.error(
@@ -120,7 +121,7 @@ export default function CurrentOrderCard({ change, setChange }) {
       console.log(error);
     }
 
-    setChange(change++)
+    setChange(change++);
   }
 
   const currentOrders = orderData.filter((order) => order.status === "current");
