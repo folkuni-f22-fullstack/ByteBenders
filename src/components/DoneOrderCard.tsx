@@ -11,20 +11,20 @@ import { putOrder } from '../utils/fetch';
 export default function DoneOrderCard() {
     const [orderData, setOrderData] = useState<Order[] | null>(null)
     const [isExpanded, setIsExpanded] = useState<null | number>(null);
-
+    
     useEffect(() => {
-        async function fetchOrderID() {
-            try {
-                const fetchedData = await getOrders()
-                const doneOrders = fetchedData?.filter(order => order.status === 'done');
-                setOrderData(doneOrders)
-                console.log('Succeeded in fetching done orders');
-            } catch (error) {
-                console.log('Failed to fetch done orders');
-            }
+        async function fetchOrderData() {
+          try {
+            const fetchedData = await getOrders();
+            setOrderData(fetchedData);
+            console.log("Succeeded in fetching orders");
+          } catch (error) {
+            console.error("Failed to fetch orders", error);
+          }
         }
-        fetchOrderID()
-    }, [])
+    
+        fetchOrderData();
+      }, []);
 
     // todo Koppla faktiskt data från cart till Employee gränssnittet
 

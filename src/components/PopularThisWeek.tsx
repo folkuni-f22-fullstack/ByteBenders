@@ -25,10 +25,7 @@ export default function PopularThisWeek() {
 				console.error(error);
 			}
 		}
-
 		fetchPopular();
-
-		return () => {};
 	}, []);
 
 	// Add to local storage

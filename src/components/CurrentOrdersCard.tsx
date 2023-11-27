@@ -24,19 +24,17 @@ export default function CurrentOrderCard({change, setChange}) {
   const discountInput = useRef(null);
 
   useEffect(() => {
-    async function fetchOrderID() {
+    async function fetchOrderData() {
       try {
         const fetchedData = await getOrders();
-        const currentOrders = fetchedData?.filter(
-          (order) => order.status === "current"
-        );
-        setOrderData(currentOrders);
-        console.log("Succeeded in fetching current orders");
+        setOrderData(fetchedData);
+        console.log("Succeeded in fetching orders");
       } catch (error) {
-        console.log("Failed to fetch current orders");
+        console.error("Failed to fetch orders", error);
       }
     }
-    fetchOrderID();
+
+    fetchOrderData();
   }, [change]);
 
 

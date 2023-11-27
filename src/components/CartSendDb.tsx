@@ -1,6 +1,4 @@
 import { signal } from "@preact/signals-react";
-export let orderNumber = signal(null);
-export let isOrdered = signal(false);
 import { postOrder } from "../utils/fetch.tsx";
 import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
