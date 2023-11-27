@@ -39,6 +39,7 @@ export default function OrderStatusCustomer() {
 	function handleClick() {
 		localStorage.removeItem('orderNumber');
 		localStorage.removeItem('ETA');
+		localStorage.removeItem('cart')
 		setCurrentOrder({ isOrdered: false, isWaiting: false });
 	}
 
@@ -67,7 +68,6 @@ export default function OrderStatusCustomer() {
 					});
 
 					// RADERA FRÅN LS
-					localStorage.removeItem('cart')
 					localStorage.removeItem('orderNumber');
 					localStorage.removeItem('ETA');
 
