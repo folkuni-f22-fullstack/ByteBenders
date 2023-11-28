@@ -1,4 +1,5 @@
 @import "../App.css";
+
 .meals-section {
   display: flex;
   flex-wrap: wrap;
@@ -93,6 +94,7 @@
 
 .popular-section::-webkit-scrollbar-thumb {
   background: var(--orange-color);
+  border-radius: 5px;
 }
 
 .popular-section::-webkit-scrollbar-thumb:hover {
@@ -133,14 +135,13 @@
 
 @media screen and (min-width: 1200px) {
   .popular-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
     margin-top: 2em;
     margin-left: 1.5em;
     gap: 1.5em;
     margin-right: 22em;
-    cursor: auto;
+  }
+  .popular-section.hovered {
+    overflow-x: scroll;
   }
   .popular-section > .meals-link {
     height: auto;

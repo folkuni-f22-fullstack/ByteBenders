@@ -1,6 +1,6 @@
 import '../styles/meals.css';
 import { BsCart3 } from 'react-icons/bs';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import addToLS from '../utils/addCartLS';
 import { useRecoilState } from 'recoil';
@@ -14,6 +14,8 @@ export default function PopularThisWeek() {
 	const [randomMeals, setRandomMeals] = useState([]);
 	const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
 	let [cartItems, setCartItems] = useRecoilState(cartState);
+	const [isHovered, setIsHovered] = useState(false)
+	const popularSectionRef = useRef(null)
 
 	useEffect(() => {
 		async function fetchPopular() {
@@ -36,6 +38,32 @@ export default function PopularThisWeek() {
 		setCartItems((cartItems += 1));
 	}
 
+
+	// Horizontal scroll
+	useEffect(() => {
+		const handleWheel = (event) => {
+			if (isHovered) {
+				popularSectionRef.current.scrollLeft += event.deltaY
+			}
+		}
+
+		document.addEventListener('wheel', handleWheel)
+
+		return () => {
+			document.removeEventListener('wheel', handleWheel)
+		}
+	}, [isHovered])
+
+	const handleMouseEnter = () => {
+		setIsHovered(true)
+		document.body.style.overflowY = 'hidden'
+	}
+	
+	const handleMouseLeave = () => {
+		setIsHovered(false)
+		document.body.style.overflowY = ''
+	}
+
 	return (
 		<section className='popular-main'>
 			<div className='pop-hero-div'>
@@ -45,7 +73,11 @@ export default function PopularThisWeek() {
 					<span className='pop-title-span'>this week</span>
 				</h1>
 			</div>
-			<section className='popular-section snaps-inline'>
+			<section className={`popular-section ${isHovered ? 'hovered' : ''} snaps-inline`}
+				onMouseEnter={handleMouseEnter}
+				onMouseLeave={handleMouseLeave}
+				ref={popularSectionRef}
+			>
 				{randomMeals &&
 					randomMeals.map((menuItem: Dish) => (
 						<div className='meals-card' key={menuItem._id}>
