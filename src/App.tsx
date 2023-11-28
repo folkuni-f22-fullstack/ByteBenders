@@ -28,7 +28,9 @@ function App() {
   }, []);
 
   const location = useLocation();
-  const showHeader = !"/information,".includes(location.pathname);
+  const showHeader =
+    !"/information,".includes(location.pathname) &&
+    !"/cart,".includes(location.pathname);
   return (
     <>
       {showHeader && <Header />}

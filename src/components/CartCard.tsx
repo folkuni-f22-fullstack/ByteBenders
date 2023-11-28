@@ -10,6 +10,7 @@ import axios from "axios";
 import { Dish, DishInCart } from "../interfaces/dish.ts";
 import { orderState } from "../recoil/orderState.js";
 import CartInput from "./CartInput.tsx";
+import WindowSizeListener from "../utils/WindowListener.tsx";
 
 function CartCard() {
   const [cartCopy, setCartCopy] = useState<DishInCart[]>([]);
@@ -17,7 +18,7 @@ function CartCard() {
   const [cartItems, setCartItems] = useRecoilState(cartState);
   const [cartItem, setCartItem] = useState<Dish[]>([]);
   const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
-
+  const windowWidth = WindowSizeListener();
   useEffect(() => {
     axios
       .get("/api/meals")
@@ -102,12 +103,14 @@ function CartCard() {
         <BiArrowBack className="return-arrow-icon" />
       </NavLink>
       <section className="cart-section">
-        <p
-          className="cart-count">
-          {!currentOrder.isOrdered && !currentOrder.isWaiting ? (
-            numberOfCartItems()
-          ) : (
-            0)} items in cart</p>
+        {windowWidth > 798 ? (
+          <p className="cart-count">
+            {!currentOrder.isOrdered && !currentOrder.isWaiting
+              ? numberOfCartItems()
+              : 0}{" "}
+            items in cart
+          </p>
+        ) : null}
         <div className="cart-card-container">
           {!currentOrder.isOrdered && !currentOrder.isWaiting && (
             <>

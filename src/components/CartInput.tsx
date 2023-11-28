@@ -91,47 +91,8 @@ function CartInput() {
 
   return (
     <>
-      {/* Promo */}
-      <div className="cart-promo-container">
-        <MdLabelOutline size={20} className="promo-icon" />
-        <input
-          className={`promo-code ${!isPromoCorrect ? "invalid-promo" : ""}`}
-          type="text"
-          placeholder="Promo code"
-          value={
-            !currentOrder.isOrdered && !currentOrder.isWaiting ? isPromo : ""
-          }
-          onChange={handlePromoCodeChange}
-          onClick={() => setIsPromo("")}
-        />
-        <button className="apply-promo-button" onClick={promoCode}>
-          Apply
-        </button>
-      </div>
-
       {/* Total price */}
-      <div className="cart-total-container">
-        <p className="total-text">Total:</p>
-        <div className="price">
-          {!currentOrder.isOrdered && !currentOrder.isWaiting ? (
-            <>
-              {promo.value !== 0 && <p className="new-price">{promo} :-</p>}
-              <p
-                className={
-                  promo.value === 0 ? "total-price" : "total-price--crossed"
-                }
-              >
-                {totalPrice} :-
-              </p>
-            </>
-          ) : (
-            <>
-              <p className="total-price">0 :-</p>
-            </>
-          )}
-        </div>
-      </div>
-
+      <div className="cart-total-container"></div>
       {/* "First and last name" input field */}
       <div
         className={`userinput-container ${!isNameValid ? "invalid-input" : ""}`}
@@ -159,7 +120,46 @@ function CartInput() {
           onChange={() => setIsMailValid(true)}
         />
       </div>
-
+      {/* Promo */}
+      <div className="cart-promo-container">
+        <div className="promo-icon-input">
+          <MdLabelOutline size={20} className="promo-icon" />
+          <input
+            className={`promo-code ${!isPromoCorrect ? "invalid-promo" : ""}`}
+            type="text"
+            placeholder="Promo code"
+            value={
+              !currentOrder.isOrdered && !currentOrder.isWaiting ? isPromo : ""
+            }
+            onChange={handlePromoCodeChange}
+            onClick={() => setIsPromo("")}
+          />
+        </div>
+        <button className="apply-promo-button" onClick={promoCode}>
+          Apply
+        </button>
+      </div>
+      <div className="total-price-div">
+        <p className="total-text">Total:</p>
+        <div className="price">
+          {!currentOrder.isOrdered && !currentOrder.isWaiting ? (
+            <>
+              {promo.value !== 0 && <p className="new-price">{promo} :-</p>}
+              <p
+                className={
+                  promo.value === 0 ? "total-price" : "total-price--crossed"
+                }
+              >
+                {totalPrice} :-
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="total-price">0 :-</p>
+            </>
+          )}
+        </div>
+      </div>
       {/* SendCartData component */}
       <SendCartData
         customerNameRef={customerNameRef}
