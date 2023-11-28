@@ -11,7 +11,7 @@ import { useRecoilState } from 'recoil';
 import axios from 'axios';
 
 export default function OrderStatusCustomer() {
-	const [count, setCount] = useState(15);
+	const [count, setCount] = useState(0.3);
 	const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
 
 	const orderText = useRef(null);
