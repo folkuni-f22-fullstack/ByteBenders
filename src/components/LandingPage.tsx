@@ -13,7 +13,7 @@ const LandingPage = () => {
           <p>070 - 432 5601</p>
         </div>
         <div className="p-div">
-          <p>Adress:</p>
+          <p>Address:</p>
           <p>Mellqvistgatan 7, Karlstad</p>
         </div>
         <div className="p-div">

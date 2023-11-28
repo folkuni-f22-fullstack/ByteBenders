@@ -36,7 +36,7 @@ export default function InformationRoute() {
               </p>
               <div className="contact-information">
                 <p>Contact us for questions at 070-432 5601.</p>
-                <p>Opening hours: Every day between 12.00-22.00</p>
+                <p>Opening hours: Every day between 12:00-22:00.</p>
               </div>
             </article>
           </section>

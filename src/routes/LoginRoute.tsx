@@ -58,7 +58,7 @@ export default function LoginRoute() {
           <h1>Login</h1>
         </div>
         <div className="input-group">
-          <label htmlFor="user-input">Employee-number</label>
+          <label htmlFor="user-input">Employee-Name</label>
           <input
             type="text"
             id="user-input"

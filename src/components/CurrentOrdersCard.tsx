@@ -236,7 +236,7 @@ export default function CurrentOrderCard({ change, setChange }) {
 
                 {order.content.map((item) => (
                   <div className=' current-price' key={item.name}>
-                    Total: <span>{order.total}</span> Kr
+                    Total: <span>{order.total}</span> :-
                   </div>
                 ))}
 
