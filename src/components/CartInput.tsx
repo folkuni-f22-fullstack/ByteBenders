@@ -109,15 +109,15 @@ function CartInput() {
 				<div className='price'>
 					{!currentOrder.isOrdered && !currentOrder.isWaiting ? (
 						<>
-							{promo.value !== 0 && <p className="new-price">{promo}:-</p>}
+							{promo.value !== 0 && <p className="new-price">{promo} :-</p>}
 							<p className={promo.value === 0 ? "total-price" : "total-price--crossed"}>
-								{totalPrice}:-
+								{totalPrice} :-
 							</p>
 						</>
 					) : (
 						<>
 							<p className="total-price">
-								0:-
+								0 :-
 							</p>
 						</>
 					)}

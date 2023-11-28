@@ -144,7 +144,7 @@ function CartCard() {
 											</NavLink>
 											<p className='card-price'>
 												{' '}
-												{item.total}:-{' '}
+												{item.total} :-{' '}
 											</p>
 											<p className='sub-text'>Amount: </p>
 											<div className='amount-container'>
