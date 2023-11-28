@@ -9,13 +9,14 @@ import { cartState } from '../recoil/cartNumberState.js';
 import axios from 'axios';
 import { Dish } from '../interfaces/dish.js';
 import { refreshQuantity } from '../utils/quantityChange.js';
+import '../styles/popularThisWeek.css';
 
 export default function PopularThisWeek() {
 	const [randomMeals, setRandomMeals] = useState([]);
 	const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
 	let [cartItems, setCartItems] = useRecoilState(cartState);
-	const [isHovered, setIsHovered] = useState(false)
-	const popularSectionRef = useRef(null)
+	const [isHovered, setIsHovered] = useState(false);
+	const popularSectionRef = useRef(null);
 
 	useEffect(() => {
 		async function fetchPopular() {
@@ -28,7 +29,6 @@ export default function PopularThisWeek() {
 		}
 
 		fetchPopular();
-
 	}, []);
 
 	// Add to local storage
@@ -38,31 +38,36 @@ export default function PopularThisWeek() {
 		setCartItems((cartItems += 1));
 	}
 
-
 	// Horizontal scroll
-	useEffect(() => {
-		const handleWheel = (event) => {
-			if (isHovered) {
-				popularSectionRef.current.scrollLeft += event.deltaY
-			}
-		}
+	// useEffect(() => {
+	// 	const handleWheel = (event) => {
+	// 		if (isHovered) {
+	// 			popularSectionRef.current.scrollLeft += event.deltaY;
+	// 		}
+	// 	};
 
-		document.addEventListener('wheel', handleWheel)
+	// 	document.addEventListener('wheel', handleWheel);
 
-		return () => {
-			document.removeEventListener('wheel', handleWheel)
-		}
-	}, [isHovered])
+	// 	return () => {
+	// 		document.removeEventListener('wheel', handleWheel);
+	// 	};
+	// }, [isHovered]);
 
-	const handleMouseEnter = () => {
-		setIsHovered(true)
-		document.body.style.overflowY = 'hidden'
-	}
-	
-	const handleMouseLeave = () => {
-		setIsHovered(false)
-		document.body.style.overflowY = ''
-	}
+	// const handleMouseEnter = () => {
+	// 	setIsHovered(true);
+	// 	document.body.style.overflowY = 'hidden';
+	// };
+
+	// const handleMouseLeave = () => {
+	// 	setIsHovered(false);
+	// 	document.body.style.overflowY = '';
+	// };
+
+	const reducedMotionSettings = window.matchMedia(
+		'(prefers-reduced-motion: reduce)'
+	).matches;
+
+	console.log('reducedMotionSettings är: ', reducedMotionSettings);
 
 	return (
 		<section className='popular-main'>
@@ -73,39 +78,54 @@ export default function PopularThisWeek() {
 					<span className='pop-title-span'>this week</span>
 				</h1>
 			</div>
-			<section className={`popular-section ${isHovered ? 'hovered' : ''} snaps-inline`}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
+			<section
+				className={`popular-section scroller snaps-inline`}
+				// className={`popular-section scroller ${
+				// 	isHovered ? 'hovered' : ''
+				// } snaps-inline`}
+				// onMouseEnter={handleMouseEnter}
+				// onMouseLeave={handleMouseLeave}
 				ref={popularSectionRef}
+				data-animated={!reducedMotionSettings && true}
 			>
-				{randomMeals &&
-					randomMeals.map((menuItem: Dish) => (
-						<div className='meals-card' key={menuItem._id}>
-							<NavLink
-								to={`/menu/${menuItem._id}`}
-								className='meals-link'
+				<ul className='scroller__inner'>
+					{/* {randomMeals && */}
+					{[...Array(2)].map((_, loopIndex) =>
+						randomMeals.map((menuItem: Dish) => (
+							<li
+								className='meals-card'
+								key={menuItem._id}
+								aria-hidden={loopIndex === 0 ? 'false' : 'true'}
 							>
-								<img
-									src={menuItem.image}
-									alt={`image of ${menuItem.name}`}
-									className='meals-img'
-									onClick={refreshQuantity}
-								/>
-								<div className='meals-text'>
-									<p>{menuItem.name}</p>
-									<p className='meals-price'>
-										{menuItem.price} :-
-									</p>
-								</div>
-							</NavLink>
-							<button
-								className='meals-btn'
-								onClick={() => handleAddToCart(menuItem._id)}
-							>
-								Add to cart <BsCart3 className='btn-icon' />
-							</button>
-						</div>
-					))}
+								<NavLink
+									to={`/menu/${menuItem._id}`}
+									className='meals-link'
+								>
+									<img
+										src={menuItem.image}
+										alt={`image of ${menuItem.name}`}
+										className='meals-img'
+										onClick={refreshQuantity}
+									/>
+									<div className='meals-text'>
+										<p>{menuItem.name}</p>
+										<p className='meals-price'>
+											{menuItem.price} :-
+										</p>
+									</div>
+								</NavLink>
+								<button
+									className='meals-btn'
+									onClick={() =>
+										handleAddToCart(menuItem._id)
+									}
+								>
+									Add to cart <BsCart3 className='btn-icon' />
+								</button>
+							</li>
+						))
+					)}
+				</ul>
 			</section>
 		</section>
 	);
