@@ -6,6 +6,7 @@ import OrderHandlers from './OrderHandlers';
 // import { DishInCart } from '../interfaces/dish';
 import { Order } from '../interfaces/order';
 import ArrowButtons from './ArrowButtons';
+import '../styles/OrderCards.css';
 
 const OrderCard: React.FC<OrderCardProps> = ({
 	order,
@@ -98,7 +99,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
 		type: string,
 		newValue: string | number
 	) {
-		if (newValue === null || newValue === '' || newValue === undefined) {
+		if (newValue === null || newValue === undefined) {
 			return;
 		}
 
@@ -144,15 +145,35 @@ const OrderCard: React.FC<OrderCardProps> = ({
 								</div>
 							</li>
 						))}
+						<hr className='linebreak-current' />
 					</ul>
 
 					{page === 'current' ? (
 						<>
-							<h3 className='order-comment'>User commments:</h3>
-							<span>{order.usercomment}</span>
+							<div className='user-comment-section'>
+								<p className='order-comment'>User commments:</p>
+								<span className='user-comment'>
+									{order.usercomment}
+								</span>
+							</div>
 
-							<h3 className='order-comment'>Staff commments:</h3>
-							<span>{order.staffcomment}</span>
+							<div className='staff-comment-section'>
+								<p className='order-staff-comment'>
+									Staff comments:
+								</p>
+								<span className='staff-comment'>
+									{order.staffcomment}
+								</span>
+							</div>
+							<button
+								className='reset-button'
+								onClick={() =>
+									sendChange(order, 'comment-reset', '')
+								}
+							>
+								{' '}
+								Reset comments
+							</button>
 
 							<section className='staff-edit-section'>
 								{PropsListForStaffInput.map(
@@ -180,6 +201,12 @@ const OrderCard: React.FC<OrderCardProps> = ({
 							<span>{order.usercomment}</span>
 						</>
 					)}
+
+					{order.content.map((item) => (
+						<div className=' current-price' key={item.name}>
+							Total: <span>{order.total}</span> Kr
+						</div>
+					))}
 
 					<OrderHandlers
 						page={page}

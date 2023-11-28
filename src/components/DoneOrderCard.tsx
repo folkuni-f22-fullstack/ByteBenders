@@ -7,7 +7,7 @@ import { getOrders } from '../utils/fetch';
 import { loginState } from '../recoil/loginState.js';
 import OrderCard from './OrderCard.js';
 
-export default function DoneOrderCard() {
+export default function DoneOrderCard({ change, setChange }) {
 	const [orderData, setOrderData] = useState<Order[] | null>(null);
 	const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);
 
@@ -25,7 +25,7 @@ export default function DoneOrderCard() {
 			}
 		}
 		fetchOrderID();
-	}, []);
+	}, [change]);
 
 	if (orderData === null) {
 		// Lägg till något laddningsindikator eller annat meddelande medan data hämtas
@@ -50,7 +50,7 @@ export default function DoneOrderCard() {
 		}
 	};
 
-	const doneOrders = orderData.filter((order) => order.status === 'done');
+	// const doneOrders = orderData.filter((order) => order.status === 'done');
 
 	return (
 		<section className='recieved-order-container'>

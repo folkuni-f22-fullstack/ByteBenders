@@ -7,7 +7,7 @@ import { Order } from '../interfaces/order';
 import { getOrders } from '../utils/fetch';
 import OrderCard from './OrderCard.js';
 
-export default function RecievedOrderCard() {
+export default function RecievedOrderCard({ change, setChange }) {
 	const [orderData, setOrderData] = useState<Order[] | null>(null);
 	const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);
 
@@ -25,7 +25,7 @@ export default function RecievedOrderCard() {
 			}
 		}
 		fetchOrderID();
-	}, []);
+	}, [change]);
 
 	if (orderData === null) {
 		return (
@@ -44,6 +44,8 @@ export default function RecievedOrderCard() {
 						order={order}
 						page='received'
 						setOrderData={setOrderData}
+						change={change}
+						setChange={setChange}
 					/>
 				))}
 		</section>

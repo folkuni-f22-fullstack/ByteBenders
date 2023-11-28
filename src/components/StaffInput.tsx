@@ -27,8 +27,9 @@ const StaffInput: React.FC<StaffInputProps> = ({
 	type,
 }) => {
 	return (
-		<div className='input-icon'>
+		<div className='current-input'>
 			<input
+				className='edit-current-input edit-current-desktop'
 				type='text'
 				placeholder={
 					type === 'comment'
@@ -40,13 +41,17 @@ const StaffInput: React.FC<StaffInputProps> = ({
 				ref={inputRef}
 				onChange={(event) => changeHandler(order.orderId, event)}
 			/>
-			<button
-				onClick={() =>
-					clickHandler(order, type, inputRef.current.value)
-				}
-			>
-				<GoCheckbox />
-			</button>
+			{inputRef.current !== null && inputRef.current.value !== '' && (
+				<button
+					className='confirm-button'
+					onClick={() => {
+						clickHandler(order, type, inputRef.current.value);
+						inputRef.current.value = '';
+					}}
+				>
+					Confirm
+				</button>
+			)}
 		</div>
 	);
 };

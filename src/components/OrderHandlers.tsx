@@ -31,9 +31,6 @@ const OrderHandlers: React.FC<OrderHandlerProps> = ({
 			// Update the "status" property in the database
 			await putOrder(order, newStatus, isLoggedIn.token);
 
-			// Refetch orders after updating the "status"
-			const updatedOrders = await getOrders(isLoggedIn.token);
-			setOrderData(updatedOrders);
 			setChange((change) => change + 1);
 			console.log('Order updated');
 		} catch (error) {
@@ -50,7 +47,6 @@ const OrderHandlers: React.FC<OrderHandlerProps> = ({
 					? prevOrderData.filter((o) => o.orderId !== order.orderId)
 					: null
 			);
-			setChange((change) => change + 1);
 		} catch (error) {
 			console.log('Failed to mark order as done', error);
 		}
@@ -62,12 +58,12 @@ const OrderHandlers: React.FC<OrderHandlerProps> = ({
 		} catch (error) {
 			console.log('ERROR: ', error);
 		}
-		const updatedOrders = await getOrders(token);
-		setOrderData(updatedOrders);
+
+		setChange((change) => change + 1);
 	};
 
 	return (
-		<section className='bottom-handlers-section'>
+		<>
 			{/* SEND ORDER START */}
 			{page === 'received' ? (
 				<>
@@ -124,7 +120,7 @@ const OrderHandlers: React.FC<OrderHandlerProps> = ({
 					<RiCheckboxCircleLine />
 				</div>
 			)}
-		</section>
+		</>
 	);
 };
 
