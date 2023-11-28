@@ -99,11 +99,22 @@
   height: 2em;
   margin-top: 1em;
 }
-
+.employee-h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .current-input {
   position: relative;
 }
-
+.employee-icon,
+.employee-icon-done {
+  margin-left: 0.5em;
+  color: var(--orange-color);
+}
+.employee-icon-done {
+  font-size: 39px;
+}
 .confirm-button {
   position: absolute;
   right: 0px;
