@@ -102,7 +102,12 @@ function CartCard() {
         <BiArrowBack className="return-arrow-icon" />
       </NavLink>
       <section className="cart-section">
-        <p className="cart-count">{numberOfCartItems()} items in cart</p>
+        <p
+          className="cart-count">
+          {!currentOrder.isOrdered && !currentOrder.isWaiting ? (
+            numberOfCartItems()
+          ) : (
+            0)} items in cart</p>
         <div className="cart-card-container">
           {!currentOrder.isOrdered && !currentOrder.isWaiting && (
             <>
