@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { FilterMealsProps } from "../interfaces/search-and-filter-props";
 import { updateSelectedFilters, filterBySubcategory } from "../utils/filter";
 import { useRecoilState } from "recoil";

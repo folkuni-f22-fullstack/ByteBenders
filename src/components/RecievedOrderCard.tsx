@@ -28,7 +28,11 @@ export default function RecievedOrderCard() {
 	}, []);
 
 	if (orderData === null) {
-		return <div>Loading...</div>;
+		return (
+			<section className='loading-container'>
+				<div className='loading-order'>Loading...</div>
+			</section>
+		);
 	}
 
 	return (

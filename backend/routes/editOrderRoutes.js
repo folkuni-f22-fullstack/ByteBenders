@@ -1,8 +1,6 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import Order from '../models/Orders.js';
 import { connectDb } from '../db.js';
-import { connect } from 'mongoose';
 
 const router = express.Router();
 router.use(express.json());
@@ -13,8 +11,7 @@ router.put('/:id', async (req, res) => {
 	try {
 		await connectDb();
 		const orderId = req.params.id;
-		const updatedOrderData = req.body; // Utgår från att datan ligger i req.body tillsvidare
-		// const updatedStatus = req.body.status
+		const updatedOrderData = req.body;
 
 		// Kolla om någon order matchar sökid
 		const existingOrder = await Order.findOne({orderId: orderId});
@@ -43,17 +40,3 @@ router.put('/:id', async (req, res) => {
 
 
 export default router;
-
-
-
-
-// const orderSchema = new mongoose.Schema({
-//     orderId: Number,
-//     date: { type: Date, default: Date.now() },
-//     content: Array,
-//     usercomment: String,
-//     staffcomment: String,
-//     total: Number,
-//     status: String,
-//     locked: Boolean
-// })

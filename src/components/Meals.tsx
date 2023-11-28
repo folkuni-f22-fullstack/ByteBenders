@@ -15,6 +15,9 @@ import { cartState } from '../recoil/cartNumberState.js';
 import CategoryButton from './CategoryButton.tsx';
 import MealCard from './MealCard.tsx';
 import SelectedFilters from './SelectedFilters.tsx';
+import { BsCart3 } from 'react-icons/bs';
+import { TiDelete } from 'react-icons/ti';
+import { refreshQuantity } from '../utils/quantityChange.ts';
 
 const Meals = () => {
 	const [selectedCategory, setSelectedCategory] = useState('all');

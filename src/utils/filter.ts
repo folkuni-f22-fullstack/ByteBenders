@@ -1,5 +1,4 @@
 import { Dish } from "../interfaces/dish";
-import menuData from "../data/menu.json";
 
 // Filtrerar listan efter vilken kategori som är vald
 export const filterByCategory = (

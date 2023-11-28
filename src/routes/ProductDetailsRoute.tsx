@@ -9,7 +9,6 @@ import { isCartEmptyState } from '../recoil/cartNumberState.js';
 import WindowSizeListener from '../utils/WindowListener.tsx';
 import { Dish } from '../interfaces/dish.ts';
 import { getMealsID } from '../utils/fetch.tsx';
-import axios from 'axios';
 import { updateQuantity } from '../utils/quantityChange.ts';
 import { cartState } from '../recoil/cartNumberState.js';
 

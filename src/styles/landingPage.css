@@ -17,7 +17,9 @@
   color: var(--white-card-color);
   text-align: center;
 }
-
+.adress {
+  margin-right: 0.25em;
+}
 .landing-h1 {
   font-family: var(--font-heading);
   color: var(--orange-color);

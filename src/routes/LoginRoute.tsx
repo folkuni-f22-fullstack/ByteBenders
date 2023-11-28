@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect } from "react";
-import { signal } from "@preact/signals-react";
+import { useState, useRef } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import "../styles/login.css";
 import { useNavigate } from "react-router-dom";
@@ -8,8 +7,6 @@ import { loginState } from "../recoil/loginState.js";
 import fetchAccount from "../utils/AJAX/fetchAccount.js";
 import WindowSizeListener from "../utils/WindowListener.tsx";
 import isValidLogin from "../utils/validateLogin.ts";
-
-export const loggedIn = signal(false);
 
 export default function LoginRoute() {
   const [visible, setVisible] = useState(false);
@@ -36,8 +33,7 @@ export default function LoginRoute() {
 
         errorMsgRef.current.style.visibility = "visible";
       } else if (login.token) {
-        console.log('login.token true');
-        
+
         errorMsgRef.current.style.visibility = "hidden";
         setIsLoggedIn({ loggedIn: true, token: login.token });
         setUserInput("");
@@ -62,7 +58,7 @@ export default function LoginRoute() {
           <h1>Login</h1>
         </div>
         <div className="input-group">
-          <label htmlFor="user-input">Employee-number</label>
+          <label htmlFor="user-input">Employee-Name</label>
           <input
             type="text"
             id="user-input"

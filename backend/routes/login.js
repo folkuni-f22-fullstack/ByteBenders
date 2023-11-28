@@ -25,8 +25,6 @@ router.post('/', async (req, res) => {
 	// Letar efter användarobjekt som matchar användarnamnet i databasen
 	let maybeUser = await User.findOne({ name: reqName });
 
-	// TODO: validering för att kolla att man får rätt datatyper i bodyn
-
 	// Om användare ej finns
 	if (!maybeUser) {
 		res.status(401).send({

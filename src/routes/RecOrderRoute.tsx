@@ -4,11 +4,9 @@ import '../styles/OrderCards.css'
 export default function RecOrderRoute() {
     return (
         <>
-        <br />
             <div className="order-route-header">
                 <div className="order-page-employee">
-                    <h1> Recieved Orders </h1>
-                    <br />
+                    <h1> Received Orders </h1>
                 </div>
             </div>
             <RecievedOrderCard />

@@ -22,8 +22,6 @@ export function finishedTime(count) {
         const formattedHours = newHours < 10 ? `0${newHours}` : `${newHours}`;
 
         const ETA = `${formattedHours}:${formattedMinutes}`;
-
-        // console.log('finishedTime: ETA: ', ETA);
         
         localStorage.setItem('ETA', ETA);
         return ETA;
@@ -34,7 +32,6 @@ export function finishedTime(count) {
 
 
 export function checkIfDishIsFinished(count, setCurrentOrder) {
-    // let orderTime = finishedTime(count);
     let orderTime = localStorage.getItem('ETA');
 
     if (orderTime) {
@@ -45,9 +42,6 @@ export function checkIfDishIsFinished(count, setCurrentOrder) {
         
         orderDate.setHours(hours);
         orderDate.setMinutes(minutes);
-
-        // console.log('currentDate: ', currentDate, 'orderDate: ', orderDate);
-        
         
         // Jämför hela datumet och tiden för att se om ordern är klar
         if (currentDate >= orderDate) {

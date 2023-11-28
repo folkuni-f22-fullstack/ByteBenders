@@ -18,7 +18,6 @@ export function getKeyFromLS(key) {
 export function setKeyFromLS(key, value) {
     try {
         const LsData = localStorage.setItem(key, value)
-        // console.log(`LsData (key: ${key}): `, LsData)
         return LsData
     } catch (err) {
         console.log(err)

@@ -60,12 +60,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
 router.post('/', async (req, res) => {
 	try {
 		await connectDb();
-		const newOrderData = req.body; // Utgår från att datan ligger i req.body tillsvidare
-		console.log('req.body: ', req.body);
-		// const newOrder = new Order({newOrderData});
-		// console.log('newOrder: ', newOrder);
-		// const savedOrder = await newOrder.save();
-		console.log('newOrderData.content: ', newOrderData.content);
+		const newOrderData = req.body;
 
 		let maybeOrder = new Order({
 			orderId: newOrderData.orderId,
@@ -79,8 +74,6 @@ router.post('/', async (req, res) => {
 			locked: newOrderData.locked,
 		});
 		await maybeOrder.save();
-		// console.log('Order created:', savedOrder);
-		// res.status(201).send(savedOrder);
 	} catch (error) {
 		console.error(error.message);
 		res.sendStatus(400);
