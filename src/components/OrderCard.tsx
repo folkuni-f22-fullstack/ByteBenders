@@ -124,15 +124,22 @@ const OrderCard: React.FC<OrderCardProps> = ({
 	return (
 		<div className='recieved-order-card' key={order.orderId}>
 			<div className='order-content'>
-				<h1>
-					{' '}
-					<div>{order.orderId}</div>{' '}
-				</h1>
+						<div className="order-title">
+							<p className="order-title-description number">Order number</p>
+							<h1>{order.orderId}</h1>
+						</div>
+
+						<div className="order-title">
+							<p className="order-title-description email">Customer info</p>
+							<span className="title-customer-info">{order.customername}</span>
+							<span className="title-customer-info">{order.customermail}</span>
+						</div>
 				<ArrowButtons
 					isExpanded={isExpanded}
 					setIsExpanded={setIsExpanded}
 					order={order}
 				/>
+
 			</div>
 			{isExpanded === order.orderId && (
 				<section className='order-info-section'>
@@ -140,9 +147,6 @@ const OrderCard: React.FC<OrderCardProps> = ({
 						{order.content.map((item) => (
 							<li className='order-product-name' key={item.name}>
 								{item.name} {item.quantity}x
-								<div>
-									Total: <span>{order.total}</span> Kr
-								</div>
 							</li>
 						))}
 						<hr className='linebreak-current' />
