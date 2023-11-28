@@ -27,7 +27,6 @@ export default function PopularThisWeek() {
 
 		fetchPopular();
 
-		return () => {};
 	}, []);
 
 	// Add to local storage
