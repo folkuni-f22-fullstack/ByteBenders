@@ -9,6 +9,9 @@
   font-family: var(--font-heading);
   color: var(--orange-color);
 }
+.header-link {
+  text-decoration: none;
+}
 
 @media screen and (max-width: 1200px) {
   .header {
