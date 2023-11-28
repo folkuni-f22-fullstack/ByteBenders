@@ -170,7 +170,7 @@ export async function postOrder(customerInfo) {
 	}
 }
 
-export async function deleteOrder(orderId: string) {
+export async function deleteOrder(orderId: string, token) {
 	const deleteOrderUrl = `/api/orders/${orderId}`;
 
 	try {
@@ -178,7 +178,7 @@ export async function deleteOrder(orderId: string) {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
-				// You might need to include authentication headers if required
+				Authorization: token,
 			},
 		});
 

@@ -185,6 +185,8 @@ const OrderCard: React.FC<OrderCardProps> = ({
 						page={page}
 						order={order}
 						setOrderData={setOrderData}
+						change={change}
+						setChange={setChange}
 					/>
 				</section>
 			)}

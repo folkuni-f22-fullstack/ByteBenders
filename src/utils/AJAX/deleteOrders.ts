@@ -1,4 +1,5 @@
-export async function deleteOrder(orderId: number, token) {
+// prettier-ignore
+export async function deleteOrder(orderId: number, token: string) {
 	const deleteOrderUrl = `/api/orders/${orderId}`;
 
 	try {
@@ -6,7 +7,7 @@ export async function deleteOrder(orderId: number, token) {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: token,
+				'Authorization': token,
 			},
 		});
 

@@ -7,18 +7,22 @@ import { loginState } from '../recoil/loginState.js';
 import { useRecoilState } from 'recoil';
 import { Order } from '../interfaces/order';
 import { postDoneOrder } from '../utils/fetch';
-import { deleteOrder } from '../utils/AJAX/deleteOrders.js';
+import { deleteOrder } from '../utils/AJAX/deleteOrders.ts';
 
 type OrderHandlerProps = {
 	page: string;
 	order: Order;
 	setOrderData: React.Dispatch<React.SetStateAction<Order[] | null>>;
+	change: number;
+	setChange: (value: number) => void;
 };
 
 const OrderHandlers: React.FC<OrderHandlerProps> = ({
 	page,
 	order,
 	setOrderData,
+	change,
+	setChange,
 }) => {
 	const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);
 
@@ -30,6 +34,7 @@ const OrderHandlers: React.FC<OrderHandlerProps> = ({
 			// Refetch orders after updating the "status"
 			const updatedOrders = await getOrders(isLoggedIn.token);
 			setOrderData(updatedOrders);
+			setChange((change) => change + 1);
 			console.log('Order updated');
 		} catch (error) {
 			console.log('Failed to update order status');
@@ -45,6 +50,7 @@ const OrderHandlers: React.FC<OrderHandlerProps> = ({
 					? prevOrderData.filter((o) => o.orderId !== order.orderId)
 					: null
 			);
+			setChange((change) => change + 1);
 		} catch (error) {
 			console.log('Failed to mark order as done', error);
 		}
