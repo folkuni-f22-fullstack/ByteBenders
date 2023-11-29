@@ -21,6 +21,7 @@
 
 .filter-btn {
   right: 5px;
+  top: 2.5px;
 }
 
 .filter-btn {
@@ -28,11 +29,17 @@
   border: none;
 }
 
-.search-input-container > svg,
-.filter-btn > svg {
+.search-input-container > svg {
   height: 25px;
   width: 25px;
   fill: #686868;
+}
+
+.filter-btn > svg {
+  height: 30px;
+  width: 30px;
+  fill: var(--orange-color);
+  font-weight: bold;
 }
 
 .filter-btn > svg:hover {

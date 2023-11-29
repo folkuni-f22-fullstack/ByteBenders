@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
     orderId: Number,
-    date: { type: Date, default: Date.now() },
+    date: String,
     customername: String,
     customermail: String,
     content: Array,

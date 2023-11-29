@@ -12,7 +12,7 @@ import customerrouter from './routes/customerSideRoutes.js'
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-const port = 1523;
+const port = 1523 || process.env.PORT_KEY;
 const app = express();
 export const secret = process.env.MONGO_URI;
 

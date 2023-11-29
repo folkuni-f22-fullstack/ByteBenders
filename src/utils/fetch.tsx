@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { Dish } from "../interfaces/dish";
 import { Order } from "../interfaces/order";
 import { promo, totalPrice } from "../components/CartInput";
+import { randomizer } from "./general";
 
 export function getMealsID() {
   const { id } = useParams();
@@ -27,16 +28,15 @@ export async function getOrders(token) {
   const options = {
     method: "GET",
     headers: {
-        "Content-Type": "application/json",
-        "Authorization": token
-    } 
-  }
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  };
 
   try {
     const response = await fetch(getOrdersUrl, options);
     const orderData = await response.json();
     return orderData;
-
   } catch (error) {
     console.log(error);
     throw new Error("Something went wrong while fetching meal details");
@@ -60,7 +60,6 @@ export async function putOrder(order: Order, newStatus: string, token) {
     const response = await fetch(putOrderUrl, options);
     const orderData = await response.json();
     return orderData;
-
   } catch (error) {
     console.log(error);
     throw new Error("Something went wrong while fetching meal details");
@@ -79,7 +78,6 @@ export async function isOrderLocked(id) {
     const response = await fetch(getOrdersUrl, options);
     const orderData = await response.json();
     return orderData.locked;
-
   } catch (error) {
     console.log(error);
     throw new Error("Something went wrong while fetching meal details");
@@ -102,18 +100,19 @@ export async function postOrder(customerInfo) {
     const parsedCartData = JSON.parse(cartData);
 
     // Extract all usercomments
-    const allUserComments = parsedCartData.map(
-      (comment) => comment.usercomment
-    );
-    const combineAllUserComments = allUserComments.join(". ");
+    // const allUserComments = parsedCartData.map(
+    //   (comment) => comment.usercomment
+    // );
+    // const combineAllUserComments = allUserComments.join(". ");
 
     // Omstrukturera parsedCartData efter vad din backend förväntar sig
     const formattedOrderData = {
       orderId: randomId,
+      date: new Date().toLocaleString('se-SV', {timeZone: 'Europe/Stockholm'}),
       customername: customerInfo.customerName,
       customermail: customerInfo.customerMail,
       content: parsedCartData,
-      usercomment: combineAllUserComments || "",
+      usercomment: customerInfo.customerComment || "",
       // staffcomment: parsedCartData.staffcomment || "",
       total: promo.value !== 0 ? promo.value : totalPrice.value,
       status: "received",
@@ -142,7 +141,7 @@ export async function postOrder(customerInfo) {
   }
 }
 
-export async function deleteOrder(orderId: string) {
+export async function deleteOrder(orderId: string, token) {
   const deleteOrderUrl = `/api/orders/${orderId}`;
 
   try {
@@ -150,7 +149,7 @@ export async function deleteOrder(orderId: string) {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        // You might need to include authentication headers if required
+        Authorization: token,
       },
     });
 
@@ -170,12 +169,6 @@ export async function deleteOrder(orderId: string) {
   }
 }
 
-
-function generateUniqueId() {
-  return Math.floor(Math.random() * 100000);
-}
-
-
 export async function postDoneOrder(order) {
   const postDoneOrderUrl = "/api/orders/done";
   const options = {
@@ -186,52 +179,54 @@ export async function postDoneOrder(order) {
 
   try {
     const response = await fetch(postDoneOrderUrl, options);
-    
+
     console.log(response);
 
     // Om förfrågan lyckas, logga svaret från servern
     console.log("Response from server:", order);
-
   } catch (error) {
     // Om något går fel, logga felet
     console.error("Error posting doneOrder:", error);
   }
 }
 
-
 export async function updateLockedOrder(order, type, value) {
-  const baseUrl = `/api/editorder/${order.orderId}`
+  // console.log('order: ', order);
 
-  let newStaffComment = '';
-  if (type === 'comment' && order.staffcomment && order.staffcomment !== '') {
-    newStaffComment = order.staffcomment + ', ' + value;
-  } else if (type === 'comment') {
+  const baseUrl = `/api/editorder/${order.orderId}`;
+
+  let newStaffComment = "";
+  if (type === "comment" && order.staffcomment && order.staffcomment !== "") {
+    newStaffComment = order.staffcomment + ", " + value;
+  } else if (type === "comment") {
     newStaffComment = value;
-  } else if (type === 'comment-reset') {
-    newStaffComment = '';
+  } else if (type === "comment-reset") {
+    newStaffComment = "";
   } else {
-    newStaffComment = order.staffcomment || '';
+    newStaffComment = order.staffcomment || "";
   }
-  
+
   let body = {
     orderId: order.orderId,
     staffcomment: newStaffComment,
-    total: type === 'total' ? Number(value) : order.total,
+    total:
+      type === "total" || type === "applyDiscount"
+        ? Number(value)
+        : order.total,
   };
 
-  try {  
-      const options = {
-          method: 'PUT',
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify(body)
-      };
+  try {
+    const options = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    };
 
-      let response = await fetch(baseUrl, options);
-      const data = await response.json();
-      return response;
-
+    let response = await fetch(baseUrl, options);
+    const data = await response.json();
+    return response;
   } catch (error) {
-      console.log( 'error.message: ', error.message);
-      return error.message
+    console.log("error.message: ", error.message);
+    return error.message;
   }
 }
