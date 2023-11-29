@@ -8,9 +8,13 @@
 
 .cart-card-container {
   height: 60vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border-bottom: 2px solid var(--orange-color);
   overflow-y: scroll;
-  padding-top: 1.7em;
+  padding-top: 2.5em;
 }
 
 .cart-card-container::-webkit-scrollbar {
@@ -18,29 +22,45 @@
 }
 
 .cart-card {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: var(--white-card-color);
   padding: 1em;
+  width: 90%;
   max-width: 30em;
-  height: 12em;
-  margin: 2em 1em 0 1em;
-  padding: 1em 1em 0 1em;
+  min-width: 18em;
+  height: 10em;
+  margin: 1em 1em 0 1em;
+  padding: 1em;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 2px;
-  position: relative;
 }
-
-.cart-image-container {
-  grid-column: 1;
-  grid-row: 2;
+.cart-card-price,
+.img-amount-div {
   display: flex;
-  align-self: center;
+  flex-direction: row;
+  width: 100%;
 }
-
+.cart-card-price {
+  justify-content: space-between;
+}
+.img-amount-div {
+  align-items: center;
+  margin-top: 1em;
+}
+.amount-div {
+  height: 4.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
 .cart-image {
-  width: 6em;
+  height: 4.5em;
   border-radius: 10px;
+  margin-right: 0.5em;
 }
 
 .cart-name {
@@ -53,14 +73,6 @@
   color: var(--dark-blue);
   font-size: 18px;
 }
-
-.sub-text {
-  grid-column: 2 / span 4;
-  grid-row: 2;
-  position: absolute;
-  top: 1em;
-}
-
 .card-price {
   grid-column: 4 / span 2;
   grid-row: 1;
@@ -72,11 +84,8 @@
 }
 
 .amount-container {
-  grid-column: 2;
-  grid-row: 2 / span 2;
   gap: 5px;
   display: flex;
-  margin-bottom: 0.5em;
 }
 
 .sub-text,
@@ -145,7 +154,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1em;
+  padding: 0 1em;
   width: 90%;
   max-width: 30em;
   height: 3em;
@@ -156,7 +165,7 @@
 }
 .promo-icon-input {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -169,29 +178,25 @@
   margin-left: 0.2em;
 }
 .promo-code {
-  grid-column: 2 / span 10;
-  grid-row: 1;
   padding-left: 0.2em;
-  height: em;
-  margin-right: 0.5em;
   font-size: 0.9em;
   border: none;
+  width: 85%;
 }
 
 .promo-code:focus,
 .user-input:focus {
   outline: none;
-  border-bottom: 0.5px solid var(--orange-color);
 }
 
 .apply-promo-button {
-  grid-column: 12;
   border: none;
   background-color: var(--dark-blue);
   color: var(--text-color-card);
   width: 4em;
   height: 2em;
   border-radius: 0.3em;
+  min-width: 3.5em;
 }
 
 .apply-promo-button:hover {
@@ -204,9 +209,9 @@
   justify-content: space-between;
   align-self: center;
   align-items: center;
-  padding: 1em;
+  padding: 0 1em;
   height: 3em;
-  margin: 0em 1em;
+  margin: 1em 1em 0;
   width: 90%;
   max-width: 30em;
   font-weight: bold;
@@ -216,9 +221,6 @@
 }
 
 .price {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
 }
 
 .total-price {
@@ -229,14 +231,20 @@
 }
 .total-price-div {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 1em 0em;
 }
 .new-price {
   display: flex;
   align-self: center;
   color: var(--orange-color);
+  font-weight: bold;
 }
 .total-text {
   margin-right: 0.2em;
+  font-weight: bold;
 }
 
 .total-price {
@@ -247,11 +255,14 @@
 }
 
 .total-price--crossed {
-  grid-column: 2;
+  width: 4em;
   display: flex;
   align-self: center;
   color: var(--orange-color);
   text-decoration: line-through;
+  position: absolute;
+  top: 1.2em;
+  font-weight: bold;
 }
 
 .userinput-container {
@@ -324,33 +335,6 @@
   position: absolute;
 }
 
-@media (min-width: 380px) {
-  /* .cart-name {
-    font-size: 1.5em;
-  } */
-
-  .sub-text {
-    align-self: center;
-  }
-
-  .amount-container {
-    grid-column: 2;
-    grid-row: 2;
-    align-self: end;
-  }
-
-  .amount-container > .sub,
-  .amount-container > .plus {
-    align-self: center;
-    margin-bottom: 0;
-  }
-
-  .food-amount {
-    align-self: center;
-    margin-bottom: 0;
-  }
-}
-
 @media screen and (min-width: 1200px) {
   .cart-card-container {
     height: 56vh;
@@ -358,7 +342,7 @@
 
   .cart-section {
     height: 100vh;
-    padding-bottom: 0em;
+
     background-color: #ffffff;
     width: 22em;
     position: fixed;
@@ -372,5 +356,5 @@
 }
 
 .send-cart-button {
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }

@@ -19,9 +19,11 @@ function CartInput() {
   const [cartItems, setCartItems] = useRecoilState(cartState);
   const [isNameValid, setIsNameValid] = useState(true);
   const [isMailValid, setIsMailValid] = useState(true);
+  const [isComment, setIsComment] = useState(true);
   const [isPromoCorrect, setIsPromoCorrect] = useState(true);
   const customerNameRef = useRef(null);
   const customerMailRef = useRef(null);
+  const customerCommentRef = useRef(null);
 
   useEffect(() => {
     axios
@@ -92,7 +94,20 @@ function CartInput() {
   return (
     <>
       {/* Total price */}
-      <div className="cart-total-container"></div>
+      <div
+        className={`cart-total-container ${
+          !isNameValid ? "invalid-input" : ""
+        }`}
+      >
+        <input
+          ref={customerCommentRef}
+          className="user-input"
+          id="customer-mail"
+          type="text"
+          placeholder="Customize your order"
+          onChange={() => setIsComment(true)}
+        />
+      </div>
       {/* "First and last name" input field */}
       <div
         className={`userinput-container ${!isNameValid ? "invalid-input" : ""}`}
@@ -164,8 +179,10 @@ function CartInput() {
       <SendCartData
         customerNameRef={customerNameRef}
         customerMailRef={customerMailRef}
+        customerCommentRef={customerCommentRef}
         setIsNameValid={setIsNameValid}
         setIsMailValid={setIsMailValid}
+        setIsComment={setIsComment}
       />
     </>
   );

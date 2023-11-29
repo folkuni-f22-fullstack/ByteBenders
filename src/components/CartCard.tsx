@@ -70,20 +70,6 @@ function CartCard() {
     numberOfCartItems();
   }
 
-  // Send customize order to local storage
-  function updateComment(name) {
-    const updateCartComment = updateCart.map((item) => {
-      if (item.name === name) {
-        // Copy of item and update comment property by id. If undifined set empty string as default value.
-        return { ...item, usercomment: customizeState[name] || "" };
-      }
-      return item;
-    });
-    // Update local storage
-    localStorage.setItem("cart", JSON.stringify(updateCartComment));
-    setCartCopy(updateCartComment);
-  }
-
   // Recursively counts items in cart
   function numberOfCartItems() {
     let count = 0;
@@ -126,40 +112,48 @@ function CartCard() {
                 <>
                   {/* Cart */}
                   {cartCopy.map((item: DishInCart, index) => (
+                    //hela kortet
                     <div className="cart-card" key={index}>
-                      <NavLink
-                        to={`/menu/${item._id}`}
-                        className="cart-image-container"
-                      >
-                        <img className="cart-image" src={item.image} />
-                      </NavLink>
-                      <NavLink
-                        key={item._id}
-                        to={`/menu/${item._id}`}
-                        className="cart-name"
-                      >
-                        {" "}
-                        {item.name}{" "}
-                      </NavLink>
-                      <p className="card-price"> {item.total} :- </p>
-                      <p className="sub-text">Amount: </p>
-                      <div className="amount-container">
-                        <button
-                          className="sub"
-                          onClick={() => updateQuantity(index, -1)}
+                      <div className="cart-card-price">
+                        <NavLink
+                          key={item._id}
+                          to={`/menu/${item._id}`}
+                          className="cart-name"
                         >
                           {" "}
-                          <BiMinus className="BiMinus" />
-                        </button>
-                        <p className="food-amount">{item.quantity} </p>
-                        <button
-                          className="plus"
-                          onClick={() => updateQuantity(index, 1)}
-                        >
-                          <BiPlus className="BiPlus" />
-                        </button>
+                          {item.name}{" "}
+                        </NavLink>
+                        <p className="card-price"> {item.total} :- </p>
                       </div>
-                      <input
+
+                      <div className="img-amount-div">
+                        <NavLink
+                          to={`/menu/${item._id}`}
+                          className="cart-image-container"
+                        >
+                          <img className="cart-image" src={item.image} />
+                        </NavLink>
+                        <div className="amount-div">
+                          <p className="sub-text">Amount: </p>
+                          <div className="amount-container">
+                            <button
+                              className="sub"
+                              onClick={() => updateQuantity(index, -1)}
+                            >
+                              {" "}
+                              <BiMinus className="BiMinus" />
+                            </button>
+                            <p className="food-amount">{item.quantity} </p>
+                            <button
+                              className="plus"
+                              onClick={() => updateQuantity(index, 1)}
+                            >
+                              <BiPlus className="BiPlus" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      {/* <input
                         className="customize-order"
                         type="text"
                         placeholder={
@@ -177,7 +171,7 @@ function CartCard() {
                           setCustomizeState(newCustomizeState);
                         }}
                         onBlur={() => updateComment(item.name)}
-                      ></input>
+                      ></input> */}
                     </div>
                   ))}
                 </>
