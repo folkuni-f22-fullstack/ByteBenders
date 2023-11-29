@@ -131,7 +131,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
 
 						<div className="order-title">
 							<div className="order-title-description">
-								<p className="email">Customer info</p>
+								<p className="email">{order.date.split('GMT')[0]}</p>
 								<p>
 									{order.content.reduce((total, item) => {
 										return total + item.quantity;
