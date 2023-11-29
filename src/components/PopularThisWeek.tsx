@@ -15,8 +15,10 @@ export default function PopularThisWeek() {
 	const [randomMeals, setRandomMeals] = useState([]);
 	const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
 	let [cartItems, setCartItems] = useRecoilState(cartState);
-	const [isHovered, setIsHovered] = useState(false);
 	const popularSectionRef = useRef(null);
+	const [isLargeScreen, setIsLargeScreen] = useState(
+		window.innerWidth > 1200
+	);
 
 	useEffect(() => {
 		async function fetchPopular() {
@@ -27,8 +29,18 @@ export default function PopularThisWeek() {
 				console.error(error);
 			}
 		}
-
 		fetchPopular();
+	}, []);
+
+	useEffect(() => {
+		// Function to update screen size
+		function updateScreenSize() {
+			setIsLargeScreen(window.innerWidth > 1200);
+		}
+		window.addEventListener('resize', updateScreenSize);
+		return () => {
+			window.removeEventListener('resize', updateScreenSize);
+		};
 	}, []);
 
 	// Add to local storage
@@ -37,37 +49,10 @@ export default function PopularThisWeek() {
 		setIsCartEmpty(!isCartEmpty);
 		setCartItems((cartItems += 1));
 	}
-
-	// Horizontal scroll
-	// useEffect(() => {
-	// 	const handleWheel = (event) => {
-	// 		if (isHovered) {
-	// 			popularSectionRef.current.scrollLeft += event.deltaY;
-	// 		}
-	// 	};
-
-	// 	document.addEventListener('wheel', handleWheel);
-
-	// 	return () => {
-	// 		document.removeEventListener('wheel', handleWheel);
-	// 	};
-	// }, [isHovered]);
-
-	// const handleMouseEnter = () => {
-	// 	setIsHovered(true);
-	// 	document.body.style.overflowY = 'hidden';
-	// };
-
-	// const handleMouseLeave = () => {
-	// 	setIsHovered(false);
-	// 	document.body.style.overflowY = '';
-	// };
-
+	// Checks if user has activated reduced-motion-mode
 	const reducedMotionSettings = window.matchMedia(
 		'(prefers-reduced-motion: reduce)'
 	).matches;
-
-	console.log('reducedMotionSettings är: ', reducedMotionSettings);
 
 	return (
 		<section className='popular-main'>
@@ -80,17 +65,15 @@ export default function PopularThisWeek() {
 			</div>
 			<section
 				className={`popular-section scroller snaps-inline`}
-				// className={`popular-section scroller ${
-				// 	isHovered ? 'hovered' : ''
-				// } snaps-inline`}
-				// onMouseEnter={handleMouseEnter}
-				// onMouseLeave={handleMouseLeave}
 				ref={popularSectionRef}
 				data-animated={!reducedMotionSettings && true}
 			>
 				<ul className='scroller__inner'>
-					{/* {randomMeals && */}
-					{[...Array(2)].map((_, loopIndex) =>
+					{[
+						...Array(
+							isLargeScreen && !reducedMotionSettings ? 2 : 1
+						),
+					].map((_, loopIndex) =>
 						randomMeals.map((menuItem: Dish) => (
 							<li
 								className='meals-card'
