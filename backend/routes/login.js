@@ -8,6 +8,14 @@ import { authenticateToken } from '../utils/authentication.js';
 const router = express.Router();
 router.use(express.json());
 
+let textColor = {
+    yellow: "\x1b[33m",
+    white: "\x1b[37m",
+    cyan: "\x1b[36m",
+	green: "\x1b[32m",
+	red: "\x1b[31m"
+};
+
 // [POST] - inloggning
 router.post('/', async (req, res) => {
 	await connectDb();
@@ -50,13 +58,13 @@ router.post('/', async (req, res) => {
 		
 		else if (isPasswordValid) {
 			let token = await generateToken(maybeUser);
-			console.log('token: ', token);
+			// console.log('token: ', token);
 			const tokenPackage = {
 				token: token
 			}
 	
 			console.log(
-				`${maybeUser.name} logged in at ${new Date().toISOString()}`
+				`${textColor.green}[SUCCESS]${textColor.white} ${maybeUser.name} logged in at ${new Date().toLocaleString('se-SV', {timeZone: 'Europe/Stockholm'})}`
 			);
 	
 			res.send(tokenPackage);
