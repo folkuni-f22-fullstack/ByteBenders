@@ -64,6 +64,7 @@ router.post('/', async (req, res) => {
 
 		let maybeOrder = new Order({
 			orderId: newOrderData.orderId,
+			date: newOrderData.date,
 			customername: newOrderData.customername,
 			customermail: newOrderData.customermail,
 			content: newOrderData.content,
