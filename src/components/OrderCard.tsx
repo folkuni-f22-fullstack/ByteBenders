@@ -130,7 +130,14 @@ const OrderCard: React.FC<OrderCardProps> = ({
 						</div>
 
 						<div className="order-title">
-							<p className="order-title-description email">Customer info</p>
+							<div className="order-title-description">
+								<p className="email">Customer info</p>
+								<p>
+									{order.content.reduce((total, item) => {
+										return total + item.quantity;
+									}, 0)} item(s)
+								</p>
+							</div>
 							<span className="title-customer-info">{order.customername}</span>
 							<span className="title-customer-info">{order.customermail}</span>
 						</div>
@@ -146,16 +153,22 @@ const OrderCard: React.FC<OrderCardProps> = ({
 					<ul className='order-info-list'>
 						{order.content.map((item) => (
 							<li className='order-product-name' key={item.name}>
-								{item.name} {item.quantity}x
+								<div>
+									<span className="item-quantity">x{item.quantity}</span> {item.name} 
+								</div>
+								<span>{item.total}:-</span>
 							</li>
 						))}
+
+
+						<span className=" current-price" key={order.name}>Total: {order.total}:-</span>
 						<hr className='linebreak-current' />
 					</ul>
 
 					{page === 'current' ? (
 						<>
 							<div className='user-comment-section'>
-								<p className='order-comment'>User commments:</p>
+								<p className='order-comment'>User comments:</p>
 								<span className='user-comment'>
 									{order.usercomment}
 								</span>
@@ -179,6 +192,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
 								Reset comments
 							</button>
 
+
 							<section className='staff-edit-section'>
 								{PropsListForStaffInput.map(
 									({
@@ -194,23 +208,17 @@ const OrderCard: React.FC<OrderCardProps> = ({
 											clickHandler={clickHandler}
 											order={order}
 											type={type}
-										/>
-									)
-								)}
+											/>
+											)
+											)}
 							</section>
 						</>
 					) : (
 						<>
-							<h3 className='order-comment'>User commments:</h3>
-							<span>{order.usercomment}</span>
+							<h3 className='order-comment'>User comments:</h3>
+							<span className="user-comment-field">{order.usercomment}</span>
 						</>
 					)}
-
-					{order.content.map((item) => (
-						<div className=' current-price' key={item.name}>
-							Total: <span>{order.total}</span> Kr
-						</div>
-					))}
 
 					<OrderHandlers
 						page={page}
