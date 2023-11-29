@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
 
-  background-image: url("../assets/images/backgrounds/alt-img-resize.jpeg");
+  background-image: url("/images/backgrounds/alt-img-resize.jpeg");
   background-blend-mode: multiply;
   background-color: rgb(116, 116, 116);
   background-size: cover;

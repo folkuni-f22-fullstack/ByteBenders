@@ -3,7 +3,7 @@
 .information {
 	background-blend-mode: multiply;
 	background-color: var(--background-img-filter);
-	background-image: url(../assets/images/backgrounds/landingpage-mobile-resized.jpg);
+	background-image: url('/images/backgrounds/landingpage-mobile-resized.jpg');
 	background-size: cover;
 	background-position: center center;
 	background-repeat: no-repeat;
