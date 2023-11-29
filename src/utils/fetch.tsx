@@ -108,6 +108,7 @@ export async function postOrder(customerInfo) {
     // Omstrukturera parsedCartData efter vad din backend förväntar sig
     const formattedOrderData = {
       orderId: randomId,
+      date: new Date().toLocaleString('se-SV', {timeZone: 'Europe/Stockholm'}),
       customername: customerInfo.customerName,
       customermail: customerInfo.customerMail,
       content: parsedCartData,
