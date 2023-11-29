@@ -33,9 +33,9 @@ const StaffInput: React.FC<StaffInputProps> = ({
 				type='text'
 				placeholder={
 					type === 'comment'
-						? 'Add comment'
+						? 'Add staff comment'
 						: type === 'applyDiscount'
-						? 'Apply discount'
+						? 'Apply discount percentage'
 						: 'Edit order price'
 				}
 				ref={inputRef}
