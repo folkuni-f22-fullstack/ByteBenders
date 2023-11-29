@@ -131,7 +131,7 @@ export async function postOrder(customerInfo) {
       throw new Error(`Server responded with status: ${response.status}`);
     }
 
-    const responseData = await response.json();
+    // const responseData = await response.json();
 
     // Ta bort orderdatan från local storage efter att beställningen har skickats
     localStorage.removeItem("cart");
