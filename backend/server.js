@@ -1,5 +1,5 @@
 import express from 'express';
-import { join, dirname, path } from 'path';
+import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { connectDb } from './db.js';
 import mealrouter from './routes/mealRoutes.js';
@@ -37,7 +37,7 @@ app.use('/api/popular', popularrouter);
 app.use('/api/customer', customerrouter);
 
 app.get('*', (req, res) => {
-	res.sendFile(path.join(pathToStaticFolder, 'index.html'));
+	res.sendFile(join(pathToStaticFolder, 'index.html'));
 });
 
 // start
