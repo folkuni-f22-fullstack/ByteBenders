@@ -18,7 +18,8 @@ export default function LoginRoute() {
   let windowWidth = WindowSizeListener();
   let textColor = windowWidth > 1200 ? "var(--dark-blue)" : "#FFFFFF";
 
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
+    event?.preventDefault()
     const inputsAreValid = isValidLogin(userInput, passwordInput);
     if (!inputsAreValid) {
       errorMsgRef.current.style.visibility = "visible";
@@ -89,7 +90,7 @@ export default function LoginRoute() {
           {" "}
           User or password not found..{" "}
         </p>
-        <button type="submit" className="login-button" onClick={handleLogin}>
+        <button type="submit" className="login-button" onClick={(event) => handleLogin(event)}>
           Log in
         </button>
       </form>
