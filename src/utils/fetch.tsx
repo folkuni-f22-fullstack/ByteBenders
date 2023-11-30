@@ -126,7 +126,7 @@ export async function postOrder(customerInfo) {
     }
 
     // Ta bort orderdatan från local storage efter att beställningen har skickats
-    localStorage.removeItem("cart");
+    // localStorage.removeItem("cart");
   } catch (error) {
     console.error(error);
     throw new Error("Something went wrong while posting order");

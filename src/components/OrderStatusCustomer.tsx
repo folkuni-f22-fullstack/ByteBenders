@@ -60,9 +60,9 @@ export default function OrderStatusCustomer() {
           "Sorry, the order is already being made..";
       } else {
         orderText.current.innerText =
-          "Your order has been erased and you can now make a new order.";
+          "You can now edit your order.";
         eraseButton.current.style.visibility = "hidden";
-        ETAtext.current.style.display = "none";
+        ETAtext.current.style.visibility = "hidden";
 
         setTimeout(() => {
           setCurrentOrder({
