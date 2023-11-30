@@ -19,7 +19,6 @@ export default function RecievedOrderCard({ change, setChange }) {
 					(order) => order.status === 'received'
 				);
 				setOrderData(receivedOrders);
-				console.log('Succeeded in fetching received orders');
 			} catch (error) {
 				console.log('Failed to fetch received orders');
 			}
