@@ -4,7 +4,7 @@
   position: relative;
   background-blend-mode: multiply;
   background-color: rgb(116, 116, 116);
-  background-image: url(../assets/images/backgrounds/landingpage-mobile-resized.jpg);
+  background-image: url('/images/backgrounds/landingpage-mobile-resized.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -17,7 +17,9 @@
   color: var(--white-card-color);
   text-align: center;
 }
-
+.adress {
+  margin-right: 0.25em;
+}
 .landing-h1 {
   font-family: var(--font-heading);
   color: var(--orange-color);
@@ -58,7 +60,7 @@
 
 @media screen and (min-width: 798px) {
   .landing-section {
-    background-image: url(../assets/images/backgrounds/landingpage-desktop-resized.jpg);
+    background-image: url('/images/backgrounds/landingpage-desktop-resized.jpg');
     background-position: center top;
   }
   .landing-section > h1 {

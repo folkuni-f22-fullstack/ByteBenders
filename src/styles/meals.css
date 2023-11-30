@@ -1,79 +1,82 @@
-@import "../App.css";
+@import '../App.css';
+
 .meals-section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding-bottom: 7em;
 }
 .meals-main {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
 }
 .meals-link {
-  text-decoration: none;
-  height: 100%;
+	text-decoration: none;
+	height: 100%;
 }
 .navlink {
-  text-decoration: none;
+	text-decoration: none;
 }
 .meals-card {
-  background-size: cover;
-  background-position: center;
-  width: 11em;
-  height: 13em;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  border-radius: 1em;
-  position: relative;
-  box-shadow: var(--shadow);
-  margin: var(--margin-between-card);
+	background-size: cover;
+	background-position: center;
+	width: 11em;
+	height: 13em;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	border-radius: 1em;
+	position: relative;
+	box-shadow: var(--shadow);
+	margin: var(--margin-between-card);
 }
 .meals-img {
-  filter: brightness(0.6);
-  height: 100%;
-  object-fit: cover; /* Justera värdet för mörkare eller ljusare effekt */
-  border-radius: 1em 1em 0 0;
-  width: 100%;
+	filter: brightness(0.6);
+	height: 100%;
+	object-fit: cover; /* Justera värdet för mörkare eller ljusare effekt */
+	border-radius: 1em 1em 0 0;
+	width: 100%;
 }
 .meals-btn {
-  background-color: #263544;
-  border: none;
-  height: 4em;
-  width: 100%;
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--white-card-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0 0 1em 1em;
-  cursor: pointer;
+	background-color: #263544;
+	border: none;
+	height: 4em;
+	width: 100%;
+	font-size: 16px;
+	font-weight: 500;
+	color: var(--white-card-color);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 0 0 1em 1em;
+	cursor: pointer;
+	z-index: 12;
 }
 .meals-cart {
-  font-size: 18px;
-  margin-left: 0.5em;
+	font-size: 18px;
+	margin-left: 0.5em;
 }
 .meals-text > .meals-price {
-  color: var(--orange-color);
-  padding-bottom: 1em;
-  padding-top: 0.25em;
+	color: var(--orange-color);
+	padding-bottom: 1em;
+	padding-top: 0.25em;
 }
 .meals-text {
-  position: absolute;
-  color: var(--text-color-card);
-  padding-left: 10px;
-  padding-bottom: 10px;
-  font-weight: bold;
-  bottom: 15%;
-  padding-right: 0.5em;
+	position: absolute;
+	color: var(--text-color-card);
+	padding-left: 10px;
+	padding-bottom: 10px;
+	font-weight: bold;
+	bottom: 15%;
+	padding-right: 0.5em;
 }
 .btn-icon {
-  font-size: 20px;
-  margin-left: 0.5em;
+	font-size: 20px;
+	margin-left: 0.5em;
 }
 
-.popular-section {
+/* .popular-section {
   display: grid;
   grid-auto-flow: column;
   overflow-x: auto;
@@ -81,13 +84,30 @@
   overscroll-behavior-inline: contain;
   z-index: -2;
   margin-left: 1em;
+  cursor: pointer;
 }
+
+.popular-section::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.popular-section::-webkit-scrollbar-thumb {
+  background: var(--orange-color);
+  border-radius: 5px;
+}
+
+.popular-section::-webkit-scrollbar-thumb:hover {
+  background: #ff9d14;
+}
+
 .snaps-inline {
   scroll-snap-type: inline mandatory;
 }
 .snaps-inline > * {
   scroll-snap-align: start;
 }
+
 .most-popular-title {
   color: var(--orange-color);
   position: absolute;
@@ -111,45 +131,35 @@
 }
 .pop-title-span {
   color: var(--white-card-color);
-}
+} */
 
-.fav-btn {
-  font-size: 30px;
-  color: orange;
-  position: absolute;
-  z-index: 101;
-  right: 0;
-  height: 1em;
-  background-color: transparent;
-  border: none;
-  top: 10px;
-  right: 10px;
-}
-
-@media screen and (min-width: 798px) {
-  .popular-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+@media screen and (min-width: 1200px) {
+	/* .popular-section {
     margin-top: 2em;
     margin-left: 1.5em;
+    gap: 1.5em;
+    margin-right: 22em;
+  }
+  .popular-section.hovered {
+    overflow-x: scroll;
   }
   .popular-section > .meals-link {
     height: auto;
-  }
-  .meals-section {
-    margin-right: 22vw;
-    margin-left: 5.1em;
-    justify-content: flex-start;
-  }
-  .meals-section > * {
-    margin-left: 2em;
-  }
-  .meals-card {
-    width: 12em;
-    height: 14em;
-  }
-  .popular-main {
+  } */
+	.meals-section {
+		margin-right: 22em;
+		margin-left: 5.1em;
+		justify-content: flex-start;
+		padding-bottom: 2em;
+	}
+	.meals-section > * {
+		margin-left: 2em;
+	}
+	.meals-card {
+		width: 12em;
+		height: 14em;
+	}
+	/* .popular-main {
     margin-left: 5.1em;
   }
   .pop-hero-div {
@@ -157,25 +167,5 @@
     border-radius: 1em;
     margin-left: 2.1em;
     margin-top: 7em;
-  }
-}
-
-@media screen and (min-width: 798px) and (max-width: 1200px) {
-  .meals-section {
-    max-width: 100vw;
-  }
-  .pop-hero-div {
-    width: 80%;
-  }
-}
-
-@media screen and (max-width: 1200px) {
-  .meals-section {
-    margin-right: 0;
-  }
-}
-@media screen and (min-width: 1200px) and (max-width: 1400px) {
-  .meals-section {
-    margin-right: 24em;
-  }
+  } */
 }

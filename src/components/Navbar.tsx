@@ -11,35 +11,34 @@ import { useRecoilState } from "recoil";
 import { loginState } from "../recoil/loginState.js";
 import { cartState } from "../recoil/cartNumberState.js";
 import { getCartQuantity } from "../utils/general.ts";
+import { deleteCookie } from "../utils/cookieHandler.ts";
+import { linkObject } from "../interfaces/linkObject.ts";
+import { loginStateType } from "../interfaces/loginStateType.ts";
+
 const NavBar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const [isLoggedIn, setIsLoggedIn] =
+    useRecoilState<loginStateType>(loginState);
   const [cartItems, setCartItems] = useRecoilState(cartState);
-  const [linksToShow, setLinksToShow] = useState([]);
+  const [linksToShow, setLinksToShow] = useState<linkObject[]>([]);
   const navigate = useNavigate();
   const modal = useRef<HTMLDialogElement | null>(null);
+  const [cartQuantity, setCartQuantity] = useState(getCartQuantity());
 
   // Lägger in antal i kundvagn vid komponent-mount
   useEffect(() => {
-    setCartItems(getCartQuantity());
-  });
+    setCartItems(cartQuantity);
+  }, [cartQuantity]);
 
   // Ikoner för navbaren utan inloggning
-  const linkObjects = [
+  const linkObjects: linkObject[] = [
     { icon: <PiForkKnifeFill />, text: "Menu", to: "menu" },
-    { icon: <BsCart3 />, text: `Cart (${cartItems})`, to: "cart" },
+    { icon: <BsCart3 />, text: `Cart`, to: "cart", class: "cart" },
     { icon: <BsInfoLg />, text: "About", to: "information" },
     { icon: <BsFillPersonFill />, text: "Log in", to: "login" },
   ];
 
-  const updatedLinkObjects = linkObjects.map((link) => {
-    if (link.text === "Cart") {
-      return { ...link, text: `Cart (${cartItems})` };
-    }
-    return link;
-  });
-
   // Ikoner för navbaren efter inloggning
-  const linkObjectsLoggedIn = [
+  const linkObjectsLoggedIn: linkObject[] = [
     { icon: <BiSolidPencil />, text: "Received", to: "recieved" },
     { icon: <GrUnorderedList />, text: "Current", to: "current" },
     { icon: <MdDone />, text: "Done", to: "done" },
@@ -47,12 +46,13 @@ const NavBar = () => {
   ];
 
   useEffect(() => {
-    setLinksToShow(isLoggedIn ? linkObjectsLoggedIn : updatedLinkObjects);
-  }, [isLoggedIn, cartItems]);
+    setLinksToShow(isLoggedIn.loggedIn ? linkObjectsLoggedIn : linkObjects);
+  }, [isLoggedIn.loggedIn, cartItems]);
 
   const handleLogout = () => {
     closeModal();
-    setIsLoggedIn(false);
+    setIsLoggedIn({ loggedIn: false });
+    deleteCookie();
     navigate("");
   };
 
@@ -81,8 +81,13 @@ const NavBar = () => {
   return (
     <nav className="navbar">
       {linksToShow &&
-        linksToShow.map((link) => (
-          <div key={link.text} className="link-container">
+        linksToShow.map((link: linkObject) => (
+          <div
+            key={link.text}
+            className={
+              link.class ? "link-container " + link.class : "link-container"
+            }
+          >
             {link.text === "Log out" ? (
               <button onClick={confirmLogout}>
                 <MenuLink linkto={link.to} icon={link.icon} text={link.text} />

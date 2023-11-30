@@ -1,13 +1,16 @@
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
-    _id: Number,
-    date: { type: Date, default: Date.now() },
-    content: [],
+    orderId: Number,
+    date: String,
+    customername: String,
+    customermail: String,
+    content: Array,
     usercomment: String,
     staffcomment: String,
     total: Number,
-    done: Boolean
+    status: String,
+    locked: Boolean
 })
 
 const Order = mongoose.model('Order', orderSchema)

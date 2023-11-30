@@ -8,13 +8,24 @@ import { authenticateToken } from '../utils/authentication.js';
 const router = express.Router();
 router.use(express.json());
 
+let textColor = {
+    yellow: "\x1b[33m",
+    white: "\x1b[37m",
+    cyan: "\x1b[36m",
+	green: "\x1b[32m",
+	red: "\x1b[31m"
+};
+
 // [POST] - inloggning
 router.post('/', async (req, res) => {
 	await connectDb();
 
 	// Om inte body är komplett eller saknas
 	if (!req.body || !req.body.name || !req.body.password) {
-		res.sendStatus(412); // Precondition failed
+		res.status(412).send({
+			message: 'Username or password is missing'
+		}) // Precondition Failed
+		return
 	}
 	const reqName = req.body.name;
 	const reqPassword = req.body.password;
@@ -22,33 +33,42 @@ router.post('/', async (req, res) => {
 	// Letar efter användarobjekt som matchar användarnamnet i databasen
 	let maybeUser = await User.findOne({ name: reqName });
 
-	// TODO: validering för att kolla att man får rätt datatyper i bodyn
-
 	// Om användare ej finns
 	if (!maybeUser) {
-		res.sendStatus(404);
+		res.status(401).send({
+			message: 'Wrong username or password'
+		})// Unauthorized
 	}
 
 	// Om användare finns:
 	else if (maybeUser) {
-		console.log(
-			`${maybeUser.name} logged in at ${new Date().toISOString()}`
-		);
-
+		
 		// Jämför lösenord med bcrypt:
 		const isPasswordValid = await bcrypt.compare(
 			reqPassword,
 			maybeUser.password
-		);
-
+			);
+			
 		// Om lösenordet inte stämmer överrens
 		if (!isPasswordValid) {
-			res.sendStatus(401); // Unauthorized
+			res.status(401).send({
+				message: 'Wrong username or password'
+			})// Unauthorized
 		}
-
-		let token = await generateToken(maybeUser);
-		console.log('token: ', token);
-		res.send(token);
+		
+		else if (isPasswordValid) {
+			let token = await generateToken(maybeUser);
+			// console.log('token: ', token);
+			const tokenPackage = {
+				token: token
+			}
+	
+			console.log(
+				`${textColor.green}[SUCCESS]${textColor.white} ${maybeUser.name} logged in at ${new Date().toLocaleString('se-SV', {timeZone: 'Europe/Stockholm'})}`
+			);
+	
+			res.send(tokenPackage);
+		}
 	}
 });
 
@@ -74,9 +94,10 @@ async function addUser() {
 }
 
 // Test för att kolla att authenticateToken-middleware fungerar, kan tas bort när det finns riktiga endpoints
-router.get('/test', authenticateToken, (req, res) => {
-	console.log('Success');
-	res.sendStatus(205);
+router.get('/test', authenticateToken, async (req, res) => {
+	console.log('Success in login/test');
+
+	res.status(200).send({message: 'Success in login/test'});
 });
 
 export default router;

@@ -1,19 +1,22 @@
 import CurrentOrderCard from "../components/CurrentOrdersCard";
-import '../styles/OrderCards.css'
+import "../styles/OrderCards.css";
+import { useState } from "react";
+import { GrUnorderedList } from "react-icons/gr";
 
 export default function CurrOrderRoute() {
-    return (
-        <>
-            {/* // TODO : Ska header brukas istället för h1?*/}
-            <h1 className="order-logotype">Fish & Friends</h1>
-            <br />
-            <div className="order-route-header">
-                <div className="order-page-employee">
-                    <h1> Current Orders </h1>
-                    <br />
-                </div>
-            </div>
-            <CurrentOrderCard />
-        </>
-    );
+  const [change, setChange] = useState(0);
+
+  return (
+    <>
+      <div className="order-route-header">
+        <div className="order-page-employee">
+          <h1 className="employee-h1">
+            {" "}
+            Current Orders <GrUnorderedList className="employee-icon" />{" "}
+          </h1>
+        </div>
+      </div>
+      <CurrentOrderCard change={change} setChange={setChange} />
+    </>
+  );
 }

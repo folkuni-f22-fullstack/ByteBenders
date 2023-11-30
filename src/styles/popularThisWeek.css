@@ -1,0 +1,130 @@
+.most-popular-title {
+	color: var(--orange-color);
+	position: absolute;
+	font-size: 24px;
+	font-weight: 600;
+}
+
+.pop-hero-div {
+	width: 100%;
+	height: 12em;
+	background-image: url('/images/backgrounds/popular-img-resize.jpg');
+	background-blend-mode: multiply;
+	background-color: rgb(116, 116, 116);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 6em;
+}
+.pop-title-span {
+	color: var(--white-card-color);
+}
+
+.popular-section {
+	list-style: none;
+	padding-inline: 0;
+}
+
+.scroller__inner {
+	display: flex;
+	flex-wrap: nowrap;
+	overflow: hidden;
+}
+
+@keyframes scroll {
+	to {
+		transform: translate(-50%);
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	.popular-section {
+		/* margin-top: 2em; */
+		margin-left: 0.5em;
+		gap: 1.5em;
+		margin-right: 22em;
+	}
+
+	.popular-section > .meals-link {
+		height: auto;
+	}
+
+	.popular-main {
+		margin-left: 5.1em;
+	}
+	.pop-hero-div {
+		width: 65%;
+		border-radius: 1em;
+		margin-left: 2.1em;
+		margin-top: 7em;
+	}
+	.scroller__inner {
+		flex-wrap: wrap;
+	}
+
+	.scroller[data-animated='true'] {
+		overflow: hidden;
+		/* for chrome-users */
+		-webkit-mask: linear-gradient(
+			90deg,
+			transparent,
+			white 2%,
+			white 98%,
+			transparent
+		);
+		/* for other browsers */
+		mask: linear-gradient(
+			90deg,
+			transparent,
+			white 2%,
+			white 98%,
+			transparent
+		);
+	}
+
+	.scroller[data-animated='true'] .scroller__inner {
+		width: max-content;
+		flex-wrap: nowrap;
+		animation: scroll 40s linear infinite;
+
+		&:hover {
+			animation-play-state: paused;
+		}
+	}
+}
+
+@media screen and (max-width: 1199px) {
+	.popular-section {
+		display: grid;
+		grid-auto-flow: column;
+		overflow-x: auto;
+		place-items: start;
+		overscroll-behavior-inline: contain;
+		z-index: -2;
+		cursor: pointer;
+	}
+
+	.popular-section::-webkit-scrollbar {
+		width: 5px;
+		height: 5px;
+	}
+
+	.popular-section::-webkit-scrollbar-thumb {
+		background: var(--orange-color);
+		border-radius: 5px;
+	}
+
+	.popular-section::-webkit-scrollbar-thumb:hover {
+		background: #ff9d14;
+	}
+
+	.snaps-inline {
+		scroll-snap-type: inline mandatory;
+	}
+	.snaps-inline > * {
+		scroll-snap-align: start;
+	}
+}
