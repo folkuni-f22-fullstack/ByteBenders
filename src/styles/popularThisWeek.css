@@ -105,8 +105,15 @@
 		overscroll-behavior-inline: contain;
 		z-index: -2;
 		cursor: pointer;
+		/* Scrollbar styling for Firefox */
+		scrollbar-width: thin;
+		scrollbar-color: var(--orange-color) transparent;
+		/* Scrollbar styling for WebKit (Safari) */
+		-webkit-scrollbar-width: thin;
+		-webkit-scrollbar-color: var(--orange-color) transparent;
 	}
 
+	/* Scrollbar styling for Chrome */
 	.popular-section::-webkit-scrollbar {
 		width: 5px;
 		height: 5px;
