@@ -37,7 +37,7 @@ app.use('/api/popular', popularrouter);
 app.use('/api/customer', customerrouter);
 
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+	res.sendFile(path.join(pathToStaticFolder, 'index.html'));
 });
 
 // start
