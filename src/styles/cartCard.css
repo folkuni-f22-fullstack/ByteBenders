@@ -240,6 +240,7 @@
   align-self: center;
   color: var(--orange-color);
   font-weight: bold;
+  margin-left: 5px;
 }
 .total-text {
   margin-right: 0.2em;
@@ -260,7 +261,8 @@
   color: var(--orange-color);
   text-decoration: line-through;
   position: absolute;
-  top: 1.2em;
+  top: 0em;
+  right: -70px;
   font-weight: bold;
 }
 
