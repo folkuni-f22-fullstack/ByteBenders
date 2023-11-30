@@ -13,7 +13,7 @@ export default function InformationRoute() {
 				</NavLink>
 					<h1 className='about-heading'>
 						Fish{' '}
-						<span className='heading-symbol about-heading'>&</span>{' '}
+						<span className='heading-symbol-about about-heading'>&</span>{' '}
 						Friends
 					</h1>
 				</header>
