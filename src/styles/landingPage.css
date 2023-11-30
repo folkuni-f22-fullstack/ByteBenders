@@ -4,12 +4,14 @@
   position: relative;
   background-blend-mode: multiply;
   background-color: rgb(116, 116, 116);
-  background-image: url(../assets/images/backgrounds/landingpage-mobile-resized.jpg);
+  background-image: url('/images/backgrounds/landingpage-mobile-resized.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   width: 100%;
+  padding-bottom: 5em;
 }
 
 .landing-section p {
@@ -17,20 +19,31 @@
   color: var(--white-card-color);
   text-align: center;
 }
-
+.adress {
+  margin-right: 0.25em;
+}
+.landing-heading-section {
+  display: flex;
+  justify-items: center;
+  flex-direction: column;
+  padding-top: 1em;
+}
 .landing-h1 {
+  align-self: center;
   font-family: var(--font-heading);
   color: var(--orange-color);
-  font-size: 64px;
-  text-align: center;
-  padding-top: 1em;
+  font-size: 4em;
+ 
 }
 .landing-text {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  height: 25em;
+  max-height: 25em;
+}
+.landing-text > * {
+  margin-bottom: 2em;
 }
 .p-div-phone {
   display: flex;
@@ -41,13 +54,15 @@
 .note {
   color: var(--orange-color);
 }
-.heading-span {
+.heading-symbol {
   color: var(--white-card-color);
   font-family: var(--font-heading);
+  align-self: center;
+  font-size: 4em;
 }
 .landing-btn {
   background-color: var(--orange-color);
-  font-size: 18px;
+  font-size: 1em;
   font-weight: 600;
   color: var(--dark-blue);
   border: none;
@@ -58,7 +73,7 @@
 
 @media screen and (min-width: 798px) {
   .landing-section {
-    background-image: url(../assets/images/backgrounds/landingpage-desktop-resized.jpg);
+    background-image: url('/images/backgrounds/landingpage-desktop-resized.jpg');
     background-position: center top;
   }
   .landing-section > h1 {

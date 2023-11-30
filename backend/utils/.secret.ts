@@ -4,7 +4,7 @@ import { randomBytes } from 'crypto';
 import * as dotenv from 'dotenv';
 dotenv.config();
 const secret = process.env.SECRET_KEY;
-// const secret = secretKey || process.env.secretKey;
+
 
 export async function generateToken(user) {
 
@@ -27,7 +27,6 @@ async function generateKey() {
 		// (gör så att två identiska lösenord/nycklar inte resulterar i samma hashvärde)
 
 		const hashedKey = await bcrypt.hash(secretKey, saltRounds);
-		// console.log(hashedKey);
 		return hashedKey;
 	} catch (error) {
 		throw new Error('Error generating secret key');

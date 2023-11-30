@@ -4,27 +4,45 @@ import { useRecoilState } from "recoil";
 import { isCartEmptyState } from "../recoil/cartNumberState.js";
 import { orderState } from "../recoil/orderState.js";
 
-function SendCartData({ customerNameRef, customerMailRef, setIsNameValid, setIsMailValid }) {
+export let orderNumber = signal(null);
+export let isOrdered = signal(false);
+function SendCartData({
+  customerNameRef,
+  customerMailRef,
+  customerCommentRef,
+  setIsNameValid,
+  setIsMailValid,
+  setIsComment,
+}) {
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
   const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
 
   function handlePost() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const isMailRegexOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerMailRef.current.value)
-    const isNameRegexOk = /^[a-zA-Z\- ]+$/.test(customerNameRef.current.value)
-    
-    // For error styling
-    isMailRegexOk ? setIsMailValid(true) : setIsMailValid(false)
-    isNameRegexOk ? setIsNameValid(true) : setIsNameValid(false)
-    
-    // For function gate keeping
-    if (cart.length <= 0) { return }
-    if (!isMailRegexOk || !isNameRegexOk) {return}
+    const isMailRegexOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+      customerMailRef.current.value
+    );
+    const isNameRegexOk = /^[a-zA-ZåäöÅÄÖ\- ]+$/.test(
+      customerNameRef.current.value
+    );
 
-    const customerInfo = { 
-      customerName: customerNameRef.current.value,
-      customerMail: customerMailRef.current.value
+    // For error styling
+    isMailRegexOk ? setIsMailValid(true) : setIsMailValid(false);
+    isNameRegexOk ? setIsNameValid(true) : setIsNameValid(false);
+
+    // For function gate keeping
+    if (cart.length <= 0) {
+      return;
     }
+    if (!isMailRegexOk || !isNameRegexOk) {
+      return;
+    }
+
+    const customerInfo = {
+      customerName: customerNameRef.current.value,
+      customerMail: customerMailRef.current.value,
+      customerComment: customerCommentRef.current.value,
+    };
 
     postOrder(customerInfo);
 
@@ -35,10 +53,12 @@ function SendCartData({ customerNameRef, customerMailRef, setIsNameValid, setIsM
     });
 
     setIsCartEmpty(!isCartEmpty);
-    setIsNameValid(true)
-    setIsMailValid(true)
-    customerMailRef.current.value = ''
-    customerNameRef.current.value = ''
+    setIsNameValid(true);
+    setIsMailValid(true);
+    setIsComment(true);
+    customerMailRef.current.value = "";
+    customerNameRef.current.value = "";
+    customerCommentRef.current.value = "";
   }
 
   return (

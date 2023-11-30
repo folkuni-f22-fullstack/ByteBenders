@@ -30,6 +30,7 @@
   font-weight: bold;
   font-size: 16px;
   cursor: pointer;
+  color: #000000;
 }
 .selected {
   background-color: #ffb550;
@@ -71,7 +72,6 @@
 .filter-item {
   display: flex;
   align-items: center;
-
   padding: 5px;
 }
 .remove-filter-icon {

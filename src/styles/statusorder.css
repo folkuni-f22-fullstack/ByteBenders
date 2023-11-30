@@ -1,78 +1,85 @@
-.CustomerStatusOrder div {
-  background: var(--white-card-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  /* height: 20em; */
-  padding: 2em;
-  text-align: center;
-  margin: 1em 1em 0 1em;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 2px;
+.CustomerStatusOrder > div {
+	background: var(--white-card-color);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	/* height: 20em; */
+	padding: 2em;
+	text-align: center;
+	margin: 1em 1em 0 1em;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 2px;
 
-  & > * {
-    padding: 0.5em;
-  }
+	& > * {
+		padding: 0.5em;
+	}
 }
 
 .order-waiting > * {
-  padding: 0.5em;
+	padding: 0.5em;
 }
 
 .order-text {
-  font-size: 0.8em;
+	font-size: 0.8em;
+	height: 3em;
+	width: 25em;
 }
 
 .CustomerStatusOrder .yellow {
-  color: var(--orange-color);
+	color: var(--orange-color);
 }
 
 .CustomerStatusOrder .order-finished {
-  background-image: url("../assets/images/servingfood.png");
-  background-size: cover;
-  background-blend-mode: multiply;
-  background-color: var(--dark-blue-fade);
-  object-fit: contain;
-  color: #ffffff;
+	background-image: url('/images/servingfood.png');
+	background-size: cover;
+	background-blend-mode: multiply;
+	background-color: var(--dark-blue-fade);
+	object-fit: contain;
+	color: #ffffff;
 }
 
 .orderstatus-icon {
-  width: 3em;
-  height: 3em;
+	width: 3em;
+	height: 3em;
 }
 .orderstatus-icon > .waiting {
-  color: var(--dark-blue);
+	color: var(--dark-blue);
 }
 .finished {
-  color: rgb(46, 217, 46);
+	color: rgb(46, 217, 46);
 }
 
 .OrdStatusCustomerRoute {
-  height: 100vh;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+	height: 100vh;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
 }
 
 .OrdStatusCustomerRoute .orderstatus-headings {
-  position: absolute;
-  top: 5em;
+	position: absolute;
+	top: 5em;
 
-  & > * {
-    padding: 0.5em;
-  }
+	& > * {
+		padding: 0.5em;
+	}
 }
 
 .orange-button {
-  background-color: var(--orange-color);
-  color: var(--dark-blue);
-  font-weight: var(--next-button-font-weight);
-  border: var(--next-button-border);
-  border-radius: var(--next-button-border-radius);
-  width: var(--next-button-width-mobil);
-  padding: 1em 2em;
-  cursor: pointer;
+	background-color: var(--orange-color);
+	color: var(--dark-blue);
+	font-weight: var(--next-button-font-weight);
+	border: var(--next-button-border);
+	border-radius: var(--next-button-border-radius);
+	width: var(--next-button-width-mobil);
+	padding: 1em 2em;
+	cursor: pointer;
+	margin: 0.5em;
+}
+
+.button-container {
+	display: flex;
 }

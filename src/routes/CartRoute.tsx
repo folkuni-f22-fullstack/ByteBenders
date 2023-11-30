@@ -1,9 +1,7 @@
 import CartCard from "../components/CartCard.tsx";
-import { isOrdered } from "../components/CartSendDb.jsx";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { orderState } from "../recoil/orderState.js";
-import { checkIfDishIsFinished } from "../utils/orderstatus.ts";
 
 export default function CartRoute() {
   const [orderFinished, setOrderFinished] = useState(null);
