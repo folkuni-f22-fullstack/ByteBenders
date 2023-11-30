@@ -7,10 +7,10 @@ export default function InformationRoute() {
 	return (
 		<div className='information'>
 			<div className='information--blur'>
+				<header className='about-header'>
 				<NavLink to='/menu'>
 					<BiArrowBack className='return-arrow-icon' />
 				</NavLink>
-				<header className='about-header'>
 					<h1 className='about-heading'>
 						Fish{' '}
 						<span className='heading-symbol about-heading'>&</span>{' '}
@@ -37,11 +37,11 @@ export default function InformationRoute() {
 								a relaxed and elegant atmosphere.
 							</p>
 							<div className='contact-information'>
-								<p>Contact: 070-432 56 01</p>
+								<p><span className="info-point">Contact:</span> 070-432 56 01</p>
 								<p>
-									Opening hours: Every day between 12:00-22:00
+									<span className="info-point">Opening hours:</span> Every day between 12:00-22:00
 								</p>
-								<p>Address: Mellqvistgatan 7, Karlstad</p>
+								<p><span className="info-point">Address:</span> Mellqvistgatan 7, Karlstad</p>
 							</div>
 						</article>
 					</section>

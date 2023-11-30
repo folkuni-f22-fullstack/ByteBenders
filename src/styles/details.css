@@ -33,6 +33,7 @@
 .amount-detail-button {
   display: flex;
   cursor: pointer;
+  color: #000000;
 }
 .detail-amount {
   display: flex;

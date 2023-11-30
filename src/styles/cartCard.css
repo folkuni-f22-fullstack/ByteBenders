@@ -3,7 +3,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 90vh;
+  /* height: 90vh; */
+  max-height: calc(100vh - 90px);
+  padding-bottom: 1em;
 }
 
 .cart-card-container {
@@ -15,6 +17,7 @@
   border-bottom: 2px solid var(--orange-color);
   overflow-y: scroll;
   padding-top: 2.5em;
+  padding-bottom: 1em;
 }
 
 .cart-card-container::-webkit-scrollbar {
@@ -337,7 +340,7 @@
   }
 
   .cart-section {
-    height: 100vh;
+    min-height: 100vh;
 
     background-color: #ffffff;
     width: 22em;

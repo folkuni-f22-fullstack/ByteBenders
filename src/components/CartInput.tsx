@@ -94,11 +94,7 @@ function CartInput() {
   return (
     <>
       {/* Total price */}
-      <div
-        className={`cart-total-container ${
-          !isNameValid ? "invalid-input" : ""
-        }`}
-      >
+      <div className={`cart-total-container`}>
         <input
           ref={customerCommentRef}
           className="user-input"

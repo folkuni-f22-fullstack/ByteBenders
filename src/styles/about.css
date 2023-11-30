@@ -23,7 +23,7 @@
 }
 
 .about-heading {
-	margin-top: 1.5em;
+	margin-top: 0.25em;
 	text-align: center;
 	color: var(--orange-color);
 	font-family: var(--font-heading);
@@ -34,7 +34,7 @@
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	margin-top: 5em;
+	margin-top: 1em;
 }
 
 .center-content {
@@ -50,7 +50,7 @@
 	justify-self: center;
 	width: 100%;
 	border-radius: 0.3em;
-	margin-bottom: 1.5em;
+	margin-bottom: 0.5em;
 }
 
 .content-text {
@@ -85,6 +85,11 @@
 
 .contact-information {
 	margin: 1em 0 1em 0;
+}
+
+.info-point {
+	font-weight: 600;
+	color: var(--orange-color);
 }
 
 @media screen and (min-width: 798px) {
