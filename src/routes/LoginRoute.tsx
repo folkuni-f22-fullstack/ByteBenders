@@ -89,7 +89,7 @@ export default function LoginRoute() {
           {" "}
           User or password not found..{" "}
         </p>
-        <button type="button" className="login-button" onClick={handleLogin}>
+        <button type="submit" className="login-button" onClick={handleLogin}>
           Log in
         </button>
       </form>
