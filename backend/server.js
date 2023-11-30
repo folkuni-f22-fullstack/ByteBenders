@@ -1,5 +1,5 @@
 import express from 'express';
-import { join, dirname } from 'path';
+import { join, dirname, path } from 'path';
 import { fileURLToPath } from 'url';
 import { connectDb } from './db.js';
 import mealrouter from './routes/mealRoutes.js';
