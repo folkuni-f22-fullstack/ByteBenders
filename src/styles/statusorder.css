@@ -1,4 +1,4 @@
-.CustomerStatusOrder div {
+.CustomerStatusOrder > div {
   background: var(--white-card-color);
   display: flex;
   flex-direction: column;
@@ -22,6 +22,8 @@
 
 .order-text {
   font-size: 0.8em;
+  height: 3em;
+  width: 25em;
 }
 
 .CustomerStatusOrder .yellow {
@@ -75,4 +77,9 @@
   width: var(--next-button-width-mobil);
   padding: 1em 2em;
   cursor: pointer;
+  margin: 0.5em;
+}
+
+.button-container {
+  display:flex;
 }

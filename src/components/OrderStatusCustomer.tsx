@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import "../styles/statusorder.css";
+import { useNavigate } from "react-router-dom";
 import { BiSolidTimer } from "react-icons/bi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
@@ -13,9 +14,11 @@ import axios from "axios";
 export default function OrderStatusCustomer() {
   const [count, setCount] = useState(15);
   const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
+  const navigate = useNavigate();
 
   const orderText = useRef(null);
   const eraseButton = useRef(null);
+  const resetButton = useRef(null);
   const intervalRef = useRef(null);
   const ETAtext = useRef(null);
 
@@ -42,6 +45,7 @@ export default function OrderStatusCustomer() {
     localStorage.removeItem("cart");
     setCurrentOrder({ isOrdered: false, isWaiting: false });
   }
+
 
   // knappen "try"
   async function attemptErase(orderId) {
@@ -75,18 +79,22 @@ export default function OrderStatusCustomer() {
           axios
             .delete(`/api/customer/${orderId}`)
             .then((response) => {
-              console.log("Order successfully erased!", response.data);
             })
             .catch((error) => {
-              console.error("Something went wrong...", error);
             });
         }, 3000);
       }
     } catch (error) {
       orderText.current.innerText =
-        "The order was not found for some reason. Please call us!";
-      console.log(error);
+        "The order was not found for some reason. Call us at 070-432 56 01";
+        resetButton.current.style.display = 'block';
+        eraseButton.current.style.display = 'none';
     }
+  }
+
+  function handleOrderReset () {
+    localStorage.clear()
+    navigate("/menu");
   }
 
   return (
@@ -104,16 +112,25 @@ export default function OrderStatusCustomer() {
                 <span className="yellow">{finishedTime(count)}</span>
               </h3>
               <p ref={orderText} className="order-text">
-                Try erasing order and start over? <br /> (as long as the order
+                Try to edit your order? <br /> (as long as the order
                 has not been locked)
               </p>
-              <button
-                className="orange-button"
-                ref={eraseButton}
-                onClick={() => attemptErase(currentOrder.orderNumber)}
-              >
-                Try
-              </button>
+              <div className="button-container">
+                <button
+                  className="orange-button"
+                  style={{ display: 'block'}}
+                  ref={eraseButton}
+                  onClick={() => attemptErase(currentOrder.orderNumber)}
+                >
+                  Edit order
+                </button>
+                <button 
+                  className="orange-button" 
+                  ref={resetButton} 
+                  onClick={handleOrderReset}
+                  style={{ display: 'none'}
+                  }> Start over </button>
+              </div>
             </>
           </div>
         </div>

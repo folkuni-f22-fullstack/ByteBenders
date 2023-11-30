@@ -99,12 +99,6 @@ export async function postOrder(customerInfo) {
   try {
     const parsedCartData = JSON.parse(cartData);
 
-    // Extract all usercomments
-    // const allUserComments = parsedCartData.map(
-    //   (comment) => comment.usercomment
-    // );
-    // const combineAllUserComments = allUserComments.join(". ");
-
     // Omstrukturera parsedCartData efter vad din backend förväntar sig
     const formattedOrderData = {
       orderId: randomId,
@@ -130,8 +124,6 @@ export async function postOrder(customerInfo) {
     if (!response.ok) {
       throw new Error(`Server responded with status: ${response.status}`);
     }
-
-    // const responseData = await response.json();
 
     // Ta bort orderdatan från local storage efter att beställningen har skickats
     localStorage.removeItem("cart");
@@ -179,11 +171,6 @@ export async function postDoneOrder(order) {
 
   try {
     const response = await fetch(postDoneOrderUrl, options);
-
-    console.log(response);
-
-    // Om förfrågan lyckas, logga svaret från servern
-    console.log("Response from server:", order);
   } catch (error) {
     // Om något går fel, logga felet
     console.error("Error posting doneOrder:", error);
@@ -191,8 +178,6 @@ export async function postDoneOrder(order) {
 }
 
 export async function updateLockedOrder(order, type, value) {
-  // console.log('order: ', order);
-
   const baseUrl = `/api/editorder/${order.orderId}`;
 
   let newStaffComment = "";

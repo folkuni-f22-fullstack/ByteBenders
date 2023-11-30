@@ -19,38 +19,20 @@ export default function DoneOrderCard({ change, setChange }) {
 					(order) => order.status === 'done'
 				);
 				setOrderData(doneOrders);
-				console.log('Succeeded in fetching done orders');
 			} catch (error) {
-				console.log('Failed to fetch done orders');
+				console.log(error);
 			}
 		}
 		fetchOrderID();
 	}, [change]);
 
 	if (orderData === null) {
-		// Lägg till något laddningsindikator eller annat meddelande medan data hämtas
 		return (
 			<section className='loading-container'>
 				<div className='loading-order'>Loading...</div>
 			</section>
 		);
 	}
-
-	const handleOrderDone = async (order: Order) => {
-		try {
-			await postDoneOrder(order);
-			//Skapar en ny array med ordrar, minus den som klickas på.
-			setOrderData((prevOrderData) =>
-				prevOrderData
-					? prevOrderData.filter((o) => o._id !== order._id)
-					: null
-			);
-		} catch (error) {
-			console.log('Failed to mark order as done', error);
-		}
-	};
-
-	// const doneOrders = orderData.filter((order) => order.status === 'done');
 
 	return (
 		<section className='recieved-order-container'>

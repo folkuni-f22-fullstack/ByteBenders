@@ -11,9 +11,9 @@ export async function deleteOrder(orderId: number, token) {
       });
   
       if (response.ok) {
-        console.log("Order deleted successfully");
+        // console.log("Order deleted successfully");
       } else if (response.status === 404) {
-        console.error("Order not found");
+        // console.error("Order not found");
       } else {
         console.error(
           "Failed to delete order:",

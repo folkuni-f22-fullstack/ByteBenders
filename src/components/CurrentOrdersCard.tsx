@@ -34,9 +34,8 @@ export default function CurrentOrderCard({ change, setChange }) {
 					(order) => order.status === 'current'
 				);
 				setOrderData(currentOrders);
-				console.log('Succeeded in fetching current orders');
 			} catch (error) {
-				console.log('Failed to fetch current orders');
+				console.log(error);
 			}
 		}
 		fetchOrderID();

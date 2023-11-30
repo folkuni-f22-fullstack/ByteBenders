@@ -7,7 +7,7 @@ import { loginState } from '../recoil/loginState.js';
 import { useRecoilState } from 'recoil';
 import { Order } from '../interfaces/order';
 import { postDoneOrder } from '../utils/fetch';
-import { deleteOrder } from '../utils/AJAX/deleteOrders.ts';
+import { deleteOrder } from '../utils/AJAX/deleteOrder.ts';
 
 type OrderHandlerProps = {
 	page: string;
@@ -32,9 +32,7 @@ const OrderHandlers: React.FC<OrderHandlerProps> = ({
 			await putOrder(order, newStatus, isLoggedIn.token);
 
 			setChange((change) => change + 1);
-			console.log('Order updated');
 		} catch (error) {
-			console.log('Failed to update order status');
 		}
 	};
 

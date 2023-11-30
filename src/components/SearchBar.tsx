@@ -65,7 +65,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
 	return (
 		<div className='search-bar'>
 			<div className='search-input-container'>
-				<AiOutlineSearch />
+
+				<label htmlFor="search-input">
+					<AiOutlineSearch />
+				</label>
+
 				<input
 					type='text'
 					id='search-input'

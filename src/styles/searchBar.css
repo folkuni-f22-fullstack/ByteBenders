@@ -9,13 +9,13 @@
   width: fit-content;
 }
 
-.search-input-container > svg,
+.search-input-container > label,
 .filter-btn {
   position: absolute;
   top: 5px;
 }
 
-.search-input-container > svg {
+.search-input-container > label {
   left: 5px;
 }
 
@@ -29,7 +29,7 @@
   border: none;
 }
 
-.search-input-container > svg {
+.search-input-container > label > svg {
   height: 25px;
   width: 25px;
   fill: #686868;
