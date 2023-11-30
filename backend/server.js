@@ -5,10 +5,10 @@ import { connectDb } from './db.js';
 import mealrouter from './routes/mealRoutes.js';
 import orderrouter from './routes/orderRoutes.js';
 import editorderrouter from './routes/editOrderRoutes.js';
-import cors from 'cors'
+import cors from 'cors';
 import loginrouter from './routes/login.js';
-import popularrouter from './routes/popularRoutes.js'
-import customerrouter from './routes/customerSideRoutes.js'
+import popularrouter from './routes/popularRoutes.js';
+import customerrouter from './routes/customerSideRoutes.js';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -17,7 +17,7 @@ const app = express();
 export const secret = process.env.MONGO_URI;
 
 //middleware
-app.use(cors())
+app.use(cors());
 app.use('/api', express.json());
 app.use('/', (req, res, next) => {
 	console.log(`**Logger: ${req.method} ${req.url}`, req.body);
@@ -29,12 +29,16 @@ const pathToStaticFolder = join(__dirname, '../dist');
 app.use(express.static(pathToStaticFolder));
 
 // api
-app.use('/api/meals', mealrouter )
-app.use('/api/orders', orderrouter)
-app.use('/api/editorder', editorderrouter)
-app.use('/api/login', loginrouter)
-app.use('/api/popular', popularrouter)
-app.use('/api/customer', customerrouter)
+app.use('/api/meals', mealrouter);
+app.use('/api/orders', orderrouter);
+app.use('/api/editorder', editorderrouter);
+app.use('/api/login', loginrouter);
+app.use('/api/popular', popularrouter);
+app.use('/api/customer', customerrouter);
+
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+});
 
 // start
 app.listen(port, () => {
