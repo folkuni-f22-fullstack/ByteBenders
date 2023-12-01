@@ -201,8 +201,12 @@
   height: 2em;
   border-radius: 0.3em;
   min-width: 3.5em;
+  transition: all 0.1s ease-in-out;
 }
-
+.apply-promo-button:active {
+  scale: 0.9;
+  background-color: #324659;
+}
 .apply-promo-button:hover {
   cursor: pointer;
 }
