@@ -10,7 +10,6 @@ import { loginState } from "./recoil/loginState.js";
 import axios from "axios";
 import { menuState } from "./recoil/menuState.js";
 import { Dish } from "./interfaces/dish.ts";
-import { isOrderLocked, putOrder } from "./utils/fetch.tsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);
@@ -31,9 +30,16 @@ function App() {
   const showHeader =
     !"/information,".includes(location.pathname) &&
     !"/cart,".includes(location.pathname);
+
+  // Ampersand in header: conditional color styling
+  let headerProps = {};
+  "/menu,".includes(location.pathname) ? 
+    headerProps = {color: "#FFB550"}
+  : headerProps = {color: "#FFFFFF"};
+
   return (
     <>
-      {showHeader && <Header />}
+      {showHeader && <Header {...headerProps}/>}
       <NavBar />
       <Outlet />
     </>

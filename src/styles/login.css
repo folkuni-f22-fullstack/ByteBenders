@@ -18,6 +18,7 @@
 	align-items: center;
 	justify-content: center;
 	gap: 1em;
+	padding-top: 5em;
 }
 
 .login-heading {
@@ -97,5 +98,14 @@
 	.login-heading {
 		display: block;
 		color: var(--dark-blue);
+	}
+}
+
+@media screen and (max-height: 680px) {
+	.login-button {
+		margin-top: 0em;
+	}
+	.login-form {
+		gap: 0;
 	}
 }
