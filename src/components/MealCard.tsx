@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { Dish } from "../interfaces/dish";
 import { refreshQuantity } from "../utils/quantityChange";
 import { BsCart3 } from "react-icons/bs";
-import { handleMouseDown } from "./Meals";
 import { useState } from "react";
 
 type MealCardProps = {
@@ -33,7 +32,6 @@ const MealCard: React.FC<MealCardProps> = ({ menuItem, handleAddToCart }) => {
       <button
         className="meals-btn"
         onClick={() => handleAddToCart(menuItem._id)}
-        onMouseDown={handleMouseDown}
       >
         <p className="add-cart">Add to cart </p>{" "}
         <BsCart3 className="btn-icon" />
