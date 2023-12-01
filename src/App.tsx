@@ -31,11 +31,11 @@ function App() {
     !"/information,".includes(location.pathname) &&
     !"/cart,".includes(location.pathname);
 
-  // Ampersand in header: conditional color styling
+  // Ampersand in header: page based conditional color styling
   let headerProps = {};
-  "/menu,".includes(location.pathname) ? 
-    headerProps = {color: "#FFB550"}
-  : headerProps = {color: "#FFFFFF"};
+  location.pathname.startsWith("/menu") ?
+      headerProps = { color: "#FFB550" }
+    : headerProps = { color: "#FFFFFF" };
 
   return (
     <>
