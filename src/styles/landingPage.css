@@ -4,7 +4,7 @@
   position: relative;
   background-blend-mode: multiply;
   background-color: rgb(116, 116, 116);
-  background-image: url('/images/backgrounds/landingpage-mobile-resized.jpg');
+  background-image: url("/images/backgrounds/landingpage-mobile-resized.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -27,7 +27,7 @@
 }
 
 .tag-info-text {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .landing-heading-section {
@@ -36,6 +36,8 @@
   flex-direction: column;
   margin-bottom: 2em;
   gap: 1em;
+  position: relative;
+  animation: headingAnimation 1.5s ease-in-out;
 }
 .landing-h1 {
   align-self: center;
@@ -46,6 +48,8 @@
 .landing-text {
   display: flex;
   gap: 0.4em;
+  animation: textAnimation 1s 1s forwards;
+  opacity: 0;
 }
 .landing-text > div > * {
   margin-bottom: 1.3em;
@@ -62,11 +66,17 @@
 .tags-info {
   width: 11.5em;
 }
-
+.note-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: textAnimation 1s 1.2s forwards;
+  opacity: 0;
+}
 .p-div {
   display: flex;
   flex-direction: row;
-  
+
   & > p {
     margin-left: 0.4em;
   }
@@ -88,6 +98,8 @@
   align-self: center;
   font-size: 4em;
   font-weight: 600;
+  position: relative;
+  animation: symbolAnimation 1.5s ease-in-out;
 }
 .landing-btn {
   background-color: var(--orange-color);
@@ -101,10 +113,18 @@
   margin-top: 1em;
   margin-bottom: 2em;
 }
+.fish {
+  opacity: 0; /* Initial opacity set here */
+  animation: fishAnimation 0.6s 1s forwards;
+}
+.friends {
+  opacity: 0; /* Initial opacity set here */
+  animation: friendsAnimation 0.6s 1s forwards;
+}
 
 @media screen and (min-width: 798px) {
   .landing-section {
-    background-image: url('/images/backgrounds/landingpage-desktop-resized.jpg');
+    background-image: url("/images/backgrounds/landingpage-desktop-resized.jpg");
     background-position: center top;
   }
   .landing-section > h1 {
@@ -115,5 +135,99 @@
     & > p {
       margin-left: 0.4em;
     }
+  }
+}
+
+/* @keyframes headingAnimation {
+  0% {
+    opacity: 0;
+    scale: 0.6;
+  }
+  100% {
+    opacity: 100;
+    scale: 1;
+  }
+}
+@keyframes textAnimation {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+} */
+@keyframes symbolAnimation {
+  0% {
+    transform: rotate(0deg);
+    opacity: 0;
+    scale: 0.3;
+  }
+  87% {
+    transform: rotate(380deg);
+    scale: 3;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes fishAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(150px);
+    scale: 0.2;
+  }
+  33% {
+    transform: translateY(150px);
+    opacity: 0;
+    scale: 0.4;
+  }
+  66% {
+    transform: translateY(150px);
+    opacity: 0;
+    scale: 0.6;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes friendsAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(-150px);
+    scale: 0.1;
+  }
+  33% {
+    opacity: 0;
+    transform: translateY(-150px);
+    scale: 0.1;
+  }
+  66% {
+    transform: translateY(-150px);
+    opacity: 0;
+    scale: 0.1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes textAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(-70px);
+  }
+  60% {
+    opacity: 0;
+    transform: translateY(-70px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
