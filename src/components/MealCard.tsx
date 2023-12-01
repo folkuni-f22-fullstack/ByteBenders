@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { Dish } from "../interfaces/dish";
 import { refreshQuantity } from "../utils/quantityChange";
 import { BsCart3 } from "react-icons/bs";
-import { useState } from "react";
 
 type MealCardProps = {
   menuItem: Dish;
@@ -11,7 +10,6 @@ type MealCardProps = {
 };
 
 const MealCard: React.FC<MealCardProps> = ({ menuItem, handleAddToCart }) => {
-  console.log(isClicked);
   return (
     <div key={menuItem._id} className="meals-card">
       <NavLink
