@@ -55,6 +55,7 @@
 }
 .amount-div {
   height: 4.5em;
+  width: 6em;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -89,6 +90,8 @@
 .amount-container {
   gap: 5px;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .sub-text,
@@ -97,24 +100,18 @@
 }
 
 .food-amount {
-  grid-column: 2;
-  grid-row: 1;
+  width: 1em;
   display: flex;
-  justify-self: center;
-  align-self: end;
-  margin-bottom: 1em;
+  align-items: center;
+  justify-content: center;
 }
 
 .sub {
-  grid-column: 1;
-  grid-row: 1;
   border-radius: 50%;
   border: none;
 }
 
 .plus {
-  grid-column: 3;
-  grid-row: 1;
   border-radius: 50%;
   border: none;
 }
@@ -123,13 +120,17 @@
 .amount-container > .plus {
   display: flex;
   align-items: center;
-  align-self: end;
   justify-content: center;
   width: 2em;
   height: 2em;
-  margin-bottom: 1em;
   background-color: var(--dark-blue);
   color: #ffffff;
+  transition: all 0.1s ease-in-out;
+}
+.amount-container > .sub:active,
+.amount-container > .plus:active {
+  scale: 0.9;
+  background-color: #324659;
 }
 
 .customize-order {

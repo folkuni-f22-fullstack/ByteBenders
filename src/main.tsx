@@ -13,7 +13,7 @@ import LandingPage from "./components/LandingPage.tsx";
 import RecOrderRoute from "./routes/RecOrderRoute.tsx";
 import CurrOrderRoute from "./routes/CurrOrderRoute.tsx";
 import DoneOrderRoute from "./routes/DoneOrderRoute.tsx";
-import { RecoilRoot } from 'recoil'
+import { RecoilRoot } from "recoil";
 
 const router = createBrowserRouter([
   {
@@ -47,15 +47,15 @@ const router = createBrowserRouter([
       },
       {
         path: "recieved",
-        element: <RecOrderRoute />
+        element: <RecOrderRoute />,
       },
       {
         path: "current",
-        element: <CurrOrderRoute />
+        element: <CurrOrderRoute />,
       },
       {
         path: "done",
-        element: <DoneOrderRoute />
+        element: <DoneOrderRoute />,
       },
     ],
 
