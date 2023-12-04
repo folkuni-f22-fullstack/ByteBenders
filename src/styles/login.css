@@ -18,7 +18,9 @@
   align-items: center;
   justify-content: center;
   gap: 1em;
-  padding-top: 5em;
+}
+.password-label {
+  padding-top: 0.5em;
 }
 
 .login-heading {
@@ -38,7 +40,6 @@
   color: var(--orange-color);
   margin-bottom: 0.5em;
   font-weight: 500;
-  margin-top: 0.5em;
 }
 
 #user-input,
