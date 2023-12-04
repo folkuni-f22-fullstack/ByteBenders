@@ -113,7 +113,7 @@ function CartInput() {
           className="user-input"
           id="customer-name"
           type="text"
-          placeholder="First and last name"
+          placeholder={'First and last name'}
           onChange={() => setIsNameValid(true)}
         />
       </div>
@@ -127,7 +127,7 @@ function CartInput() {
           className="user-input"
           id="customer-mail"
           type="text"
-          placeholder="Mail address"
+          placeholder={'Mail address'}
           onChange={() => setIsMailValid(true)}
         />
       </div>

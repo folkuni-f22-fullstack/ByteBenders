@@ -3,13 +3,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* height: 90vh; */
   max-height: calc(100vh - 90px);
   padding-bottom: 1em;
+  margin-bottom: 7em;
 }
 
 .cart-card-container {
-  height: 60vh;
+  max-height: 60vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -68,14 +68,13 @@
 }
 
 .cart-name {
-  grid-column: 1 / span 3;
-  grid-row: 1;
   display: flex;
   align-self: center;
   font-weight: bold;
   text-decoration: none;
   color: var(--dark-blue);
   font-size: 18px;
+  max-width: 12em;
 }
 .card-price {
   grid-column: 4 / span 2;
@@ -358,9 +357,28 @@
 }
 
 .invalid-input {
-  outline: 1px solid red;
+  animation: errorflash 0.3s;
+  animation-iteration-count: 3;
+}
+
+@keyframes errorflash {
+  0% {
+    outline: 3px solid rgb(255, 255, 255);
+  }
+  50% {
+    outline: 3px solid red;
+  }
+  100% {
+    outline: 3px solid rgba(255, 255, 255, 0);
+  }
 }
 
 .send-cart-button {
   margin-bottom: 0.5em;
+}
+
+@media screen and (max-height: 680px) and (max-width: 1200px) {
+  .cart-section {
+    margin-bottom: 7em;
+  }
 }

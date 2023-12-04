@@ -80,13 +80,14 @@ const OrderCard: React.FC<OrderCardProps> = ({
     setDiscountChange((prev) => ({ ...prev, [orderId]: newDiscount }));
   }
 
-  async function calculateNewPrice(
-    order: Order,
-    type: string,
-    percentage: number
-  ) {
-    const newPrice = Math.round(order.total - (order.total / 100) * percentage);
-    console.log("i calculateNewPrice newPrice är: ", newPrice);
+	async function calculateNewPrice(
+		order: Order,
+		type: string,
+		percentage: number
+	) {
+		const newPrice = Math.round(
+			order.total - (order.total / 100) * percentage
+		);
 
     await sendChange(order, type, newPrice);
   }

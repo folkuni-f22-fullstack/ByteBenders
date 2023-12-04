@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import '../styles/about.css';
 
 export default function InformationRoute() {
-	// TODO: Saknas komponent
 	return (
 		<div className='information'>
 			<div className='information--blur'>

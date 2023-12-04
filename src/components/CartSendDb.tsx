@@ -13,6 +13,7 @@ function SendCartData({
   setIsNameValid,
   setIsMailValid,
   setIsComment,
+
 }) {
   const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
   const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
@@ -29,6 +30,11 @@ function SendCartData({
     // For error styling
     isMailRegexOk ? setIsMailValid(true) : setIsMailValid(false);
     isNameRegexOk ? setIsNameValid(true) : setIsNameValid(false);
+    setTimeout(() => {
+      setIsMailValid(true);
+      setIsNameValid(true);
+    }, 1500);
+
 
     // For function gate keeping
     if (cart.length <= 0) {

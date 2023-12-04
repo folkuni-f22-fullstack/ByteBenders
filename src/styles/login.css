@@ -1,111 +1,120 @@
 .LoginRoute {
-	min-height: calc(100vh - (3.1em + 27px));
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  min-height: calc(100vh - (3.1em + 27px));
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-	background-image: url('/images/backgrounds/alt-img-resize.jpeg');
-	background-blend-mode: multiply;
-	background-color: rgb(116, 116, 116);
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center center;
+  background-image: url("/images/backgrounds/alt-img-resize.jpeg");
+  background-blend-mode: multiply;
+  background-color: rgb(116, 116, 116);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .login-form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 1em;
-	padding-top: 5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+.password-label {
+  padding-top: 0.5em;
 }
 
 .login-heading {
-	display: none;
-	padding: 0.2em 0.5em;
-	border-bottom: 2px solid var(--orange-color);
-	margin-bottom: 2em;
-	z-index: 1;
+  display: none;
+  padding: 0.2em 0.5em;
+  border-bottom: 2px solid var(--orange-color);
+  margin-bottom: 2em;
+  z-index: 1;
 }
 
 .input-group {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .input-group > label {
-	color: var(--orange-color);
-	margin-bottom: 0.5em;
-	font-weight: 500;
+  color: var(--orange-color);
+  margin-bottom: 0.5em;
+  font-weight: 500;
 }
 
 #user-input,
 #password-input {
-	padding: 0.7em 1.2em;
-	border: 1px solid rgb(213, 213, 213);
-	border-radius: 5px;
+  padding: 0.7em 1.2em;
+  border: 1px solid rgb(213, 213, 213);
+  border-radius: 5px;
 }
 
 #password-input {
-	border-radius: 5px;
-	padding: 0.7em 1.2em;
-	border: 1px solid rgb(213, 213, 213);
-	border-radius: 5px;
+  border-radius: 5px;
+  padding: 0.7em 1.2em;
+  border: 1px solid rgb(213, 213, 213);
+  border-radius: 5px;
 }
 .pass-div {
-	display: flex;
-	position: relative;
+  display: flex;
+  position: relative;
 }
 
 .visibility-toggle {
-	position: absolute;
-	right: 0;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	margin-left: auto;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 }
 
 .visibility-toggle > svg {
-	height: 80%;
-	width: 80%;
-	fill: rgb(64, 64, 64);
-	margin-right: 4px;
+  height: 80%;
+  width: 80%;
+  fill: rgb(64, 64, 64);
+  margin-right: 4px;
+}
+
+.pass-div, .visibility-toggle {
+  transform: translate3d(0,0,0);
 }
 
 .login-button {
-	margin-top: 6em;
-	padding: 0.5em 3em;
-	max-width: fit-content;
-	background-color: var(--dark-blue);
-	color: var(--orange-color);
-	font-size: 1.1em;
-	border: none;
-	border-radius: 8px;
-	cursor: pointer;
+  margin-top: 6em;
+  padding: 0.5em 3em;
+  max-width: fit-content;
+  background-color: var(--dark-blue);
+  color: var(--orange-color);
+  font-size: 1.1em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 1200px) {
-	.LoginRoute {
-		justify-content: end;
-	}
-	.login-form {
-		background-color: #f0f5f7;
-		min-height: 100vh;
-		width: 30em;
-	}
-	.login-heading {
-		display: block;
-		color: var(--dark-blue);
-	}
+  .LoginRoute {
+    justify-content: end;
+  }
+  .login-form {
+    background-color: #f0f5f7;
+    min-height: 100vh;
+    width: 30em;
+  }
+  .login-heading {
+    display: block;
+    color: var(--dark-blue);
+  }
 }
 
-@media screen and (max-height: 680px) {
-	.login-button {
-		margin-top: 0em;
-	}
-	.login-form {
-		gap: 0;
-	}
+@media screen and (max-height: 680px) and (max-width: 1200px) {
+  .login-form {
+     margin: 7em 0;
+  }
+  .login-button {
+    margin-top: 0em;
+  }
+  .login-form {
+    gap: 0;
+  }
 }

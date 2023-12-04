@@ -34,21 +34,20 @@ export default function ProductDetailsRoute() {
     }
   }, [id]);
 
-  // Send to local storage
-  function handleAddToCart() {
-    const cartItem = {
-      // _id: productID._id,
-      image: product.image,
-      content: [],
-      usercomment: "",
-      staffcomment: "",
-      name: product.name,
-      total: product.price * quantity,
-      quantity: quantity,
-      locked: false,
-      status: "",
-    };
-    const existingCartData = JSON.parse(localStorage.getItem("cart")) || [];
+	// Send to local storage
+	function handleAddToCart() {
+		const cartItem = {
+			image: product.image,
+			content: [],
+			usercomment: '',
+			staffcomment: '',
+			name: product.name,
+			total: product.price * quantity,
+			quantity: quantity,
+			locked: false,
+			status: '',
+		};
+		const existingCartData = JSON.parse(localStorage.getItem('cart')) || [];
 
     const matchingId = existingCartData.findIndex(
       (item) => item.name === cartItem.name
