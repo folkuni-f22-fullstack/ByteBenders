@@ -12,7 +12,7 @@ import { useRecoilState } from "recoil";
 import axios from "axios";
 
 export default function OrderStatusCustomer() {
-  const [count, setCount] = useState(15);
+  const [count, setCount] = useState(0.3);
   const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
   const navigate = useNavigate();
 
@@ -43,6 +43,7 @@ export default function OrderStatusCustomer() {
     localStorage.removeItem("orderNumber");
     localStorage.removeItem("ETA");
     localStorage.removeItem("cart");
+    localStorage.removeItem("promo-code")
     setCurrentOrder({ isOrdered: false, isWaiting: false });
   }
 

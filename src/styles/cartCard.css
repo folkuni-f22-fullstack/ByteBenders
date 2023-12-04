@@ -375,3 +375,9 @@
 .send-cart-button {
   margin-bottom: 0.5em;
 }
+
+@media screen and (max-height: 680px) and (max-width: 1200px) {
+  .cart-section {
+    margin-bottom: 10em;
+  }
+}
