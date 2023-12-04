@@ -13,11 +13,14 @@ import { useRef } from 'react';
 import { updateLockedOrder } from '../utils/fetch';
 import { deleteOrder } from '../utils/AJAX/deleteOrder.js';
 import OrderCard from './OrderCard.tsx';
+import * as React from 'react';
+import { loginStateType } from '../interfaces/loginStateType.ts';
 
 export default function CurrentOrderCard({ change, setChange }) {
 	const [orderData, setOrderData] = useState<Order[] | null>(null);
 	const [isExpanded, setIsExpanded] = useState<null | number>(null);
-	const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);
+	const [isLoggedIn, setIsLoggedIn] =
+		useRecoilState<loginStateType>(loginState);
 	const [priceChange, setPriceChange] = useState({});
 	const [commentChange, setCommentChange] = useState({});
 	const [discountChange, setDiscountChange] = useState({});

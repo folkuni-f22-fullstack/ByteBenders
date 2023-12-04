@@ -8,3 +8,9 @@ export type Order = {
 	status: string;
 	locked: boolean;
 };
+
+export type OrderStateType = {
+	isOrdered: boolean;
+	isWaiting: boolean;
+	orderNumber: string;
+};
