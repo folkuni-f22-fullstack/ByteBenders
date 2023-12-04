@@ -153,25 +153,6 @@ function CartCard() {
                           </div>
                         </div>
                       </div>
-                      {/* <input
-                        className="customize-order"
-                        type="text"
-                        placeholder={
-                          item.usercomment === ""
-                            ? "Customize your order +"
-                            : item.usercomment
-                        }
-                        // display data for specific item or empty string
-                        value={customizeState[item.name] || ""}
-                        onChange={(e) => {
-                          const newCustomizeState = {
-                            ...customizeState,
-                          };
-                          newCustomizeState[item.name] = e.target.value;
-                          setCustomizeState(newCustomizeState);
-                        }}
-                        onBlur={() => updateComment(item.name)}
-                      ></input> */}
                     </div>
                   ))}
                 </>

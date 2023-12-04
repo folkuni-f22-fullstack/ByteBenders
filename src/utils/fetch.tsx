@@ -2,8 +2,6 @@ import { useParams } from "react-router-dom";
 import { Dish } from "../interfaces/dish";
 import { Order } from "../interfaces/order";
 import { promo, totalPrice } from "../components/CartInput";
-import { randomizer } from "./general";
-import { log } from "console";
 
 export function getMealsID() {
   const { id } = useParams();
@@ -96,8 +94,6 @@ export async function postOrder(customerInfo) {
     console.log("Finns ingen orderData i local storage");
     return;
   }
-
-  console.log(randomId);
 
   try {
     const parsedCartData = JSON.parse(cartData);

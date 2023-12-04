@@ -17,7 +17,6 @@ function CartInput() {
   const [cartItem, setCartItem] = useState<Dish[]>([]);
   let [isPromo, setIsPromo] = useState("");
   const [cartItems, setCartItems] = useRecoilState(cartState);
-  const [isInvalidInput, setIsInvalidInput] = useState(false);
   const [isNameValid, setIsNameValid] = useState(true);
   const [isMailValid, setIsMailValid] = useState(true);
   const [isComment, setIsComment] = useState(true);

@@ -33,9 +33,9 @@ function App() {
 
   // Ampersand in header: page based conditional color styling
   let headerProps = {};
-  location.pathname.startsWith("/menu") ?
-      headerProps = { color: "#FFB550" }
-    : headerProps = { color: "#FFFFFF" };
+  location.pathname.startsWith("/login") ?
+  headerProps = { color: "#FFFFFF" }
+  : headerProps = { color: "#FFB550" }
 
   return (
     <>

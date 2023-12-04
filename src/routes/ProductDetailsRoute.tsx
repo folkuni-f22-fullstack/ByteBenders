@@ -36,7 +36,6 @@ export default function ProductDetailsRoute() {
 	// Send to local storage
 	function handleAddToCart() {
 		const cartItem = {
-			// _id: productID._id,
 			image: product.image,
 			content: [],
 			usercomment: '',
