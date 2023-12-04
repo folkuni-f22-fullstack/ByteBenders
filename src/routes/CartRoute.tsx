@@ -1,37 +1,37 @@
-import CartCard from "../components/CartCard.tsx";
-import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { orderState } from "../recoil/orderState.js";
+import CartCard from '../components/CartCard.tsx';
+import React, { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { orderState } from '../recoil/orderState.js';
 
 export default function CartRoute() {
-  const [orderFinished, setOrderFinished] = useState(null);
-  const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
+	const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
 
-  function checkIfOngoingOrder() {
-    if (localStorage.getItem("orderNumber")) {
-      setCurrentOrder({
-        isOrdered: true,
-        isWaiting: true,
-        orderNumber: localStorage.getItem("orderNumber"),
-      });
-      return true;
-    } else {
-      setCurrentOrder({
-        isOrdered: false,
-        isWaiting: false,
-        orderNumber: undefined,
-      });
-      return false;
-    }
-  }
+	function checkIfOngoingOrder() {
+		const orderNumberLS = localStorage.getItem('orderNumber');
+		if (orderNumberLS) {
+			setCurrentOrder({
+				isOrdered: true,
+				isWaiting: true,
+				orderNumber: orderNumberLS,
+			});
+			return true;
+		} else {
+			setCurrentOrder({
+				isOrdered: false,
+				isWaiting: false,
+				orderNumber: '',
+			});
+			return false;
+		}
+	}
 
-  useEffect(() => {
-    checkIfOngoingOrder();
-  }, []);
+	useEffect(() => {
+		checkIfOngoingOrder();
+	}, []);
 
-  return (
-    <div className="Cart">
-      <CartCard orderFinished={orderFinished} />
-    </div>
-  );
+	return (
+		<div className='Cart'>
+			<CartCard />
+		</div>
+	);
 }

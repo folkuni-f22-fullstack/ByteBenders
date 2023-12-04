@@ -1,10 +1,10 @@
 import DoneOrderCard from '../components/DoneOrderCard';
 import '../styles/OrderCards.css';
 import { MdDone } from 'react-icons/md';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function DoneOrderRoute() {
-	const [change, setChange] = useState(0);
+	const [change, setChange] = useState<number>(0);
 	return (
 		<>
 			<div className='order-route-header'>

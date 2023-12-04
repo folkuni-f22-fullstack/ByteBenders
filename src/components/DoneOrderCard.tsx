@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import '../styles/OrderCards.css';
 import '../App.css';
@@ -6,17 +6,20 @@ import { Order } from '../interfaces/order';
 import { getOrders } from '../utils/fetch';
 import { loginState } from '../recoil/loginState.js';
 import OrderCard from './OrderCard.js';
+import { loginStateType } from '../interfaces/loginStateType.js';
+import { OrderCompProps } from '../interfaces/OrderCardProps.js';
 
-export default function DoneOrderCard({ change, setChange }) {
+const DoneOrderCard: React.FC<OrderCompProps> = ({ change, setChange }) => {
 	const [orderData, setOrderData] = useState<Order[] | null>(null);
-	const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);
+	const [isLoggedIn, setIsLoggedIn] =
+		useRecoilState<loginStateType>(loginState);
 
 	useEffect(() => {
 		async function fetchOrderID() {
 			try {
 				const fetchedData = await getOrders(isLoggedIn.token);
 				const doneOrders = fetchedData?.filter(
-					(order) => order.status === 'done'
+					(order: Order) => order.status === 'done'
 				);
 				setOrderData(doneOrders);
 			} catch (error) {
@@ -43,8 +46,12 @@ export default function DoneOrderCard({ change, setChange }) {
 						order={order}
 						page='done'
 						setOrderData={setOrderData}
+						change={change}
+						setChange={setChange}
 					/>
 				))}
 		</section>
 	);
-}
+};
+
+export default DoneOrderCard;

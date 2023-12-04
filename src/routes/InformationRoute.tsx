@@ -1,18 +1,21 @@
 import { BiArrowBack } from 'react-icons/bi';
 import { NavLink } from 'react-router-dom';
 import '../styles/about.css';
+import React from 'react';
 
 export default function InformationRoute() {
 	return (
 		<div className='information'>
 			<div className='information--blur'>
 				<header className='about-header'>
-				<NavLink to='/menu'>
-					<BiArrowBack className='return-arrow-icon' />
-				</NavLink>
+					<NavLink to='/menu'>
+						<BiArrowBack className='return-arrow-icon' />
+					</NavLink>
 					<h1 className='about-heading'>
 						Fish{' '}
-						<span className='heading-symbol-about about-heading'>&</span>{' '}
+						<span className='heading-symbol-about about-heading'>
+							&
+						</span>{' '}
 						Friends
 					</h1>
 				</header>
@@ -36,11 +39,20 @@ export default function InformationRoute() {
 								a relaxed and elegant atmosphere.
 							</p>
 							<div className='contact-information'>
-								<p><span className="info-point">Contact:</span> 070-432 56 01</p>
 								<p>
-									<span className="info-point">Opening hours:</span> Every day between 12:00-22:00
+									<span className='info-point'>Contact:</span>{' '}
+									070-432 56 01
 								</p>
-								<p><span className="info-point">Address:</span> Mellqvistgatan 7, Karlstad</p>
+								<p>
+									<span className='info-point'>
+										Opening hours:
+									</span>{' '}
+									Every day between 12:00-22:00
+								</p>
+								<p>
+									<span className='info-point'>Address:</span>{' '}
+									Mellqvistgatan 7, Karlstad
+								</p>
 							</div>
 						</article>
 					</section>

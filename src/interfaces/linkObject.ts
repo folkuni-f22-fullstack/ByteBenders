@@ -6,3 +6,9 @@ export type linkObject = {
 	to: string;
 	class?: string;
 };
+
+export type MenuLinkProps = {
+	linkto: string;
+	icon: ReactNode;
+	text: string;
+};

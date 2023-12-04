@@ -28,7 +28,6 @@ function SendCartData({
 			cart = JSON.parse(cartItem);
 		}
 
-		// let cart: any[] = JSON.parse(localStorage.getItem("cart")) || "[]";
 		const isMailRegexOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
 			customerMailRef.current.value
 		);

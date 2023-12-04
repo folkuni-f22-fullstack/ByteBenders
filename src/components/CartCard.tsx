@@ -120,7 +120,6 @@ function CartCard(): JSX.Element {
 								<>
 									{/* Cart */}
 									{cartCopy.map((item: DishInCart, index) => (
-										//hela kortet
 										<div className='cart-card' key={index}>
 											<div className='cart-card-price'>
 												<NavLink

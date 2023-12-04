@@ -7,22 +7,24 @@ import { loginState } from '../recoil/loginState.js';
 import fetchAccount from '../utils/AJAX/fetchAccount.js';
 import WindowSizeListener from '../utils/WindowListener.tsx';
 import isValidLogin from '../utils/validateLogin.ts';
+import { loginStateType } from '../interfaces/loginStateType.ts';
 
-export default function LoginRoute(): React.FC {
-	const [visible, setVisible] = useState(false);
-	const [userInput, setUserInput] = useState('');
-	const [passwordInput, setPasswordInput] = useState('');
-	const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);
+export default function LoginRoute() {
+	const [visible, setVisible] = useState<boolean>(false);
+	const [userInput, setUserInput] = useState<string>('');
+	const [passwordInput, setPasswordInput] = useState<string>('');
+	const [isLoggedIn, setIsLoggedIn] =
+		useRecoilState<loginStateType>(loginState);
 	const navigate = useNavigate();
-	const errorMsgRef = useRef(null);
+	const errorMsgRef = useRef<HTMLParagraphElement | null>(null);
 	let windowWidth = WindowSizeListener();
 	let textColor = windowWidth > 1200 ? 'var(--dark-blue)' : '#FFFFFF';
 
-	const handleLogin = async (event) => {
-		event?.preventDefault();
+	const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
 		const inputsAreValid = isValidLogin(userInput, passwordInput);
 		if (!inputsAreValid) {
-			errorMsgRef.current.style.visibility = 'visible';
+			errorMsgRef.current!.style.visibility = 'visible';
 			return;
 		}
 
@@ -30,11 +32,11 @@ export default function LoginRoute(): React.FC {
 			const login = await fetchAccount(userInput, passwordInput);
 
 			if (!login.token) {
-				errorMsgRef.current.value = login;
+				errorMsgRef.current!.innerText = login;
 
-				errorMsgRef.current.style.visibility = 'visible';
+				errorMsgRef.current!.style.visibility = 'visible';
 			} else if (login.token) {
-				errorMsgRef.current.style.visibility = 'hidden';
+				errorMsgRef.current!.style.visibility = 'hidden';
 				setIsLoggedIn({ loggedIn: true, token: login.token });
 				setUserInput('');
 				setPasswordInput('');
@@ -53,7 +55,11 @@ export default function LoginRoute(): React.FC {
 	return (
 		<div className='LoginRoute'>
 			<div className='img-div'></div>
-			<form action='#' className='login-form'>
+			<form
+				action='#'
+				className='login-form'
+				onSubmit={(event) => handleLogin(event)}
+			>
 				<div className='login-heading'>
 					<h1>Login</h1>
 				</div>
@@ -97,7 +103,7 @@ export default function LoginRoute(): React.FC {
 				<button
 					type='submit'
 					className='login-button'
-					onClick={(event) => handleLogin(event)}
+					// onClick={(event) => handleLogin(event)}
 				>
 					Log in
 				</button>

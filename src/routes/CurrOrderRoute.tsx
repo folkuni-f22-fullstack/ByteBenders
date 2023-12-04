@@ -2,9 +2,10 @@ import CurrentOrderCard from '../components/CurrentOrdersCard';
 import '../styles/OrderCards.css';
 import { useState } from 'react';
 import { GrUnorderedList } from 'react-icons/gr';
+import React from 'react';
 
 export default function CurrOrderRoute() {
-	const [change, setChange] = useState(0);
+	const [change, setChange] = useState<number>(0);
 
 	return (
 		<>
