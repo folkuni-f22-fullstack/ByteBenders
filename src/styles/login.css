@@ -102,7 +102,10 @@
   }
 }
 
-@media screen and (max-height: 680px) {
+@media screen and (max-height: 680px) and (max-width: 1200px) {
+  .login-form {
+     margin-bottom: 7em;
+  }
   .login-button {
     margin-top: 0em;
   }
