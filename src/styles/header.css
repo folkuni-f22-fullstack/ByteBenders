@@ -12,6 +12,10 @@
 .header-link {
   text-decoration: none;
 }
+.heading-symbol-login {
+  font-family: var(--font-heading);
+  color: #ffffff;
+}
 
 @media screen and (max-width: 1200px) {
   .header {

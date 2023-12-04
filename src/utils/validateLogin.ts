@@ -7,10 +7,8 @@ const isValidLogin = (name: string, password: string): boolean => {
 		password.match(passwordRegex);
 
 	if (nameMatch && passwordMatch) {
-		// console.log('Strängen är giltig.');
 		return true;
 	} else {
-		// console.log('Strängen är ogiltig.');
 		return false;
 	}
 };

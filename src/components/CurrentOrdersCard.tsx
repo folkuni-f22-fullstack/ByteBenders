@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { loginState } from '../recoil/loginState.js';
-import { BsCheckCircleFill } from 'react-icons/bs';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import { MdDeleteForever } from 'react-icons/md';
 import '../styles/OrderCards.css';
 import '../App.css';
 import { Order } from '../interfaces/order';
@@ -66,65 +63,6 @@ export default function CurrentOrderCard({ change, setChange }) {
 			console.log('Failed to update order status');
 		}
 	};
-
-	const handleDeleteOrder = async (orderId: number, token) => {
-		try {
-			deleteOrder(orderId, token);
-		} catch (error) {
-			console.log('ERROR: ', error);
-		}
-		const updatedOrders = await getOrders(token);
-		setOrderData(updatedOrders);
-	};
-
-	// Handle new staff comment
-	function handleCommentChange(
-		orderId: number,
-		event: React.ChangeEvent<HTMLInputElement>
-	) {
-		const newComment = String(event.target.value);
-		setCommentChange((prev) => ({ ...prev, [orderId]: newComment }));
-	}
-
-	// Handle new price
-	function handlePriceChange(
-		orderId: number,
-		event: React.ChangeEvent<HTMLInputElement>
-	) {
-		const newTotal = event.target.value;
-		setPriceChange((prev) => ({ ...prev, [orderId]: newTotal }));
-	}
-
-	// Handle discount
-	function handleDiscountChange(
-		orderId: number,
-		event: React.ChangeEvent<HTMLInputElement>
-	) {
-		const newDiscount = Number(event.target.value);
-		setDiscountChange((prev) => ({ ...prev, [orderId]: newDiscount }));
-	}
-
-	// Calculate discount
-	async function calculateNewPrice(order, percentage) {
-		const newPrice = Math.round(
-			order.total - (order.total / 100) * percentage
-		);
-		await sendChange(order, 'total', newPrice);
-	}
-
-	async function sendChange(order, type, change) {
-		if (change === null || change === undefined) {
-			return;
-		}
-
-		try {
-			await updateLockedOrder(order, type, change);
-		} catch (error) {
-			console.log(error);
-		}
-
-		setChange((prevChange) => prevChange + 1);
-	}
 
 	return (
 		<section className='recieved-order-container'>

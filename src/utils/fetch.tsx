@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { Dish } from "../interfaces/dish";
 import { Order } from "../interfaces/order";
 import { promo, totalPrice } from "../components/CartInput";
-import { randomizer } from "./general";
 
 export function getMealsID() {
   const { id } = useParams();
@@ -88,7 +87,7 @@ export async function postOrder(customerInfo) {
   const postOrderUrl = "/api/orders";
   const cartData = localStorage.getItem("cart");
 
-  const randomId = Math.floor(Math.random() * 100000);
+  const randomId = Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000;
   localStorage.setItem("orderNumber", JSON.stringify(randomId));
 
   if (!cartData) {
@@ -102,7 +101,9 @@ export async function postOrder(customerInfo) {
     // Omstrukturera parsedCartData efter vad din backend förväntar sig
     const formattedOrderData = {
       orderId: randomId,
-      date: new Date().toLocaleString('se-SV', {timeZone: 'Europe/Stockholm'}),
+      date: new Date().toLocaleString("se-SV", {
+        timeZone: "Europe/Stockholm",
+      }),
       customername: customerInfo.customerName,
       customermail: customerInfo.customerMail,
       content: parsedCartData,

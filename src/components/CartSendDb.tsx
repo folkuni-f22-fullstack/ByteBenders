@@ -39,6 +39,10 @@ function SendCartData({
 		// For error styling
 		isMailRegexOk ? setIsMailValid(true) : setIsMailValid(false);
 		isNameRegexOk ? setIsNameValid(true) : setIsNameValid(false);
+		setTimeout(() => {
+			setIsMailValid(true);
+			setIsNameValid(true);
+		}, 1500);
 
 		// For function gate keeping
 		if (cart.length <= 0) {

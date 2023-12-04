@@ -36,7 +36,6 @@ export default function ProductDetailsRoute(): JSX.Element {
 	// Send to local storage
 	function handleAddToCart(): void {
 		const cartItem = {
-			// _id: productID._id,
 			image: product.image,
 			content: [],
 			usercomment: '',

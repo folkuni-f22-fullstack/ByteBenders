@@ -4,7 +4,7 @@
   position: relative;
   background-blend-mode: multiply;
   background-color: rgb(116, 116, 116);
-  background-image: url('/images/backgrounds/landingpage-mobile-resized.jpg');
+  background-image: url("/images/backgrounds/landingpage-mobile-resized.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -12,53 +12,94 @@
   height: 100%;
   width: 100%;
   padding-bottom: 5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .landing-section p {
   font-weight: 600;
-  color: var(--white-card-color);
-  text-align: center;
 }
-.adress {
-  margin-right: 0.25em;
+
+.tag-text {
+  color: var(--orange-color);
 }
+
+.tag-info-text {
+  color: #ffffff;
+}
+
 .landing-heading-section {
   display: flex;
   justify-items: center;
   flex-direction: column;
-  padding-top: 1em;
+  margin-bottom: 2em;
+  gap: 1em;
+  position: relative;
+  animation: headingAnimation 1.5s ease-in-out;
 }
 .landing-h1 {
   align-self: center;
   font-family: var(--font-heading);
   color: var(--orange-color);
   font-size: 4em;
- 
 }
 .landing-text {
   display: flex;
+  gap: 0.4em;
+  animation: textAnimation 1s 0.5s forwards;
+  opacity: 0;
+}
+.landing-text > div > * {
+  margin-bottom: 1.3em;
+  text-wrap: balance;
+}
+.landing-text > div {
+  margin-bottom: 1em;
+}
+
+.tags {
+  text-align: right;
+}
+
+.tags-info {
+  width: 11.5em;
+}
+.note-btn {
+  display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  max-height: 25em;
+  animation: textAnimation 1s 0.6s forwards;
+  opacity: 0;
 }
-.landing-text > * {
-  margin-bottom: 2em;
-}
-.p-div-phone {
+.p-div {
   display: flex;
+  flex-direction: row;
+
+  & > p {
+    margin-left: 0.4em;
+  }
 }
-.p-phone {
-  margin-right: 0.25em;
-}
-.note {
+
+#p-openhours {
   color: var(--orange-color);
+}
+
+.note {
+  color: white;
+  & span {
+    color: var(--orange-color);
+  }
 }
 .heading-symbol {
   color: var(--white-card-color);
   font-family: var(--font-heading);
   align-self: center;
   font-size: 4em;
+  font-weight: 600;
+  position: relative;
+  animation: symbolAnimation 1s ease-in-out;
 }
 .landing-btn {
   background-color: var(--orange-color);
@@ -69,11 +110,21 @@
   padding: 1em 4em;
   border-radius: 12px;
   cursor: pointer;
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+.fish {
+  opacity: 0; /* Initial opacity set here */
+  animation: fishAnimation 0.6s 0.63s forwards;
+}
+.friends {
+  opacity: 0; /* Initial opacity set here */
+  animation: friendsAnimation 0.6s 0.63s forwards;
 }
 
 @media screen and (min-width: 798px) {
   .landing-section {
-    background-image: url('/images/backgrounds/landingpage-desktop-resized.jpg');
+    background-image: url("/images/backgrounds/landingpage-desktop-resized.jpg");
     background-position: center top;
   }
   .landing-section > h1 {
@@ -81,5 +132,102 @@
   }
   .p-div {
     display: flex;
+    & > p {
+      margin-left: 0.4em;
+    }
+  }
+}
+
+/* @keyframes headingAnimation {
+  0% {
+    opacity: 0;
+    scale: 0.6;
+  }
+  100% {
+    opacity: 100;
+    scale: 1;
+  }
+}
+@keyframes textAnimation {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+} */
+@keyframes symbolAnimation {
+  0% {
+    transform: rotate(0deg);
+    opacity: 0;
+    scale: 0.3;
+  }
+  87% {
+    transform: rotate(380deg);
+    scale: 3;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes fishAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(150px);
+    scale: 0.2;
+  }
+  33% {
+    transform: translateY(150px);
+    opacity: 0;
+    scale: 0.4;
+  }
+  66% {
+    transform: translateY(150px);
+    opacity: 0;
+    scale: 0.6;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes friendsAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(-150px);
+    scale: 0.1;
+  }
+  33% {
+    opacity: 0;
+    transform: translateY(-150px);
+    scale: 0.1;
+  }
+  66% {
+    transform: translateY(-150px);
+    opacity: 0;
+    scale: 0.1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes textAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(-70px);
+  }
+  60% {
+    opacity: 0;
+    transform: translateY(-70px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

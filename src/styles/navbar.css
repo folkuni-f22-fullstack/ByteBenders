@@ -39,9 +39,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: background 0.1s;
+  transition: all 0.1s;
 }
-
+.nav-icon:active {
+  scale: 0.9;
+}
 button > a > .nav-icon:hover,
 .nav-icon:hover,
 .active > .nav-icon {

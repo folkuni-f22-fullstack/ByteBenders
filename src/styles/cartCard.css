@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* height: 90vh; */
   max-height: calc(100vh - 90px);
   padding-bottom: 1em;
 }
@@ -55,6 +54,7 @@
 }
 .amount-div {
   height: 4.5em;
+  width: 6em;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -67,14 +67,13 @@
 }
 
 .cart-name {
-  grid-column: 1 / span 3;
-  grid-row: 1;
   display: flex;
   align-self: center;
   font-weight: bold;
   text-decoration: none;
   color: var(--dark-blue);
   font-size: 18px;
+  max-width: 12em;
 }
 .card-price {
   grid-column: 4 / span 2;
@@ -89,6 +88,8 @@
 .amount-container {
   gap: 5px;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .sub-text,
@@ -97,24 +98,18 @@
 }
 
 .food-amount {
-  grid-column: 2;
-  grid-row: 1;
+  width: 1em;
   display: flex;
-  justify-self: center;
-  align-self: end;
-  margin-bottom: 1em;
+  align-items: center;
+  justify-content: center;
 }
 
 .sub {
-  grid-column: 1;
-  grid-row: 1;
   border-radius: 50%;
   border: none;
 }
 
 .plus {
-  grid-column: 3;
-  grid-row: 1;
   border-radius: 50%;
   border: none;
 }
@@ -123,13 +118,17 @@
 .amount-container > .plus {
   display: flex;
   align-items: center;
-  align-self: end;
   justify-content: center;
   width: 2em;
   height: 2em;
-  margin-bottom: 1em;
   background-color: var(--dark-blue);
   color: #ffffff;
+  transition: all 0.1s ease-in-out;
+}
+.amount-container > .sub:active,
+.amount-container > .plus:active {
+  scale: 0.9;
+  background-color: #324659;
 }
 
 .customize-order {
@@ -200,8 +199,12 @@
   height: 2em;
   border-radius: 0.3em;
   min-width: 3.5em;
+  transition: all 0.1s ease-in-out;
 }
-
+.apply-promo-button:active {
+  scale: 0.9;
+  background-color: #324659;
+}
 .apply-promo-button:hover {
   cursor: pointer;
 }
@@ -353,7 +356,20 @@
 }
 
 .invalid-input {
-  outline: 1px solid red;
+  animation: errorflash 0.3s;
+  animation-iteration-count: 3;
+}
+
+@keyframes errorflash {
+  0% {
+    outline: 3px solid rgb(255, 255, 255);
+  }
+  50% {
+    outline: 3px solid red;
+  }
+  100% {
+    outline: 3px solid rgba(255, 255, 255, 0);
+  }
 }
 
 .send-cart-button {
