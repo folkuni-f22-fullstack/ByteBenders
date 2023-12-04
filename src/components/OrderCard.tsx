@@ -89,7 +89,6 @@ const OrderCard: React.FC<OrderCardProps> = ({
 		const newPrice = Math.round(
 			order.total - (order.total / 100) * percentage
 		);
-		console.log('i calculateNewPrice newPrice är: ', newPrice);
 
 		await sendChange(order, type, newPrice);
 	}

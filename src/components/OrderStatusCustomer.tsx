@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { BiSolidTimer } from "react-icons/bi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
-import { isOrderLocked } from "../utils/fetch.js";
+import { getSpecificOrder } from "../utils/fetch.js";
 import { finishedTime } from "../utils/orderstatus.js";
 import { checkIfDishIsFinished } from "../utils/orderstatus.js";
 import { orderState } from "../recoil/orderState.js";
@@ -12,7 +12,7 @@ import { useRecoilState } from "recoil";
 import axios from "axios";
 
 export default function OrderStatusCustomer() {
-  const [count, setCount] = useState(0.3);
+  const [count, setCount] = useState(15);
   const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
   const navigate = useNavigate();
 
@@ -54,7 +54,7 @@ export default function OrderStatusCustomer() {
     orderId = JSON.parse(orderId);
 
     try {
-      const response = await isOrderLocked(orderId);
+      const response = await getSpecificOrder(orderId);
 
       if (response === true) {
         orderText.current.innerText =
