@@ -76,6 +76,10 @@
   margin-right: 4px;
 }
 
+.pass-div, .visibility-toggle {
+  transform: translate3d(0,0,0);
+}
+
 .login-button {
   margin-top: 6em;
   padding: 0.5em 3em;
