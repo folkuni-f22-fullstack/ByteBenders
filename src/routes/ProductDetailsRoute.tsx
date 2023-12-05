@@ -22,7 +22,7 @@ export default function ProductDetailsRoute(): JSX.Element {
 	const windowWidth = WindowSizeListener();
 
 	const mealID = getMealByID();
-	console.log('mealID är: ', mealID);
+	// console.log('mealID är: ', mealID);
 
 	useEffect(() => {
 		async function fetchMealsId(): Promise<void> {

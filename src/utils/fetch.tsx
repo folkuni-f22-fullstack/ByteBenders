@@ -3,7 +3,7 @@ import { Order } from '../interfaces/order';
 import { promo, totalPrice } from '../components/CartInput';
 
 // [AJAX-GET] - Specific Meal
-export async function getMealsID() {
+export async function getMealByID() {
 	const { id } = useParams();
 	try {
 		const response = await fetch(`/api/meals/${id}`);
