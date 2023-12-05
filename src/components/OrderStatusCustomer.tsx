@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { BiSolidTimer } from 'react-icons/bi';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { NavLink } from 'react-router-dom';
-import { isOrderLocked } from '../utils/fetch.js';
+import { getSpecificOrder } from '../utils/fetch.js';
 import { finishedTime } from '../utils/orderstatus.js';
 import { checkIfDishIsFinished } from '../utils/orderstatus.js';
 import { orderState } from '../recoil/orderState.js';
@@ -43,6 +43,7 @@ export default function OrderStatusCustomer() {
 		localStorage.removeItem('orderNumber');
 		localStorage.removeItem('ETA');
 		localStorage.removeItem('cart');
+		localStorage.removeItem('promo-code');
 		setCurrentOrder({
 			isOrdered: false,
 			isWaiting: false,
@@ -56,7 +57,7 @@ export default function OrderStatusCustomer() {
 		orderId = JSON.parse(orderId);
 
 		try {
-			const response = await isOrderLocked(orderId);
+			const response = await getSpecificOrder(orderId);
 
 			if (response === true) {
 				orderText.current!.innerText =

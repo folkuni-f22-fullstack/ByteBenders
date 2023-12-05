@@ -1,30 +1,21 @@
 import { useParams } from 'react-router-dom';
-import { Dish } from '../interfaces/dish';
 import { Order } from '../interfaces/order';
 import { promo, totalPrice } from '../components/CartInput';
 
-export async function getMealByID() {
+// [AJAX-GET] - Specific Meal
+export async function getMealsID() {
 	const { id } = useParams();
-	const getMealsUrl = `/api/meals/${id}`;
-
-	// async function getMeals(): Promise<Dish[]> {
 	try {
-		const response = await fetch(getMealsUrl);
-		const detailsData = await response.json();
-		console.log('detailsData är: ', detailsData);
-
-		return detailsData;
+		const response = await fetch(`/api/meals/${id}`);
+		return await response.json();
 	} catch (error) {
 		console.log(error);
 		throw new Error('Something went wrong while fetching meal details');
 	}
-	// }
-	// return getMeals();
 }
 
-export async function getOrders(token) {
-	const getOrdersUrl = `/api/orders`;
-
+// [AJAX-GET] - All orders
+export async function getOrders(token: string) {
 	const options = {
 		method: 'GET',
 		headers: {
@@ -34,7 +25,7 @@ export async function getOrders(token) {
 	};
 
 	try {
-		const response = await fetch(getOrdersUrl, options);
+		const response = await fetch(`/api/orders`, options);
 		const orderData = await response.json();
 		return orderData;
 	} catch (error) {
@@ -43,7 +34,7 @@ export async function getOrders(token) {
 	}
 }
 
-export async function putOrder(order: Order, newStatus: string, token) {
+export async function putOrder(order: Order, newStatus: string, token: string) {
 	const putOrderUrl = `/api/orders/${order.orderId}`;
 	order.status = newStatus;
 
@@ -66,16 +57,15 @@ export async function putOrder(order: Order, newStatus: string, token) {
 	}
 }
 
-export async function isOrderLocked(id) {
-	const getOrdersUrl = `/api/customer/${id}`;
-
+// [AJAX-GET] Specific order
+export async function getSpecificOrder(id: number) {
 	const options = {
 		method: 'GET',
 		headers: { 'Content-Type': 'application/json' },
 	};
 
 	try {
-		const response = await fetch(getOrdersUrl, options);
+		const response = await fetch(`/api/customer/${id}`, options);
 		const orderData = await response.json();
 		return orderData.locked;
 	} catch (error) {
@@ -84,7 +74,8 @@ export async function isOrderLocked(id) {
 	}
 }
 
-export async function postOrder(customerInfo) {
+// [AJAX-POST] Order
+export async function postOrder(customerInfo: any) {
 	const postOrderUrl = '/api/orders';
 	const cartData = localStorage.getItem('cart');
 
@@ -109,7 +100,6 @@ export async function postOrder(customerInfo) {
 			customermail: customerInfo.customerMail,
 			content: parsedCartData,
 			usercomment: customerInfo.customerComment || '',
-			// staffcomment: parsedCartData.staffcomment || "",
 			total: promo.value !== 0 ? promo.value : totalPrice.value,
 			status: 'received',
 			locked: parsedCartData.locked || false,
@@ -135,11 +125,10 @@ export async function postOrder(customerInfo) {
 	}
 }
 
-export async function deleteOrder(orderId: string, token) {
-	const deleteOrderUrl = `/api/orders/${orderId}`;
-
+// [AJAX-DELETE] Order erase
+export async function deleteOrder(orderId: string, token: string) {
 	try {
-		const response = await fetch(deleteOrderUrl, {
+		const response = await fetch(`/api/orders/${orderId}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
@@ -163,8 +152,8 @@ export async function deleteOrder(orderId: string, token) {
 	}
 }
 
+// [AJAX-POST] Order done
 export async function postDoneOrder(order) {
-	const postDoneOrderUrl = '/api/orders/done';
 	const options = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
@@ -172,26 +161,25 @@ export async function postDoneOrder(order) {
 	};
 
 	try {
-		const response = await fetch(postDoneOrderUrl, options);
+		const response = await fetch('/api/orders/done', options);
 	} catch (error) {
-		// Om något går fel, logga felet
 		console.error('Error posting doneOrder:', error);
 	}
 }
 
+// [AJAX-PUT] Order, update locked
 export async function updateLockedOrder(order, type, value) {
 	const baseUrl = `/api/editorder/${order.orderId}`;
 
 	let newStaffComment = '';
-	if (type === 'comment' && order.staffcomment && order.staffcomment !== '') {
-		newStaffComment = order.staffcomment + ', ' + value;
-	} else if (type === 'comment') {
-		newStaffComment = value;
-	} else if (type === 'comment-reset') {
-		newStaffComment = '';
-	} else {
-		newStaffComment = order.staffcomment || '';
-	}
+
+	type === 'comment' && order.staffcomment && order.staffcomment !== ''
+		? (newStaffComment = order.staffcomment + ', ' + value)
+		: type === 'comment'
+		? (newStaffComment = value)
+		: type === 'comment-reset'
+		? (newStaffComment = '')
+		: (newStaffComment = order.staffcomment || '');
 
 	let body = {
 		orderId: order.orderId,
@@ -210,10 +198,8 @@ export async function updateLockedOrder(order, type, value) {
 		};
 
 		let response = await fetch(baseUrl, options);
-		const data = await response.json();
 		return response;
 	} catch (error) {
-		console.log('error.message: ', error.message);
 		return error.message;
 	}
 }

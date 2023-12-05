@@ -74,7 +74,9 @@ export default function LoginRoute() {
 				</div>
 
 				<div className='input-group'>
-					<label htmlFor='password-input'>Password</label>
+					<label htmlFor='password-input' className='password-label'>
+						Password
+					</label>
 					<div className='pass-div'>
 						<input
 							type={visible ? 'text' : 'password'}
