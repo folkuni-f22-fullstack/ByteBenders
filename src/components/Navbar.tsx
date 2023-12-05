@@ -109,16 +109,18 @@ const NavBar: React.FC = () => {
 					</div>
 				))}
 
-			<dialog
-				className='modal'
-				ref={modal}
-				onClick={(e) => {
-					outsideClick(e);
-				}}
-			>
-				<p>Log out?</p>
-				<button onClick={handleLogout}>Confirm</button>
-			</dialog>
+			{isLoggedIn.loggedIn && (
+				<dialog
+					className='modal'
+					ref={modal}
+					onClick={(e) => {
+						outsideClick(e);
+					}}
+				>
+					<p>Log out?</p>
+					<button onClick={handleLogout}>Confirm</button>
+				</dialog>
+			)}
 		</nav>
 	);
 };

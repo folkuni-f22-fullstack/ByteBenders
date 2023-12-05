@@ -44,14 +44,14 @@
 
 #user-input,
 #password-input {
-  padding: 0.7em 1.2em;
+  padding: 0.7em;
   border: 1px solid rgb(213, 213, 213);
   border-radius: 5px;
 }
 
 #password-input {
   border-radius: 5px;
-  padding: 0.7em 1.2em;
+  padding: 0.7em;
   border: 1px solid rgb(213, 213, 213);
   border-radius: 5px;
 }

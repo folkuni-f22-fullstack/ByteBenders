@@ -181,7 +181,7 @@
 .confirm-button {
   position: absolute;
   right: 0px;
-  bottom: 8px;
+  bottom: 2px;
   background-color: var(--dark-blue);
   color: #ffffff;
   border-radius: 5px;
