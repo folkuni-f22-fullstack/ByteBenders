@@ -233,9 +233,9 @@ const OrderCard: React.FC<OrderCardProps> = ({
             change={change}
             setChange={setChange}
           />
-        </motion.section>
+        </section>
       )}
-    </motion.div>
+    </div>
   );
 };
 

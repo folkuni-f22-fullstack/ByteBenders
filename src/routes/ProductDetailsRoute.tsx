@@ -125,7 +125,7 @@ export default function ProductDetailsRoute(): JSX.Element {
               <CartRoute />
             </div>
           ) : null}
-        </motion.main>
+        </main>
       )}
     </>
   );
