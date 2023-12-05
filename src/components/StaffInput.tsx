@@ -1,23 +1,5 @@
-import { RefObject } from 'react';
-import { Order } from '../interfaces/order';
-import { GoCheckbox } from 'react-icons/go';
-
-type OrderClickFunction<T> = (
-	order: Order,
-	type: string,
-	value: T
-) => Promise<void>;
-
-type StaffInputProps = {
-	inputRef: RefObject<HTMLInputElement>;
-	changeHandler: (
-		orderId: number,
-		event: React.ChangeEvent<HTMLInputElement>
-	) => void;
-	clickHandler: OrderClickFunction<string> | OrderClickFunction<number>;
-	order: Order;
-	type: string;
-};
+import React from 'react';
+import { StaffInputProps } from '../interfaces/staffInputProps';
 
 const StaffInput: React.FC<StaffInputProps> = ({
 	inputRef,
@@ -45,8 +27,8 @@ const StaffInput: React.FC<StaffInputProps> = ({
 				<button
 					className='confirm-button'
 					onClick={() => {
-						clickHandler(order, type, inputRef.current.value);
-						inputRef.current.value = '';
+						clickHandler(order, type, inputRef.current!.value);
+						inputRef.current!.value = '';
 					}}
 				>
 					Confirm

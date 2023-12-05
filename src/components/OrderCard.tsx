@@ -1,13 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
-import { OrderCardProps } from "../interfaces/OrderCardProps";
-import { updateLockedOrder } from "../utils/fetch";
-import StaffInput from "./StaffInput";
-import OrderHandlers from "./OrderHandlers";
-// import { DishInCart } from '../interfaces/dish';
-import { Order } from "../interfaces/order";
-import ArrowButtons from "./ArrowButtons";
-import "../styles/OrderCards.css";
-import { motion } from "framer-motion";
+import React, { useState, useRef, useEffect } from 'react';
+import { OrderCardProps } from '../interfaces/OrderCardProps';
+import { updateLockedOrder } from '../utils/fetch';
+import StaffInput from './StaffInput';
+import OrderHandlers from './OrderHandlers';
+import { Order } from '../interfaces/order';
+import ArrowButtons from './ArrowButtons';
+import '../styles/OrderCards.css';
 
 const OrderCard: React.FC<OrderCardProps> = ({
   order,
@@ -26,35 +24,33 @@ const OrderCard: React.FC<OrderCardProps> = ({
     [key: number]: number;
   }>({});
 
-  const totalInput = useRef<HTMLInputElement>(null);
-  const commentInput = useRef<HTMLInputElement>(null);
-  const discountInput = useRef<HTMLInputElement>(null);
+	const totalInput = useRef<HTMLInputElement | null>(null);
+	const commentInput = useRef<HTMLInputElement | null>(null);
+	const discountInput = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {}, [change]);
 
-  const PropsListForStaffInput = [
-    {
-      inputRef: commentInput,
-      changeHandler: handleCommentChange,
-      clickHandler: sendChange,
-      type: "comment",
-      // newValue: commentChange,
-    },
-    {
-      inputRef: discountInput,
-      changeHandler: handleDiscountChange,
-      clickHandler: calculateNewPrice,
-      type: "applyDiscount",
-      // newValue: discountChange,
-    },
-    {
-      inputRef: totalInput,
-      changeHandler: handlePriceChange,
-      clickHandler: sendChange,
-      type: "total",
-      // newValue: priceChange,
-    },
-  ];
+	// List on inputs, changehandlers, clickhandlers and type for staffInput-fields
+	const PropsListForStaffInput = [
+		{
+			inputRef: commentInput,
+			changeHandler: handleCommentChange,
+			clickHandler: sendChange,
+			type: 'comment',
+		},
+		{
+			inputRef: discountInput,
+			changeHandler: handleDiscountChange,
+			clickHandler: calculateNewPrice,
+			type: 'applyDiscount',
+		},
+		{
+			inputRef: totalInput,
+			changeHandler: handlePriceChange,
+			clickHandler: sendChange,
+			type: 'total',
+		},
+	];
 
   function handleCommentChange(
     orderId: number,
@@ -80,6 +76,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
     setDiscountChange((prev) => ({ ...prev, [orderId]: newDiscount }));
   }
 
+	// Calculates the new price if staff entered in discount
 	async function calculateNewPrice(
 		order: Order,
 		type: string,
@@ -92,86 +89,88 @@ const OrderCard: React.FC<OrderCardProps> = ({
     await sendChange(order, type, newPrice);
   }
 
-  async function sendChange(
-    order: Order,
-    type: string,
-    newValue: string | number
-  ) {
-    if (newValue === null || newValue === undefined) {
-      return;
-    }
+	// Makes changes in the order and empties the input fields
+	async function sendChange(
+		order: Order,
+		type: string,
+		newValue: string | number
+	) {
+		if (newValue === null || newValue === undefined) {
+			return;
+		}
 
-    try {
-      await updateLockedOrder(order, type, newValue);
-    } catch (error) {
-      console.log(error);
-    }
-    // Kom ihåg att skicka med change-variabeln!
-    setChange((change) => change + 1);
-    if (commentInput.current && discountInput.current && totalInput.current) {
-      commentInput.current.value = "";
-      discountInput.current.value = "";
-      totalInput.current.value = "";
-    }
-  }
+		try {
+			await updateLockedOrder(order, type, newValue);
+		} catch (error) {
+			console.log(error);
+		}
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: 0.1 }}
-      s
-      className="recieved-order-card"
-      key={order.orderId}
-    >
-      <div className="order-content">
-        <div className="order-title">
-          <p className="order-title-description number">Order number</p>
-          <h1>{order.orderId}</h1>
-        </div>
+		setChange((change) => change + 1);
 
-        <div className="order-title">
-          <div className="order-title-description">
-            <p className="email">{order.date.split("GMT")[0]}</p>
-            <p>
-              {order.content.reduce((total, item) => {
-                return total + item.quantity;
-              }, 0)}{" "}
-              item(s)
-            </p>
-          </div>
-          <span className="title-customer-info">{order.customername}</span>
-          <span className="title-customer-info">{order.customermail}</span>
-        </div>
-        <ArrowButtons
-          isExpanded={isExpanded}
-          setIsExpanded={setIsExpanded}
-          order={order}
-        />
-      </div>
-      {isExpanded === order.orderId && (
-        <motion.section
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.2, delay: 0.1 }}
-          className="order-info-section"
-        >
-          <ul className="order-info-list">
-            {order.content.map((item) => (
-              <li className="order-product-name" key={item.name}>
-                <div>
-                  <span className="item-quantity">x{item.quantity}</span>{" "}
-                  {item.name}
-                </div>
-                <span>{item.total}:-</span>
-              </li>
-            ))}
+		if (
+			commentInput.current &&
+			discountInput.current &&
+			totalInput.current
+		) {
+			commentInput.current.value = '';
+			discountInput.current.value = '';
+			totalInput.current.value = '';
+		}
+	}
 
-            <span className=" current-price" key={order.name}>
-              Total: {order.total}:-
-            </span>
-            <hr className="linebreak-current" />
-          </ul>
+	return (
+		<div className='recieved-order-card' key={order.orderId}>
+			<div className='order-content'>
+				<div className='order-title'>
+					<p className='order-title-description number'>
+						Order number
+					</p>
+					<h1>{order.orderId}</h1>
+				</div>
+
+				<div className='order-title'>
+					<div className='order-title-description'>
+						<p className='email'>{order.date.split('GMT')[0]}</p>
+						<p>
+							{order.content.reduce((total, item) => {
+								return total + item.quantity;
+							}, 0)}{' '}
+							item(s)
+						</p>
+					</div>
+					<span className='title-customer-info'>
+						{order.customername}
+					</span>
+					<span className='title-customer-info'>
+						{order.customermail}
+					</span>
+				</div>
+				<ArrowButtons
+					isExpanded={isExpanded}
+					setIsExpanded={setIsExpanded}
+					order={order}
+				/>
+			</div>
+			{isExpanded === order.orderId && (
+				<section className='order-info-section'>
+					<ul className='order-info-list'>
+						{order.content.map((item) => (
+							<li className='order-product-name' key={item.name}>
+								<div>
+									<span className='item-quantity'>
+										x{item.quantity}
+									</span>{' '}
+									{item.name}
+								</div>
+								<span>{item.total}:-</span>
+							</li>
+						))}
+
+						<span className=' current-price'>
+							Total: {order.total}:-
+						</span>
+						<hr className='linebreak-current' />
+					</ul>
 
           {page === "current" ? (
             <>
@@ -180,39 +179,52 @@ const OrderCard: React.FC<OrderCardProps> = ({
                 <span className="user-comment">{order.usercomment}</span>
               </div>
 
-              <div className="staff-comment-section">
-                <p className="order-staff-comment">Staff comments:</p>
-                <span className="staff-comment">{order.staffcomment}</span>
-              </div>
-              <button
-                className="reset-button"
-                onClick={() => sendChange(order, "comment-reset", "")}
-              >
-                {" "}
-                Reset comments
-              </button>
+							<div className='staff-comment-section'>
+								<p className='order-staff-comment'>
+									Staff comments:
+								</p>
+								<span className='staff-comment'>
+									{order.staffcomment}
+								</span>
+							</div>
+							<button
+								className='reset-button'
+								onClick={() =>
+									sendChange(order, 'comment-reset', '')
+								}
+							>
+								{' '}
+								Reset comments
+							</button>
 
-              <section className="staff-edit-section">
-                {PropsListForStaffInput.map(
-                  ({ inputRef, changeHandler, clickHandler, type }) => (
-                    <StaffInput
-                      key={type}
-                      inputRef={inputRef}
-                      changeHandler={changeHandler}
-                      clickHandler={clickHandler}
-                      order={order}
-                      type={type}
-                    />
-                  )
-                )}
-              </section>
-            </>
-          ) : (
-            <>
-              <h3 className="order-comment">User comments:</h3>
-              <span className="user-comment-field">{order.usercomment}</span>
-            </>
-          )}
+							<section className='staff-edit-section'>
+								{PropsListForStaffInput.map(
+									({
+										inputRef,
+										changeHandler,
+										clickHandler,
+										type,
+									}) => (
+										<StaffInput
+											key={type}
+											inputRef={inputRef}
+											changeHandler={changeHandler}
+											clickHandler={clickHandler}
+											order={order}
+											type={type}
+										/>
+									)
+								)}
+							</section>
+						</>
+					) : (
+						<>
+							<h3 className='order-comment'>User comments:</h3>
+							<span className='user-comment-field'>
+								{order.usercomment}
+							</span>
+						</>
+					)}
 
           <OrderHandlers
             page={page}

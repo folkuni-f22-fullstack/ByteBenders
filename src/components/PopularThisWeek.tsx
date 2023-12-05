@@ -1,6 +1,6 @@
 import '../styles/meals.css';
 import { BsCart3 } from 'react-icons/bs';
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import addToLS from '../utils/addCartLS';
 import { useRecoilState } from 'recoil';
@@ -12,11 +12,12 @@ import { refreshQuantity } from '../utils/quantityChange.js';
 import '../styles/popularThisWeek.css';
 
 export default function PopularThisWeek() {
-	const [randomMeals, setRandomMeals] = useState([]);
-	const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
-	let [cartItems, setCartItems] = useRecoilState(cartState);
-	const popularSectionRef = useRef(null);
-	const [isLargeScreen, setIsLargeScreen] = useState(
+	const [randomMeals, setRandomMeals] = useState<Dish[]>([]);
+	const [isCartEmpty, setIsCartEmpty] =
+		useRecoilState<boolean>(isCartEmptyState);
+	let [cartItems, setCartItems] = useRecoilState<number>(cartState);
+	const popularSectionRef = useRef<HTMLElement>(null);
+	const [isLargeScreen, setIsLargeScreen] = useState<boolean>(
 		window.innerWidth > 1200
 	);
 

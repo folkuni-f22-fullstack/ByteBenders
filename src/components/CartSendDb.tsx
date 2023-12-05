@@ -1,77 +1,88 @@
-import { signal } from "@preact/signals-react";
-import { postOrder } from "../utils/fetch.tsx";
-import { useRecoilState } from "recoil";
-import { isCartEmptyState } from "../recoil/cartNumberState.js";
-import { orderState } from "../recoil/orderState.js";
+import { signal } from '@preact/signals-react';
+import { postOrder } from '../utils/fetch.tsx';
+import { useRecoilState } from 'recoil';
+import { isCartEmptyState } from '../recoil/cartNumberState.js';
+import { orderState } from '../recoil/orderState.js';
+import { OrderStateType } from '../interfaces/order.ts';
+import * as React from 'react';
 
-export let orderNumber = signal(null);
-export let isOrdered = signal(false);
+export let orderNumber = signal<number | null>(null);
+export let isOrdered = signal<boolean>(false);
 function SendCartData({
-  customerNameRef,
-  customerMailRef,
-  customerCommentRef,
-  setIsNameValid,
-  setIsMailValid,
-  setIsComment,
+	customerNameRef,
+	customerMailRef,
+	customerCommentRef,
+	setIsNameValid,
+	setIsMailValid,
+	setIsComment,
+}): JSX.Element {
+	const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
+	const [currentOrder, setCurrentOrder] =
+		useRecoilState<OrderStateType>(orderState);
 
-}) {
-  const [isCartEmpty, setIsCartEmpty] = useRecoilState(isCartEmptyState);
-  const [currentOrder, setCurrentOrder] = useRecoilState(orderState);
+	function handlePost() {
+		let cart: any[] = [];
+		const cartItem = localStorage.getItem('cart');
 
-  function handlePost() {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const isMailRegexOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
-      customerMailRef.current.value
-    );
-    const isNameRegexOk = /^[a-zA-ZåäöÅÄÖ\- ]+$/.test(
-      customerNameRef.current.value
-    );
+		if (cartItem && typeof cartItem === 'string') {
+			cart = JSON.parse(cartItem);
+		}
 
-    // For error styling
-    isMailRegexOk ? setIsMailValid(true) : setIsMailValid(false);
-    isNameRegexOk ? setIsNameValid(true) : setIsNameValid(false);
-    setTimeout(() => {
-      setIsMailValid(true);
-      setIsNameValid(true);
-    }, 1500);
+		const isMailRegexOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+			customerMailRef.current.value
+		);
+		const isNameRegexOk = /^[a-zA-ZåäöÅÄÖ\- ]+$/.test(
+			customerNameRef.current.value
+		);
 
+		// For error styling
+		isMailRegexOk ? setIsMailValid(true) : setIsMailValid(false);
+		isNameRegexOk ? setIsNameValid(true) : setIsNameValid(false);
+		setTimeout(() => {
+			setIsMailValid(true);
+			setIsNameValid(true);
+		}, 1500);
 
-    // For function gate keeping
-    if (cart.length <= 0) {
-      return;
-    }
-    if (!isMailRegexOk || !isNameRegexOk) {
-      return;
-    }
+		// For function gate keeping
+		if (cart.length <= 0) {
+			return;
+		}
+		if (!isMailRegexOk || !isNameRegexOk) {
+			return;
+		}
 
-    const customerInfo = {
-      customerName: customerNameRef.current.value,
-      customerMail: customerMailRef.current.value,
-      customerComment: customerCommentRef.current.value,
-    };
+		const customerInfo = {
+			customerName: customerNameRef.current.value,
+			customerMail: customerMailRef.current.value,
+			customerComment: customerCommentRef.current.value,
+		};
 
-    postOrder(customerInfo);
+		postOrder(customerInfo);
 
-    setCurrentOrder({
-      isOrdered: true,
-      isWaiting: true,
-      orderNumber: localStorage.getItem("orderNumber"),
-    });
+		const orderNumberValue = localStorage.getItem('orderNumber');
 
-    setIsCartEmpty(!isCartEmpty);
-    setIsNameValid(true);
-    setIsMailValid(true);
-    setIsComment(true);
-    customerMailRef.current.value = "";
-    customerNameRef.current.value = "";
-    customerCommentRef.current.value = "";
-  }
+		if (orderNumberValue !== null && orderNumberValue !== undefined) {
+			setCurrentOrder({
+				isOrdered: true,
+				isWaiting: true,
+				orderNumber: orderNumberValue,
+			});
 
-  return (
-    <button className="send-cart-button" onClick={handlePost}>
-      Checkout
-    </button>
-  );
+			setIsCartEmpty(!isCartEmpty);
+			setIsNameValid(true);
+			setIsMailValid(true);
+			setIsComment(true);
+			customerMailRef.current.value = '';
+			customerNameRef.current.value = '';
+			customerCommentRef.current.value = '';
+		}
+	}
+
+	return (
+		<button className='send-cart-button' onClick={handlePost}>
+			Checkout
+		</button>
+	);
 }
 
 export default SendCartData;

@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
-// import menu from '../data/menu.json';
+import React, { useState, useEffect, useRef } from 'react';
 import dishMatch from '../utils/search.ts';
 import { ChangeEvent } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -19,11 +18,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
 	searchMode,
 	setSearchMode,
 }) => {
-	const [showFilters, setShowFilters] = useRecoilState(subState);
-	const [searchInput, setSearchInput] = useState('');
-	const subMenuRef = useRef<HTMLButtonElement | null>(null);
+	const [showFilters, setShowFilters] = useRecoilState<boolean>(subState);
+	const [searchInput, setSearchInput] = useState<string>('');
+	const subMenuRef = useRef<HTMLButtonElement>(null);
 
-	// searchMode kontrollerar om man ska söka eller filtrera
+	// searchMode controls whether to search or filter.
 	useEffect(() => {
 		if (searchInput) {
 			setSearchMode(true);
@@ -32,15 +31,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
 		}
 	}, [searchInput]);
 
-	// searchMode sätts till false när man klickar på ett filter i FilterMeals -> då töms input-fältet
+	// searchMode is set to false when clicking on a filter in FilterMeals -> then the input field is cleared.
 	useEffect(() => {
 		if (!searchMode) {
 			setSearchInput('');
 		}
 	}, [searchMode]);
 
-	//om uef en funktion som anropas i uef som är asyncron
-
+	// Updates the visible dishes depending on searchstring
 	const handleSearchChange = async (event: ChangeEvent<HTMLInputElement>) => {
 		const searchString = event.target.value;
 		setSearchInput(searchString);
@@ -65,8 +63,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 	return (
 		<div className='search-bar'>
 			<div className='search-input-container'>
-
-				<label htmlFor="search-input">
+				<label htmlFor='search-input'>
 					<AiOutlineSearch />
 				</label>
 

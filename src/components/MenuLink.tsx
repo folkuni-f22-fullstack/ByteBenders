@@ -1,15 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import { cartState } from '../recoil/cartNumberState.js';
 import { useRecoilState } from 'recoil';
+import React from 'react';
+import { MenuLinkProps } from '../interfaces/linkObject.js';
 
-// Skapar interface (=gränssnitt) som definierar vilka egenskaper och datatyper som förväntas.
-interface MenuLinkProps {
-	linkto: string;
-	icon: React.ReactNode;
-	text: string;
-}
-
-// Använder React.FC<MenuLinkProps> för att ange att MenuLink är en funktionell komponent som accepterar props enligt datatypen som anges av MenuLinkProps.
+// Creates links for the navbar component
 const MenuLink: React.FC<MenuLinkProps> = ({ linkto, icon, text }) => {
 	const [cartItems, setCartItems] = useRecoilState<number>(cartState);
 

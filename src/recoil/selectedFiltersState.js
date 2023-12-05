@@ -1,6 +1,6 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 export const selectedFiltersState = atom({
-  key: "selectedFiltersState",
-  default: [],
+	key: 'selectedFiltersState',
+	default: [],
 });

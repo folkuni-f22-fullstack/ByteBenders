@@ -1,12 +1,6 @@
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import { Order } from '../interfaces/order';
 import React from 'react';
-
-type ArrowButtonProps = {
-	isExpanded: null | number;
-	setIsExpanded: (order: number | null) => void;
-	order: Order;
-};
+import { ArrowButtonProps } from '../interfaces/arrowButtonProps';
 
 const ArrowButtons: React.FC<ArrowButtonProps> = ({
 	isExpanded,

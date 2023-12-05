@@ -1,21 +1,15 @@
 import { RiCheckboxCircleLine } from 'react-icons/ri';
 import { MdDeleteForever } from 'react-icons/md';
 import { BsFillArrowRightCircleFill, BsCheckCircleFill } from 'react-icons/bs';
-import { getOrders } from '../utils/fetch';
 import { putOrder } from '../utils/fetch';
 import { loginState } from '../recoil/loginState.js';
 import { useRecoilState } from 'recoil';
 import { Order } from '../interfaces/order';
 import { postDoneOrder } from '../utils/fetch';
 import { deleteOrder } from '../utils/AJAX/deleteOrder.ts';
-
-type OrderHandlerProps = {
-	page: string;
-	order: Order;
-	setOrderData: React.Dispatch<React.SetStateAction<Order[] | null>>;
-	change: number;
-	setChange: (value: number) => void;
-};
+import React from 'react';
+import { loginStateType } from '../interfaces/loginStateType.ts';
+import { OrderHandlerProps } from '../interfaces/OrderCardProps.ts';
 
 const OrderHandlers: React.FC<OrderHandlerProps> = ({
 	page,
@@ -24,7 +18,8 @@ const OrderHandlers: React.FC<OrderHandlerProps> = ({
 	change,
 	setChange,
 }) => {
-	const [isLoggedIn, setIsLoggedIn] = useRecoilState<object>(loginState);
+	const [isLoggedIn, setIsLoggedIn] =
+		useRecoilState<loginStateType>(loginState);
 
 	const handleToggleStatus = async (order: Order, newStatus: string) => {
 		try {
@@ -33,13 +28,14 @@ const OrderHandlers: React.FC<OrderHandlerProps> = ({
 
 			setChange((change) => change + 1);
 		} catch (error) {
+			console.log('Failed to mark order as current', error);
 		}
 	};
 
 	const handleOrderDone = async (order: Order) => {
 		try {
 			await postDoneOrder(order);
-			//Skapar en ny array med ordrar, minus den som klickas på.
+			// Creates new array of orders, minus the one clicked on.
 			setOrderData((prevOrderData: Order[] | null) =>
 				prevOrderData
 					? prevOrderData.filter((o) => o.orderId !== order.orderId)
@@ -54,7 +50,7 @@ const OrderHandlers: React.FC<OrderHandlerProps> = ({
 		try {
 			deleteOrder(orderId, token);
 		} catch (error) {
-			console.log('ERROR: ', error);
+			console.log('Failed to delete order: ', error);
 		}
 
 		setChange((change) => change + 1);

@@ -1,10 +1,10 @@
-import RecievedOrderCard from '../components/RecievedOrderCard';
+import ReceivedOrderCard from '../components/ReceivedOrderCard';
 import '../styles/OrderCards.css';
 import { BiSolidPencil } from 'react-icons/bi';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function RecOrderRoute() {
-	const [change, setChange] = useState(0);
+	const [change, setChange] = useState<number>(0);
 
 	return (
 		<>
@@ -17,7 +17,7 @@ export default function RecOrderRoute() {
 					</h1>
 				</div>
 			</div>
-			<RecievedOrderCard change={change} setChange={setChange} />
+			<ReceivedOrderCard change={change} setChange={setChange} />
 		</>
 	);
 }
