@@ -95,7 +95,7 @@ export default function OrderStatusCustomer() {
 
 	function handleOrderReset() {
 		localStorage.clear();
-		navigate('/menu');
+		navigate('/');
 	}
 
 	return (
