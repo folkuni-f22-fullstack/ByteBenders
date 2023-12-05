@@ -10,7 +10,6 @@ body {
   background-color: #f0f5f7;
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: transparent transparent; /* Firefox */
-  overflow-y: scroll; /* Visa alltid vertikal scrollbar */
 }
 
 :root {
