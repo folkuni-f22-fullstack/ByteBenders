@@ -1,5 +1,7 @@
 # Fish & Friends
 
+## https://fishandfriends.onrender.com/
+
 ## A school project in fullstack
 
 We were tasked with creating a fullstack web application for a restaurant, catering to both customers and restaurant staff.
